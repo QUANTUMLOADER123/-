@@ -1,3 +1,4 @@
+import {ITEM_ART} from './item-art.js';
 import {WEAPONS,isGun,magazine,setMagazine,BUILD_COSTS} from './catalog.js';
 import {furnaceFor,insertFurnace,takeFurnace,advanceFurnaces} from './machines.js';
 import {waterLevelAt,safeCamp,recordDamage,DAMAGE_NAMES} from './health.js';
@@ -28,12 +29,12 @@ let lockSettlingUntil=0;let activeFurnace=null,buildKind='foundation',focusPause
 const isBuilding=()=>state.selected==='plan'||BUILD_ITEMS.includes(state.selected)&&!BUILD_COSTS[state.selected];
 const currentBuild=()=>state.selected==='plan'?buildKind:state.selected;
 let activeContainer=null,selectedSlot=-1,dragSlot=-1,splitSlots=false;
-function art(id){return world?.itemArt?.[id]?`<img class="item-art" src="${world.itemArt[id]}" alt="" draggable="false">`:icon(ITEMS[id]?.icon||id);}
+function art(id){const src=ITEM_ART[id]||world?.itemArt?.[id];return src?`<img class="item-art" src="${src}" alt="" draggable="false">`:icon(ITEMS[id]?.icon||id);}
 function initIcons(){document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));}
 initIcons();
 function haptic(ms=15){if(!settings.haptics)return;try{if(window.AndroidBridge)window.AndroidBridge.vibrate(ms);else navigator.vibrate?.(ms);}catch{}}
 function toast(text,seconds=3){$('toast').textContent=text;$('toast').classList.add('show');toastUntil=performance.now()+seconds*1000;}
-function pickup(item,amount){const el=document.createElement('div');el.className='pickup';el.innerHTML=icon(ITEMS[item]?.icon||item)+`<span>${ITEMS[item]?.name||item}</span><b>+${amount}</b>`;$('pickup-feed').append(el);while($('pickup-feed').children.length>5)$('pickup-feed').firstChild.remove();pickupTimers.push({el,until:performance.now()+3200});}
+function pickup(item,amount){const el=document.createElement('div');el.className='pickup';el.innerHTML=art(item)+`<span>${ITEMS[item]?.name||item}</span><b>+${amount}</b>`;$('pickup-feed').append(el);while($('pickup-feed').children.length>5)$('pickup-feed').firstChild.remove();pickupTimers.push({el,until:performance.now()+3200});}
 function persistSettings(){safeStorage.set('oskol.settings',JSON.stringify(settings));}
 function saveGame(notify=false){if(!ready||mode==='front'||mode==='loading')return false;reconcileInventory();const previous=safeStorage.get(SAVE_KEY);if(previous&&decodeSave(previous))safeStorage.set(SAVE_KEY+'.backup',previous);const okay=safeStorage.set(SAVE_KEY,encodeSave(state));$('save-status').textContent=okay?'МИР СОХРАНЁН НА УСТРОЙСТВЕ':'НЕ УДАЛОСЬ СОХРАНИТЬ: ХРАНИЛИЩЕ НЕДОСТУПНО';if(okay)saved=decodeSave(encodeSave(state));if(notify)toast(okay?'Мир сохранён.':'Хранилище недоступно. Прогресс не сохранён.',4);return okay;}
 function releasePointer(){if(document.pointerLockElement)document.exitPointerLock?.();keys.clear();touch.x=touch.z=0;pointer.id=null;pointer.down=false;motor.stop();automaticHeld=false;$('move-knob').style.transform='';}

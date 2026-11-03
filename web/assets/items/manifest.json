@@ -1,0 +1,87 @@
+{
+  "schema": 1,
+  "style": "original colored survival inventory illustrations",
+  "source": "AI-generated individually for Oskol; chroma key removed; no third-party game assets",
+  "items": {
+    "charcoal": {
+      "file": "charcoal.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "7fc41a256c6105f4598f382696e4f4dff9f7154c19e591a0ee401f89dc205416",
+      "sourceSha256": "040f3eebca2b8cf181e4e80ca419ff1aeeba1419f78bf8bdb5a3fd15b9e6fd40"
+    },
+    "fiber": {
+      "file": "fiber.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "8c21c7d5c03f2d85cef3a483858508779d0cb6e54efb0a68603427b50c572caf",
+      "sourceSha256": "68dbe88dab4653b897d52d91ebd19fabcd911eb8993802e6ff9c9dc56be69717"
+    },
+    "gunpowder": {
+      "file": "gunpowder.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "59bf7dfda713de6f8609d971733b5721cfdfeae714f66011a8f7071ada7fbe04",
+      "sourceSha256": "cf7f8254d8b7c0e26a9e0e625a5ee813b0b33d37b3f65924f0a49c249035104e"
+    },
+    "metal": {
+      "file": "metal.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "4e7d9f4ab65853e753ed7f075d6f4249f415edd231bc833871b0fee227d2f95b",
+      "sourceSha256": "51bdb75e6612faf15d0eef3b7e40d28964ce99288a430cd23ea2be7a6a07d04a"
+    },
+    "metalOre": {
+      "file": "metalOre.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "cbe4480080dd431f676c322c29c8f38a1819869f802b902071464b49c6ce69e8",
+      "sourceSha256": "5931a68c8f56b830829be54c671cff5ea339b426aff768fae83fd14cf1ee2c1e"
+    },
+    "scrap": {
+      "file": "scrap.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "71173810e35892dd37e5256e7bd45a0930f009e33f2fe8ae390356de42309337",
+      "sourceSha256": "f1a51afd2f34f54281afe33154b5bbfba3a0a91456f514e78ddeb6fdf6cda3f5"
+    },
+    "stone": {
+      "file": "stone.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "7df243878a276bb726d727026677bd3255b03119b6a09211f88025010acf38c2",
+      "sourceSha256": "6b6764ed830bf105a0d9d964552116a4d2e5184b60009d862e1608b25d5b5c77"
+    },
+    "sulfur": {
+      "file": "sulfur.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "a1a6b24f3b203ba6f61a4fb5e72634308f39fe5e161ec09a4e960de9760e28ac",
+      "sourceSha256": "38be24dfb8d9f34cd3011bf07572fb39cf52e0831a53236ec16a1a7bcf7c72c4"
+    },
+    "sulfurOre": {
+      "file": "sulfurOre.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "16c8d85d8c7a9fe40ab2c0c4d868328dedf4dd2bb59b3f3e69735e0425ada991",
+      "sourceSha256": "8d94029b87b5036245a4e872ce5e60baa8de517ce21a7f8881092f910a757c1b"
+    },
+    "wood": {
+      "file": "wood.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "a581ffd987825808e370b9a95d1101dd91272a3655d234c1b91cb79df5ae4e16",
+      "sourceSha256": "4d6c4ee8de9af6c92f9f6de9369d17520e573332b1f425a86f5e836c7d21dab3"
+    }
+  }
+}
