@@ -41,7 +41,8 @@ export function installWorldSystems(IslandWorld){
   return true;
  },
  makeBots(){
-  const spawns=BOT_BASES.flatMap(b=>[0,1].map(i=>({id:b.id+'-'+i,base:b.id,x:b.x,z:b.z,slot:i,skin:i?'Swat':'Adventurer'})));for(const m of MONUMENTS.filter(m=>m.risk>=3))spawns.push({id:'guard-'+m.id,base:null,x:m.x,z:m.z,skin:'Swat'});
+  const spawns=[]; // DEV04: settlements are uninhabited; only authored high-risk RT guards remain.
+ for(const m of MONUMENTS.filter(m=>m.risk>=3))spawns.push({id:'guard-'+m.id,base:null,x:m.x,z:m.z,skin:'Swat'});
   for(const data of spawns){const model=this.normalized(data.skin,1.78);this.scene.add(model);const weapon=this.normalized('Pistol_1',.2);this.scene.add(weapon);const bones={};model.updateMatrixWorld(true);model.traverse(o=>{if(o.isBone){const inverse=o.parent.getWorldQuaternion(new THREE.Quaternion()).invert();bones[o.name]={bone:o,base:o.quaternion.clone(),x:new V(1,0,0).applyQuaternion(inverse),y:new V(0,1,0).applyQuaternion(inverse),z:new V(0,0,1).applyQuaternion(inverse)};}});const bot={id:data.id,base:data.base,homeX:data.x,homeZ:data.z,spawnOffset:data.slot===1?6:3,x:data.x+4,z:data.z+(data.slot===1?6:3),model,weapon,bones,hp:120,dead:false,mode:'patrol',cooldown:0,phase:this.stringSeed(data.id)%100,actionTime:0,alertUntil:0};this.bots.push(bot);this.animateBot(bot,0,0,false);bot.model.visible=bot.weapon.visible=Math.hypot(bot.x,bot.z)<150;}
  },
  animateBot(bot,dt,moving,shooting){

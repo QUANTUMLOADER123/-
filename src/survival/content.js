@@ -1,3 +1,4 @@
+import {addExtraSite,makeSettlements,addRoadCluster} from './world04.js';
 import {addOilRig} from './offshore.js';
 import {detailSite} from './site-details.js';
 import * as THREE from 'three';
@@ -23,6 +24,7 @@ export function addIslandContent(w){
  for(const m of MONUMENTS){
   const root=new THREE.Group(),ground=terrainHeight(m.x,m.z);root.position.set(m.x,ground,m.z);root.name=m.name;w.scene.add(root);w.distantGroups.push({root,x:m.x,z:m.z,range:240});
   if(m.kind==='oilrig'){addOilRig(w,root,m);continue;}
+  if(['outpost','market','supermarket','satellite','trainyard','mining','wreckyard','waterTower'].includes(m.kind)){addExtraSite(w,root,m,{box,cyl,pipe,metal,concrete,rust});if(m.safe)continue;}
   if(m.kind==='lighthouse'){
    cyl(root,concrete,3.2,3.8,1,[0,.5,0],24);cyl(root,concrete,1.7,2.6,15,[0,8.5,0],24);cyl(root,orange,1.93,2.06,2,[0,8,0],24);cyl(root,black,2.8,2.8,.22,[0,16.1,0],24);cyl(root,glass,1.7,1.7,2.5,[0,17.4,0],16);cyl(root,metal,0,2.4,1.4,[0,19.3,0],16);
    for(let i=0;i<12;i++){const a=i/12*Math.PI*2;pipe(root,[Math.sin(a)*2.6,16.2,Math.cos(a)*2.6],[Math.sin(a)*2.6,17.2,Math.cos(a)*2.6],.025);}
@@ -54,12 +56,7 @@ export function addIslandContent(w){
   const marker=new THREE.Mesh(new THREE.SphereGeometry(.12,7,7),new THREE.MeshBasicMaterial({color:0xe27c4b}));marker.position.set(0,5,0);root.add(marker);
  }
  addRoads(w,metal,concrete);
- for(const base of BOT_BASES){
-  const group=new THREE.Group();group.position.set(base.x,terrainHeight(base.x,base.z),base.z);w.scene.add(group);w.distantGroups.push({root:group,x:base.x,z:base.z,range:180});
-  const pieces=[['foundation',0,0,0],['wall',0,-1.5,0],['wall',-1.5,0,Math.PI/2],['wall',1.5,0,Math.PI/2],['door',0,1.5,0],['roof',0,0,0]];
-  for(const[kind,x,z,rotation]of pieces){const data={id:'base-'+base.id+'-'+kind+'-'+x+'-'+z,kind,x:base.x+x,z:base.z+z,rotation,tier:base.tier,hp:TIERS[base.tier].hp,owner:base.id,open:false};const model=w.timberGroup(kind);model.position.set(x,0,z);model.rotation.y=rotation;group.add(model);w.staticStructures.push({data,model});w.applyBuildingTier({model,data});if(kind==='wall'||kind==='door')w.colliders.push({box:true,x:data.x,z:data.z,w:Math.abs(Math.cos(rotation))>.5?3:.18,d:Math.abs(Math.cos(rotation))>.5?.18:3,id:data.id,door:kind==='door',data});if(kind==='door')w.interactables.push({id:data.id,type:'structure',x:data.x,z:data.z,model,data,radius:1.5});}
-  const model=localProp(group,'Crate',0,-.65,.7);w.colliders.push({id:'base-loot-'+base.id,x:base.x,z:base.z-.65,r:.5});w.interactables.push({id:'base-loot-'+base.id,type:'crate',x:base.x,z:base.z-.65,model,radius:.8,owner:base.id,lootType:'military'});label(group,base.name,0,2.75,1.65,1.8);const fire=localProp(group,'Bonfire',4,2,.65);for(let i=0;i<3;i++)localProp(group,'WoodLog',-4+i*.3,2,.4,Math.PI/2);
- }
+ makeSettlements(w);
  for(const {root}of w.distantGroups){root.updateMatrixWorld(true);root.traverse(mesh=>{if(!mesh.isMesh)return;const bounds=new THREE.Box3().setFromObject(mesh);mesh.userData.worldBounds=bounds;if(!mesh.userData.solid)return;const unused=bounds,size=bounds.getSize(new V()),center=bounds.getCenter(new V());mesh.userData.worldBounds=bounds;w.colliders.push({box:true,x:center.x,z:center.z,w:size.x,d:size.z,y:bounds.min.y,h:size.y,scenery:true});});}
 
 }
@@ -72,7 +69,7 @@ function addRoads(w,metal,concrete){
   for(let i=0;i<path.length;i++){const p=path[i],a=path[Math.max(0,i-1)],b=path[Math.min(path.length-1,i+1)],dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz)||1,nx=-dz/len,nz=dx/len,width=part==='ring'?6:4.5;if(i)distance+=Math.hypot(p.x-a.x,p.z-a.z);for(const side of[-1,0,1]){const x=p.x+nx*width*.5*side,z=p.z+nz*width*.5*side;pos.push(x,terrainHeight(x,z)+.16,z);uv.push((side+1)/2,distance/60);}if(i){const v=i*3;indices.push(v-3,v-2,v,v,v-2,v+1,v-2,v-1,v+1,v+1,v-1,v+2);}
    if(i%3===0&&i<path.length-1){const vertices=[];for(const [side,along]of[[-1,-1],[1,-1],[-1,1],[1,1]]){const x=p.x+nx*.09*side+dx/len*1.25*along,z=p.z+nz*.09*side+dz/len*1.25*along;vertices.push(x,terrainHeight(x,z)+.205,z);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex([0,1,2,2,1,3]);g.computeVertexNormals();dashes.push(g);}
 
-   if(i%7===2){const side=rand()>.5?1:-1,x=p.x+nx*(width/2+2)*side,z=p.z+nz*(width/2+2)*side,type=i%2?'barrel':'crate',model=w.prop(type==='barrel'?'Barrel':'Crate',x,z,type==='barrel'?1.1:.85,rand()*6.28);w.interactables.push({id:'road-'+part+'-'+i,type,x,z,model,radius:.85,hp:type==='barrel'?3:0,remaining:3,lootType:type==='barrel'?'barrel':'road'});w.colliders.push({id:'road-'+part+'-'+i,x,z,r:.5});}
+   if(i%17===2){const side=rand()>.5?1:-1,x=p.x+nx*(width/2+6)*side,z=p.z+nz*(width/2+6)*side;addRoadCluster(w,x,z,'road-'+part+'-'+i);}
   }
   const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;w.scene.add(mesh);
  }

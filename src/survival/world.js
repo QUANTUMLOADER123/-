@@ -1,3 +1,7 @@
+import {installProjectiles04} from './projectiles04.js';
+import {installWorld04,decorateLoot,structuralFloor} from './world04.js';
+import {installViewmodel04} from './viewmodel04.js';
+import {isFoundation,isFloor,isStructural} from './expansion.js';
 import {installDev03,hempModel} from './dev03-world.js';
 import {isGun} from './catalog.js';
 import {safeCamp} from './health.js';
@@ -44,7 +48,7 @@ export class IslandWorld {
   const names=['Oak_LOD1','Oak_LOD2','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1','Cactus_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg'];
   await Promise.all([...names.map(async n=>{this.models[n]=await loader.loadAsync(ASSET+'models/'+n+'.glb');}),...textureNames.map(async n=>{const t=await tl.loadAsync(ASSET+'textures/'+n);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.includes('normal'))t.colorSpace=THREE.SRGBColorSpace;this.textures[n]=t;})]);
-  progress(.86,'Собираем берег и заброшенный лагерь…');this.makeTerrain();this.makeOcean();this.makeRiver();this.makeCamp();addIslandContent(this);this.makeResources();this.makeGrass();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);progress(.98,'Проверяем снаряжение…');
+  progress(.86,'Собираем берег и заброшенный лагерь…');this.makeTerrain();this.makeOcean();this.makeRiver();this.makeCamp();addIslandContent(this);decorateLoot(this);this.makeResources();this.makeGrass();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);progress(.98,'Проверяем снаряжение…');
   this.menuCamera(0);for(const g of this.distantGroups)g.root.visible=Math.hypot(g.x-this.camera.position.x,g.z-this.camera.position.z)<g.range;await this.renderer.compileAsync(this.scene,this.camera);this.render();progress(1,'Остров готов.');
  }
  makeTerrain(){
@@ -145,12 +149,12 @@ export class IslandWorld {
 
   const rockMaterial=new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.65,.65),color:0x9d9d8b,roughness:.95});
   for(const n of this.nodes){n.y=terrainHeight(n.x,n.z);if(n.type==='tree'){this.colliders.push({x:n.x,z:n.z,r:n.r,id:n.id});continue;}
-   if(['rock','metalOre','sulfurOre'].includes(n.type)){
+   if(['rock','metalOre','sulfurOre','highMetalOre'].includes(n.type)){
     // Rounded, textured geological mesh, not a cube or a collision-box placeholder.
     const g=new THREE.IcosahedronGeometry(.95+random()*.5,2),p=g.attributes.position;
     for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i);const f=.82+noise(x*2+n.x,y*2+n.z)*.35;p.setXYZ(i,x*f,y*f*.78,z*f);}
-    g.computeVertexNormals();const rm=rockMaterial.clone();rm.color.set(n.type==='metalOre'?0x9a9288:n.type==='sulfurOre'?0xaaa585:0x9d9d8b);n.model=new THREE.Mesh(g,rm);n.model.position.set(n.x,n.y+.4,n.z);n.model.rotation.y=random()*6.28;n.model.castShadow=true;n.model.receiveShadow=true;this.scene.add(n.model);if(n.type!=='rock'){const crystals=new THREE.Group();const oreMat=new THREE.MeshStandardMaterial({color:n.type==='metalOre'?0x9c6b46:0xbbaf48,metalness:n.type==='metalOre'?.35:0,roughness:.75});for(let k=0;k<5;k++){const c=new THREE.Mesh(new THREE.IcosahedronGeometry(.12+random()*.14,0),oreMat);const angle=random()*Math.PI*2;c.position.set(Math.sin(angle)*.85,.25+random()*.35,Math.cos(angle)*.85);c.scale.set(1,.12,1);crystals.add(c);}n.model.add(crystals);}n.r=1.0;this.colliders.push({x:n.x,z:n.z,r:.9,id:n.id});
-   }else if(n.type==='fiber'){n.model=hempModel();n.model.position.set(n.x,n.y,n.z);this.scene.add(n.model);}else{n.model=this.prop(n.type==='berries'?'BushBerries_1':'Plant_1',n.x,n.z,n.type==='berries'?1.05:.75,random()*6.28);}
+    g.computeVertexNormals();const rm=rockMaterial.clone();rm.color.set(n.type==='highMetalOre'?0x747f88:n.type==='metalOre'?0x9a9288:n.type==='sulfurOre'?0xaaa585:0x9d9d8b);n.model=new THREE.Mesh(g,rm);n.model.position.set(n.x,n.y+.4,n.z);n.model.rotation.y=random()*6.28;n.model.castShadow=true;n.model.receiveShadow=true;this.scene.add(n.model);if(n.type!=='rock'){const crystals=new THREE.Group();const oreMat=new THREE.MeshStandardMaterial({color:n.type==='highMetalOre'?0xabc6ce:n.type==='metalOre'?0x9c6b46:0xbbaf48,metalness:n.type==='metalOre'?.35:0,roughness:.75});for(let k=0;k<5;k++){const c=new THREE.Mesh(new THREE.IcosahedronGeometry(.12+random()*.14,0),oreMat);const angle=random()*Math.PI*2;c.position.set(Math.sin(angle)*.85,.25+random()*.35,Math.cos(angle)*.85);c.scale.set(1,.12,1);crystals.add(c);}n.model.add(crystals);}n.r=1.0;this.colliders.push({x:n.x,z:n.z,r:.9,id:n.id});
+   }else if(['mushroom','pumpkin','corn'].includes(n.type)){n.model=this.iconModel04(n.type);n.model.position.set(n.x,n.y,n.z);n.model.scale.setScalar(.8);this.scene.add(n.model);}else if(n.type==='driftwood'){n.model=this.prop('WoodLog',n.x,n.z,.3,random()*6.28);}else if(n.type==='fiber'){n.model=hempModel();n.model.position.set(n.x,n.y,n.z);this.scene.add(n.model);}else{n.model=this.prop(n.type==='berries'?'BushBerries_1':'Plant_1',n.x,n.z,n.type==='berries'?1.05:.75,random()*6.28);}
   }
  }
  stringSeed(str){let h=WORLD_SEED;for(const c of str)h=Math.imul(h^c.charCodeAt(0),16777619);return h;}
@@ -221,18 +225,18 @@ export class IslandWorld {
   if(b.kind==='foundation'&&buildingHeight(b)>terrainHeight(b.x,b.z)+.2){for(const dx of[-1.2,1.2])for(const dz of[-1.2,1.2]){const h=Math.max(.1,buildingHeight(b)-terrainHeight(b.x+dx,b.z+dz)+.3),post=new THREE.Mesh(new THREE.BoxGeometry(.18,h,.18),this.woodMaterial);post.position.set(dx,.3-h/2,dz);model.add(post);}}
   if(['furnace','workbench'].includes(b.kind))this.colliders.push({id:b.id,box:true,x:b.x,z:b.z,w:b.kind==='furnace'?1.4:1.9,d:b.kind==='furnace'?1.4:.8,y:buildingHeight(b),h:b.kind==='furnace'?1.9:1.3,data:b,built:true});this.built.set(b.id,{model,fire,data:b});this.applyBuildingTier({model,data:b});
   if(b.kind==='door'&&model.userData.doorPivot){model.userData.doorPivot.rotation.y=b.open?1.6:0;this.interactables=this.interactables.filter(i=>i.id!==b.id);this.interactables.push({id:b.id,type:'door',x:b.x,z:b.z,model,radius:1.4,data:b});}
-  if(b.kind==='wall'||b.kind==='door')this.colliders.push({box:true,x:b.x,z:b.z,w:Math.abs(Math.cos(b.rotation))>0.5?3:.18,d:Math.abs(Math.cos(b.rotation))>0.5?.18:3,id:b.id,built:true,y:buildingHeight(b),door:b.kind==='door',data:b});
+  if(b.kind==='wall'||b.kind==='door')this.colliders.push({box:true,x:b.x,z:b.z,w:Math.abs(Math.cos(b.rotation))>0.5?3:.18,d:Math.abs(Math.cos(b.rotation))>0.5?.18:3,id:b.id,built:true,y:buildingHeight(b),h:3.02,door:b.kind==='door',data:b});
  }
  preview(kind,position,rotation,ok){
-  if(this.previewKind!==kind){if(this.ghost)this.scene.remove(this.ghost);this.ghost=['storage','largeStorage'].includes(kind)?this.normalized('Crate',kind==='storage'?.75:1.15):kind==='campfire'?this.normalized('Bonfire',.65):['furnace','workbench'].includes(kind)?this.stationModel(kind):this.timberGroup(kind);this.ghost.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshBasicMaterial({color:0xb5d98b,wireframe:true,transparent:true,opacity:.65,depthWrite:false});o.castShadow=false;o.receiveShadow=false;}});this.scene.add(this.ghost);this.previewKind=kind;}
+  if(this.previewKind!==kind){if(this.ghost)this.scene.remove(this.ghost);this.ghost=['storage','largeStorage'].includes(kind)?this.normalized('Crate',kind==='storage'?.75:1.15):kind==='campfire'?this.normalized('Bonfire',.65):['furnace','workbench','cupboard','recycler','repairBench'].includes(kind)?this.stationModel(kind):this.timberGroup(kind);this.ghost.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshBasicMaterial({color:0xb5d98b,wireframe:true,transparent:true,opacity:.65,depthWrite:false});o.castShadow=false;o.receiveShadow=false;}});this.scene.add(this.ghost);this.previewKind=kind;}
   this.ghost.visible=true;this.ghost.position.set(position.x,position.y??terrainHeight(position.x,position.z),position.z);this.ghost.rotation.y=rotation;this.ghost.traverse(o=>{if(o.isMesh)o.material.color.set(ok?0xb6db8c:0xea885b);});
  }
  clearPreview(){if(this.ghost)this.ghost.visible=false;}
- floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){let h=terrainHeight(x,z);for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY+1.8>=buildingHeight(b))h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const f of this.walkFloors)if(Math.abs(x-f.x)<f.w/2&&Math.abs(z-f.z)<f.d/2)h=Math.max(h,f.y);if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
+ floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){let h=terrainHeight(x,z);for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY+1.8>=buildingHeight(b))h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of this.walkFloors)if((!f.structureId||!state.depleted.includes(f.structureId))&&(!f.roof||feetY>=f.y-.5)&&Math.abs(x-f.x)<f.w/2&&Math.abs(z-f.z)<f.d/2)h=Math.max(h,f.y);if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
 
  canMove(x,z,state,feetY=null){
   if(Math.hypot(x,z)>WORLD_RADIUS-2&&!this.walkFloors.some(f=>f.offshore&&Math.abs(x-f.x)<f.w/2+1&&Math.abs(z-f.z)<f.d/2+1))return false;
-  for(const c of (this.nearColliders?this.nearColliders(x,z):this.colliders)){if(feetY!==null&&c.box&&(feetY>(c.y??terrainHeight(c.x,c.z))+(c.h??3.15)||feetY+1.7<(c.y??terrainHeight(c.x,c.z))))continue;if(c.id&&state.depleted.includes(c.id)||c.data&&!c.data.owner&&c.data.hp<=0||c.door&&c.data.open)continue;if(c.box){if(Math.abs(x-c.x)<c.w/2+.27&&Math.abs(z-c.z)<c.d/2+.27)return false;}else if(Math.hypot(x-c.x,z-c.z)<c.r+.26)return false;}
+  for(const c of (this.nearColliders?this.nearColliders(x,z):this.colliders)){if(feetY!==null&&c.box&&(feetY>=(c.y??terrainHeight(c.x,c.z))+(c.h??3.02)-.02||feetY+(state.crouched?1.05:1.7)<(c.y??terrainHeight(c.x,c.z))))continue;if(c.id&&state.depleted.includes(c.id)||c.data&&!c.data.owner&&c.data.hp<=0||c.door&&c.data.open)continue;if(c.box){if(Math.abs(x-c.x)<c.w/2+.27&&Math.abs(z-c.z)<c.d/2+.27)return false;}else if(Math.hypot(x-c.x,z-c.z)<c.r+.26)return false;}
   return true;
  }
 
@@ -272,5 +276,7 @@ installEnvironmentSystems(IslandWorld);
 installDev03(IslandWorld);
 installTargeting(IslandWorld);
 
-installDev03(IslandWorld);
-installTargeting(IslandWorld);
+installWorld04(IslandWorld);
+installViewmodel04(IslandWorld);
+
+installProjectiles04(IslandWorld);

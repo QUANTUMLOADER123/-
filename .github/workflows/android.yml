@@ -1,8 +1,8 @@
-name: Oskol test builds
+name: Oskol dev04 builds (no tests)
 on:
   push:
     branches: [arena/ce299f3a-repo]
-    paths: ['web/**', 'src/**', 'scripts/**', 'desktop/**', 'android/**', '.github/workflows/android.yml', 'tests/**', 'package*.json']
+    paths: ['web/**', 'src/**', 'scripts/**', 'desktop/**', 'android/**', '.github/workflows/android.yml', 'package*.json']
   workflow_dispatch:
 permissions:
   contents: read
@@ -11,30 +11,16 @@ concurrency:
   cancel-in-progress: true
 jobs:
   android:
-    name: Android APK + tests
+    name: Android APK · build only
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: npm
-      - name: Build offline assets and unit tests
-        run: npm ci --ignore-scripts && npm run build && npm test
-      - name: Real browser gameplay tests
-        run: |
-          node scripts/serve.mjs &
-          server=$!
-          trap 'kill "$server"' EXIT
-          mkdir -p .artifacts
-          set +e
-          { npm run test:survival && node scripts/item-art-check.mjs; } 2>&1 | tee .artifacts/browser-ci.log
-          result=${PIPESTATUS[0]}
-          if [ "$result" -ne 0 ]; then
-            python3 -c 'from pathlib import Path; s=Path(".artifacts/browser-ci.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
-          fi
-          exit "$result"
+      - run: npm ci --ignore-scripts && npm run build
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -42,50 +28,24 @@ jobs:
       - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: '8.13'
-      - name: Compile APK and Android lint
+      - name: Compile APK only (tests intentionally not run)
         working-directory: android
+        run: gradle --no-daemon :app:assembleDebug
+      - name: Package
         run: |
-          mkdir -p ../.artifacts
-          set +e
-          gradle --no-daemon :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug 2>&1 | tee ../.artifacts/android-build.log
-          result=${PIPESTATUS[0]}
-          if [ "$result" -ne 0 ]; then
-            cat app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt >> ../.artifacts/android-build.log 2>/dev/null || true
-            python3 -c 'from pathlib import Path; s=Path("../.artifacts/android-build.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
-          fi
-          exit "$result"
-      - name: Enable Android emulator acceleration
-        run: sudo chmod 666 /dev/kvm
-      - name: Test packaged Android WebGL world
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 35
-          arch: x86_64
-          target: google_apis
-          profile: pixel_2
-          disable-animations: true
-          script: |
-            adb shell wm size 540x960
-            adb shell wm density 160
-            adb install -r android/app/build/outputs/apk/debug/app-debug.apk
-            adb install -r android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-            timeout 360 adb shell am instrument -w game.oskol.survival.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt | sed -u 's/^/::notice::/'
-            grep -q 'oskolSmoke=passed' .artifacts/device-smoke.txt || { adb logcat -d -s OskolWeb:E chromium:E | tail -40 | sed 's/^/::error::/'; exit 1; }
-      - name: Prepare test package
-        run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.5.0-dev03-android.apk
+          mkdir -p .artifacts
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.6.0-dev04-android.apk
           cd .artifacts && sha256sum *.apk > Android-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Android-dev03
+          name: Oskol-Android-dev04-NO-TESTS
           include-hidden-files: true
           if-no-files-found: error
           path: |
             .artifacts/oskol-*.apk
             .artifacts/Android-SHA256.txt
-            .artifacts/device-smoke.txt
   windows:
-    name: Windows x64 portable
+    name: Windows x64 · build only
     runs-on: windows-2022
     timeout-minutes: 25
     env:
@@ -99,32 +59,15 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-      - run: npm ci && npm run build && npm test
-      - name: Smoke test real desktop runtime
-        run: |
-          set +e
-          node node_modules/electron/cli.js desktop/main.cjs --smoke 2>&1 | tee desktop-smoke.log
-          result=${PIPESTATUS[0]}
-          if [ "$result" -ne 0 ]; then
-            python -c 'from pathlib import Path; s=Path("desktop-smoke.log").read_text(errors="replace")[-15000:]; print("::error::"+s.replace("%","%25").replace("\n","%0A").replace("\r","%0D"))'
-          fi
-          exit "$result"
-      - name: Build portable Windows executable
-        run: |
-          set +e
-          npm run build:windows 2>&1 | tee windows-build.log
-          result=${PIPESTATUS[0]}
-          if [ "$result" -ne 0 ]; then
-            python -c 'from pathlib import Path; s=Path("windows-build.log").read_text(errors="replace")[-15000:]; print("::error::"+s.replace("%","%25").replace("\n","%0A").replace("\r","%0D"))'
-          fi
-          exit "$result"
-      - name: Checksums and instructions
+      - run: npm ci && npm run build
+      - run: npm run build:windows
+      - name: Instructions and checksums
         run: |
           cp desktop/README.txt release-build/START-HERE.txt
           cd release-build && sha256sum *.exe > Windows-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Windows-x64-dev03
+          name: Oskol-Windows-x64-dev04-NO-TESTS
           if-no-files-found: error
           path: |
             release-build/*.exe

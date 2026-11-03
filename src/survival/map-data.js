@@ -1,4 +1,4 @@
-/** Authored landmarks, a closed island highway and six independent AI compounds. */
+/** Authored landmarks, a closed island highway and seeded, uninhabited settlements. */
 export const MAP_SIZES={small:{name:'Маленький',scale:1,width:650},medium:{name:'Средний',scale:1.4,width:910},large:{name:'Большой',scale:1.8,width:1170},huge:{name:'Огромный',scale:4000/650,width:4000},vast:{name:'Бескрайний',scale:8000/650,width:8000}};
 export let MAP_SCALE=1,MAP_SEED=27182,WORLD_RADIUS=325;
 export let CURRENT_SIZE='small';
@@ -14,6 +14,15 @@ const BASE_MONUMENTS=[
  {id:'junkyard',name:'Свалка «Ржавчина»',kind:'junkyard',x:150,z:30,radius:23,risk:2,loot:'industrial'},
  {id:'bunker',name:'Бункер 17',kind:'bunker',x:1,z:-100,radius:20,risk:3,loot:'military'}
 ];
+BASE_MONUMENTS.push(
+{id:'outpost',name:'Аванпост · мирная зона',kind:'outpost',safe:true,x:-45,z:140,radius:24,risk:0,loot:'supplies'},
+{id:'village',name:'Посёлок торговцев',kind:'market',safe:true,x:140,z:-70,radius:23,risk:0,loot:'supplies'},
+{id:'supermarket',name:'Супермаркет «Берег»',kind:'supermarket',x:-120,z:-55,radius:16,risk:1,loot:'supplies'},
+{id:'satellite',name:'Спутниковая станция',kind:'satellite',x:-145,z:28,radius:16,risk:2,loot:'military'},
+{id:'trainyard',name:'Железнодорожное депо',kind:'trainyard',x:40,z:-150,radius:22,risk:2,loot:'industrial'},
+{id:'mining-village',name:'Шахтёрский посёлок',kind:'mining',x:-15,z:-180,radius:18,risk:1,loot:'ore'},
+{id:'wreckyard',name:'Разбитая автоколонна',kind:'wreckyard',x:190,z:80,radius:17,risk:1,loot:'industrial'},
+{id:'water-tower',name:'Старая водонапорная башня',kind:'waterTower',x:-70,z:-90,radius:14,risk:1,loot:'supplies'});
 const BASE_BOT_BASES=[
  {id:'hunters',name:'Лагерь егерей',x:-76,z:63,tier:1,color:0x5b6350},
  {id:'scavs',name:'Хата старателей',x:66,z:-49,tier:0,color:0x77634b},
@@ -44,7 +53,7 @@ export function roadSamples(){
 export let ROADS=roadSamples();
 export function configureMap(size='small',seed=27182){
  roadGrid=null;CURRENT_SIZE=Object.hasOwn(MAP_SIZES,size)?size:'small';MAP_SCALE=MAP_SIZES[CURRENT_SIZE].scale;MAP_SEED=Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182;WORLD_RADIUS=325*MAP_SCALE;
- MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();
+ MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();BOT_BASES=settlements();
  return{size:CURRENT_SIZE,seed:MAP_SEED,scale:MAP_SCALE};
 } 
 let roadGrid=null;
@@ -60,3 +69,9 @@ export function riverAt(x,z){
  if(MAP_SCALE<3)return null;const u=x/MAP_SCALE,v=z/MAP_SCALE;if(v< -220||v>270)return null;
  const center=35+Math.sin(v*.035)*18,dist=Math.abs(u-center),water=Math.max(0,10*(1-(v+220)/490));return{distance:dist*MAP_SCALE,water,x:center*MAP_SCALE,z,width:6*MAP_SCALE};
 }
+
+export function safeZoneAt(x,z){return MONUMENTS.find(m=>m.safe&&Math.hypot(x-m.x,z-m.z)<m.radius+10)||null;}
+function settlements(){let n=MAP_SEED^0x7138;const r=()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};const result=[];
+ for(let i=0;i<40000&&result.length<120;i++){const a=r()*Math.PI*2,rad=Math.sqrt(r())*246*MAP_SCALE,x=Math.cos(a)*rad,z=Math.sin(a)*rad,river=riverAt(x,z);if(Math.hypot(x+6,z+3)<42||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+18)||distanceToRoad(x,z,12)<10||river&&river.distance<river.width+12||result.some(b=>Math.hypot(x-b.x,z-b.z)<(i<20000?17:14)))continue;
+ const id='settlement-'+result.length,raided=r()<.25;result.push({id,name:'Убежище '+(result.length+1)+(raided?' · следы рейда':''),x,z,tier:1+Math.floor(r()*3),raided,leftovers:!raided||r()<.5,color:0x73766c,layout:r()<.7?'2x2':'2x1'});}
+ return result;}

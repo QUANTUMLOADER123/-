@@ -14,7 +14,7 @@ app.whenReady().then(async()=>{
  });
  // Offline game: requests to arbitrary remote hosts are not needed or allowed.
  session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_details,callback)=>callback({cancel:true}));
- window=new BrowserWindow({width:1440,height:900,minWidth:960,minHeight:600,title:'ОСКОЛ · DEV 0.5',backgroundColor:'#151d17',show:!smoke,icon:path.join(__dirname,'icon.png'),webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true,webSecurity:true}});
+ window=new BrowserWindow({width:1440,height:900,minWidth:960,minHeight:600,title:'ОСКОЛ · DEV 0.6',backgroundColor:'#151d17',show:!smoke,icon:path.join(__dirname,'icon.png'),webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true,webSecurity:true}});
  Menu.setApplicationMenu(null);window.webContents.setWindowOpenHandler(()=>({action:'deny'}));window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith('oskol://game/'))event.preventDefault();});
  window.webContents.on('before-input-event',(event,input)=>{if(input.type==='keyDown'&&input.key==='F11'){window.setFullScreen(!window.isFullScreen());event.preventDefault();}});
  window.on('focus',()=>{window.webContents.executeJavaScript('window.restoreOskolFocus?.()',true).catch(()=>{});});
