@@ -1,6 +1,6 @@
 {
   "name": "oskol-survival",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -46,7 +46,7 @@
         }
       ],
       "icon": "desktop/icon.ico",
-      "artifactName": "oskol-0.10.0-dev08-windows-x64.exe"
+      "artifactName": "oskol-0.10.1-dev09-windows-x64.exe"
     },
     "portable": {
       "requestExecutionLevel": "user"
