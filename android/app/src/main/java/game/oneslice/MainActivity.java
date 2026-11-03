@@ -2,7 +2,6 @@ package game.oneslice;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.content.Intent;
@@ -52,7 +51,7 @@ public final class MainActivity extends Activity {
     private WebResourceResponse blocked() {
         return new WebResourceResponse("text/plain", "UTF-8", 404, "Not Found", Collections.emptyMap(), new ByteArrayInputStream(new byte[0]));
     }
-    private final class Bridge {
+    public final class Bridge {
         @JavascriptInterface public void vibrate(int ms) {
             final int duration = Math.max(1, Math.min(80, ms));
             runOnUiThread(() -> {

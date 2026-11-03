@@ -51,6 +51,7 @@ try {
   await mobile.clock.install({time:now});await mobile.clock.pauseAt(now);
   await mobile.goto('http://localhost:3000');await mobile.clock.runFor(100);await mobile.screenshot({path:'.artifacts/screenshots/mobile.png'});
   assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth),390);
+  assert.ok(await mobile.evaluate(()=>{const c=document.querySelector('#game');const p=c.getContext('2d').getImageData(c.width-2,c.height-2,1,1).data;return p[0]>100&&p[1]>100&&p[2]>100;}),'HiDPI canvas must paint the entire physical buffer');
   await mobile.locator('#sound').tap();assert.equal(await mobile.locator('#sound').getAttribute('aria-pressed'),'false');
   await mobile.locator('#start').tap();assert.ok(await mobile.locator('#playing-hint').isVisible());
   await mobile.locator('#pause').tap();assert.ok(await mobile.locator('#modal').isVisible());await mobile.locator('#modal-close').tap();

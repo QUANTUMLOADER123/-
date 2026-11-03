@@ -12,7 +12,7 @@ concurrency:
 jobs:
   apk:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -20,6 +20,12 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci && npm test
+      - name: Browser smoke tests
+        run: |
+          node scripts/serve.mjs &
+          server=$!
+          trap 'kill "$server"' EXIT
+          npm run test:browser
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -32,13 +38,29 @@ jobs:
         run: |
           mkdir -p ../.artifacts
           set +e
-          gradle --no-daemon :app:assembleDebug :app:lintDebug 2>&1 | tee ../.artifacts/android-build.log
+          gradle --no-daemon :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug 2>&1 | tee ../.artifacts/android-build.log
           result=${PIPESTATUS[0]}
           if [ "$result" -ne 0 ]; then
             cat app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt >> ../.artifacts/android-build.log 2>/dev/null || true
             python3 -c 'from pathlib import Path; s=Path("../.artifacts/android-build.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
           fi
           exit "$result"
+      - name: Enable emulator acceleration
+        run: sudo chmod 666 /dev/kvm
+      - name: Real Android WebView smoke test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          profile: pixel_2
+          disable-animations: true
+          script: |
+            adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+            adb install -r android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            adb shell am instrument -w game.oneslice.layer.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt
+            cat .artifacts/device-smoke.txt | sed 's/^/::notice::/'
+            grep -q 'layerSmoke=passed' .artifacts/device-smoke.txt
       - name: Package APK
         run: |
           mkdir -p .artifacts
@@ -47,7 +69,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: one-more-layer-android
-          path: .artifacts/
+          path: |
+            .artifacts/*.apk
+            .artifacts/SHA256SUMS.txt
+            .artifacts/device-smoke.txt
       - name: Publish downloadable GitHub prerelease
         env:
           GH_TOKEN: ${{ github.token }}

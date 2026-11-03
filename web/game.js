@@ -18,7 +18,7 @@ function note(freq,delay=0,duration=.13,volume=.05,type='sine'){
   try{const t=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(volume,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(audio.destination);o.start(t);o.stop(t+duration+.01);}catch{}
 }
 function haptic(ms){try{if(window.AndroidBridge)window.AndroidBridge.vibrate(ms);else navigator.vibrate?.(ms);}catch{}}
-function resize(){const r=canvas.getBoundingClientRect();width=r.width;height=r.height;dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);scale=Math.min(1.2,width/440,height/680);}
+function resize(){const r=canvas.getBoundingClientRect();width=r.width;height=r.height;dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);scale=Math.min(1.2,width/440,height/680);render(0);}
 new ResizeObserver(resize).observe(canvas);
 function showFeedback(text,sub=''){ $('live-feedback').replaceChildren(document.createTextNode(text));if(sub){const el=document.createElement('small');el.textContent=sub;$('live-feedback').append(el);}$('live-feedback').classList.add('show');feedbackUntil=clock+1.05; }
 function setScore(){ $('score').textContent=String(game?.score||0).padStart(2,'0');$('shield').hidden=!game?.shield;updateBest(); }
@@ -110,6 +110,7 @@ function background(){
   ctx.fillStyle='#ffffff88';for(let i=0;i<19;i++){const x=(i*173.73+41)%width,y=(i*91.17+71)%height;const a=reduced?1:.5+Math.sin(clock*.6+i)*.3;ctx.globalAlpha=a;ctx.fillRect(x,y,i%3===0?2:1,i%3===0?2:1);}ctx.globalAlpha=1;
 }
 function render(dt){
+  ctx.setTransform(dpr,0,0,dpr,0,0);
   const target=state==='home'?0:(game?.score||0)*BLOCK_HEIGHT*.85;
   camera+=(target-camera)*Math.min(1,dt*7);bounce*=Math.exp(-dt*12);
   background();
