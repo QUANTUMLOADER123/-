@@ -1,3 +1,5 @@
+import {stackLimit} from './inventory.js';
+import {riverAt} from './map-data.js';
 import { MONUMENTS, BOT_BASES, ROADS, WORLD_RADIUS, monumentAt, distanceToRoad, MAP_SCALE, MAP_SEED, MAP_SIZES, configureMap } from './map-data.js';
 export {MONUMENTS,BOT_BASES,ROADS,WORLD_RADIUS,MAP_SIZES,configureMap};
 export const SAVE_KEY='oskol.survival.v2';
@@ -33,7 +35,7 @@ export function randomSeed(seed){let n=seed>>>0;return()=>{n+=0x6D2B79F5;let t=n
 const smooth=t=>t*t*(3-2*t);
 function hash(x,z){return(randomSeed(Math.imul(x,374761393)^Math.imul(z,668265263)^MAP_SEED))();}
 export function noise(x,z){const a=Math.floor(x),b=Math.floor(z),u=smooth(x-a),v=smooth(z-b);return(hash(a,b)*(1-u)+hash(a+1,b)*u)*(1-v)+(hash(a,b+1)*(1-u)+hash(a+1,b+1)*u)*v;}
-function rawHeight(x,z){x/=MAP_SCALE;z/=MAP_SCALE;const r=Math.hypot(x*.97,z);const hills=2.4+noise(x*.013,z*.013)*13+noise(x*.045,z*.045)*2.6;return(hills+3)*(1-smooth(clamp((r-252)/66,0,1)))-3;}
+function rawHeight(x,z){x/=MAP_SCALE;z/=MAP_SCALE;const r=Math.hypot(x*.97,z);let hills=2.4+noise(x*.013,z*.013)*13+noise(x*.045,z*.045)*2.6;if(MAP_SCALE>3){hills+=165*Math.exp(-((x+125)**2/2600+(z+110)**2/3800))+115*Math.exp(-((x-140)**2/2000+(z+145)**2/2400));const river=riverAt(x*MAP_SCALE,z*MAP_SCALE);if(river){const blend=1-smooth(clamp((river.distance/MAP_SCALE-2.7)/4,0,1));hills=hills*(1-blend)+(river.water-1.2)*blend;}}return(hills+3)*(1-smooth(clamp((r-252)/66,0,1)))-3;}
 export function terrainHeight(x,z){let h=rawHeight(x,z);const d=Math.hypot(x+6,z+3),flat=1-smooth(clamp((d-22)/20,0,1));h=h*(1-flat)+1.7*flat;
  for(const m of [...MONUMENTS,...BOT_BASES]){const dist=Math.hypot(x-m.x,z-m.z),rad=m.radius||12;if(dist<rad+9){const f=1-smooth(clamp((dist-rad)/9,0,1));h=h*(1-f)+rawHeight(m.x,m.z)*f;}}
  return h;
@@ -46,25 +48,39 @@ export function consume(state,id){if(!(state.inventory[id]>0))return false;if(id
 export function tick(state,dt,{sprinting=false,nearFire=false,inWater=false}={}){if(state.dead)return;dt=clamp(dt,0,.25);state.elapsed+=dt;state.hunger=clamp(state.hunger-dt*.022,0,100);state.thirst=clamp(state.thirst-dt*.035,0,100);state.stamina=clamp(state.stamina+(sprinting?-15:10)*dt,0,100);if(state.hunger<=0||state.thirst<=0||inWater)state.health=clamp(state.health-dt*(inWater?5:1.5),0,100);else if(nearFire&&state.hunger>20&&state.thirst>20)state.health=clamp(state.health+dt*1.5,0,100);if(state.health<=0)state.dead=true;}
 export function resourceNodes(){const rand=randomSeed(MAP_SEED),nodes=[];const add=(id,type,x,z)=>nodes.push({id,type,x,z,hp:type==='tree'?5:['rock','metalOre','sulfurOre'].includes(type)?4:1,remaining:type==='tree'?5:['rock','metalOre','sulfurOre'].includes(type)?4:1});
  add('tree-start','tree',1,14);add('rock-start','rock',8,15);add('fiber-start','fiber',3,17);add('berries-start','berries',-1,18);add('metal-start','metalOre',16,22);add('sulfur-start','sulfurOre',-16,22);
- for(let i=0;i<330;i++){const a=rand()*Math.PI*2,r=i<115?23+rand()*80:60+rand()*210*MAP_SCALE,x=Math.cos(a)*r,z=Math.sin(a)*r;if(Math.hypot(x+6,z+3)<22||terrainHeight(x,z)<1.1||monumentAt(x,z)||BOT_BASES.some(b=>Math.hypot(b.x-x,b.z-z)<14)||distanceToRoad(x,z)<5)continue;add('tree-'+i,'tree',x,z);}
- for(let i=0;i<120;i++){const x=(rand()-.5)*550*MAP_SCALE,z=(rand()-.5)*550*MAP_SCALE;if(terrainHeight(x,z)<1.2||Math.hypot(x+6,z+3)<14||monumentAt(x,z)||distanceToRoad(x,z)<5)continue;add('ore-'+i,i%3===0?'metalOre':i%3===1?'sulfurOre':'rock',x,z);}
- for(let i=0;i<90;i++){const x=(rand()-.5)*470*MAP_SCALE,z=(rand()-.5)*470*MAP_SCALE;if(terrainHeight(x,z)<1.2||monumentAt(x,z)||distanceToRoad(x,z)<3)continue;add('plant-'+i,i%4===0?'berries':'fiber',x,z);}
+ for(let i=0;i<330;i++){const a=rand()*Math.PI*2,r=i<115?23+rand()*80:60+rand()*210*MAP_SCALE,x=Math.cos(a)*r,z=Math.sin(a)*r;if(Math.hypot(x+6,z+3)<22||terrainHeight(x,z)<1.1||monumentAt(x,z)||BOT_BASES.some(b=>Math.hypot(b.x-x,b.z-z)<14)||distanceToRoad(x,z,6)<5)continue;add('tree-'+i,'tree',x,z);}
+ for(let i=0;i<120;i++){const x=(rand()-.5)*550*MAP_SCALE,z=(rand()-.5)*550*MAP_SCALE;if(terrainHeight(x,z)<1.2||Math.hypot(x+6,z+3)<14||monumentAt(x,z)||distanceToRoad(x,z,6)<5)continue;add('ore-'+i,i%3===0?'metalOre':i%3===1?'sulfurOre':'rock',x,z);}
+ for(let i=0;i<90;i++){const x=(rand()-.5)*470*MAP_SCALE,z=(rand()-.5)*470*MAP_SCALE;if(terrainHeight(x,z)<1.2||monumentAt(x,z)||distanceToRoad(x,z,6)<3)continue;add('plant-'+i,i%4===0?'berries':'fiber',x,z);}
  for(let i=0;i<12;i++){const q=MONUMENTS.find(m=>m.kind==='quarry'),a=i*Math.PI/6;add('quarry-ore-'+i,['rock','metalOre','sulfurOre'][i%3],q.x+Math.cos(a)*11,q.z+Math.sin(a)*11);}
+ // Independent RNG: adding forests must not move old resource IDs or invalidate saves.
+ const extra=randomSeed(MAP_SEED^0x3bf28);for(let i=0;i<Math.min(6000,Math.round(900*MAP_SCALE));i++){
+  const x=(extra()-.5)*550*MAP_SCALE,z=(extra()-.5)*550*MAP_SCALE;
+  if(Math.hypot(x+6,z+3)<42||terrainHeight(x,z)<1.2||monumentAt(x,z)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<17)||distanceToRoad(x,z,6)<5)continue;
+  add('forest-'+i,'tree',x,z);
+ }
  return nodes;
 }
 export function grantLoot(state,table){const result=[];for(const[item,base]of Object.entries(table)){if(!(item in ITEMS)||!Number.isFinite(base)||base<=0)continue;const amount=Math.floor(base*state.multiplier);state.inventory[item]+=amount;result.push({item,amount});}return result;}
 export function harvest(state,node){if(state.dead||state.depleted.includes(node.id))return null;const ore=['rock','metalOre','sulfurOre'].includes(node.type),power=node.type==='tree'&&state.selected==='axe'&&state.inventory.axe>0||ore&&state.selected==='pickaxe'&&state.inventory.pickaxe>0?2:1;const item=node.type==='tree'?'wood':node.type==='rock'?'stone':node.type==='berries'?'berries':node.type==='metalOre'?'metalOre':node.type==='sulfurOre'?'sulfurOre':'fiber';const base=node.type==='tree'?5:ore?4:node.type==='fiber'?5:4;const gain=base*power*state.multiplier;state.inventory[item]+=gain;if(item in state.gathered)state.gathered[item]+=gain;node.remaining=Math.max(0,(state.nodeDamage[node.id]??node.remaining)-power);state.nodeDamage[node.id]=node.remaining;if(node.remaining===0)state.depleted.push(node.id);return{item,amount:gain,depleted:node.remaining===0};}
-export function placementCheck(state,kind,x,z,rotation=0){
+export const buildingHeight=b=>Number.isFinite(b.y)?b.y:terrainHeight(b.x,b.z);
+export function placementHeight(state,kind,x,z,lift=0){
+ const bases=state.buildings.filter(b=>b.kind==='foundation'&&b.hp>0).sort((a,b)=>Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z)||buildingHeight(b)-buildingHeight(a));
+ const near=bases.find(b=>Math.hypot(b.x-x,b.z-z)<(kind==='foundation'?4.4:2.3));
+ if(kind==='foundation'){const ground=Math.max(...[-1.5,1.5].flatMap(dx=>[-1.5,1.5].map(dz=>terrainHeight(x+dx,z+dz))));return(near?buildingHeight(near):ground+.04)+Math.max(0,Math.min(2,lift));}
+ return near&&['wall','door','roof'].includes(kind)?buildingHeight(near):terrainHeight(x,z);
+}
+export function placementCheck(state,kind,x,z,rotation=0,y=placementHeight(state,kind,x,z)){
  if(!BUILD_KINDS.includes(kind))return{ok:false,reason:'Неизвестная постройка'};if(!Number.isFinite(x)||!Number.isFinite(z)||!Number.isFinite(rotation))return{ok:false,reason:'Неверная позиция'};
+ if(!Number.isFinite(y)||Math.abs(y-terrainHeight(x,z))>3)return{ok:false,reason:'Слишком высокая опора'};
  if(!(state.inventory[kind]>0))return{ok:false,reason:'Сначала создай предмет'};if(Math.hypot(x-state.position.x,z-state.position.z)>7)return{ok:false,reason:'Слишком далеко'};if(terrainHeight(x,z)<.65)return{ok:false,reason:'Нужна сухая поверхность'};
  if(monumentAt(x,z)||BOT_BASES.some(b=>Math.hypot(b.x-x,b.z-z)<14))return{ok:false,reason:'Территория РТ или чужой базы'};
- if(distanceToRoad(x,z)<4)return{ok:false,reason:'Нельзя перекрывать дорогу'};
+ if(distanceToRoad(x,z,6)<4)return{ok:false,reason:'Нельзя перекрывать дорогу'};
  const alive=state.buildings.filter(b=>b.hp>0);
- if(kind==='foundation'){if(Math.abs(terrainHeight(x+1.5,z+1.5)-terrainHeight(x-1.5,z-1.5))>1.4)return{ok:false,reason:'Слишком крутой склон'};if(alive.some(b=>b.kind==='foundation'&&Math.hypot(b.x-x,b.z-z)<2.9))return{ok:false,reason:'Здесь уже есть фундамент'};}
+ if(kind==='foundation'){if([-1.5,1.5].some(dx=>[-1.5,1.5].some(dz=>terrainHeight(x+dx,z+dz)>y+.12)))return{ok:false,reason:'Фундамент в земле: подними уровень Q / +'};if(Math.abs(terrainHeight(x+1.5,z+1.5)-terrainHeight(x-1.5,z-1.5))>1.4)return{ok:false,reason:'Слишком крутой склон'};if(alive.some(b=>b.kind==='foundation'&&Math.hypot(b.x-x,b.z-z)<2.9))return{ok:false,reason:'Здесь уже есть фундамент'};}
  else if(['wall','door','roof'].includes(kind)){const base=alive.find(b=>b.kind==='foundation'&&Math.hypot(b.x-x,b.z-z)<2.3);if(!base)return{ok:false,reason:'Нужен фундамент рядом'};if(alive.some(b=>['wall','door','roof'].includes(b.kind)&&Math.hypot(b.x-x,b.z-z)<.3&&(b.kind==='roof'||Math.abs(Math.sin((b.rotation||0)-rotation))<.1)))return{ok:false,reason:'Место занято'};}
  return{ok:true};
 }
-export function placeBuilding(state,kind,x,z,rotation=0){const check=placementCheck(state,kind,x,z,rotation);if(!check.ok)return check;state.inventory[kind]--;const building={id:'build-'+(Math.max(0,...state.buildings.map(b=>Number(b.id.split('-')[1])||0))+1),kind,x,z,rotation,open:false,tier:0,hp:TIERS[0].hp};state.buildings.push(building);return{ok:true,building};}
+export function placeBuilding(state,kind,x,z,rotation=0,y=placementHeight(state,kind,x,z)){const check=placementCheck(state,kind,x,z,rotation,y);if(!check.ok)return check;state.inventory[kind]--;const building={id:'build-'+(Math.max(0,...state.buildings.map(b=>Number(b.id.split('-')[1])||0))+1),kind,x,z,y,rotation,open:false,tier:0,hp:TIERS[0].hp};state.buildings.push(building);return{ok:true,building};}
 export function upgradeBuilding(state,b){if(!b||!state.buildings.includes(b)||b.hp<=0||!['foundation','wall','door','roof'].includes(b.kind))return{ok:false,reason:'Нельзя улучшить'};if(Math.hypot(b.x-state.position.x,b.z-state.position.z)>6)return{ok:false,reason:'Слишком далеко'};const tier=TIERS[b.tier+1];if(!tier)return{ok:false,reason:'Максимальный уровень'};if(!Object.entries(tier.cost).every(([id,n])=>state.inventory[id]>=n))return{ok:false,reason:'Не хватает ресурсов'};for(const[id,n]of Object.entries(tier.cost))state.inventory[id]-=n;b.tier++;b.hp=tier.hp;return{ok:true};}
 export function repairBuilding(state,b){if(!b||!state.buildings.includes(b)||b.hp<=0||Math.hypot(b.x-state.position.x,b.z-state.position.z)>6)return false;const max=TIERS[b.tier].hp;if(b.hp>=max)return false;const id=b.tier>=3?'metal':b.tier===2?'stone':'wood',cost=Math.ceil((max-b.hp)/50);if(state.inventory[id]<cost)return false;state.inventory[id]-=cost;b.hp=max;return true;}
 export function damageStructure(state,structure,amount){if(!structure||!Number.isFinite(amount)||amount<=0)return 0;const max=TIERS[structure.tier??0].hp;const current=structure.owner?(state.structureDamage[structure.id]??max):structure.hp;if(current<=0)return 0;const hp=Math.max(0,current-amount);if(structure.owner){state.structureDamage[structure.id]=hp;if(hp===0&&!state.depleted.includes(structure.id))state.depleted.push(structure.id);}else structure.hp=hp;return hp;}
@@ -79,15 +95,20 @@ export function encodeSave(state){return JSON.stringify({...state,version:2});}
 export function decodeSave(raw){try{
  const s=JSON.parse(raw);if(!s||s.version!==2||!Number.isInteger(s.seed)||s.seed<1||s.seed>999999999||!Object.hasOwn(MAP_SIZES,s.size)||!['peaceful','standard','hard'].includes(s.difficulty)||!MULTIPLIERS.includes(s.multiplier))return null;const out=newGame();
  const coord=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z)&&Math.hypot(p.x,p.z)<=325*MAP_SIZES[s.size].scale+5;
- if(!coord(s.position))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
+ if(!coord(s.position)||s.feetY!==undefined&&(!Number.isFinite(s.feetY)||s.feetY< -5||s.feetY>350))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
  if(!Number.isFinite(s.elapsed)||s.elapsed<0||s.elapsed>1e8||!Number.isFinite(s.yaw)||!Number.isFinite(s.pitch))return null;
  if(!s.inventory||Object.keys(out.inventory).some(k=>!Number.isInteger(s.inventory[k])||s.inventory[k]<0||s.inventory[k]>1e8))return null;
- const ids=a=>Array.isArray(a)&&a.length<=2500&&a.every(x=>typeof x==='string'&&x.length<100);
+ const ids=a=>Array.isArray(a)&&a.length<=12000&&a.every(x=>typeof x==='string'&&x.length<100);
  if(!ids(s.depleted)||!ids(s.looted)||!ids(s.visited)||s.visited.some(id=>!MONUMENTS.some(m=>m.id===id))||!Array.isArray(s.buildings)||s.buildings.length>400)return null;
- for(const b of s.buildings)if(!b||!BUILD_KINDS.includes(b.kind)||typeof b.id!=='string'||!coord(b)||!Number.isFinite(b.rotation)||!Number.isInteger(b.tier)||b.tier<0||b.tier>3||!Number.isFinite(b.hp)||b.hp<0||b.hp>TIERS[b.tier].hp)return null;
+ for(const b of s.buildings)if(!b||!BUILD_KINDS.includes(b.kind)||typeof b.id!=='string'||!coord(b)||!Number.isFinite(b.rotation)||(b.y!==undefined&&(!Number.isFinite(b.y)||b.y< -10||b.y>350))||!Number.isInteger(b.tier)||b.tier<0||b.tier>3||!Number.isFinite(b.hp)||b.hp<0||b.hp>TIERS[b.tier].hp)return null;
  if(!s.gathered||Object.keys(out.gathered).some(k=>!Number.isInteger(s.gathered[k])||s.gathered[k]<0||s.gathered[k]>1e8))return null;
- for(const key of['nodeDamage','structureDamage','botStores'])if(!s[key]||typeof s[key]!=='object'||Array.isArray(s[key])||Object.keys(s[key]).length>2500||Object.values(s[key]).some(n=>!Number.isFinite(n)||n<0||n>1e8))return null;
+ for(const key of['nodeDamage','structureDamage','botStores'])if(!s[key]||typeof s[key]!=='object'||Array.isArray(s[key])||Object.keys(s[key]).length>12000||Object.values(s[key]).some(n=>!Number.isFinite(n)||n<0||n>1e8))return null;
  if(!s.botState||typeof s.botState!=='object'||Object.keys(s.botState).length>40||Object.values(s.botState).some(b=>!b||!Number.isFinite(b.hp)||b.hp<0||b.hp>120))return null;
+ const validItems=o=>o&&typeof o==='object'&&!Array.isArray(o)&&Object.entries(o).every(([k,n])=>Object.hasOwn(ITEMS,k)&&Number.isInteger(n)&&n>0&&n<=1e8);
+ if(s.containers!==undefined&&(!s.containers||typeof s.containers!=='object'||Array.isArray(s.containers)||Object.keys(s.containers).length>10000||Object.entries(s.containers).some(([id,o])=>id.length>100||!validItems(o))))return null;
+ if(s.slots!==undefined&&(!Array.isArray(s.slots)||s.slots.length!==36||s.slots.some(o=>o!==null&&(!o||!Object.hasOwn(ITEMS,o.item)||!Number.isInteger(o.count)||o.count<1||o.count>stackLimit(o.item)))))return null;
+ if(s.markers!==undefined&&(!Array.isArray(s.markers)||s.markers.length>16||s.markers.some(m=>!coord(m)||typeof m.label!=='string'||m.label.length>40)))return null;
+ if(s.groundBags!==undefined&&(!Array.isArray(s.groundBags)||s.groundBags.length>500||s.groundBags.some(b=>!coord(b)||typeof b.id!=='string'||b.id.length>100)))return null;
  if(!Number.isInteger(s.magazine)||s.magazine<0||s.magazine>6||!Object.hasOwn(ITEMS,s.selected))return null;
  // Validation is pure: reading a backup must never change the active map globals.
  return{...out,...s,inventory:{...s.inventory},yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};

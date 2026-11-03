@@ -195,6 +195,26 @@
     "sha256": "7312e2c5592476f14bbd29282f2b13d9893a63d052f0fd2b245bfc1fa66a5937"
   },
   {
+    "file": "web/assets/models/PineTree_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/PineTree_1.glb",
+    "sha256": "82c2e4f9737c7b97358974b684b64b791efd4f342653c37aeee725158b7aad44"
+  },
+  {
+    "file": "web/assets/models/PineTree_Snow_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/PineTree_Snow_1.glb",
+    "sha256": "0fbce88793740566afce10e9333863689ebaec50c8f604bdd6b9fa5ec019bcc9"
+  },
+  {
+    "file": "web/assets/models/CommonTree_Dead_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/CommonTree_Dead_1.glb",
+    "sha256": "7bc79946fb61e3e036a29833c7cef7d78df5c1eb4f96afc3c303fe22a0cec5a0"
+  },
+  {
+    "file": "web/assets/models/Cactus_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/Cactus_1.glb",
+    "sha256": "3fcfa0c7e578c707e3c9d19cc2205541c4ed2fc249e2152902bdd8228871bda4"
+  },
+  {
     "file": "web/assets/models/Knife.glb",
     "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Knife.glb",
     "sha256": "0b211bc51a86df64193d738b1ac13ad8f1bda3d03e2009fbf9c60203af247425"

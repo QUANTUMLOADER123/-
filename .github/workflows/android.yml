@@ -66,11 +66,11 @@ jobs:
             grep -q 'oskolSmoke=passed' .artifacts/device-smoke.txt || { adb logcat -d -s OskolWeb:E chromium:E | tail -40 | sed 's/^/::error::/'; exit 1; }
       - name: Prepare test package
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.3.0-dev01-android.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.4.0-dev02-android.apk
           cd .artifacts && sha256sum *.apk > Android-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Android-dev01
+          name: Oskol-Android-dev02
           include-hidden-files: true
           if-no-files-found: error
           path: |
@@ -117,7 +117,7 @@ jobs:
           cd release-build && sha256sum *.exe > Windows-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Windows-x64-dev01
+          name: Oskol-Windows-x64-dev02
           if-no-files-found: error
           path: |
             release-build/*.exe
