@@ -308,5 +308,95 @@
     "file": "web/assets/ui11/winter-convoy.jpg",
     "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
     "sha256": "c6bb6c02a1c0cf3bc6838b900d8a34c93360219d9095cff445923a85f34804b8"
+  },
+  {
+    "file": "web/assets/pbr12/asphalt-color.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "81b788faf1dec6d17c8c26fe449f58ba0757a48f0d4499e3b88f7d0f15ddf7e0"
+  },
+  {
+    "file": "web/assets/pbr12/asphalt-normal.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "7f289f15466c38f879f8d248279c5f5e697ff86d23b60f86f2c8b9022004b87d"
+  },
+  {
+    "file": "web/assets/pbr12/asphalt-orm.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "fa1f3d6e5adb7120908e3724f181c5f1fb9b87b89f3edfd11d3c5f7c8b863e0c"
+  },
+  {
+    "file": "web/assets/pbr12/concrete-color.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "c2886b994ee83aa62b9320eb71a4333793f3f2186a9e5cad2963478619911c63"
+  },
+  {
+    "file": "web/assets/pbr12/concrete-normal.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "cef2fed351de7b2ea345c7e42f9f6e91aa42ab6a8df616ec2b86b3dc440cb927"
+  },
+  {
+    "file": "web/assets/pbr12/concrete-orm.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "ef887041cc5bebe7e7d716e72d9ec942ac856dd7ce3da5339d63397a996132d9"
+  },
+  {
+    "file": "web/assets/pbr12/metal-color.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "9f42976e6b7d978385e6ceda3c73a69a69ad30c163d2e7414b20bac2a53706a8"
+  },
+  {
+    "file": "web/assets/pbr12/metal-normal.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "f2a9069dbb51f92b8bddf6e283ab86aebcb2f4906cee1126bc35705e11e7acab"
+  },
+  {
+    "file": "web/assets/pbr12/metal-orm.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "092afac892778cf6d7a1d9dec9cd0f123b2e43be54dd819fa2cb5a5025b1a1a2"
+  },
+  {
+    "file": "web/assets/pbr12/soil-color.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "5a5009daa513649374bf585494a59d02116c9f6530fced38e8732735641b40a0"
+  },
+  {
+    "file": "web/assets/pbr12/soil-normal.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "18e0513ea469f8b8d1c5abb086bc8b439a3d3329f81b505c114b98a1d82a99d7"
+  },
+  {
+    "file": "web/assets/pbr12/soil-orm.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "aa662176b3429595870492dcfc84d0d3b4366e34220079d25b43599846eee664"
+  },
+  {
+    "file": "web/assets/pbr12/stone-color.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "79a772ae91af0500b086398509bfc4bcfdffc12aea1884d21cdc48650ef091fd"
+  },
+  {
+    "file": "web/assets/pbr12/stone-normal.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "20f8e629cf811a8018ab28a65ebc5f4f7cbfa52ad77872c51ed5455f75896553"
+  },
+  {
+    "file": "web/assets/pbr12/stone-orm.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "2e9c2fa0d22631175e131c7497614148dd3b08ef94228c91741c6a24b44786b2"
+  },
+  {
+    "file": "web/assets/pbr12/wood-color.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "c70449d8b8b77a236ea6c4578c98f7160db1cea4e4730302d78d594ef66f14f9"
+  },
+  {
+    "file": "web/assets/pbr12/wood-normal.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "bb047b861181d1aa318111437ee8dd9e9f1dd7035f9a1991c8afb8f725b8bc34"
+  },
+  {
+    "file": "web/assets/pbr12/wood-orm.webp",
+    "source": "Original AI-generated Oskol DEV12 material / artistic derived normal and ORM, 2026-11-04; no Facepunch assets; see pbr12/README.md",
+    "sha256": "1052174f7e35ba27d5b6990caa7d5d5ddb8b5f23a5d485b29f5dcba35f9e37b1"
   }
 ]

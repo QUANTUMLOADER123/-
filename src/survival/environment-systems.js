@@ -1,3 +1,5 @@
+import {treeMaterial12} from './foliage12.js';
+import {visualState12} from './materials12.js';
 import {paintLoading11} from './loading11.js';
 import * as THREE from 'three';
 import {terrainHeight,randomSeed,buildingHeight} from './state.js';
@@ -25,8 +27,8 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
  },
  addTreeChunks(geometry,material,nodes,matrixFor){
   const chunks=new Map();for(const n of nodes){const key=Math.floor(n.x/80)+':'+Math.floor(n.z/80);if(!chunks.has(key))chunks.set(key,[]);chunks.get(key).push(n);}
-  for(const bucket of chunks.values()){const batch=new THREE.InstancedMesh(geometry,material,bucket.length);batch.castShadow=true;batch.receiveShadow=true;
-   bucket.forEach((n,i)=>{const m=matrixFor(n);batch.setMatrixAt(i,m);(n.instances??=[]).push({batch,index:i,matrix:m.clone()});});batch.instanceMatrix.needsUpdate=true;batch.computeBoundingSphere();batch.userData.center=batch.boundingSphere.center.clone();this.scene.add(batch);this.treeBatches.push(batch);
+  for(const bucket of chunks.values()){const batch=new THREE.InstancedMesh(geometry,material,bucket.length);batch.castShadow=true;batch.receiveShadow=true;if(material.userData.depth12)batch.customDepthMaterial=material.userData.depth12;
+   bucket.forEach((n,i)=>{const m=matrixFor(n);batch.setMatrixAt(i,m);const shade=randomSeed(this.stringSeed(n.id+'leaf12'))();batch.setColorAt(i,new THREE.Color().setRGB(.86+shade*.14,.88+shade*.12,.83+shade*.15));(n.instances??=[]).push({batch,index:i,matrix:m.clone()});});batch.instanceMatrix.needsUpdate=true;batch.computeBoundingSphere();batch.userData.center=batch.boundingSphere.center.clone();this.scene.add(batch);this.treeBatches.push(batch);
   }
  },
  updateTreeVisibility(){const range=this.settings.quality==='low'?210:this.settings.quality==='medium'?420:850;for(const b of this.treeBatches){const c=b.userData.center;if(c)b.visible=Math.hypot(c.x-this.camera.position.x,c.z-this.camera.position.z)<range+60;}},
@@ -36,7 +38,7 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
  },
  vegetationInstances(name,nodes,height){
   if(!nodes.length)return;const template=this.normalized(name,height);template.updateMatrixWorld(true);const meshes=[];template.traverse(o=>{if(o.isMesh)meshes.push(o);});
-  for(const src of meshes){const geometry=src.geometry.clone().applyMatrix4(src.matrixWorld),mat=src.material.clone();mat.roughness=1;
+  for(const src of meshes){const authored=treeMaterial12(this,src,src.geometry.clone().applyMatrix4(src.matrixWorld),height),geometry=authored.geometry,mat=authored.material;mat.userData.depth12=authored.depth;
    this.addTreeChunks(geometry,mat,nodes,n=>{const r=randomSeed(this.stringSeed(n.id)),s=.8+r()*.4;n.r=.55;return new THREE.Matrix4().compose(new V(n.x,terrainHeight(n.x,n.z)-.06,n.z),new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28),new V(s,s,s));});
   }
  },
@@ -49,7 +51,7 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
  async makeGrass(signal,progress){
   const geometry=new THREE.BufferGeometry(),p=[],idx=[];for(let blade=0;blade<5;blade++){const a=blade*2.399,dx=Math.cos(a),dz=Math.sin(a),bx=Math.sin(a)*.10,bz=Math.cos(a)*.10,h=.20+(blade%4)*.085;const at=p.length/3;for(const [y,w,bend]of[[0,.012,0],[h*.55,.007,.07],[h,0,.22]])for(const side of[-1,1])p.push(bx+dx*w*side+dz*bend,y,bz+dz*w*side-dx*bend);idx.push(at,at+1,at+2,at+2,at+1,at+3,at+2,at+3,at+4,at+4,at+3,at+5);}geometry.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geometry.setIndex(idx);geometry.computeVertexNormals();
   const material=new THREE.MeshStandardMaterial({color:0xffffff,side:THREE.DoubleSide,roughness:1});const wind={value:0};this.wind=wind;
-  material.onBeforeCompile=shader=>{shader.uniforms.windTime=wind;shader.vertexShader='uniform float windTime;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 instPos=instanceMatrix*vec4(0.,0.,0.,1.);transformed.x+=sin(windTime*1.8+instPos.x*.7+instPos.z*.6)*position.y*.34;');};
+  material.onBeforeCompile=shader=>{shader.uniforms.windTime=wind;shader.uniforms.grassWind12=visualState12(this).wind;shader.vertexShader='uniform float windTime;uniform vec2 grassWind12;varying float blade12;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 instPos=instanceMatrix*vec4(0.,0.,0.,1.);blade12=clamp(position.y/.45,0.,1.);transformed.xz+=grassWind12*(sin(windTime*1.8+instPos.x*.7+instPos.z*.6)*.11+.035)*blade12*blade12;');shader.fragmentShader='varying float blade12;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb*=mix(vec3(.58,.65,.48),vec3(1.08,1.12,.86),blade12);');};
   const buckets=new Map(),r=randomSeed(7892),count=Math.min(110000,Math.round(90000*MAP_SCALE*MAP_SCALE));let accepted=0;
   for(let i=0;i<count*3&&accepted<count;i++){if(i%4096===0){progress?.(accepted/count*.7);await paintLoading11(signal);}
    const near=false,a=r()*6.28,rad=Math.sqrt(r())*(near?85:310*MAP_SCALE),x=Math.cos(a)*rad,z=Math.sin(a)*rad,h=terrainHeight(x,z),b=biomeAt(x,z);

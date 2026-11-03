@@ -1,0 +1,44 @@
+[
+  {
+    "kind": "wood",
+    "raw_file": "wood.png",
+    "sha256": "d088ab45f3ab8a14a7ed8cf84f0f34a4a2b746b3fb67f7957b88010935baa8e9",
+    "description": "Weathered vertical timber boards with grain and knots",
+    "origin": "Original AI-generated diffuse source for Oskol DEV12, 2026-11-04; not a scan; no Facepunch assets"
+  },
+  {
+    "kind": "stone",
+    "raw_file": "stone.png",
+    "sha256": "f7ca1125f5b6fffc3fe9062378b97fb085cc816eac4c418dd986a9e595e1d416",
+    "description": "Irregular grey fieldstone masonry with narrow mortar",
+    "origin": "Original AI-generated diffuse source for Oskol DEV12, 2026-11-04; not a scan; no Facepunch assets"
+  },
+  {
+    "kind": "metal",
+    "raw_file": "metal.png",
+    "sha256": "a6cc6600a0f6474860242aa56164100727e46c555881ce093884a385a1ec036e",
+    "description": "Dull corrugated zinc with localized rust, seams and rivets",
+    "origin": "Original AI-generated diffuse source for Oskol DEV12, 2026-11-04; not a scan; no Facepunch assets"
+  },
+  {
+    "kind": "concrete",
+    "raw_file": "concrete.png",
+    "sha256": "24dc6954d93644ba52f2fa021847466a8d52ca1cb8e9db956e860b6e1f2768d1",
+    "description": "Worn porous industrial concrete and fine aggregate",
+    "origin": "Original AI-generated diffuse source for Oskol DEV12, 2026-11-04; not a scan; no Facepunch assets"
+  },
+  {
+    "kind": "soil",
+    "raw_file": "soil.png",
+    "sha256": "4288471442426dbdae1b32768b8f356a95b5631bc1ec01850d21a2630f112217",
+    "description": "Northern forest earth, olive moss, needles and grit",
+    "origin": "Original AI-generated diffuse source for Oskol DEV12, 2026-11-04; not a scan; no Facepunch assets"
+  },
+  {
+    "kind": "asphalt",
+    "raw_file": "asphalt.png",
+    "sha256": "f24e8af0e5303e08686c205b5976e102021b6271ccfbfb51b730bfb17c942809",
+    "description": "Aged unmarked fine-aggregate asphalt with hairline cracks",
+    "origin": "Original AI-generated diffuse source for Oskol DEV12, 2026-11-04; not a scan; no Facepunch assets"
+  }
+]

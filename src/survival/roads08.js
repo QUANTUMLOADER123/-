@@ -25,7 +25,7 @@ export function roads08(w,material,paint,metal,concrete){
   const pos=[],uv=[],idx=[];let distance=0;
   points.forEach((p,i)=>{
    if(i)distance+=Math.hypot(p.x-points[i-1].x,p.z-points[i-1].z);
-   for(const side of[-1,1]){pos.push(p.x+p.nx*width*.5*side,p.y,p.z+p.nz*width*.5*side);uv.push((side+1)/2,distance/60);}if(i){const k=i*2;idx.push(k-2,k-1,k,k,k-1,k+1);}
+   for(const side of[-1,1]){pos.push(p.x+p.nx*width*.5*side,p.y,p.z+p.nz*width*.5*side);uv.push((p.x+p.nx*width*.5*side)/2,(p.z+p.nz*width*.5*side)/2);}if(i){const k=i*2;idx.push(k-2,k-1,k,k,k-1,k+1);}
    if(i&&i%3===0){const a=points[i-1],v=[a.x-a.nx*.075,a.y+.012,a.z-a.nz*.075,a.x+a.nx*.075,a.y+.012,a.z+a.nz*.075,p.x-p.nx*.075,p.y+.012,p.z-p.nz*.075,p.x+p.nx*.075,p.y+.012,p.z+p.nz*.075],g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));g.setIndex([0,1,2,2,1,3]);g.computeVertexNormals();dashes.push(g);}
    if(i){const a=points[i-1],dx=p.x-a.x,dz=p.z-a.z,len=Math.hypot(dx,dz),rotation=Math.atan2(dx,dz),cx=(a.x+p.x)/2,cz=(a.z+p.z)/2,y=(a.y+p.y)/2;
     w.walkFloors.push({x:cx,z:cz,w:Math.abs(Math.cos(rotation))*width+Math.abs(Math.sin(rotation))*len,d:Math.abs(Math.sin(rotation))*width+Math.abs(Math.cos(rotation))*len,ow:width,od:len+.04,rotation,y,road08:true,slope08:{x:a.x,z:a.z,y:a.y,dx,dz,dy:p.y-a.y,len2:len*len}});

@@ -1,3 +1,4 @@
+import {pbrMaterial12} from './materials12.js';
 import {details08} from './sites08.js';
 import {roads08} from './roads08.js';
 import {addExtraSite,makeSettlements,addRoadCluster} from './world04.js';
@@ -10,7 +11,7 @@ const V=THREE.Vector3;
 export const LOOT_TABLES={supplies:{wood:12,fiber:5,water:1,berries:3,bandage:1,cannedFood:1,sewingKit:1},industrial:{scrap:5,metalOre:9,sulfurOre:6,metal:3,lowFuel:6,gears:1,spring:1},military:{scrap:7,metal:5,ammo:8,gunpowder:4,syringe:1,rope:1},ore:{stone:16,metalOre:12,sulfurOre:10},road:{scrap:2,fiber:2,metalOre:3},barrel:{scrap:3,wood:5,metalOre:4}};
 export function addIslandContent(w){
  w.distantGroups=[];w.staticStructures=[];w.bases=BOT_BASES;w.walkFloors=[];
- const metal=new THREE.MeshStandardMaterial({color:0x4d5854,metalness:.55,roughness:.82,map:w.roofTexture()}),rust=new THREE.MeshStandardMaterial({color:0x70513b,metalness:.35,roughness:.95,map:w.roofTexture()}),concrete=new THREE.MeshStandardMaterial({color:0x686c61,map:w.textures['rockyGround_basecolor.png'],normalMap:w.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.25,.25),roughness:1}),black=new THREE.MeshStandardMaterial({color:0x202925,roughness:1}),orange=new THREE.MeshStandardMaterial({color:0x986447,roughness:.9}),glass=new THREE.MeshStandardMaterial({color:0x87a6a0,metalness:.25,roughness:.25,transparent:true,opacity:.45});
+ const metal=pbrMaterial12(w,'metal',{color:0xc0cbc9}),rust=pbrMaterial12(w,'metal',{color:0xb28a6d,metalness:.48}),concrete=pbrMaterial12(w,'concrete',{color:0xe0e1d9}),black=new THREE.MeshStandardMaterial({color:0x202925,roughness:1}),orange=new THREE.MeshStandardMaterial({color:0x986447,roughness:.9}),glass=new THREE.MeshStandardMaterial({color:0x87a6a0,metalness:.25,roughness:.25,transparent:true,opacity:.45});
  w.constructionMaterials={metal,rust,concrete,black,orange};
  const box=(group,mat,size,pos,rot=0)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size),mat);mesh.position.set(...pos);mesh.rotation.y=rot;mesh.castShadow=true;mesh.receiveShadow=true;mesh.userData.solid=size[1]>1.4;group.add(mesh);w.occluders.push(mesh);return mesh;};
  const cyl=(group,mat,r1,r2,height,pos,sides=16)=>{const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,height,sides),mat);mesh.position.set(...pos);mesh.castShadow=true;mesh.receiveShadow=true;mesh.userData.solid=height>1.4&&Math.max(r1,r2)>.3;group.add(mesh);w.occluders.push(mesh);return mesh;};
@@ -63,7 +64,7 @@ export function addIslandContent(w){
 
 }
 function addRoads(w,metal,concrete){
- const asphaltCanvas=document.createElement('canvas');asphaltCanvas.width=256;asphaltCanvas.height=256;const ctx=asphaltCanvas.getContext('2d'),r=randomSeed(432);ctx.fillStyle='#3e433a';ctx.fillRect(0,0,256,256);for(let i=0;i<21000;i++){const v=40+r()*60;ctx.fillStyle=`rgba(${v},${v+3},${v-6},.4)`;ctx.fillRect(r()*256,r()*256,1+r()*2,1+r()*2);}for(let i=0;i<15;i++){ctx.strokeStyle='#222b2566';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(r()*256,0);ctx.lineTo(r()*256,128);ctx.lineTo(r()*256,256);ctx.stroke();}const tex=new THREE.CanvasTexture(asphaltCanvas);tex.colorSpace=THREE.SRGBColorSpace;tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(1,30);const material=new THREE.MeshStandardMaterial({map:tex,roughness:1,color:0xffffff,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
+ const material=pbrMaterial12(w,'asphalt',{polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});const tex=material.map;
  const paint=new THREE.MeshBasicMaterial({color:0xb9b79e,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
  roads08(w,material,paint,metal,concrete);w.roadTexture=tex;
 }

@@ -1,3 +1,5 @@
+import {makeSky12} from './sky12.js';
+import {pbrMaterial12} from './materials12.js';
 import {safeCamp} from './health.js';
 import {seesPlayer,hitProbability} from './perception.js';
 import * as THREE from 'three';
@@ -6,7 +8,7 @@ const V=THREE.Vector3;
 export function installWorldSystems(IslandWorld){
  Object.assign(IslandWorld.prototype,{
  makeStormSky(){
-  this.sky.visible=false;const material=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:{time:{value:0},daylight:{value:1},cloudCover08:{value:0},sunDirection:{value:this.sunDirection}},vertexShader:'varying vec3 vDir;void main(){vDir=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:`varying vec3 vDir;uniform float time;uniform float daylight;uniform float cloudCover08;uniform vec3 sunDirection;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1)),f.x),f.y);}void main(){vec3 d=normalize(vDir);float y=max(d.y,0.);vec2 p=d.xz/(y+.35)*2.+time*.002;float n=noise(p)*.5+noise(p*2.1)*.25+noise(p*4.3)*.125;vec3 horizon=vec3(.62,.78,.94),zenith=vec3(.14,.38,.76);vec3 color=mix(horizon,zenith,pow(y,.4));color=mix(color,mix(vec3(.91,.95,1.),vec3(.72,.79,.85),cloudCover08),smoothstep(.43-cloudCover08*.22,.67-cloudCover08*.2,n)*.85);color+=vec3(1.,.83,.52)*pow(max(dot(d,sunDirection),0.),1200.)*1.8;color*=daylight;gl_FragColor=vec4(color,1.);#include <tonemapping_fragment>\n#include <colorspace_fragment>}`.replace(';#include',';\n#include')});this.stormSky=new THREE.Mesh(new THREE.SphereGeometry(11000,24,16),material);this.stormSky.renderOrder=-10;this.scene.add(this.stormSky);
+  makeSky12(this);
  },
  syncGroundBags(state){
   const ids=new Set((state.groundBags||[]).map(b=>b.id));this.interactables=this.interactables.filter(i=>{if(i.id.startsWith('drop-')&&!ids.has(i.id)){this.scene.remove(i.model);return false;}return true;});this.colliders=this.colliders.filter(c=>!c.id?.startsWith('drop-')||ids.has(c.id));
@@ -21,7 +23,7 @@ export function installWorldSystems(IslandWorld){
  },
  applyBuildingTier(entry){
   const {model,data}=entry,tier=data.tier||0;if(!['wall','door','roof','foundation'].includes(data.kind))return;
-  model.traverse(o=>{if(!o.isMesh)return;const mat=tier===0?this.strawMaterial():tier===1?this.woodMaterial.clone():new THREE.MeshStandardMaterial({map:this.textures[tier===2?'rockyGround_basecolor.png':'wood.jpg'],normalMap:tier===2?this.textures['rockyGround_normal.png']:null,color:TIERS[tier].color,roughness:tier===3?.65:1,metalness:tier===3?.6:0});mat.color.set(TIERS[tier].color);o.material=mat;});
+  model.traverse(o=>{if(!o.isMesh)return;const mat=tier===0?this.strawMaterial():pbrMaterial12(this,tier===1?'wood':tier===2?'stone':'metal',{color:0xe9e7de});o.material=mat;});
   // Higher tiers have physical reinforcement, rather than only a color swap.
   if(entry.reinforcements){model.remove(entry.reinforcements);entry.reinforcements.traverse(o=>{if(o.isMesh)o.geometry.dispose();});}
   if(tier>=1&&['wall','door'].includes(data.kind)){const rails=new THREE.Group(),material=new THREE.MeshStandardMaterial({color:tier>=2?0x515a53:0x514c34,metalness:tier>=2?.5:0,roughness:.8});for(const y of[.63,2.45]){const m=new THREE.Mesh(new THREE.BoxGeometry(3,.09,.09),material);m.position.set(0,y,-.09);rails.add(m);}if(tier===3){for(const x of[-1.3,1.3]){const m=new THREE.Mesh(new THREE.BoxGeometry(.12,2.6,.1),material);m.position.set(x,1.6,.1);rails.add(m);}}model.add(rails);entry.reinforcements=rails;}

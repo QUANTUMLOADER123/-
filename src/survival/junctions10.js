@@ -19,7 +19,7 @@ export function junctions10(w,material){
   for(let x=Math.floor((p.x-12)/24);x<=Math.floor((p.x+12)/24);x++)for(let z=Math.floor((p.z-12)/24);z<=Math.floor((p.z+12)/24);z++){
    const k=x+':'+z;if(!grid.has(k))grid.set(k,[]);grid.get(k).push(joint);
   }
-  const g=new THREE.CircleGeometry(3.8,20);g.rotateX(-Math.PI/2);g.translate(p.x,joint.y+.004,p.z);discs.push(g);
+  const g=new THREE.CircleGeometry(3.8,20);g.rotateX(-Math.PI/2);g.translate(p.x,joint.y+.004,p.z);const uv=g.attributes.uv,position=g.attributes.position;for(let i=0;i<uv.count;i++)uv.setXY(i,position.getX(i)/2,position.getZ(i)/2);discs.push(g);
   w.walkFloors.push({x:p.x,z:p.z,w:5.2,d:5.2,y:joint.y,road08:true});
  }
  if(discs.length){const mesh=new THREE.Mesh(mergeGeometries(discs),material);mesh.receiveShadow=true;w.scene.add(mesh);discs.forEach(g=>g.dispose());}

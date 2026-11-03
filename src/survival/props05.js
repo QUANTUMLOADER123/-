@@ -4,6 +4,7 @@ import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {surface05} from './surface05.js';
 import {terrainHeight} from './state.js';
 const templates=new Map();
+export function clearPropTemplates12(){templates.clear();}
 export function lootProp05(kind='storage'){if(templates.has(kind))return templates.get(kind).clone(true);const root=new THREE.Group(),wood=new THREE.MeshStandardMaterial({map:surface05('wood'),color:0xcab18b,roughness:.96}),metal=new THREE.MeshStandardMaterial({map:surface05('metal'),color:0x84918b,roughness:.7,metalness:.55}),cloth=new THREE.MeshStandardMaterial({map:surface05('cloth'),color:0x938063,roughness:1});
  const parts=[[],[],[]],box=(w,h,d,x,y,z,mat=0)=>{const g=new RoundedBoxGeometry(w,h,d,1,.014);g.translate(x,y,z);parts[mat].push(g);};
  if(kind==='bag'){const g=new THREE.SphereGeometry(.38,16,10);g.scale(1,.48,.8);g.translate(0,.17,0);parts[2].push(g);for(const x of[-.19,.19])box(.045,.23,.57,x,.20,0,1);box(.38,.025,.06,0,.34,0,1);}
