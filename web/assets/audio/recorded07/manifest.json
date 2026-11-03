@@ -1,0 +1,1323 @@
+{
+  "sampleRate": 44100,
+  "format": "PCM_16 mono",
+  "groups": {
+    "pistol": [
+      "pistol-1",
+      "pistol-2",
+      "pistol-3"
+    ],
+    "heavy-pistol": [
+      "heavy-pistol-1",
+      "heavy-pistol-2"
+    ],
+    "revolver": [
+      "revolver-1",
+      "revolver-2"
+    ],
+    "assault": [
+      "assault-1",
+      "assault-2",
+      "assault-3",
+      "assault-4"
+    ],
+    "smg": [
+      "smg-1",
+      "smg-2",
+      "smg-3"
+    ],
+    "marksman": [
+      "marksman-1",
+      "marksman-2",
+      "marksman-3"
+    ],
+    "bolt": [
+      "bolt-1",
+      "bolt-2",
+      "bolt-3",
+      "bolt-4"
+    ],
+    "shotgun": [
+      "shotgun-1",
+      "shotgun-2"
+    ],
+    "step-grass": [
+      "step-grass-1",
+      "step-grass-2",
+      "step-grass-3",
+      "step-grass-4"
+    ],
+    "step-stone": [
+      "step-stone-1",
+      "step-stone-2",
+      "step-stone-3",
+      "step-stone-4"
+    ],
+    "step-wood": [
+      "step-wood-1",
+      "step-wood-2",
+      "step-wood-3",
+      "step-wood-4"
+    ],
+    "step-snow": [
+      "step-snow-1",
+      "step-snow-2",
+      "step-snow-3",
+      "step-snow-4"
+    ],
+    "hit-metal": [
+      "hit-metal-1",
+      "hit-metal-2",
+      "hit-metal-3",
+      "hit-metal-4"
+    ],
+    "hit-barrel": [
+      "hit-barrel-1",
+      "hit-barrel-2",
+      "hit-barrel-3",
+      "hit-barrel-4"
+    ],
+    "hit-wood": [
+      "hit-wood-1",
+      "hit-wood-2",
+      "hit-wood-3",
+      "hit-wood-4"
+    ],
+    "cloth": [
+      "cloth-1",
+      "cloth-2",
+      "cloth-3",
+      "cloth-4"
+    ],
+    "hurt": [
+      "hurt-1",
+      "hurt-2",
+      "hurt-3",
+      "hurt-4"
+    ],
+    "click": [
+      "click-1",
+      "click-2",
+      "click-3",
+      "click-4"
+    ],
+    "debris": [
+      "debris-1",
+      "debris-2",
+      "debris-3",
+      "debris-4"
+    ],
+    "hit-stone": [
+      "hit-stone-1",
+      "hit-stone-2",
+      "hit-stone-3",
+      "hit-stone-4"
+    ],
+    "door": [
+      "door-1",
+      "door-2",
+      "door-3",
+      "door-4"
+    ],
+    "drop-wood": [
+      "drop-wood-1",
+      "drop-wood-2",
+      "drop-wood-3",
+      "drop-wood-4"
+    ],
+    "rustle": [
+      "rustle-1",
+      "rustle-2",
+      "rustle-3",
+      "rustle-4"
+    ],
+    "reload-rifle-out": [
+      "reload-rifle-out"
+    ],
+    "reload-rifle-in": [
+      "reload-rifle-in"
+    ],
+    "reload-pistol-out": [
+      "reload-pistol-out"
+    ],
+    "reload-pistol-in": [
+      "reload-pistol-in"
+    ],
+    "pump": [
+      "pump"
+    ],
+    "explosion": [
+      "explosion-1",
+      "explosion-2"
+    ]
+  },
+  "clips": {
+    "pistol-1": {
+      "file": "assets/audio/recorded07/pistol-1.wav",
+      "sha256": "5b75de64a2ade7a73f3f507db2fdbf3fc5c1a766bbcf3092b9c1e45083c706f3",
+      "seconds": 0.3804,
+      "source": "X_39P.wav",
+      "sourceSha256": "d679a3cd87eae2898d984159f83544392932e6b77526045b672e3aaa9c2dda9f",
+      "sourceBlob": "03ca3b4a8888f6f27bcfee7b1ee58ce08f705ab5",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        1.365,
+        2.5
+      ]
+    },
+    "pistol-2": {
+      "file": "assets/audio/recorded07/pistol-2.wav",
+      "sha256": "d42e712d46f4d729b74220ddabc7c6cf8ba46d0844fbd1c43156eeae7eee597b",
+      "seconds": 0.4392,
+      "source": "X_39P.wav",
+      "sourceSha256": "d679a3cd87eae2898d984159f83544392932e6b77526045b672e3aaa9c2dda9f",
+      "sourceBlob": "03ca3b4a8888f6f27bcfee7b1ee58ce08f705ab5",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        6.405,
+        7.54
+      ]
+    },
+    "pistol-3": {
+      "file": "assets/audio/recorded07/pistol-3.wav",
+      "sha256": "5029cab8166cbed97a8a64e902ac45ecca8ca61981267e0b7f89a76ee08087c3",
+      "seconds": 0.3692,
+      "source": "X_39P.wav",
+      "sourceSha256": "d679a3cd87eae2898d984159f83544392932e6b77526045b672e3aaa9c2dda9f",
+      "sourceBlob": "03ca3b4a8888f6f27bcfee7b1ee58ce08f705ab5",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        10.625,
+        11.76
+      ]
+    },
+    "heavy-pistol-1": {
+      "file": "assets/audio/recorded07/heavy-pistol-1.wav",
+      "sha256": "095f4dfd585297ea2ea43ef1ad0d7241b5d630ce7f4aa33dfad634414975d0fa",
+      "seconds": 1.3502,
+      "source": "A_34P.wav",
+      "sourceSha256": "df95fc52049f3d1e4cf0a8c018fc0f0b4abded12de1d615a279422206c415935",
+      "sourceBlob": "f0166a05c72c1be1162edaa03a4f8dd62b3d576b",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        1.505,
+        2.89
+      ]
+    },
+    "heavy-pistol-2": {
+      "file": "assets/audio/recorded07/heavy-pistol-2.wav",
+      "sha256": "6b9666376c2cb59bcc9342aa166da6969b7ad5305957b61e3ad205f1db4a53ae",
+      "seconds": 1.3473,
+      "source": "A_34P.wav",
+      "sourceSha256": "df95fc52049f3d1e4cf0a8c018fc0f0b4abded12de1d615a279422206c415935",
+      "sourceBlob": "f0166a05c72c1be1162edaa03a4f8dd62b3d576b",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        6.615,
+        8.0
+      ]
+    },
+    "revolver-1": {
+      "file": "assets/audio/recorded07/revolver-1.wav",
+      "sha256": "625d7e587d6f26a7b4d367f68dadbf3c0519b7f8e9f89d826837f61f98fa4099",
+      "seconds": 1.3492,
+      "source": "V_22P.wav",
+      "sourceSha256": "2ddbaff76737abe2b9af2a13eb5f00056364c0a0de170b8c19bddfb5c4058f25",
+      "sourceBlob": "6bc05794fe0c0d6d736b3dd78d69c83f2c1be08d",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.635,
+        2.02
+      ]
+    },
+    "revolver-2": {
+      "file": "assets/audio/recorded07/revolver-2.wav",
+      "sha256": "6f24a9621dd22b751ea6d636ee7d08f1e3cd8cd86ea0b972b4144ef33c0da9d7",
+      "seconds": 1.346,
+      "source": "V_22P.wav",
+      "sourceSha256": "2ddbaff76737abe2b9af2a13eb5f00056364c0a0de170b8c19bddfb5c4058f25",
+      "sourceBlob": "6bc05794fe0c0d6d736b3dd78d69c83f2c1be08d",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        5.465,
+        6.85
+      ]
+    },
+    "assault-1": {
+      "file": "assets/audio/recorded07/assault-1.wav",
+      "sha256": "890983834cc93e0598dec3a9037593a8814adee6de695741af069fe249f59a0d",
+      "seconds": 0.4515,
+      "source": "C_28P.wav",
+      "sourceSha256": "e0934c1d79192d2216db62fdf6ab57bf9d5d585267af367a1cfb21f0972a537d",
+      "sourceBlob": "f4c70bf8383b9241ffc9062e2c7138dfb463fa40",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.575,
+        1.96
+      ]
+    },
+    "assault-2": {
+      "file": "assets/audio/recorded07/assault-2.wav",
+      "sha256": "b12fe1a89fb79024db6ae11387e4d8d7e3d4a481ce3109b172d19664ecb209d0",
+      "seconds": 0.4336,
+      "source": "C_28P.wav",
+      "sourceSha256": "e0934c1d79192d2216db62fdf6ab57bf9d5d585267af367a1cfb21f0972a537d",
+      "sourceBlob": "f4c70bf8383b9241ffc9062e2c7138dfb463fa40",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        3.225,
+        4.61
+      ]
+    },
+    "assault-3": {
+      "file": "assets/audio/recorded07/assault-3.wav",
+      "sha256": "3dad4979f87726bd8868f430ef4ae2ced2dd9716f25f339752933033c7b05393",
+      "seconds": 0.4336,
+      "source": "C_28P.wav",
+      "sourceSha256": "e0934c1d79192d2216db62fdf6ab57bf9d5d585267af367a1cfb21f0972a537d",
+      "sourceBlob": "f4c70bf8383b9241ffc9062e2c7138dfb463fa40",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        5.985,
+        7.37
+      ]
+    },
+    "assault-4": {
+      "file": "assets/audio/recorded07/assault-4.wav",
+      "sha256": "b5b9a160c9594d7d4da9709c4d9fd83a6467d19652c6c79d93a19d5eec1a996f",
+      "seconds": 0.4336,
+      "source": "C_28P.wav",
+      "sourceSha256": "e0934c1d79192d2216db62fdf6ab57bf9d5d585267af367a1cfb21f0972a537d",
+      "sourceBlob": "f4c70bf8383b9241ffc9062e2c7138dfb463fa40",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        9.125,
+        10.51
+      ]
+    },
+    "smg-1": {
+      "file": "assets/audio/recorded07/smg-1.wav",
+      "sha256": "b02e9023117a809aa2dac85ed183c094fdbbe1b90c4f5a324b8a3b1b17c84f89",
+      "seconds": 0.3593,
+      "source": "G_31P.wav",
+      "sourceSha256": "5982c6c2fa44545b750ba6217ed57797a6a15c02f5c9943ac0e99e5f3ab2b158",
+      "sourceBlob": "5391fa1c7c703286398675b3b7e193f75fc02787",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.275,
+        1.26
+      ]
+    },
+    "smg-2": {
+      "file": "assets/audio/recorded07/smg-2.wav",
+      "sha256": "5f34ca9b64b94cf3c6167503f913513b2b1f7946e78ceeabfd7c7061c2d8ee13",
+      "seconds": 0.4082,
+      "source": "G_31P.wav",
+      "sourceSha256": "5982c6c2fa44545b750ba6217ed57797a6a15c02f5c9943ac0e99e5f3ab2b158",
+      "sourceBlob": "5391fa1c7c703286398675b3b7e193f75fc02787",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        3.465,
+        4.45
+      ]
+    },
+    "smg-3": {
+      "file": "assets/audio/recorded07/smg-3.wav",
+      "sha256": "f7991855e98132bd4f71db14a025dcbd6acdfb8f7f12c8ff1b209e3295e9cb70",
+      "seconds": 0.4271,
+      "source": "G_31P.wav",
+      "sourceSha256": "5982c6c2fa44545b750ba6217ed57797a6a15c02f5c9943ac0e99e5f3ab2b158",
+      "sourceBlob": "5391fa1c7c703286398675b3b7e193f75fc02787",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        6.685,
+        7.67
+      ]
+    },
+    "marksman-1": {
+      "file": "assets/audio/recorded07/marksman-1.wav",
+      "sha256": "202860845c95418d01df053d8af4b55e2e389b77b16bacdc78f63bc966ecb983",
+      "seconds": 0.3908,
+      "source": "U_14P.wav",
+      "sourceSha256": "ad33d11af79d73ec8b7a527a8aed948a086a0d764cec5a54d2e86887351d6c96",
+      "sourceBlob": "62f7624f1c1216370869dca0587095b67ff0e485",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        3.535,
+        5.07
+      ]
+    },
+    "marksman-2": {
+      "file": "assets/audio/recorded07/marksman-2.wav",
+      "sha256": "e7a66854205ccf951fc63c1e1c05732f018557adfd1f386cd9de681cd8711b1d",
+      "seconds": 0.4333,
+      "source": "U_14P.wav",
+      "sourceSha256": "ad33d11af79d73ec8b7a527a8aed948a086a0d764cec5a54d2e86887351d6c96",
+      "sourceBlob": "62f7624f1c1216370869dca0587095b67ff0e485",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        6.715,
+        8.25
+      ]
+    },
+    "marksman-3": {
+      "file": "assets/audio/recorded07/marksman-3.wav",
+      "sha256": "e9df1d14a4ec6add7126911d6f4f320159b5dc34d75e04c689957fd64122c60d",
+      "seconds": 0.3909,
+      "source": "U_14P.wav",
+      "sourceSha256": "ad33d11af79d73ec8b7a527a8aed948a086a0d764cec5a54d2e86887351d6c96",
+      "sourceBlob": "62f7624f1c1216370869dca0587095b67ff0e485",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        10.175,
+        11.71
+      ]
+    },
+    "bolt-1": {
+      "file": "assets/audio/recorded07/bolt-1.wav",
+      "sha256": "0038bdecb0ca0f74f912ef7f30f57701528706142aa2cea13e850f8faf130d15",
+      "seconds": 0.352,
+      "source": "M_21P.wav",
+      "sourceSha256": "970ed2322ba61579dc8afaefb4f25e6ae791a3acb1e6e23372ea948cfe2a97b3",
+      "sourceBlob": "29d15c82c5b1125e8e7350ea129d8119356756da",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.995,
+        2.68
+      ]
+    },
+    "bolt-2": {
+      "file": "assets/audio/recorded07/bolt-2.wav",
+      "sha256": "96aa984f2bd2611bb359ad061eee1f5ca299377faea03e517ca7b345387035f7",
+      "seconds": 0.3575,
+      "source": "M_21P.wav",
+      "sourceSha256": "970ed2322ba61579dc8afaefb4f25e6ae791a3acb1e6e23372ea948cfe2a97b3",
+      "sourceBlob": "29d15c82c5b1125e8e7350ea129d8119356756da",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        4.985,
+        6.67
+      ]
+    },
+    "bolt-3": {
+      "file": "assets/audio/recorded07/bolt-3.wav",
+      "sha256": "b51f72b3e63c2dd2589273b46ccd119be8f724087898ec0901f9f0030ec32ede",
+      "seconds": 0.3703,
+      "source": "M_21P.wav",
+      "sourceSha256": "970ed2322ba61579dc8afaefb4f25e6ae791a3acb1e6e23372ea948cfe2a97b3",
+      "sourceBlob": "29d15c82c5b1125e8e7350ea129d8119356756da",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        9.125,
+        10.81
+      ]
+    },
+    "bolt-4": {
+      "file": "assets/audio/recorded07/bolt-4.wav",
+      "sha256": "674fedd16a4cd4a60ce5eea3554221ce1bcdf69faf5c6a9028a044b54fe93978",
+      "seconds": 0.3539,
+      "source": "M_21P.wav",
+      "sourceSha256": "970ed2322ba61579dc8afaefb4f25e6ae791a3acb1e6e23372ea948cfe2a97b3",
+      "sourceBlob": "29d15c82c5b1125e8e7350ea129d8119356756da",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        14.095,
+        15.78
+      ]
+    },
+    "shotgun-1": {
+      "file": "assets/audio/recorded07/shotgun-1.wav",
+      "sha256": "fab9e14caf867bbfdba10dd14d09a9b0a4d64864bdb1a7a54879e50e91626347",
+      "seconds": 0.4306,
+      "source": "O_21P.wav",
+      "sourceSha256": "5661d0625e4634f19e6e316c13693b80c8e28cd9f716cf9c75c465153ae40815",
+      "sourceBlob": "538a1baac21c1524ec43629132c99c26dcf762d9",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.395,
+        1.98
+      ]
+    },
+    "shotgun-2": {
+      "file": "assets/audio/recorded07/shotgun-2.wav",
+      "sha256": "59290b35714a62c5a96b92931886bb069952ac2436f73cffa17af0c47721c32e",
+      "seconds": 0.6864,
+      "source": "O_21P.wav",
+      "sourceSha256": "5661d0625e4634f19e6e316c13693b80c8e28cd9f716cf9c75c465153ae40815",
+      "sourceBlob": "538a1baac21c1524ec43629132c99c26dcf762d9",
+      "license": "CC0-1.0",
+      "author": "Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        3.425,
+        5.01
+      ]
+    },
+    "step-grass-1": {
+      "file": "assets/audio/recorded07/step-grass-1.wav",
+      "sha256": "3acdfd388c240ac33ad70a0e0b45df7386ccc6cb18de756d83da201b4e1d0857",
+      "seconds": 0.1602,
+      "source": "footstep_grass_000.ogg",
+      "sourceSha256": "9d49497777405d78d7cf7f2888e28277f3a23192300cfd1d79d54876b20f479f",
+      "sourceBlob": "5b5ec879a5ca457d18ad01a81af805409e35207f",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-grass-2": {
+      "file": "assets/audio/recorded07/step-grass-2.wav",
+      "sha256": "cfd3a5029ecbed19bf640e9920ff16bf807739a3871274afb26e852c936653d1",
+      "seconds": 0.1725,
+      "source": "footstep_grass_001.ogg",
+      "sourceSha256": "fb28781bd22b2eefdc14077f1adf5c94d7fe9c3a130194633b55f3e0d39d9f04",
+      "sourceBlob": "56c3a844ccaa5df7dd137141b3eee15ae66fee91",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-grass-3": {
+      "file": "assets/audio/recorded07/step-grass-3.wav",
+      "sha256": "93eeead89ec7b4bdb0e9a9ec65a750b8b7cc260ad775c03dc60bbe68e17e4a0c",
+      "seconds": 0.1738,
+      "source": "footstep_grass_002.ogg",
+      "sourceSha256": "73a520139f5be716a403bfe9c80e0e94d1e61d8e9de04a354b336392164b53dc",
+      "sourceBlob": "aa0b4148594497b2f83e6cf89cebf0efc2c55444",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-grass-4": {
+      "file": "assets/audio/recorded07/step-grass-4.wav",
+      "sha256": "9fb010f7b7a9571375cb504529e0a8a763f837f588aec7edbad1bfe37954b071",
+      "seconds": 0.1442,
+      "source": "footstep_grass_003.ogg",
+      "sourceSha256": "0546e1d8ab2def714425701a18bd34c5ee2794b12e858e5b595aabcf38a34137",
+      "sourceBlob": "fe9e119a60d8889328d997205ff1c2478503925d",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-stone-1": {
+      "file": "assets/audio/recorded07/step-stone-1.wav",
+      "sha256": "0c509cee28610ca405558a60cf3d83018fe71cde42afb2320084759ee5f4e4fa",
+      "seconds": 0.0761,
+      "source": "footstep_concrete_000.ogg",
+      "sourceSha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+      "sourceBlob": "163cc56468f1734fe694351e7ff984699afa8b86",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-stone-2": {
+      "file": "assets/audio/recorded07/step-stone-2.wav",
+      "sha256": "fec5e59c424d3da0dfcbe5f15930dde89fdb4b211a20bf6400073a918957134b",
+      "seconds": 0.0989,
+      "source": "footstep_concrete_001.ogg",
+      "sourceSha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+      "sourceBlob": "4c62bac1fbdd2a18594139a34939eab2e1c82ba7",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-stone-3": {
+      "file": "assets/audio/recorded07/step-stone-3.wav",
+      "sha256": "7f5012e75e5feaa9f12d112c86778ea54cd6fa79246f413df002e98004fb6f24",
+      "seconds": 0.0989,
+      "source": "footstep_concrete_002.ogg",
+      "sourceSha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+      "sourceBlob": "99aec9818d9da261ba1350a9b50144f7189a20e5",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-stone-4": {
+      "file": "assets/audio/recorded07/step-stone-4.wav",
+      "sha256": "bde262a4f750239d43ea1e96feea68c51f4ae59e9d86fa02dc061ccd7a65f8b1",
+      "seconds": 0.0782,
+      "source": "footstep_concrete_003.ogg",
+      "sourceSha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+      "sourceBlob": "bfb613ab88407279aabcab0a963c7aaa755c508b",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-wood-1": {
+      "file": "assets/audio/recorded07/step-wood-1.wav",
+      "sha256": "e58f20ba2bde9f04654ab64a9d9908469034a6cbcf5edcb1b9cb07e6a96c46f2",
+      "seconds": 0.0851,
+      "source": "footstep_wood_000.ogg",
+      "sourceSha256": "5f1c252942a220d658121bd9417448cd19649ded9fff2ff15f6e50899373ce8e",
+      "sourceBlob": "1a519c74dc71da391a93e033aa63eb641da80dd9",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-wood-2": {
+      "file": "assets/audio/recorded07/step-wood-2.wav",
+      "sha256": "a1f61a25a45fe17a57ea6d2d510c75519806273f2966e4821b02614ea94d2185",
+      "seconds": 0.0875,
+      "source": "footstep_wood_001.ogg",
+      "sourceSha256": "e4f68e1c9fd55b4dc8ca89ed2bbab6f200171bc54bdc18aa96b80d8e7336f462",
+      "sourceBlob": "069a2b1a32a44d354e9df5bdd2053d2b3710db18",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-wood-3": {
+      "file": "assets/audio/recorded07/step-wood-3.wav",
+      "sha256": "f1f8666a32a4b751ef6f079e4fc7d33f05ce0a311cf4ec78778fa4c9c049429c",
+      "seconds": 0.0826,
+      "source": "footstep_wood_002.ogg",
+      "sourceSha256": "9ff095b05cee5eec40b081defe3f0eef7232bb16d4865ce03b9f6dbab875cfdd",
+      "sourceBlob": "bd8d388a3b9697028f091cd1f464ed9079759280",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-wood-4": {
+      "file": "assets/audio/recorded07/step-wood-4.wav",
+      "sha256": "6aa5b8bad16520a3186ef9d054e019523a1f1b190080a69983ba2a4d256054d3",
+      "seconds": 0.0871,
+      "source": "footstep_wood_003.ogg",
+      "sourceSha256": "2a68a083daa9eda08fed0ea5da5280dfbe0de226196c576be02f95259dd139d9",
+      "sourceBlob": "7883eaac70699114396db6394acb8c965c36d746",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-snow-1": {
+      "file": "assets/audio/recorded07/step-snow-1.wav",
+      "sha256": "c2f51e4147b3825de725df2a262c051aea0a7c14c397cda30ad05397e8d4c82d",
+      "seconds": 0.202,
+      "source": "footstep_snow_000.ogg",
+      "sourceSha256": "c05fa4a9dc9a7aabc04996466fb589537e49af76de9998d8f9e6270ec92dcef7",
+      "sourceBlob": "be47875cbf254a8d0328a2279d873c72091dd5b1",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-snow-2": {
+      "file": "assets/audio/recorded07/step-snow-2.wav",
+      "sha256": "daad1ac5f3bdfc4ec20a548f930a81267a2abeab0a0938987042465fdb910119",
+      "seconds": 0.2088,
+      "source": "footstep_snow_001.ogg",
+      "sourceSha256": "980fb9a1c9227aed7995067b0357f373053337f2416316db8ea0438418542fb4",
+      "sourceBlob": "7c162103b38c6936d352b058be9e4fb89f408951",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-snow-3": {
+      "file": "assets/audio/recorded07/step-snow-3.wav",
+      "sha256": "b8809c393f8beb8933f514ae7221f170a5a0acda435c40edf3b41fa30c63ba2b",
+      "seconds": 0.2087,
+      "source": "footstep_snow_002.ogg",
+      "sourceSha256": "db52bafdc66304f3b999f2c29227826c65993916e630ac2ffbca17d07b263178",
+      "sourceBlob": "e42fb286027588ba5fb672f6dc123da30e898d67",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "step-snow-4": {
+      "file": "assets/audio/recorded07/step-snow-4.wav",
+      "sha256": "6a20878bd55b7225e3de074ce167a82c0f21f22ed202099d5e46db0ce991089b",
+      "seconds": 0.2037,
+      "source": "footstep_snow_003.ogg",
+      "sourceSha256": "68272e3f1cabcabd02d328fd344454d7c04cb58b5a86972fcdd858f845e3d007",
+      "sourceBlob": "70447bf95264b07d6b54a28f61672038ef5dcd8e",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-metal-1": {
+      "file": "assets/audio/recorded07/hit-metal-1.wav",
+      "sha256": "dfc988792b3df9bf8db5f7e632d2b54c6d9600575a17cb1e86a20514e714a618",
+      "seconds": 0.179,
+      "source": "impact_metal_medium_000.ogg",
+      "sourceSha256": "a96f879fec0864a8938e0c745b6996a6c5679c16a234ce31a01cc995e8401003",
+      "sourceBlob": "2b1bbe397a4159d1474a6438cb5b3e9ad0378f2b",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-metal-2": {
+      "file": "assets/audio/recorded07/hit-metal-2.wav",
+      "sha256": "add8131b4e0b502a139677d8722c225d6ad7ad3f648c081fd59ca7a5332bda11",
+      "seconds": 0.1132,
+      "source": "impact_metal_medium_001.ogg",
+      "sourceSha256": "e8a9eaba7c4d27422e4eeb3e6c7100d5d7dc0f83e005efc98c960adcc5265337",
+      "sourceBlob": "01ac7e02d60c1733d6d3b0a70d9d4a38d471e613",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-metal-3": {
+      "file": "assets/audio/recorded07/hit-metal-3.wav",
+      "sha256": "158b734ed96008e9f7873eaa43583730a0c88e9a3514ca0365c4bf2e010ceaba",
+      "seconds": 0.0928,
+      "source": "impact_metal_medium_002.ogg",
+      "sourceSha256": "7e89ce2ca0dbda95ea2b78d4b50791cab35c10d20e9f5ccd45dd0b00e99ff548",
+      "sourceBlob": "579953c73652b48dd1c4910135bd741ec73e4d8c",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-metal-4": {
+      "file": "assets/audio/recorded07/hit-metal-4.wav",
+      "sha256": "9810ef14ca4f49fa8e1d60d100d1d74c0412c34cf6df740bedc85ba92798a102",
+      "seconds": 0.1698,
+      "source": "impact_metal_medium_003.ogg",
+      "sourceSha256": "2a185e2e57211d02c1bdd33b872d6b6a2fe83e6c14f4e56f426a95e717acf08e",
+      "sourceBlob": "4fa319d4d5e0b6efabdf51d027644466fb5f704c",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-barrel-1": {
+      "file": "assets/audio/recorded07/hit-barrel-1.wav",
+      "sha256": "bb39eb5d7477b343e464e5874121cdf753664c8485b1285816b91017628e1024",
+      "seconds": 0.1492,
+      "source": "impact_tin_medium_000.ogg",
+      "sourceSha256": "f4bbee66ca191ec744b84fc07ac9ed2a6fda955d51cfed8360f12b62815d3cbd",
+      "sourceBlob": "1f3acf721901214d025fd52bf803b9dd0f2874cb",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-barrel-2": {
+      "file": "assets/audio/recorded07/hit-barrel-2.wav",
+      "sha256": "4e5780ebbfeba8ee352786ef27fc04dcb3e3a099757a49b807272ee7dd6674ac",
+      "seconds": 0.1167,
+      "source": "impact_tin_medium_001.ogg",
+      "sourceSha256": "84253095543c094d83cd749f42ecfbc96e356b60385f18a192c18eafb25b3cc6",
+      "sourceBlob": "c45507c649d9b19ed46c9037d7f1dcad21995c44",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-barrel-3": {
+      "file": "assets/audio/recorded07/hit-barrel-3.wav",
+      "sha256": "3b3172d60994d08d19aed8e4b7003876f8271095615f71f15947c4292653b579",
+      "seconds": 0.1085,
+      "source": "impact_tin_medium_002.ogg",
+      "sourceSha256": "c1d2c4f9910d4529581ae56a9a9a01454c4619fbb7d6da7616221d8ec58cc0c4",
+      "sourceBlob": "18d83d344780e4a06f4f54402dbcaac5de173de7",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-barrel-4": {
+      "file": "assets/audio/recorded07/hit-barrel-4.wav",
+      "sha256": "c2a6867ee16439761e66a4bfb18e96b52652a6e5ee0a833ab31211ec96aab2e6",
+      "seconds": 0.1192,
+      "source": "impact_tin_medium_003.ogg",
+      "sourceSha256": "0d18737d93ba7aa0669f751094cbc1671bbebac4fe207783922938ce75e24334",
+      "sourceBlob": "cce4d14ceb3edc7b05676ecc52a187c6646c8b00",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-wood-1": {
+      "file": "assets/audio/recorded07/hit-wood-1.wav",
+      "sha256": "93a25f89eb434aa4640d7ec7da5a2ffc72c4f5b9ffca78e2ebe288982750084b",
+      "seconds": 0.1962,
+      "source": "impact_wood_heavy_000.ogg",
+      "sourceSha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d",
+      "sourceBlob": "30fb995aab49d70e51b0c3a226fa45301ad4f760",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-wood-2": {
+      "file": "assets/audio/recorded07/hit-wood-2.wav",
+      "sha256": "d1f1cc8e81b090c4e914ce5b7bfdfd2105c9680c6c9f529669ba07822dda9350",
+      "seconds": 0.1921,
+      "source": "impact_wood_heavy_001.ogg",
+      "sourceSha256": "f1b07a53ac10c615fff9ba470511fdeb722b5902e1a8520759fc20ad6f546015",
+      "sourceBlob": "1ec513e8064c2f6148078daad7a7b4da65a49538",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-wood-3": {
+      "file": "assets/audio/recorded07/hit-wood-3.wav",
+      "sha256": "339a4ce353cac1e0877f747fadbdafbed43e2a1943ba1e4f3d8e77156f9569e3",
+      "seconds": 0.1837,
+      "source": "impact_wood_heavy_002.ogg",
+      "sourceSha256": "ce1e06f2a05f2634c645cb72f6a1623e64bc2d92be34917430a61031fb6597d4",
+      "sourceBlob": "17f4e310d406ebe5a732a2fad72e42465f64b1dc",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-wood-4": {
+      "file": "assets/audio/recorded07/hit-wood-4.wav",
+      "sha256": "180c0ef4e24fd7de71f7c65bfed3b574566cfa6ec95fc474ac09381732e9154b",
+      "seconds": 0.1821,
+      "source": "impact_wood_heavy_003.ogg",
+      "sourceSha256": "af07511902b309b3f6d8f0e1fafbe93869127fb88099ebdc0aa6a00a98dc3cb0",
+      "sourceBlob": "fb6e75fad5fce4623e558a3677a94987d77c0cd4",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "cloth-1": {
+      "file": "assets/audio/recorded07/cloth-1.wav",
+      "sha256": "741f723f526d41485c7431d217149f36e3f3d31942a3cabbd7c62312db39e224",
+      "seconds": 0.1039,
+      "source": "impact_soft_medium_000.ogg",
+      "sourceSha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "sourceBlob": "bf1027b541bfe16cc80af24807ca9bce271c267a",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "cloth-2": {
+      "file": "assets/audio/recorded07/cloth-2.wav",
+      "sha256": "a49ed2b3e6a358235bee62caf5ae705638866df38f10113a4ea337c2fa12adee",
+      "seconds": 0.1678,
+      "source": "impact_soft_medium_001.ogg",
+      "sourceSha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+      "sourceBlob": "a8c643460ae2d429f0a219d02a7cc186ba2b3652",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "cloth-3": {
+      "file": "assets/audio/recorded07/cloth-3.wav",
+      "sha256": "e09178877d1c80508db418edecb6fe439dd65564def97b8b9876fb3a319c75d1",
+      "seconds": 0.1352,
+      "source": "impact_soft_medium_002.ogg",
+      "sourceSha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+      "sourceBlob": "5409c005dde29cf8de3873cab7f501a12dba9efb",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "cloth-4": {
+      "file": "assets/audio/recorded07/cloth-4.wav",
+      "sha256": "29ca787065f49f1b9957029d025751125a4e0eae97e68df226c30b89c91cc6f8",
+      "seconds": 0.1402,
+      "source": "impact_soft_medium_003.ogg",
+      "sourceSha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+      "sourceBlob": "13b52479eeb7d45646a50b4b5205a296c6324f7d",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hurt-1": {
+      "file": "assets/audio/recorded07/hurt-1.wav",
+      "sha256": "41176f32c8715873197a61cffaf1389edd6f787c1c7815984868992d340b6888",
+      "seconds": 0.2657,
+      "source": "impact_punch_medium_000.ogg",
+      "sourceSha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+      "sourceBlob": "d8e0b890ae019533ec190dd2d1decce249ea556e",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hurt-2": {
+      "file": "assets/audio/recorded07/hurt-2.wav",
+      "sha256": "e6ef0fbd2f92d126434cdf1920c7e57e3e6f6754b267c4e5588ae71cf3c9aa72",
+      "seconds": 0.2522,
+      "source": "impact_punch_medium_001.ogg",
+      "sourceSha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+      "sourceBlob": "33080462eeb8bc99025e669abfef610a6e630815",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hurt-3": {
+      "file": "assets/audio/recorded07/hurt-3.wav",
+      "sha256": "badbdb2a08b4b42c4ee3520f6d9eeb2eacad6eaa4bd144007b0986ff2638ca73",
+      "seconds": 0.3237,
+      "source": "impact_punch_medium_002.ogg",
+      "sourceSha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+      "sourceBlob": "9704fd215d8122bc36dc6cead55cfa620fae276e",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hurt-4": {
+      "file": "assets/audio/recorded07/hurt-4.wav",
+      "sha256": "56af5b555b3549a8b9e744dd145bd6ff13b35b0dc2f097b4ca61a36ff0ac5d1d",
+      "seconds": 0.2786,
+      "source": "impact_punch_medium_003.ogg",
+      "sourceSha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+      "sourceBlob": "32ac6c2cfff71da3a07f87a134c95d3dd353f413",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "click-1": {
+      "file": "assets/audio/recorded07/click-1.wav",
+      "sha256": "ed7cbcf93731a999cefcca8978490fb2271a48baf53d6eb87412845b4ef1b184",
+      "seconds": 0.107,
+      "source": "impact_generic_light_000.ogg",
+      "sourceSha256": "f0e982611e97512fee5f777986b67e8b435434b601f94992ec044f7e89fb5acb",
+      "sourceBlob": "d0a32de2dfbe38e19e0297a047c7dfc77a7ab487",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "click-2": {
+      "file": "assets/audio/recorded07/click-2.wav",
+      "sha256": "2c2e5268e2badddc605b94d4189209c8e41e29e638d41457e199a2630c7c169f",
+      "seconds": 0.093,
+      "source": "impact_generic_light_001.ogg",
+      "sourceSha256": "c3cd1c073d186ae8fa35788ba94de581f1826e7427a7bb26490b2695fac18efa",
+      "sourceBlob": "42eae91020ef31a01cd2e656f9bd270fbc29a393",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "click-3": {
+      "file": "assets/audio/recorded07/click-3.wav",
+      "sha256": "d5a49f3d8e9a2d62898164ed53ebf58a1e81da0d2748bf1813754fa224c08823",
+      "seconds": 0.1073,
+      "source": "impact_generic_light_002.ogg",
+      "sourceSha256": "d0bf60905b59ff630ffe01eb0edeeacd2504eaa8fb6523aeef7d2458b78264d3",
+      "sourceBlob": "6c1cb47f1a39b7866de724e60fdd7910e182a7c7",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "click-4": {
+      "file": "assets/audio/recorded07/click-4.wav",
+      "sha256": "a5352e420f32d56987fcca245bc0d18d6bf004b5d47670bd912f93251b620826",
+      "seconds": 0.1084,
+      "source": "impact_generic_light_003.ogg",
+      "sourceSha256": "0e8896706130f6bc88cdf1f0157aaacdbe88dce86cf0330f9136e44eb1209e81",
+      "sourceBlob": "f83dedfbaeed32982bcb72fd3a12d5e2ee7b85b4",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "debris-1": {
+      "file": "assets/audio/recorded07/debris-1.wav",
+      "sha256": "22b11889cc42956c57c2df37ac328ce940a3fc05379bb2912c81a0786ff04fe6",
+      "seconds": 0.3433,
+      "source": "impact_plate_heavy_000.ogg",
+      "sourceSha256": "112d4f93ddcc370b410630f971c0f5d991856102da9c76bc5c5540d388e75aaa",
+      "sourceBlob": "ac09f229be6ed3bacc23becd7d1394b360b04654",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "debris-2": {
+      "file": "assets/audio/recorded07/debris-2.wav",
+      "sha256": "f2ce891ce120a6e1896f41457e706b62f848d744a0c73b4228a6bb5cdc348448",
+      "seconds": 0.3133,
+      "source": "impact_plate_heavy_001.ogg",
+      "sourceSha256": "142fd6c77f13d25f318265901163f70f8dfe12f87829169a570025be43de7011",
+      "sourceBlob": "a0ff71c6cb19916316d86ec5094917d00aeeadd0",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "debris-3": {
+      "file": "assets/audio/recorded07/debris-3.wav",
+      "sha256": "be5ce6ed92099ed45a063d5d82d96c1acb63e4bb079ac768ebfbf617232c1da4",
+      "seconds": 0.4165,
+      "source": "impact_plate_heavy_002.ogg",
+      "sourceSha256": "b0cab75d1befa32b4cf215d8ee7e1c400a39182e8b105963b8e310f825b198a1",
+      "sourceBlob": "ebdca4561aa516489cac72afb2a7a93e8a7838ed",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "debris-4": {
+      "file": "assets/audio/recorded07/debris-4.wav",
+      "sha256": "05d87b349d07e759e590aaa87952a431ee55a94e2bdbccb028c37d4e76387d7e",
+      "seconds": 0.2993,
+      "source": "impact_plate_heavy_003.ogg",
+      "sourceSha256": "59775f8979a396c8a793b0a1db206d5bdc651eae808d858e9acaee8ebda5bc6d",
+      "sourceBlob": "9c4c22eeba0eae0ddb60fc9d4c86590049fee7d1",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-stone-1": {
+      "file": "assets/audio/recorded07/hit-stone-1.wav",
+      "sha256": "d61fa4aa05e584888999c63edef783dce6aef5407de74166efb033f1953f6b04",
+      "seconds": 0.6011,
+      "source": "impact_mining_000.ogg",
+      "sourceSha256": "36b4ea107222d073c67ca64dde26944975609202d5090b2f2021213c1a7e35cd",
+      "sourceBlob": "3346d1a9c624d31cdb6d4a67f2b0b405110880eb",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-stone-2": {
+      "file": "assets/audio/recorded07/hit-stone-2.wav",
+      "sha256": "fd851fdb02894a795ae3a6f7bda2ccc3e3b2e6d54119575475c50251f7073c66",
+      "seconds": 0.5622,
+      "source": "impact_mining_001.ogg",
+      "sourceSha256": "61235a18de3f3d92118235398222dbf51d448f1be70b1c8bc962b10b86f2d9c6",
+      "sourceBlob": "b5475fad4aedab16084e08e11c6d5a6f6f336b78",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-stone-3": {
+      "file": "assets/audio/recorded07/hit-stone-3.wav",
+      "sha256": "880be948d6651d09b25bbee4a514025bc833fff5c0e41fc4be4eb4a7e636c307",
+      "seconds": 0.4974,
+      "source": "impact_mining_002.ogg",
+      "sourceSha256": "059558ec751115ca6b1441e00f0adc837c1a3eeb0a066b109e0fd879fc5d0b0c",
+      "sourceBlob": "5bd4f3582815fe023c5ab347f03f66cedab3c46b",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "hit-stone-4": {
+      "file": "assets/audio/recorded07/hit-stone-4.wav",
+      "sha256": "aa8858e31228e374828c8d0c1cd1ea71a6933546c9b110c8734cede2f835700a",
+      "seconds": 0.6004,
+      "source": "impact_mining_003.ogg",
+      "sourceSha256": "4237fa2cd80364ad81cd0af44f67d7497f1c5edcc7bdb02cd22be2ba4580c83d",
+      "sourceBlob": "2fc4bb8c789bcefb1c915d52cca1be404c3f7f1f",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "door-1": {
+      "file": "assets/audio/recorded07/door-1.wav",
+      "sha256": "5b6fc11e4b043e82a98da7e63939ca375bab11d7332f9ae216307fd920ec1808",
+      "seconds": 0.2073,
+      "source": "impact_plank_medium_000.ogg",
+      "sourceSha256": "8403cd7a043f0391574c88c55dd205743725b5363d2407f6de145f201690b68f",
+      "sourceBlob": "70d13ee308b5df8d330bf427bd23e9e1da778683",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "door-2": {
+      "file": "assets/audio/recorded07/door-2.wav",
+      "sha256": "e90b38d7b0ff5dc77e32be858c4afc2d8c99b83b3b9689aa642c969408e0650d",
+      "seconds": 0.4166,
+      "source": "impact_plank_medium_001.ogg",
+      "sourceSha256": "d7c304319f8beac616231b62041fa8da74045b62d7155965516efb9b19303df4",
+      "sourceBlob": "2c53b78d6238c4431beac12374803107d4ac2b11",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "door-3": {
+      "file": "assets/audio/recorded07/door-3.wav",
+      "sha256": "8e4a9a9ccf2ee81e180a7d8f2abf01da338e6ac7fb6d5991af3ecaa2d37309a3",
+      "seconds": 0.2173,
+      "source": "impact_plank_medium_002.ogg",
+      "sourceSha256": "f6a14da45994229676b4f29e6a35f504b5c2ec2b8166fb1a3b1aa004bc6911ef",
+      "sourceBlob": "922a6db5962c504074811510e793002f75d3f0a9",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "door-4": {
+      "file": "assets/audio/recorded07/door-4.wav",
+      "sha256": "a5c21b2197d10f7d1dd65886d75b0b3dd32c4af5fe8a85992dc078cbf94b7f06",
+      "seconds": 0.2209,
+      "source": "impact_plank_medium_003.ogg",
+      "sourceSha256": "0602a7b3eab5f53484f10fe775ee4204e7a2ba9703c886b302e012f7f6fab8de",
+      "sourceBlob": "fad0463343633702a80901b1865163983f698fb7",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "drop-wood-1": {
+      "file": "assets/audio/recorded07/drop-wood-1.wav",
+      "sha256": "41f881862526094f46f62be4d0a7ca6cca339354d90e884ae0afce548812e1a2",
+      "seconds": 0.1323,
+      "source": "impact_wood_light_000.ogg",
+      "sourceSha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "sourceBlob": "4bf6be62febf1de5f13b8bf33151118d8bb56c34",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "drop-wood-2": {
+      "file": "assets/audio/recorded07/drop-wood-2.wav",
+      "sha256": "239f48a5078111a8cb88930a96437f5d857e3d607229a30282815b5d58c26ad3",
+      "seconds": 0.1063,
+      "source": "impact_wood_light_001.ogg",
+      "sourceSha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+      "sourceBlob": "2184d0504732b25db5dd8b9c69867aaa36ab8f61",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "drop-wood-3": {
+      "file": "assets/audio/recorded07/drop-wood-3.wav",
+      "sha256": "dca0df40c0071c94f75fa3a7772e027852f62b8868e98f1c539396d0f4bc741f",
+      "seconds": 0.1325,
+      "source": "impact_wood_light_002.ogg",
+      "sourceSha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+      "sourceBlob": "c27596a65dce07db55a3456ab8bf9b6561375d83",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "drop-wood-4": {
+      "file": "assets/audio/recorded07/drop-wood-4.wav",
+      "sha256": "aac3aa989bd90a0217470222aed712760c4bda07b57c7158ab24c301ee4fb0a9",
+      "seconds": 0.1067,
+      "source": "impact_wood_light_003.ogg",
+      "sourceSha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+      "sourceBlob": "88359d14164c6df85d8f31b6227d49b274d208e3",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "rustle-1": {
+      "file": "assets/audio/recorded07/rustle-1.wav",
+      "sha256": "bc1b27ce4e684ae897fe522220fb555bda7b1d191952b7216f67d3f05ebdeb48",
+      "seconds": 0.1019,
+      "source": "footstep_carpet_000.ogg",
+      "sourceSha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+      "sourceBlob": "775aea005b47e03f1abecba3578766b276d8a2c2",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "rustle-2": {
+      "file": "assets/audio/recorded07/rustle-2.wav",
+      "sha256": "b6ee1e9af59f9a678a7be1c8e6713079b8ca04d43ead1908f58893785f0cff16",
+      "seconds": 0.1026,
+      "source": "footstep_carpet_001.ogg",
+      "sourceSha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+      "sourceBlob": "2070e55236ce2a1819236494bc5db98ec006d351",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "rustle-3": {
+      "file": "assets/audio/recorded07/rustle-3.wav",
+      "sha256": "b6ee1e9af59f9a678a7be1c8e6713079b8ca04d43ead1908f58893785f0cff16",
+      "seconds": 0.1026,
+      "source": "footstep_carpet_002.ogg",
+      "sourceSha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+      "sourceBlob": "2070e55236ce2a1819236494bc5db98ec006d351",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "rustle-4": {
+      "file": "assets/audio/recorded07/rustle-4.wav",
+      "sha256": "206e6f20a7d7935d22c68bb6d92f368e5013b17530bbe56c964a67cbebb0b9b7",
+      "seconds": 0.0991,
+      "source": "footstep_carpet_003.ogg",
+      "sourceSha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+      "sourceBlob": "3b47ba92bfa37271a24e0d6f2b07b3f840eff413",
+      "license": "CC0-1.0",
+      "author": "Kenney",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "reload-rifle-out": {
+      "file": "assets/audio/recorded07/reload-rifle-out.wav",
+      "sha256": "18ab4014bc0bebd62d4fc731c2e3b8b1f379699d55412ccf2daa638ddfeab9bf",
+      "seconds": 0.4923,
+      "source": "assaultriflereload1.wav",
+      "sourceSha256": "efb2d724d634eabe6ba8d3065686abca848bb7497d4d43a5e4aed5e5ea23016f",
+      "sourceBlob": "3b31bc97590ac5379219eef475b5031bbde39b6b",
+      "license": "CC0-1.0",
+      "author": "SpringySpringo",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0,
+        0.62
+      ]
+    },
+    "reload-rifle-in": {
+      "file": "assets/audio/recorded07/reload-rifle-in.wav",
+      "sha256": "acf3d54463cf21a856eb91d13ecd1c9ffe39931061260b23fc85036fad28c4c0",
+      "seconds": 0.4837,
+      "source": "assaultriflereload1.wav",
+      "sourceSha256": "efb2d724d634eabe6ba8d3065686abca848bb7497d4d43a5e4aed5e5ea23016f",
+      "sourceBlob": "3b31bc97590ac5379219eef475b5031bbde39b6b",
+      "license": "CC0-1.0",
+      "author": "SpringySpringo",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.72,
+        1.55
+      ]
+    },
+    "reload-pistol-out": {
+      "file": "assets/audio/recorded07/reload-pistol-out.wav",
+      "sha256": "f98d18084c7022b2bc0cfd2036ae41621b00f7af3f6ae34aa7b1a98d800b8a82",
+      "seconds": 0.2855,
+      "source": "gunreload1.wav",
+      "sourceSha256": "685cac6a184e3cc3ec09a25b6ddb1d6feffd86d469778f339aa423d384035c50",
+      "sourceBlob": "f8efd60a44c0536be3652717cb7fe42b61b6ce71",
+      "license": "CC0-1.0",
+      "author": "SpringySpringo",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0,
+        0.62
+      ]
+    },
+    "reload-pistol-in": {
+      "file": "assets/audio/recorded07/reload-pistol-in.wav",
+      "sha256": "60ef6f6f2754b64dd435095023c986ee3b1c1b70569ace158f3e9bac656100c0",
+      "seconds": 0.7709,
+      "source": "gunreload1.wav",
+      "sourceSha256": "685cac6a184e3cc3ec09a25b6ddb1d6feffd86d469778f339aa423d384035c50",
+      "sourceBlob": "f8efd60a44c0536be3652717cb7fe42b61b6ce71",
+      "license": "CC0-1.0",
+      "author": "SpringySpringo",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0.72,
+        1.55
+      ]
+    },
+    "pump": {
+      "file": "assets/audio/recorded07/pump.wav",
+      "sha256": "09c553b41dc82f602be019265b6762f2d9699c59d385c79ddc95852293abfaa4",
+      "seconds": 0.4738,
+      "source": "shotguncock.wav",
+      "sourceSha256": "33e007321ba83301c861aef573f2c40b70bc62f8f24c0164877e6dd123e24371",
+      "sourceBlob": "3c573f2ddac62b7165a3aad1ee3058a64bae45e3",
+      "license": "CC0-1.0",
+      "author": "SpringySpringo",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": null
+    },
+    "explosion-1": {
+      "file": "assets/audio/recorded07/explosion-1.wav",
+      "sha256": "038ed8f43b9974d1de2ce4d3e6eefdc3735cafa48e48c4203d6eff5bcf86e503",
+      "seconds": 0.5201,
+      "source": "cannon_01.wav",
+      "sourceSha256": "95e9b47ac14595f11f61f297e95a7118e3c0218d15d9e11abfd5a6f17f3b5ab9",
+      "sourceBlob": "afb9e86ac4dae4f9aa52506c46498c88d49cf3f4",
+      "license": "CC0-1.0",
+      "author": "rubberduck",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0,
+        0.61
+      ]
+    },
+    "explosion-2": {
+      "file": "assets/audio/recorded07/explosion-2.wav",
+      "sha256": "96ae896b589a82acd5b6e58808b2f5aaffefd72f23a6ba94aad9f2a3cb8f6609",
+      "seconds": 0.5197,
+      "source": "cannon_02.wav",
+      "sourceSha256": "c2da63b6f99a8fc7eb5f41dd6d587ad3f33cc19a06add53395a3cffbe279c518",
+      "sourceBlob": "408854910b55987fd4c3e866c2cd8c547a160043",
+      "license": "CC0-1.0",
+      "author": "rubberduck",
+      "edit": "mono, DC/high-pass cleanup, attack trim, peak normalization, end fade",
+      "cutSeconds": [
+        0,
+        0.61
+      ]
+    }
+  }
+}

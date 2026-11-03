@@ -1,1 +1,23 @@
-Oskol DEV05 original synthesized PCM effects. Generated with scripts/make-sounds05.py. No Facepunch or third-party recordings. Same license as project source.
+Oskol DEV07 uses locally bundled recordings licensed CC0 1.0 Universal.
+No Rust/Facepunch/game-ripped sound assets.
+
+Recorded firearm library: Ben Jaszczak, Brian Nelson, Kevin Heras, Matthew Nanney.
+The Free Firearm Sound Library (2014).
+https://opengameart.org/content/the-free-firearm-sound-library
+
+Reload mechanisms: SpringySpringo (recorded airsoft handling, 2020).
+https://opengameart.org/content/gun-reload-sounds
+
+Footsteps / impacts: Kenney, Impact Sounds, CC0.
+https://kenney.nl/assets/impact-sounds
+
+Recorded cannon/firework booms: rubberduck (2019), CC0.
+https://opengameart.org/content/25-cc0-bang-firework-sfx
+
+Local full license: ../licenses/Audio-CC0-1.0.txt
+Detailed provenance, edits and limitations: CREDITS.md
+Per-output SHA-256 / time cuts: recorded07/manifest.json
+Pinned source repositories, blobs, SHA-256: scripts/audio07-sources.json in source repo.
+
+Audio editing/mixer code is original project code; raw source recordings remain CC0.
+The old DEV05 synthesized bank is retired and is no longer shipped or loaded.
