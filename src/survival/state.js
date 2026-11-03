@@ -84,7 +84,7 @@ export function placementCheck(state,kind,x,z,rotation=0,y=placementHeight(state
  if(BUILD_COSTS[kind]){if(!state.inventory.plan)return{ok:false,reason:'Нужен строительный план'};if(!Object.entries(BUILD_COSTS[kind]).every(([k,n])=>state.inventory[k]>=n))return{ok:false,reason:'Не хватает ресурсов'};}else if(!(state.inventory[kind]>0))return{ok:false,reason:'Сначала создай предмет'};
  if(Math.hypot(x-state.position.x,z-state.position.z)>7)return{ok:false,reason:'Слишком далеко'};if(terrainHeight(x,z)<.3)return{ok:false,reason:'Нужна суша'};
  if(monumentAt(x,z))return{ok:false,reason:'Территория РТ или мирной зоны'};
- if(BOT_BASES.some(b=>Math.hypot(b.x-x,b.z-z)<14&&!state.authorizedBases?.includes(b.id)))return{ok:false,reason:'Чужой шкаф: нет авторизации'};
+ if(BOT_BASES.some(b=>Math.hypot(b.x-x,b.z-z)<14&&!state.authorizedBases?.includes(b.id)&&!state.depleted.includes('tc-'+b.id)))return{ok:false,reason:'Чужой шкаф: нет авторизации'};
  if(distanceToRoad(x,z,6)<4)return{ok:false,reason:'Нельзя перекрывать дорогу'};
  const alive=state.buildings.filter(b=>b.hp>0);
  if(isFoundation(kind)){if([-1.5,1.5].some(dx=>[-1.5,1.5].some(dz=>terrainHeight(x+dx,z+dz)>y+.12)))return{ok:false,reason:'Подними фундамент Q / Z'};if(alive.some(b=>isFoundation(b.kind)&&Math.hypot(b.x-x,b.z-z)<2.7))return{ok:false,reason:'Основание уже занято'};}
