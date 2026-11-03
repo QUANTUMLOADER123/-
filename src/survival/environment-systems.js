@@ -46,10 +46,10 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
   const r=randomSeed(8101),points=[];for(let i=0;i<90;i++){const x=(65+r()*175)*MAP_SCALE,z=(65+r()*165)*MAP_SCALE;if(biomeAt(x,z).id!=='arid'||terrainHeight(x,z)<1||distanceToRoad(x,z,6)<5)continue;points.push({id:'cactus-'+i,x,z});this.colliders.push({x,z,r:.3});}this.vegetationInstances('Cactus_1',points,2);
  },
  makeGrass(){
-  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute([-.045,0,0,.045,0,0,.025,.55,.04,0,0,-.04,0,0,.04,-.03,.43,.02,-.03,0,-.03,.03,0,.03,-.04,.37,.04],3));geometry.computeVertexNormals();
+  const geometry=new THREE.BufferGeometry(),p=[],idx=[];for(let blade=0;blade<7;blade++){const a=blade*2.399,dx=Math.cos(a),dz=Math.sin(a),bx=Math.sin(a)*.10,bz=Math.cos(a)*.10,h=.38+(blade%3)*.16;const at=p.length/3;for(const [y,w,bend]of[[0,.022,0],[h*.55,.014,.05],[h,0,.16]])for(const side of[-1,1])p.push(bx+dx*w*side+dz*bend,y,bz+dz*w*side-dx*bend);idx.push(at,at+1,at+2,at+2,at+1,at+3,at+2,at+3,at+4,at+4,at+3,at+5);}geometry.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geometry.setIndex(idx);geometry.computeVertexNormals();
   const material=new THREE.MeshStandardMaterial({color:0xa5ae76,side:THREE.DoubleSide,roughness:1});const wind={value:0};this.wind=wind;
   material.onBeforeCompile=shader=>{shader.uniforms.windTime=wind;shader.vertexShader='uniform float windTime;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 instPos=instanceMatrix*vec4(0.,0.,0.,1.);transformed.x+=sin(windTime*1.8+instPos.x*.7+instPos.z*.6)*position.y*.22;');};
-  const buckets=new Map(),r=randomSeed(7892),count=Math.min(160000,Math.round(70000*MAP_SCALE*MAP_SCALE));let accepted=0;
+  const buckets=new Map(),r=randomSeed(7892),count=Math.min(160000,Math.round(120000*MAP_SCALE*MAP_SCALE));let accepted=0;
   for(let i=0;i<count*3&&accepted<count;i++){
    const near=r()<.65,a=r()*6.28,rad=Math.sqrt(r())*(near?85:310*MAP_SCALE),x=Math.cos(a)*rad,z=Math.sin(a)*rad,h=terrainHeight(x,z),b=biomeAt(x,z);
    if(h<1.1||r()>b.grass||Math.hypot(x+6,z+3)<6||distanceToRoad(x,z,6)<3.3)continue;
@@ -65,8 +65,8 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
  },
  streamGrass(){
   const cx=this.camera.position.x,cz=this.camera.position.z;
-  const source=this.grassChunks[0]?.mesh;if(!source)return;const count=this.settings.quality==='low'?9000:this.settings.quality==='medium'?16000:26000;
-  if(!this.localGrass){this.localGrass=new THREE.InstancedMesh(source.geometry,source.material,26000);this.localGrass.count=0;this.localGrass.receiveShadow=true;this.scene.add(this.localGrass);}
+  const source=this.grassChunks[0]?.mesh;if(!source)return;const count=this.settings.quality==='low'?12000:this.settings.quality==='medium'?20000:32000;
+  if(!this.localGrass){this.localGrass=new THREE.InstancedMesh(source.geometry,source.material,32000);this.localGrass.count=0;this.localGrass.receiveShadow=true;this.scene.add(this.localGrass);}
   const mesh=this.localGrass;mesh.visible=true;
   if(!mesh.userData.build){if(Math.hypot(cx-(mesh.userData.x??Infinity),cz-(mesh.userData.z??Infinity))<20&&mesh.userData.quality===this.settings.quality)return;mesh.userData={x:cx,z:cz,quality:this.settings.quality,build:{r:randomSeed(Math.floor(cx/20)*12377^Math.floor(cz/20)*571^9182),n:0,attempts:0,count}};mesh.boundingSphere=new THREE.Sphere(new V(cx,terrainHeight(cx,cz),cz),160);}
   const job=mesh.userData.build,r=job.r,dummy=new THREE.Object3D();
@@ -76,6 +76,6 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
 
  },
  updateGrassVisibility(){
-  if(MAP_SCALE>3&&Math.hypot(this.camera.position.x,this.camera.position.z)>95)this.streamGrass();else if(this.localGrass)this.localGrass.visible=false;
+  if(Math.hypot(this.camera.position.x,this.camera.position.z)>70)this.streamGrass();else if(this.localGrass)this.localGrass.visible=false;
   const range=this.settings.quality==='low'?48:this.settings.quality==='medium'?75:105;for(const c of this.grassChunks||[])c.mesh.visible=Math.hypot(c.x-this.camera.position.x,c.z-this.camera.position.z)<range+24;}
 });}

@@ -34,7 +34,7 @@ public final class SmokeInstrumentation extends Instrumentation {
             await("document.title.includes('ОСКОЛ') && !!window.oskol?.ready");
             result.putString("oskolPhase", "WebGL world ready");
             sendStatus(0, result);
-            require("window.oskol.snapshot().stats.webgl2 && window.oskol.snapshot().stats.monuments === 10 && window.oskol.snapshot().stats.bots >= 12", "Incomplete WebGL2 world");
+            require("window.oskol.snapshot().stats.webgl2 && window.oskol.snapshot().stats.monuments === 12 && window.oskol.snapshot().stats.bots >= 12", "Incomplete WebGL2 world");
             require("typeof window.AndroidBridge.vibrate === 'function'", "Native bridge missing");
             eval("document.querySelector('#start').click(); document.querySelector('[data-multiplier=\"2\"]').click(); document.querySelector('#world-create').click(); true");
             await("window.oskol.snapshot().mode === 'playing'");

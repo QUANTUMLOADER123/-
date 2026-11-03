@@ -1,9 +1,10 @@
+import {addOilRig} from './offshore.js';
 import {detailSite} from './site-details.js';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {MONUMENTS,BOT_BASES,ROADS,terrainHeight,randomSeed,TIERS} from './state.js';
 const V=THREE.Vector3;
-export const LOOT_TABLES={supplies:{wood:12,fiber:5,water:1,berries:3,bandage:1},industrial:{scrap:5,metalOre:9,sulfurOre:6,metal:3},military:{scrap:7,metal:5,ammo:8,gunpowder:4},ore:{stone:16,metalOre:12,sulfurOre:10},road:{scrap:2,fiber:2,metalOre:3},barrel:{scrap:3,wood:5,metalOre:4}};
+export const LOOT_TABLES={supplies:{wood:12,fiber:5,water:1,berries:3,bandage:1,cannedFood:1,sewingKit:1},industrial:{scrap:5,metalOre:9,sulfurOre:6,metal:3,lowFuel:6,gears:1,spring:1},military:{scrap:7,metal:5,ammo:8,gunpowder:4,syringe:1,rope:1},ore:{stone:16,metalOre:12,sulfurOre:10},road:{scrap:2,fiber:2,metalOre:3},barrel:{scrap:3,wood:5,metalOre:4}};
 export function addIslandContent(w){
  w.distantGroups=[];w.staticStructures=[];w.bases=BOT_BASES;w.walkFloors=[];
  const metal=new THREE.MeshStandardMaterial({color:0x4d5854,metalness:.55,roughness:.82,map:w.roofTexture()}),rust=new THREE.MeshStandardMaterial({color:0x70513b,metalness:.35,roughness:.95,map:w.roofTexture()}),concrete=new THREE.MeshStandardMaterial({color:0x686c61,map:w.textures['rockyGround_basecolor.png'],normalMap:w.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.25,.25),roughness:1}),black=new THREE.MeshStandardMaterial({color:0x202925,roughness:1}),orange=new THREE.MeshStandardMaterial({color:0x986447,roughness:.9}),glass=new THREE.MeshStandardMaterial({color:0x87a6a0,metalness:.25,roughness:.25,transparent:true,opacity:.45});
@@ -21,6 +22,7 @@ export function addIslandContent(w){
  function floor(root,m,wid,dep){box(root,concrete,[wid,.12,dep],[0,.06,0]);w.walkFloors.push({x:m.x,z:m.z,w:wid,d:dep,y:terrainHeight(m.x,m.z)+.12});}
  for(const m of MONUMENTS){
   const root=new THREE.Group(),ground=terrainHeight(m.x,m.z);root.position.set(m.x,ground,m.z);root.name=m.name;w.scene.add(root);w.distantGroups.push({root,x:m.x,z:m.z,range:240});
+  if(m.kind==='oilrig'){addOilRig(w,root,m);continue;}
   if(m.kind==='lighthouse'){
    cyl(root,concrete,3.2,3.8,1,[0,.5,0],24);cyl(root,concrete,1.7,2.6,15,[0,8.5,0],24);cyl(root,orange,1.93,2.06,2,[0,8,0],24);cyl(root,black,2.8,2.8,.22,[0,16.1,0],24);cyl(root,glass,1.7,1.7,2.5,[0,17.4,0],16);cyl(root,metal,0,2.4,1.4,[0,19.3,0],16);
    for(let i=0;i<12;i++){const a=i/12*Math.PI*2;pipe(root,[Math.sin(a)*2.6,16.2,Math.cos(a)*2.6],[Math.sin(a)*2.6,17.2,Math.cos(a)*2.6],.025);}

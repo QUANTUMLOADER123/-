@@ -1,4 +1,7 @@
 const paths={
+ plan:'M4 3h14l3 3v16H4Zm3 5h10v10H7Zm3 0v10M7 12h10M3 3v19',
+ storage:'M2 7l10-4 10 4v14H2Zm0 0 10 4 10-4M12 11v10M5 5l14 4M7 13v5m10-5v5',
+ fuel:'M7 4h9v18H4V6h3Zm0 0V2h6v2m3 4h3l2 3v8h-3V9M7 10h5v6H7Z',
  ore:'m3 17 4-11 8-3 6 9-4 9-10 1Zm4-11 6 7 8-1m-8 1-6 9m6-9 2-10',
  pickaxe:'M5 22 15 5M3 10C7 1 16 1 22 7L14 5 3 10Z',
  hammer:'m7 22 5-13m-4-6 10 3-2 6-10-3Z',

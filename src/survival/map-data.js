@@ -25,7 +25,8 @@ const BASE_BOT_BASES=[
 const BASE_ROAD_POINTS=[
  [190,145],[232,70],[226,-45],[174,-130],[90,-211],[-30,-238],[-133,-202],[-218,-102],[-238,13],[-199,103],[-133,191],[-25,236],[99,208],[190,145]
 ];
-export let MONUMENTS=BASE_MONUMENTS.map(m=>({...m})),BOT_BASES=BASE_BOT_BASES.map(b=>({...b})),ROAD_POINTS=BASE_ROAD_POINTS.map(p=>[...p]);
+const offshore=()=>[{id:'oil-small',name:'Малая нефтеплатформа',kind:'oilrig',x:WORLD_RADIUS+110,z:60*MAP_SCALE,radius:26,risk:2,loot:'military'},{id:'oil-large',name:'Большая нефтеплатформа',kind:'oilrig',x:-WORLD_RADIUS-110,z:-65*MAP_SCALE,radius:32,risk:2,loot:'military'}];
+export let MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m})),...offshore()],BOT_BASES=BASE_BOT_BASES.map(b=>({...b})),ROAD_POINTS=BASE_ROAD_POINTS.map(p=>[...p]);
 const mix=(a,b,t)=>a+(b-a)*t;
 export function roadSamples(){
  const result=[];
@@ -43,7 +44,7 @@ export function roadSamples(){
 export let ROADS=roadSamples();
 export function configureMap(size='small',seed=27182){
  roadGrid=null;CURRENT_SIZE=Object.hasOwn(MAP_SIZES,size)?size:'small';MAP_SCALE=MAP_SIZES[CURRENT_SIZE].scale;MAP_SEED=Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182;WORLD_RADIUS=325*MAP_SCALE;
- MONUMENTS=BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE}));BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();
+ MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();
  return{size:CURRENT_SIZE,seed:MAP_SEED,scale:MAP_SCALE};
 } 
 let roadGrid=null;

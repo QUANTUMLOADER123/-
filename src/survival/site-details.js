@@ -7,7 +7,7 @@ export function detailSite(w,root,m,kit){
  const pallet=(x,z)=>{for(let i=0;i<5;i++)box(root,w.woodMaterial,[1.4,.06,.15],[x,.22,z-.4+i*.2]);for(const dx of[-.5,.5])box(root,w.woodMaterial,[.13,.16,1],[x+dx,.1,z]);};
  const valve=(x,y,z)=>{const wheel=new THREE.Mesh(new THREE.TorusGeometry(.22,.035,6,14),safety);wheel.position.set(x,y,z);root.add(wheel);pipe(root,[x-.2,y,z],[x+.2,y,z],.025,safety);};
  const lamp=(x,y,z)=>{box(root,black,[.6,.17,.22],[x,y,z]);box(root,new THREE.MeshStandardMaterial({color:0xe0d5ad,emissive:0xe0bd67,emissiveIntensity:.35}),[.45,.06,.17],[x,y-.1,z]);};
- const stairs=(x,z,width,count,step=.25)=>{for(let i=0;i<count;i++){box(root,concrete,[width,(i+1)*step,.55],[x,(i+1)*step/2,z-i*.5]);w.walkFloors.push({x:m.x+x,z:m.z+z-i*.5,w:width,d:.5,y:root.position.y+(i+1)*step});}};
+ const stairs=(x,z,width,count,step=.25)=>{for(let i=0;i<count;i++){box(root,concrete,[width,(i+1)*step,.55],[x,(i+1)*step/2,z-i*.5]).userData.solid=false;w.walkFloors.push({x:m.x+x,z:m.z+z-i*.5,w:width,d:.5,y:root.position.y+(i+1)*step});}};
  if(['power','radar','waterworks','bunker','airfield'].includes(m.kind)){
   // Partial service perimeter, with a six-metre central opening (never a sealed loot box).
   const edge=Math.min(m.radius-1,22);for(const side of[-1,1])for(let i=0;i<5;i++){const x=side*(5+i*3.2);pipe(root,[x,0,edge],[x,2.3,edge],.045);if(i<4){pipe(root,[x,.65,edge],[x+side*3.2,.65,edge],.025);pipe(root,[x,1.8,edge],[x+side*3.2,1.8,edge],.025);}}
