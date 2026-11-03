@@ -63,10 +63,7 @@ jobs:
             adb install -r android/app/build/outputs/apk/debug/app-debug.apk
             adb install -r android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             timeout 360 adb shell am instrument -w game.oskol.survival.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt | sed -u 's/^/::notice::/'
-            if ! grep -q 'oskolSmoke=passed' .artifacts/device-smoke.txt; then
-              adb logcat -d -s OskolWeb:E chromium:E | tail -40 | sed 's/^/::error::/'
-              exit 1
-            fi
+            grep -q 'oskolSmoke=passed' .artifacts/device-smoke.txt || { adb logcat -d -s OskolWeb:E chromium:E | tail -40 | sed 's/^/::error::/'; exit 1; }
       - name: Prepare test package
         run: |
           cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.3.0-dev01-android.apk

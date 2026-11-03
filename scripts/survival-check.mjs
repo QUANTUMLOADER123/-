@@ -15,12 +15,12 @@ async function waitReady(page){
  }
  throw new Error('World initialization timed out');
 }
-async function pageWithFixture(fixture=null,options={}){
+async function pageWithFixture(fixture=null,options={},quality='low'){
  const page=await browser.newPage({viewport:{width:1100,height:720},deviceScaleFactor:1,...options});
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith('http://localhost:3000/'))external.push(r.url());});
  await page.clock.install({time});await page.clock.pauseAt(time);
  await page.addInitScript(({key,json})=>{if(location.hostname!=='localhost'||sessionStorage.getItem('fixtureReady'))return;localStorage.clear();if(json)localStorage.setItem(key,json);localStorage.setItem('oskol.settings',JSON.stringify({quality:'low',sound:false,haptics:false}));sessionStorage.setItem('fixtureReady','1');},{key:SAVE_KEY,json:fixture?encodeSave(fixture):null});
- await page.goto('http://localhost:3000/?quality=low');await waitReady(page);return page;
+ await page.goto('http://localhost:3000/?quality='+quality);await waitReady(page);return page;
 }
 async function snap(p){return p.evaluate(()=>window.oskol.snapshot());}
 async function aimAt(page,x,z,height=1.1){
@@ -60,5 +60,6 @@ try{
  console.log('PASS finite magazine, actual aiming / shooting / killing a moving bot, x2 kill loot, skeletal base scene and full reload persistence');await combat.goto('about:blank');
  const mobile=await pageWithFixture(null,{viewport:{width:844,height:390},isMobile:true,hasTouch:true,deviceScaleFactor:2});await mobile.locator('#start').tap();await mobile.locator('[data-multiplier="2"]').tap();await mobile.locator('#world-create').tap();await mobile.clock.runFor(100);assert.equal((await snap(mobile)).multiplier,2);assert.ok(await mobile.locator('#move-pad').isVisible());assert.ok(await mobile.locator('#attack-button').isVisible());assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth),844);
  await mobile.locator('#inventory-button').tap();assert.ok(await mobile.locator('#inventory').isVisible());await mobile.screenshot({animations:'disabled',timeout:90000,path:'.artifacts/screenshots/oskol-mobile-inventory.png'});await mobile.locator('#inventory-close').tap();await mobile.locator('#pause-button').tap();assert.ok(await mobile.locator('#pause').isVisible());await mobile.locator('#resume').tap();await mobile.screenshot({animations:'disabled',timeout:90000,path:'.artifacts/screenshots/oskol-mobile.png'});
+ await mobile.goto('about:blank');const high=await pageWithFixture(null,{},'high');assert.ok((await snap(high)).stats.webgl2);await high.screenshot({animations:'disabled',timeout:90000,path:'.artifacts/screenshots/oskol-high-menu.png'});console.log('PASS highest-quality startup, shadows and reflective materials');
  assert.deepEqual(external,[]);assert.deepEqual(errors,[]);console.log('PASS landscape touch UI, inventory, pause, no JS / WebGL errors and no external network requests');
 }finally{await browser.close();}
