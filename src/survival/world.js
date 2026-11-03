@@ -1,3 +1,4 @@
+import {checkLoading11} from './loading11.js';
 import {paintLoading10} from './interface10.js';
 import {installCollision08} from './collision08.js';
 import {installAtmosphere08} from './atmosphere08.js';
@@ -52,27 +53,48 @@ export class IslandWorld {
   this.sunDirection=new V(50,17,-80).normalize();su.sunPosition.value.copy(this.sunDirection);
   this.environment=null;if(settings.quality!=='low'){const pmrem=new THREE.PMREMGenerator(this.renderer);this.environment=pmrem.fromScene(this.sky,.025);this.scene.environment=this.environment.texture;pmrem.dispose();}this.makeStormSky();
   this.applyQuality(settings.quality);this.resize();
-  this.renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();window.dispatchEvent(new Event('oskol-context-lost'));});
+  this.contextLost11=e=>{e.preventDefault();window.dispatchEvent(new Event('oskol-context-lost'));};this.renderer.domElement.addEventListener('webglcontextlost',this.contextLost11);
  }
  resize(){this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,this.settings.quality==='high'?1.5:this.settings.quality==='low'?.7:1));this.renderer.setSize(window.innerWidth,window.innerHeight,false);this.camera.aspect=window.innerWidth/window.innerHeight;this.camera.updateProjectionMatrix();this.needsRender=true;}
  applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment){this.sky.visible=true;const gen=new THREE.PMREMGenerator(this.renderer);this.environment=gen.fromScene(this.sky,.025);gen.dispose();this.sky.visible=false;}this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}for(const c of this.grassChunks||[]){c.mesh.count=Math.max(1,Math.floor(c.count*(q==='low'?.3:q==='medium'?.65:1)));c.mesh.geometry.setDrawRange(0,q==='low'?36:q==='medium'?60:84);}this.resize();}
- async init(progress){
+ async init(progress,{signal}={}){
+  checkLoading11(signal);
   const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели и текстуры: '+done+' / '+total);
   const loader=new GLTFLoader(manager),tl=new THREE.TextureLoader(manager);
   const names=['CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1','Cactus_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg'];
-  await Promise.all([...names.map(async n=>{this.models[n]=await loader.loadAsync(ASSET+'models/'+n+'.glb');}),...textureNames.map(async n=>{const t=await tl.loadAsync(ASSET+'textures/'+n);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.includes('normal'))t.colorSpace=THREE.SRGBColorSpace;this.textures[n]=t;})]);
-  progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10();this.makeTerrain();this.makeOcean();this.makeRiver();
-  progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10();this.makeCamp();addIslandContent(this);decorateLoot(this);this.alignTerrainProps06();
-  progress(.91,'Размещаем ресурсы, лес и траву…');await paintLoading10();this.makeResources();this.makeGrass();
-  progress(.94,'Подготавливаем предметы и снаряжение…');await paintLoading10();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();
-  progress(.96,'Подготавливаем объекты мира…');await paintLoading10();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);
-  progress(.98,'Компилируем материалы и освещение…');await paintLoading10();
-  this.menuCamera(0);for(const g of this.distantGroups)g.root.visible=Math.hypot(g.x-this.camera.position.x,g.z-this.camera.position.z)<g.range;await this.renderer.compileAsync(this.scene,this.camera);this.render();progress(1,'Остров готов.');
+  const bytes=async path=>{const response=await fetch(path,{signal});if(!response.ok)throw new Error('Не найден ресурс: '+path);return response;};
+  // Wait for every decoder before cleanup, including parsers already running at cancellation.
+  const jobs=[...names.map(async n=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');checkLoading11(signal);}),...textureNames.map(async n=>{const response=await bytes(ASSET+'textures/'+n),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.includes('normal'))t.colorSpace=THREE.SRGBColorSpace;}finally{URL.revokeObjectURL(url);}})];
+  const results=await Promise.allSettled(jobs);checkLoading11(signal);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;
+  progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10(signal);checkLoading11(signal);await this.makeTerrain(signal);this.makeOcean();this.makeRiver();
+  progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10(signal);checkLoading11(signal);this.makeCamp();addIslandContent(this);decorateLoot(this);this.alignTerrainProps06();
+  progress(.91,'Размещаем ресурсы, лес и траву…');await paintLoading10(signal);checkLoading11(signal);this.makeResources();await this.makeGrass(signal,ratio=>progress(.91+ratio*.025,'Генерируем траву и растительность: '+Math.round(ratio*100)+'%'));
+  progress(.94,'Подготавливаем предметы и снаряжение…');await paintLoading10(signal);checkLoading11(signal);this.makeViewModel();this.makeNewViewModels();this.makeItemArt();
+  progress(.96,'Подготавливаем объекты мира…');await paintLoading10(signal);checkLoading11(signal);this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);
+  progress(.98,'Завершаем подготовку геометрии…');await paintLoading10(signal);checkLoading11(signal);
+  progress(1,'Геометрия острова готова.');
  }
- makeTerrain(){
+ async prepareEntry11(state,progress,signal){
+  progress(0,'Подготавливаем траву вокруг точки входа…');await paintLoading10(signal);
+  // Finish the local grass job now instead of gradually filling it after the player appears.
+  this.streamGrass();let batches=0;
+  while(this.localGrass?.userData.build){checkLoading11(signal);this.streamGrass();batches++;progress(Math.min(.35,batches/64),'Заполняем растительность вокруг игрока…');await paintLoading10(signal);}
+  checkLoading11(signal);this.updateTreeVisibility();this.updateGrassVisibility();
+  for(const g of this.distantGroups)g.root.visible=Math.hypot(g.x-this.camera.position.x,g.z-this.camera.position.z)<g.range;
+  const center=new V(state.position.x,this.camera.position.y-1.72,state.position.z);this.sun.target.position.copy(center);this.sun.position.copy(center).addScaledVector(this.sunDirection,72);this.sun.target.updateMatrixWorld();
+  progress(.40,'Компилируем материалы окружения в точке входа…');await paintLoading10(signal);
+  this.camera.layers.set(0);await this.renderer.compileAsync(this.scene,this.camera);checkLoading11(signal);
+  const views=[this.handRoot,...Object.values(this.weaponViews||{}),this.heldRock,this.heldAxe,this.heldPickaxe,this.heldPlan,this.heldHammer,this.heldSatchel,this.heldTorch].filter(Boolean),visibility=views.map(o=>o.visible);
+  try{views.forEach(o=>o.visible=true);this.camera.layers.set(1);progress(.65,'Компилируем руки, инструменты и оружие…');await paintLoading10(signal);await this.renderer.compileAsync(this.scene,this.camera);checkLoading11(signal);}
+  finally{views.forEach((o,i)=>o.visible=visibility[i]);this.camera.layers.set(0);}
+  progress(.80,'Подготавливаем первый кадр и сглаживание…');await paintLoading10(signal);this.handRoot.visible=false;this.render();checkLoading11(signal);
+  const lookups=(this.composer05?.passes||[]).flatMap(p=>[p.areaTexture,p.searchTexture]).filter(Boolean);await Promise.all(lookups.map(t=>t.image?.decode?.()));checkLoading11(signal);await paintLoading10(signal);this.render();checkLoading11(signal);
+  progress(1,'Окружение точки входа готово.');
+ }
+ async makeTerrain(signal){
   const {segments}=terrainGrid08();const geometry=new THREE.PlaneGeometry(WORLD_RADIUS*2.15,WORLD_RADIUS*2.15,segments,segments);geometry.rotateX(-Math.PI/2);const p=geometry.attributes.position,colors=[],climate=[];
-  for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i),h=terrainHeight(x,z);p.setY(i,h);const path=Math.abs(x-(5+Math.sin(z*.07)*2));const dirt=(z>-1&&z<25&&path<1.8)||Math.hypot(x+6,z+3)<11;
+  for(let i=0;i<p.count;i++){if(i%8192===0)await paintLoading10(signal);const x=p.getX(i),z=p.getZ(i),h=terrainHeight(x,z);p.setY(i,h);const path=Math.abs(x-(5+Math.sin(z*.07)*2));const dirt=(z>-1&&z<25&&path<1.8)||Math.hypot(x+6,z+3)<11;
    const n=noise(x*.14,z*.14);const c=new THREE.Color(h<.8?0xd2bd8b:dirt?0x928460:biomeAt(x,z).color);c.multiplyScalar(.74+n*.42);colors.push(c.r,c.g,c.b);climate.push(biomeAt(x,z).id==='snow'?1:biomeAt(x,z).id==='arid'?-.9:0);
   }geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geometry.setAttribute('snow',new THREE.Float32BufferAttribute(climate,1));geometry.computeVertexNormals();
   const map=this.textures['ground.jpg'];map.repeat.set(65*MAP_SCALE,65*MAP_SCALE);const material=new THREE.MeshStandardMaterial({map,vertexColors:true,roughness:1,metalness:0});

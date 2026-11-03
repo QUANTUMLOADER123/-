@@ -75,6 +75,11 @@ export function installWorldSystems(IslandWorld){
   }
  },
  tracer(a,b,color=0xe9b26d){const geometry=new THREE.BufferGeometry().setFromPoints([a,b]);const line=new THREE.Line(geometry,new THREE.LineBasicMaterial({color,transparent:true,opacity:.7}));this.scene.add(line);this.effects.push({line,life:.10});},
- dispose(){this.renderer.dispose();this.scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){for(const m of(Array.isArray(o.material)?o.material:[o.material]))m.dispose();}});for(const t of Object.values(this.textures))t.dispose();this.environment?.dispose();}
+ dispose(){
+  this.renderer.domElement.removeEventListener('webglcontextlost',this.contextLost11);const geometries=new Set(),materials=new Set(),textures=new Set(),images=new Set();
+  const collect=o=>{if(o.geometry)geometries.add(o.geometry);for(const m of(o.material?(Array.isArray(o.material)?o.material:[o.material]):[])){materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}};
+  this.scene.traverse(collect);for(const gltf of Object.values(this.models))gltf.scene?.traverse(collect);for(const t of Object.values(this.textures))textures.add(t);
+  geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>{if(t.image?.close)images.add(t.image);t.dispose();});images.forEach(i=>i.close());this.environment?.dispose();this.renderer.dispose();this.scene.clear();this.models={};this.textures={};
+ }
  });
 }

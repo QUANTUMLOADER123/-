@@ -4,19 +4,21 @@ const gunGroup=id=>({pistol:'pistol',heavyPistol:'heavy-pistol',revolver:'revolv
 /** Local recorded samples only: no oscillator beeps and no procedural noise fallback. */
 export class SurvivalAudio {
  constructor(){this.enabled=true;this.paused=false;this.ctx=null;this.buffers=new Map();this.pending=new Map();this.failures=new Set();this.voices=[];this.previous={};this.epochs={};this.listener={x:0,y:0,z:0,yaw:0};this.levels={master:.75,effects:1,steps:.65};}
- init(){
+ init(signal){
   if(!this.enabled)return;
-  if(this.ctx){if(this.ctx.state==='suspended')this.ctx.resume().catch(()=>{});return;}
+  if(this.ctx){if(this.ctx.state==='suspended')this.ctx.resume().catch(()=>{});if(!this.prepared11&&!this.warming11)this.warm11(signal);return;}
   try{
    this.ctx=new(window.AudioContext||window.webkitAudioContext)();
    this.master=this.ctx.createGain();this.master.gain.value=this.levels.master;
    this.limiter=this.ctx.createDynamicsCompressor();this.limiter.threshold.value=-5;this.limiter.knee.value=8;this.limiter.ratio.value=12;this.limiter.attack.value=.003;this.limiter.release.value=.16;this.limiter.connect(this.master);this.master.connect(this.ctx.destination);
    this.buses={};for(const id of ['weapons','impacts','steps','ui']){const gain=this.ctx.createGain();gain.connect(this.limiter);this.buses[id]=gain;}this.configure(this.levels);
    this.ctx.resume().catch(()=>{});
-   // Warm likely first-use clips, then the rest. Four concurrent decoders, once per context.
-   const priority=['step-grass','step-stone','hit-wood','hit-metal','hurt','click','pistol','assault'];const first=priority.flatMap(k=>(GROUPS[k]||[]).slice(0,1)),queue=[...new Set([...first,...Object.keys(FILES)])];
-   this.ready=Promise.all(Array.from({length:4},async()=>{while(queue.length)await this.load(queue.shift());}));
+   this.warm11(signal);
   }catch{this.ctx=null;}
+ }
+ warm11(signal){
+  const priority=['step-grass','step-stone','hit-wood','hit-metal','hurt','click','pistol','assault'],first=priority.flatMap(k=>(GROUPS[k]||[]).slice(0,1)),queue=[...new Set([...first,...Object.keys(FILES)])].filter(k=>!this.buffers.has(k));this.warming11=true;
+  this.ready=Promise.all(Array.from({length:4},async()=>{while(queue.length&&!signal?.aborted)await this.load(queue.shift(),signal);})).finally(()=>{this.warming11=false;this.prepared11=!signal?.aborted;});
  }
  configure({master=this.levels.master,effects=this.levels.effects,steps=this.levels.steps}={}){
   this.levels={master:clamp(master),effects:clamp(effects),steps:clamp(steps)};
@@ -26,9 +28,9 @@ export class SurvivalAudio {
  setEnabled(value){this.enabled=!!value;if(!value)this.stopAll();this.configure();}
  setPaused(value){this.paused=!!value;if(value)this.stopAll(false);else if(this.ctx?.state==='suspended')this.ctx.resume().catch(()=>{});}
  updateListener(position,yaw){Object.assign(this.listener,{x:position.x,y:position.y,z:position.z,yaw});}
- async load(name){
+ async load(name,signal){
   if(!name||!this.ctx)return null;if(this.buffers.has(name))return this.buffers.get(name);if(this.pending.has(name))return this.pending.get(name);
-  const promise=(async()=>{try{const r=await fetch(FILES[name]);if(!r.ok)throw new Error('Audio asset unavailable');const buffer=await this.ctx.decodeAudioData(await r.arrayBuffer());this.buffers.set(name,buffer);return buffer;}catch{this.failures.add(name);return null;}finally{this.pending.delete(name);}})();this.pending.set(name,promise);return promise;
+  const promise=(async()=>{try{const r=await fetch(FILES[name],{signal});if(!r.ok)throw new Error('Audio asset unavailable');const buffer=await this.ctx.decodeAudioData(await r.arrayBuffer());this.buffers.set(name,buffer);return buffer;}catch{if(!signal?.aborted)this.failures.add(name);return null;}finally{this.pending.delete(name);}})();this.pending.set(name,promise);return promise;
  }
  choose(group){const names=GROUPS[group]||[];if(!names.length)return null;let i=Math.floor(Math.random()*names.length);if(names.length>1&&i===this.previous[group])i=(i+1+Math.floor(Math.random()*(names.length-1)))%names.length;this.previous[group]=i;return names[i];}
  play(group,{bus='impacts',volume=.5,rate=1,variation=.025,delay=0,position=null,maxDistance=180,key=group,cap=3,priority=1,tag=null}={}){

@@ -268,5 +268,45 @@
     "file": "web/assets/ui10/island-keyart.jpg",
     "source": "Original AI-generated Oskol concept illustration, 2026-11-04; no Facepunch assets",
     "sha256": "56525781866effff3e6ad7a917d176a618fe696cc5d47860c14d1098ae83ecae"
+  },
+  {
+    "file": "web/assets/ui11/bunker-embers.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "4b8fb27485ad4877ccad21d3fca6836c3952ed93033f0ff5d620bb080bb97049"
+  },
+  {
+    "file": "web/assets/ui11/desert-crossroads.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "736d816dee02fd2e57aaaed8c9d7ef487dbdf4eed5c843fdedb039e4db0b4f25"
+  },
+  {
+    "file": "web/assets/ui11/forest-shelter.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "3108b060e9c60cef511158caab51d52ee8c080438499f27e407e0d76961d2b50"
+  },
+  {
+    "file": "web/assets/ui11/industrial-rain.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "d70cdb1eecc14d76737d17bd6a5bf4a2fdd5e19887248dd74978e05a3b6e334e"
+  },
+  {
+    "file": "web/assets/ui11/lighthouse-dawn.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "1e7fd52ad136974d722646bd92e230b01d73f270398dd1fad961a7d5290d6a1f"
+  },
+  {
+    "file": "web/assets/ui11/night-patrol.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "9e52090c4c682f7d55ce3b4ebb9dd7cb1838ca356fb7e45a0a5a9055c9317d8b"
+  },
+  {
+    "file": "web/assets/ui11/offshore-storm.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "31ac7b4e9b90b401e6aad36ff6e2b4742af3c239cd3ee3cffc2d3827604d869d"
+  },
+  {
+    "file": "web/assets/ui11/winter-convoy.jpg",
+    "source": "Original AI-generated Oskol loading concept illustration, DEV11, 2026-11-04; not a gameplay screenshot; no Facepunch assets",
+    "sha256": "c6bb6c02a1c0cf3bc6838b900d8a34c93360219d9095cff445923a85f34804b8"
   }
 ]

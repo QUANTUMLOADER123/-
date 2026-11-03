@@ -1,3 +1,4 @@
+import {paintLoading11,startGallery11,nextGallery11} from './loading11.js';
 import {MAP_SIZES,MAP_SEED,WORLD_RADIUS,ROADS,MONUMENTS} from './map-data.js';
 import {terrainHeight} from './state.js';
 import {biomeAt,worldTime} from './environment.js';
@@ -13,7 +14,7 @@ const TIPS=[
 ];
 let tip=0,progress=0,loadingAt=0,lastSecond=-1;
 export function loading10(world){
- progress=0;loadingAt=performance.now();lastSecond=-1;
+ progress=0;loadingAt=performance.now();lastSecond=-1;startGallery11();
  $('loading-progress').style.transition='none';$('loading-progress').style.width='0%';
  $('loading-progress').offsetWidth; // Commit the reset before a second island starts loading.
  $('loading-progress').style.transition='';
@@ -43,6 +44,7 @@ export function frontTab10(tab){
  if(tab==='play')drawFrontMap10();
 }
 export function refreshFront10(saved){
+ previewWorld11=saved;
  const size=MAP_SIZES[saved?.size||'small'],day=worldTime(saved?.elapsed||0).day;
  $('start-label').textContent=saved?'ПРОДОЛЖИТЬ':'СОЗДАТЬ МИР';
  $('front-world-name10').textContent=saved?'ОСТРОВ · '+saved.seed:'НОВЫЙ ОСТРОВ';
@@ -56,7 +58,18 @@ export function refreshFront10(saved){
  $('world-select10').setAttribute('aria-label',saved?'Продолжить сохранённый мир':'Открыть создание нового мира');
  if(!$('front-play10').hidden)drawFrontMap10();
 }
+const previewKey11=s=>s?s.size+':'+s.seed+':'+s.contentRevision+':roads10':null;
+let previewWorld11=null;
 function drawFrontMap10(){
+ const c=$('front-map10'),ctx=c.getContext('2d');ctx.fillStyle='#1a241b';ctx.fillRect(0,0,c.width,c.height);
+ ctx.fillStyle='#8d9d79';ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText('КАРТА ГОТОВИТСЯ ПРИ ВХОДЕ',c.width/2,c.height/2);ctx.textAlign='start';
+ $('front-map-note10').textContent='ГЕНЕРАЦИЯ И ПРЕДПРОСМОТР — ПРИ ВХОДЕ НА ОСТРОВ';
+ try{const cached=JSON.parse(localStorage.getItem('oskol.map-preview11'));if(!cached||cached.key!==previewKey11(previewWorld11)||typeof cached.image!=='string'||!cached.image.startsWith('data:image/jpeg;'))return;const key=cached.key,img=new Image();img.onload=()=>{if(key!==previewKey11(previewWorld11))return;ctx.drawImage(img,0,0,c.width,c.height);$('front-map-note10').textContent='СОХРАНЁННЫЙ ПРЕДПРОСМОТР · БЕЗ ГЕНЕРАЦИИ В МЕНЮ';};img.src=cached.image;}catch{}
+}
+export function cacheMapPreview11(state){
+ const c=$('front-map10');renderTerrainPreview11();try{localStorage.setItem('oskol.map-preview11',JSON.stringify({key:previewKey11(state),image:c.toDataURL('image/jpeg',.7)}));}catch{}
+}
+function renderTerrainPreview11(){
  const c=$('front-map10'),ctx=c.getContext('2d'),s=c.width/(WORLD_RADIUS*2.18),ox=c.width/2,oz=c.height/2,step=WORLD_RADIUS/48;
  ctx.fillStyle='#263b3d';ctx.fillRect(0,0,c.width,c.height);
  for(let x=-WORLD_RADIUS;x<WORLD_RADIUS;x+=step)for(let z=-WORLD_RADIUS;z<WORLD_RADIUS;z+=step){
@@ -70,6 +83,7 @@ function drawFrontMap10(){
  ctx.fillStyle='#e0dfd3';ctx.font='bold 13px sans-serif';ctx.fillText('N ↑',c.width-36,22);
 }
 export function installInterface10(){
+ $('loading-next-art11').addEventListener('click',nextGallery11);
  $('nav-news10').addEventListener('click',()=>frontTab10('news'));
  $('nav-play').addEventListener('click',()=>frontTab10('play'));
  $('front-play-button10').addEventListener('click',()=>frontTab10('play'));
@@ -78,4 +92,4 @@ export function installInterface10(){
 }
 
 // Give the browser a paint opportunity before each CPU-heavy construction phase.
-export const paintLoading10=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+export const paintLoading10=paintLoading11;

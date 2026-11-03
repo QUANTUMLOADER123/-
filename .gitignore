@@ -20,3 +20,6 @@ release-build/
 .venv-art/
 
 /image-search/
+
+# DEV11 lazy-built world modules (packaged by CI).
+/web/chunks/
