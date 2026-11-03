@@ -50,7 +50,7 @@ public final class MainActivity extends Activity {
                 String path = request.getUrl().getPath();
                 if (!"https".equals(request.getUrl().getScheme()) || !HOST.equals(request.getUrl().getHost()) || path == null || !path.startsWith("/assets/") || path.contains("..")) return blocked();
                 String file = path.substring(8);
-                String mime = file.endsWith(".webp") ? "image/webp" : file.endsWith(".wav") ? "audio/wav" : file.endsWith(".js") ? "application/javascript" : file.endsWith(".css") ? "text/css" : file.endsWith(".svg") ? "image/svg+xml" : file.endsWith(".glb") ? "model/gltf-binary" : file.endsWith(".png") ? "image/png" : file.endsWith(".jpg") ? "image/jpeg" : file.endsWith(".json") ? "application/json" : file.endsWith(".txt") || file.endsWith(".md") ? "text/plain" : "text/html";
+                String mime = file.endsWith(".ttf") ? "font/ttf" : file.endsWith(".woff2") ? "font/woff2" : file.endsWith(".webp") ? "image/webp" : file.endsWith(".wav") ? "audio/wav" : file.endsWith(".js") ? "application/javascript" : file.endsWith(".css") ? "text/css" : file.endsWith(".svg") ? "image/svg+xml" : file.endsWith(".glb") ? "model/gltf-binary" : file.endsWith(".png") ? "image/png" : file.endsWith(".jpg") ? "image/jpeg" : file.endsWith(".json") ? "application/json" : file.endsWith(".txt") || file.endsWith(".md") ? "text/plain" : "text/html";
                 try { return new WebResourceResponse(mime, "UTF-8", 200, "OK", Collections.singletonMap("Cache-Control", "no-cache"), getAssets().open(file)); }
                 catch (IOException ex) { return blocked(); }
             }

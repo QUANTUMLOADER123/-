@@ -1,3 +1,4 @@
+import {extendRoads10} from './network10.js';
 /** Authored landmarks, a closed island highway and seeded, uninhabited settlements. */
 export const MAP_SIZES={small:{name:'Маленький',scale:1,width:650},medium:{name:'Средний',scale:1.4,width:910},large:{name:'Большой',scale:1.8,width:1170},huge:{name:'Огромный',scale:4000/650,width:4000},vast:{name:'Бескрайний',scale:8000/650,width:8000}};
 export let MAP_REVISION=5;
@@ -51,10 +52,14 @@ export function roadSamples(){
  const branch=[],branchCount=MAP_SCALE>3?Math.ceil(90*MAP_SCALE):90;for(let i=0;i<=branchCount;i++){const t=i/branchCount;branch.push({x:mix(-20*MAP_SCALE,92*MAP_SCALE,t)+Math.sin(t*Math.PI*3)*17*MAP_SCALE,z:mix(234*MAP_SCALE,-211*MAP_SCALE,t),branch:true});}
  return{ring:result,branch};
 }
-export let ROADS=roadSamples();
+export let ROADS=roadSamples(),LEGACY_ROADS10=ROADS,ROAD_JUNCTIONS10=[];
 export function configureMap(size='small',seed=27182,revision=5){
  MAP_REVISION=revision;roadGrid=null;CURRENT_SIZE=Object.hasOwn(MAP_SIZES,size)?size:'small';MAP_SCALE=MAP_SIZES[CURRENT_SIZE].scale;MAP_SEED=Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182;WORLD_RADIUS=325*MAP_SCALE;
- MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();BOT_BASES=settlements();
+ MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();LEGACY_ROADS10=ROADS;BOT_BASES=settlements();
+ // Keep legacy settlement coordinates/IDs, floors, loot and raids stable on existing saves.
+ // The historical two-road exclusion is used above; only then extend the road graph.
+ const network=extendRoads10(ROADS,{scale:MAP_SCALE,seed:MAP_SEED,monuments:MONUMENTS,houses:BOT_BASES});
+ ROADS=network.roads;ROAD_JUNCTIONS10=network.junctions;roadGrid=null;
  return{size:CURRENT_SIZE,seed:MAP_SEED,scale:MAP_SCALE};
 } 
 let roadGrid=null;

@@ -1,3 +1,4 @@
+import {paintLoading10} from './interface10.js';
 import {installCollision08} from './collision08.js';
 import {installAtmosphere08} from './atmosphere08.js';
 import {installWeapons08} from './weapons08.js';
@@ -56,12 +57,17 @@ export class IslandWorld {
  resize(){this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,this.settings.quality==='high'?1.5:this.settings.quality==='low'?.7:1));this.renderer.setSize(window.innerWidth,window.innerHeight,false);this.camera.aspect=window.innerWidth/window.innerHeight;this.camera.updateProjectionMatrix();this.needsRender=true;}
  applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment){this.sky.visible=true;const gen=new THREE.PMREMGenerator(this.renderer);this.environment=gen.fromScene(this.sky,.025);gen.dispose();this.sky.visible=false;}this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}for(const c of this.grassChunks||[]){c.mesh.count=Math.max(1,Math.floor(c.count*(q==='low'?.3:q==='medium'?.65:1)));c.mesh.geometry.setDrawRange(0,q==='low'?36:q==='medium'?60:84);}this.resize();}
  async init(progress){
-  const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели, материалы и растительность…');
+  const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели и текстуры: '+done+' / '+total);
   const loader=new GLTFLoader(manager),tl=new THREE.TextureLoader(manager);
   const names=['CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1','Cactus_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg'];
   await Promise.all([...names.map(async n=>{this.models[n]=await loader.loadAsync(ASSET+'models/'+n+'.glb');}),...textureNames.map(async n=>{const t=await tl.loadAsync(ASSET+'textures/'+n);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.includes('normal'))t.colorSpace=THREE.SRGBColorSpace;this.textures[n]=t;})]);
-  progress(.86,'Собираем берег и заброшенный лагерь…');this.makeTerrain();this.makeOcean();this.makeRiver();this.makeCamp();addIslandContent(this);decorateLoot(this);this.alignTerrainProps06();this.makeResources();this.makeGrass();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);progress(.98,'Проверяем снаряжение…');
+  progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10();this.makeTerrain();this.makeOcean();this.makeRiver();
+  progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10();this.makeCamp();addIslandContent(this);decorateLoot(this);this.alignTerrainProps06();
+  progress(.91,'Размещаем ресурсы, лес и траву…');await paintLoading10();this.makeResources();this.makeGrass();
+  progress(.94,'Подготавливаем предметы и снаряжение…');await paintLoading10();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();
+  progress(.96,'Подготавливаем объекты мира…');await paintLoading10();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);
+  progress(.98,'Компилируем материалы и освещение…');await paintLoading10();
   this.menuCamera(0);for(const g of this.distantGroups)g.root.visible=Math.hypot(g.x-this.camera.position.x,g.z-this.camera.position.z)<g.range;await this.renderer.compileAsync(this.scene,this.camera);this.render();progress(1,'Остров готов.');
  }
  makeTerrain(){

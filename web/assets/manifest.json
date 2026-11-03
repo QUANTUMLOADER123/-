@@ -249,5 +249,24 @@
     "sha256": "01ce29544f56c7f1d0828fe8268b45ff3d75a4612b067ac3707c9bfb11a02f7f",
     "author": "Quaternius",
     "license": "CC0-1.0"
+  },
+  {
+    "file": "web/assets/fonts/RobotoCondensed-Variable.ttf",
+    "source": "https://github.com/google/fonts/blob/main/ofl/robotocondensed/RobotoCondensed%5Bwght%5D.ttf",
+    "gitBlob": "221055572bc92e324d26337dee7b43b435e39fc8",
+    "license": "SIL OFL 1.1",
+    "sha256": "dace262afcee68a5276f200d8026c57221735c0118ab5fda8c2c0d3dc409a8d0"
+  },
+  {
+    "file": "web/assets/licenses/RobotoCondensed-OFL.txt",
+    "source": "https://github.com/google/fonts/blob/main/ofl/robotocondensed/OFL.txt",
+    "gitBlob": "2096249e0b96e28b439f4653bf9cd7809d467bcc",
+    "license": "SIL OFL 1.1",
+    "sha256": "0e4cc6ece88573545be2ed25835363662a6182ba4a4c1b5c8feda52add30e8a6"
+  },
+  {
+    "file": "web/assets/ui10/island-keyart.jpg",
+    "source": "Original AI-generated Oskol concept illustration, 2026-11-04; no Facepunch assets",
+    "sha256": "56525781866effff3e6ad7a917d176a618fe696cc5d47860c14d1098ae83ecae"
   }
 ]
