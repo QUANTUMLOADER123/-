@@ -250,7 +250,7 @@ export class IslandWorld {
 
  hitEffect(target,color=0xb8a27a){
   const group=new THREE.Group();const material=new THREE.MeshBasicMaterial({color});const r=randomSeed(Math.floor(this.time*1000));
-  for(let i=0;i<8;i++){const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.025+r()*.035,0),material);m.position.set(target.x,terrainHeight(target.x,target.z)+1.2,target.z);group.add(m);m.userData.velocity=new V((r()-.5)*3,r()*3,(r()-.5)*3);}this.scene.add(group);this.effects.push({group,life:.65});
+  for(let i=0;i<8;i++){const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.025+r()*.035,0),material);if(target.hitPoint)m.position.copy(target.hitPoint);else m.position.set(target.x,target.y??target.data?.y??terrainHeight(target.x,target.z)+1.2,target.z);group.add(m);m.userData.velocity=new V((r()-.5)*3,r()*3,(r()-.5)*3);}this.scene.add(group);this.effects.push({group,life:.65});
  }
  update(dt,state,playing,{moving=0,damage=()=>{}}={}){
   this.time+=dt;if(this.stormSky)this.stormSky.material.uniforms.time.value=this.time;if(this.wind)this.wind.value=this.time;if(this.ocean)this.ocean.material.uniforms.time.value=this.time;
