@@ -1,0 +1,51 @@
+name: Android APK
+on:
+  push:
+    branches: [arena/ce299f3a-repo]
+    paths: ['web/**', 'android/**', '.github/workflows/android.yml', 'tests/**', 'package*.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci && npm test
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Build installable prototype
+        working-directory: android
+        run: gradle --no-daemon :app:assembleDebug :app:lintDebug
+      - name: Package APK
+        run: |
+          mkdir -p .artifacts
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/one-more-layer-0.1.0-android.apk
+          cd .artifacts && sha256sum *.apk > SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: one-more-layer-android
+          path: .artifacts/
+      - name: Publish downloadable GitHub prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "prototype-${GITHUB_RUN_NUMBER}" \
+            --target "$GITHUB_SHA" --prerelease \
+            --title "ЕЩЁ СЛОЙ · Android 0.1.0 · build ${GITHUB_RUN_NUMBER}" \
+            --notes "Playable offline prototype. Android 8.0+. Debug-signed APK for sideloading, not a Play Store release. No ads, accounts or internet permission. Local records. Signatures may differ between CI machines; uninstall an older prototype before installing if Android reports a signature conflict (local records will be lost)." \
+            .artifacts/one-more-layer-0.1.0-android.apk .artifacts/SHA256SUMS.txt
