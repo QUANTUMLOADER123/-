@@ -69,6 +69,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: one-more-layer-android
+          include-hidden-files: true
           path: |
             .artifacts/*.apk
             .artifacts/SHA256SUMS.txt
