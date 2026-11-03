@@ -1,0 +1,18 @@
+[
+  {
+    "file": "web/assets/models/CommonTree_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/c664c6f231d3dd522b38ba52fc39ec33028624e2/public/glb/nature_pack/CommonTree_1.glb",
+    "blob": "1ec431431a6b9ce4ffcefb5460426457f573eafc",
+    "sha256": "61c05d351070fb5fb9f7c1b46b53f59cfd9625ddd16ba8de1ef3855f35557f72",
+    "author": "Quaternius",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "web/assets/models/CommonTree_3.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/c664c6f231d3dd522b38ba52fc39ec33028624e2/public/glb/nature_pack/CommonTree_3.glb",
+    "blob": "866154043d0d7fd5d8ed69f2cc28567376b74ec6",
+    "sha256": "01ce29544f56c7f1d0828fe8268b45ff3d75a4612b067ac3707c9bfb11a02f7f",
+    "author": "Quaternius",
+    "license": "CC0-1.0"
+  }
+]

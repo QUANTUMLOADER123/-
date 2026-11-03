@@ -1,3 +1,5 @@
+import {details08} from './sites08.js';
+import {roads08} from './roads08.js';
 import {addExtraSite,makeSettlements,addRoadCluster} from './world04.js';
 import {addOilRig} from './offshore.js';
 import {detailSite} from './site-details.js';
@@ -50,7 +52,7 @@ export function addIslandContent(w){
   }else if(m.kind==='bunker'){
    floor(root,m,25,20);shed(root,0,0,17,13,concrete);box(root,concrete,[18,.7,14],[0,4.15,0]);for(const x of[-6,-3,3,6])box(root,metal,[.3,3.5,.3],[x,1.9,6.7]);for(const x of[-7,7])pipe(root,[x,0,-5],[x,8,-5],.16,rust);box(root,black,[3,.3,.1],[0,3.4,6.8]);label(root,'БЛОК 17',0,4.9,7.1,7);crate(root,m,0,-5,-2,'military',{special:{rifle:1}});crate(root,m,1,5,-2);crate(root,m,2,-5,4);crate(root,m,3,5,4);
   }
-  detailSite(w,root,m,{box,cyl,pipe,prop:localProp,metal,rust,concrete,black,glass});
+  detailSite(w,root,m,{box,cyl,pipe,prop:localProp,metal,rust,concrete,black,glass});details08(w,root,m,{box,cyl,pipe,metal,concrete});
   // Close-up prop variety and perimeter warning lamps are part of every authored site.
   for(let i=0;i<3;i++){const x=-m.radius*.6+i*2,z=m.radius*.6,id='rt-barrel-'+m.id+'-'+i,model=localProp(root,'Barrel',x,z,1.1,i*.7);w.interactables.push({id,type:'barrel',x:m.x+x,z:m.z+z,model,radius:.7});w.colliders.push({id,x:m.x+x,z:m.z+z,r:.48});}
   const marker=new THREE.Mesh(new THREE.SphereGeometry(.12,7,7),new THREE.MeshBasicMaterial({color:0xe27c4b}));marker.position.set(0,5,0);root.add(marker);
@@ -63,15 +65,5 @@ export function addIslandContent(w){
 function addRoads(w,metal,concrete){
  const asphaltCanvas=document.createElement('canvas');asphaltCanvas.width=256;asphaltCanvas.height=256;const ctx=asphaltCanvas.getContext('2d'),r=randomSeed(432);ctx.fillStyle='#3e433a';ctx.fillRect(0,0,256,256);for(let i=0;i<21000;i++){const v=40+r()*60;ctx.fillStyle=`rgba(${v},${v+3},${v-6},.4)`;ctx.fillRect(r()*256,r()*256,1+r()*2,1+r()*2);}for(let i=0;i<15;i++){ctx.strokeStyle='#222b2566';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(r()*256,0);ctx.lineTo(r()*256,128);ctx.lineTo(r()*256,256);ctx.stroke();}const tex=new THREE.CanvasTexture(asphaltCanvas);tex.colorSpace=THREE.SRGBColorSpace;tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(1,30);const material=new THREE.MeshStandardMaterial({map:tex,roughness:1,color:0xffffff,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
  const paint=new THREE.MeshBasicMaterial({color:0xb9b79e,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
- const dashes=[],rand=randomSeed(1281);
- for(const[part,path]of Object.entries(ROADS)){
-  const pos=[],uv=[],indices=[];let distance=0;
-  for(let i=0;i<path.length;i++){const p=path[i],a=path[Math.max(0,i-1)],b=path[Math.min(path.length-1,i+1)],dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz)||1,nx=-dz/len,nz=dx/len,width=part==='ring'?6:4.5;if(i)distance+=Math.hypot(p.x-a.x,p.z-a.z);for(const side of[-1,0,1]){const x=p.x+nx*width*.5*side,z=p.z+nz*width*.5*side;pos.push(x,terrainHeight(x,z)+.16,z);uv.push((side+1)/2,distance/60);}if(i){const v=i*3;indices.push(v-3,v-2,v,v,v-2,v+1,v-2,v-1,v+1,v+1,v-1,v+2);}
-   if(i%3===0&&i<path.length-1){const vertices=[];for(const [side,along]of[[-1,-1],[1,-1],[-1,1],[1,1]]){const x=p.x+nx*.09*side+dx/len*1.25*along,z=p.z+nz*.09*side+dz/len*1.25*along;vertices.push(x,terrainHeight(x,z)+.205,z);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex([0,1,2,2,1,3]);g.computeVertexNormals();dashes.push(g);}
-
-   if(i%17===2){const side=rand()>.5?1:-1,x=p.x+nx*(width/2+6)*side,z=p.z+nz*(width/2+6)*side;addRoadCluster(w,x,z,'road-'+part+'-'+i);}
-  }
-  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;w.scene.add(mesh);
- }
- const dashMesh=new THREE.Mesh(mergeGeometries(dashes),paint);w.scene.add(dashMesh);dashes.forEach(g=>g.dispose());w.roadTexture=tex;
+ roads08(w,material,paint,metal,concrete);w.roadTexture=tex;
 }
