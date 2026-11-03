@@ -1,5 +1,54 @@
 {
-  "name": "one-more-layer", "version": "0.1.0", "private": true, "type": "module",
-  "scripts": { "dev": "node scripts/serve.mjs", "test": "node --test tests/*.test.mjs", "test:browser": "node scripts/browser-check.mjs" },
-  "devDependencies": { "@playwright/test": "^1.56.1", "@sparticuz/chromium": "^141.0.0" }
+  "name": "oskol-survival",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build && node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "build": "node scripts/build.mjs",
+    "test:survival": "node scripts/survival-check.mjs",
+    "desktop": "electron .",
+    "build:windows": "npm run build && electron-builder --win portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@sparticuz/chromium": "^141.0.0",
+    "electron": "^45.2.1",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.25.12",
+    "three": "^0.170.0"
+  },
+  "description": "Oskol: offline island survival prototype",
+  "author": "Oskol prototype",
+  "main": "desktop/main.cjs",
+  "build": {
+    "appId": "game.oskol.survival",
+    "productName": "Oskol",
+    "asar": true,
+    "directories": {
+      "output": "release-build"
+    },
+    "files": [
+      "desktop/**",
+      "web/**",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "desktop/icon.ico",
+      "artifactName": "oskol-0.3.0-windows-x64.exe"
+    },
+    "portable": {
+      "requestExecutionLevel": "user"
+    }
+  }
 }

@@ -1,0 +1,217 @@
+[
+  {
+    "file": "web/assets/textures/BroadleafBark.jpg",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/meshes/Trees/BroadleafBark.jpg",
+    "sha256": "abd3c66e776fbf37b8d74265fb65bdc936f3a549a2ca0af8548d4129cb5f9c6f"
+  },
+  {
+    "file": "web/assets/textures/BroadleafBark_Normal.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/meshes/Trees/BroadleafBark_Normal.png",
+    "sha256": "b7c482ee77418f0fcc07ff2eb60461512df65eea667fa1ffece52dcc41272b62"
+  },
+  {
+    "file": "web/assets/textures/Broadleaf_Desktop_Atlas.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/meshes/Trees/Broadleaf_Desktop_Atlas.png",
+    "sha256": "88698d0b2a18452e2eec6cd55be9dcc14c7e3150982807b2ed95de18a80ccd4d"
+  },
+  {
+    "file": "web/assets/textures/Broadleaf_Desktop_Atlas_Normal.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/meshes/Trees/Broadleaf_Desktop_Atlas_Normal.png",
+    "sha256": "1d995ae2c441eb44aada6bc251277c1d405dee016129fed35cf37efd98010f79"
+  },
+  {
+    "file": "web/assets/textures/ground.jpg",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/ground.jpg",
+    "sha256": "e3637cbd17d1f086f32ebdf21c8399b0bac9d6dccecae1bd2207482895e17678"
+  },
+  {
+    "file": "web/assets/textures/sand.jpg",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/sand.jpg",
+    "sha256": "14e81b4cd4dad3d001bf647eef7139d0a89de38be8bd13d551e66e4eeb6b8ecd"
+  },
+  {
+    "file": "web/assets/textures/rock.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/rock.png",
+    "sha256": "44bd99d24f3528895c055cb1624cd897d08505bf080f36e48bc1e0a706c310b3"
+  },
+  {
+    "file": "web/assets/textures/rockn.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/rockn.png",
+    "sha256": "5b83c0efce6352d6242c00ede9f1b3843a5f27a795e98bb77dc7fb69c009470e"
+  },
+  {
+    "file": "web/assets/textures/wood.jpg",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/wood.jpg",
+    "sha256": "cce6a2c38e9a0e3bfbae517e272efa7ddde77989bb4ce5df3399019bf82bfe35"
+  },
+  {
+    "file": "web/assets/textures/grassn.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/grassn.png",
+    "sha256": "fed440859677f9bfb1556b78817302f69cc93db3df45f5684519e0e0f80b1da4"
+  },
+  {
+    "file": "web/assets/textures/valleygrass.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/valleygrass.png",
+    "sha256": "e41a9f7c9ac873b7df9364ff6481a6a4060503af7279ee0a3b3e28850028f9d4"
+  },
+  {
+    "file": "web/assets/textures/rockyGround_basecolor.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/rockyGround_basecolor.png",
+    "sha256": "e0f9375b366c3bd3375581a329af36fe70ded07ffee8e1156aa6a210c16f486b"
+  },
+  {
+    "file": "web/assets/textures/rockyGround_normal.png",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/textures/rockyGround_normal.png",
+    "sha256": "66fccd4db45e00fcc713907208b42aa9b64f4f26db35e9b5251b36756558b7a1"
+  },
+  {
+    "file": "web/assets/models/Axe.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Axe.glb",
+    "sha256": "0dd80ed77a80d71bf3210410f1bfd7f1d0f1ac14feb4974cc4b4e540cbea57bb"
+  },
+  {
+    "file": "web/assets/models/Axe_Small.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Axe_Small.glb",
+    "sha256": "1205b549c9772c1368b4f9043a8c61f9a08b8746e47509062f6d28d372905497"
+  },
+  {
+    "file": "web/assets/models/Tent.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Tent.glb",
+    "sha256": "2f3519156ebbd28ab47a3d8600cecfcbbea63cc25eba044effa154b280d87d48"
+  },
+  {
+    "file": "web/assets/models/Bonfire.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Bonfire.glb",
+    "sha256": "e8fe4435fa69adf252512b824569867721a186208cdfe82c3dc3df7f9e2487a0"
+  },
+  {
+    "file": "web/assets/models/WoodLog.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/WoodLog.glb",
+    "sha256": "7c3489a6d7f39025dc86278f17ba005a62466061067a385fec88a61f79d03844"
+  },
+  {
+    "file": "web/assets/models/Backpack.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Backpack.glb",
+    "sha256": "315a559dc389f0a3a98395222d56c2db45b4bd505c93db282c7e34011f6e5c0f"
+  },
+  {
+    "file": "web/assets/models/Radio.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Radio.glb",
+    "sha256": "9e5c7934f44ee538446e6f54cbe9c09d4e49a7e78ee2e7f16d4cc7483c43e710"
+  },
+  {
+    "file": "web/assets/models/WaterBottle_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/WaterBottle_1.glb",
+    "sha256": "bff3d4a192a1f95ab57041483588b5ef085cd664c6ca94c6e8469b9ccb91e691"
+  },
+  {
+    "file": "web/assets/models/FirstAidKit.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/FirstAidKit.glb",
+    "sha256": "69ba229801c2156228389ba4498f75ddc8663a768d794668e29780de4e803b5e"
+  },
+  {
+    "file": "web/assets/models/Can_Closed.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Can_Closed.glb",
+    "sha256": "66ea638e8c12f1c9efca4f6081ff864e689c5499ae654ecc86c7940256ea21ee"
+  },
+  {
+    "file": "web/assets/models/Raft.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Raft.glb",
+    "sha256": "722c09e839edb2a300208cccb324a11f4d93f8946f7270e2daed54df306cc77d"
+  },
+  {
+    "file": "web/assets/models/Raft_Paddle.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Raft_Paddle.glb",
+    "sha256": "077215574dd537a1951e4faaeb0ed9742545388530d460d426d10ba3a2238a94"
+  },
+  {
+    "file": "web/assets/models/Crate.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/medieval_village_pack/Crate.glb",
+    "sha256": "57031e1b6102dd9bec3e27e966655588d18c3fdede34232a6b6497ce57030a85"
+  },
+  {
+    "file": "web/assets/models/Barrel.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/medieval_village_pack/Barrel.glb",
+    "sha256": "acf56e7eb64e37ea4ab2a6b072dbbcfd315ba45a511bee141e5541421e2f2238"
+  },
+  {
+    "file": "web/assets/models/Wolf.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/animals_pack/Wolf.glb",
+    "sha256": "8382f3d3b97e2338d2fd26190ddcc095d34d642d0e97105bda807ec87ccfd534"
+  },
+  {
+    "file": "web/assets/models/Adventurer.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/modular_men/Adventurer.glb",
+    "sha256": "2cb27a7729954cd463b9e9dd8b3b7e64919f3a41f0613a2075ad910bb14ce324"
+  },
+  {
+    "file": "web/assets/models/Swat.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/modular_men/Swat.glb",
+    "sha256": "1bfe621cb75ab23d9ef6b2bc363479cc4e907aa035cfc4f3034e6137482b32b2"
+  },
+  {
+    "file": "web/assets/models/Shotgun_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Shotgun_1.glb",
+    "sha256": "f10b4e29e8d011c3c8b193c9354c1034121ab5606b1118feff7f2b9cd95f19b2"
+  },
+  {
+    "file": "web/assets/models/Pistol_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Pistol_1.glb",
+    "sha256": "267c2dc0652798aeac335e89c739111ace0ba1090a361c1de16d7bf09ab1b472"
+  },
+  {
+    "file": "web/assets/models/PropaneTank.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/PropaneTank.glb",
+    "sha256": "d38fa01373ffb00c255a877bc59686bbf7ab89ba63752a556c6e440483381bea"
+  },
+  {
+    "file": "web/assets/models/Rock_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/Rock_1.glb",
+    "sha256": "8ad6399cfa9ec7c1d73779fe16b11821cf574f47baeec11f7d7e33bc72e40e97"
+  },
+  {
+    "file": "web/assets/models/Rock_2.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/Rock_2.glb",
+    "sha256": "d802dcfaf6eb5c267157baec1e724371c092aebe160e216be9466d2074518384"
+  },
+  {
+    "file": "web/assets/models/Rock_3.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/Rock_3.glb",
+    "sha256": "8bf869b9b1e6ba368e621e9278eb36c71360f0f52045836515acb2e088844b5c"
+  },
+  {
+    "file": "web/assets/models/Plant_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/Plant_1.glb",
+    "sha256": "388328b6215de26e9f0b1fa3642e443ce9c53a2de544b790ea6cebc4506eb976"
+  },
+  {
+    "file": "web/assets/models/BushBerries_1.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/BushBerries_1.glb",
+    "sha256": "bb61908a02052bc344c075a148c7cec89fa906ef3d446abf92c2cad0de73b906"
+  },
+  {
+    "file": "web/assets/models/Grass.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/nature_pack/Grass.glb",
+    "sha256": "7312e2c5592476f14bbd29282f2b13d9893a63d052f0fd2b245bfc1fa66a5937"
+  },
+  {
+    "file": "web/assets/models/Knife.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/public/glb/survival_pack/Knife.glb",
+    "sha256": "0b211bc51a86df64193d738b1ac13ad8f1bda3d03e2009fbf9c60203af247425"
+  },
+  {
+    "file": "web/assets/licenses/Babylon-CC-BY-4.0.txt",
+    "source": "https://github.com/BabylonJS/Assets/blob/HEAD/LICENSE",
+    "sha256": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661"
+  },
+  {
+    "file": "web/assets/licenses/Quaternius-sources.md",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/HEAD/LICENSES.md",
+    "sha256": "a59ca1463ae02529bc8866817aaae5891323eb8a6481959503b7530c1522798f"
+  },
+  {
+    "file": "web/assets/licenses/Three-MIT.txt",
+    "source": "https://github.com/mrdoob/three.js/blob/HEAD/LICENSE",
+    "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+  }
+]

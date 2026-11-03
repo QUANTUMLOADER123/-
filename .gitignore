@@ -7,3 +7,9 @@ android/local.properties
 *.keystore
 *.apk
 *.aab
+
+# Rebuilt locally and in CI; packaged into the offline Android assets.
+/web/survival.js
+/web/survival.js.LEGAL.txt
+
+release-build/

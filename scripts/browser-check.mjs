@@ -22,7 +22,7 @@ try {
   page.on('pageerror',e=>errors.push(e.message));
   const now=new Date('2026-11-03T12:00:00Z');
   await page.clock.install({time:now});await page.clock.pauseAt(now);
-  await page.goto('http://localhost:3000');await page.clock.runFor(250);
+  await page.goto('http://localhost:3000/layer/');await page.clock.runFor(250);
   assert.equal(await page.title(),'ЕЩЁ СЛОЙ — один тап до неба');
   assert.ok(await page.locator('#start').isVisible());
   await page.screenshot({path:'.artifacts/screenshots/desktop.png'});
@@ -49,7 +49,7 @@ try {
   const mobile=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
   mobile.on('pageerror',e=>errors.push(e.message));
   await mobile.clock.install({time:now});await mobile.clock.pauseAt(now);
-  await mobile.goto('http://localhost:3000');await mobile.clock.runFor(100);await mobile.screenshot({path:'.artifacts/screenshots/mobile.png'});
+  await mobile.goto('http://localhost:3000/layer/');await mobile.clock.runFor(100);await mobile.screenshot({path:'.artifacts/screenshots/mobile.png'});
   assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth),390);
   assert.ok(await mobile.evaluate(()=>{const c=document.querySelector('#game');const p=c.getContext('2d').getImageData(c.width-2,c.height-2,1,1).data;return p[0]>100&&p[1]>100&&p[2]>100;}),'HiDPI canvas must paint the entire physical buffer');
   await mobile.locator('#sound').tap();assert.equal(await mobile.locator('#sound').getAttribute('aria-pressed'),'false');

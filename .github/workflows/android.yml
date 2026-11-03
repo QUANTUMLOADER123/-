@@ -1,31 +1,33 @@
-name: Android APK
+name: Oskol test builds
 on:
   push:
     branches: [arena/ce299f3a-repo]
-    paths: ['web/**', 'android/**', '.github/workflows/android.yml', 'tests/**', 'package*.json']
+    paths: ['web/**', 'src/**', 'scripts/**', 'desktop/**', 'android/**', '.github/workflows/android.yml', 'tests/**', 'package*.json']
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
-  group: android-${{ github.ref }}
+  group: oskol-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  apk:
+  android:
+    name: Android APK + tests
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: npm
-      - run: npm ci && npm test
-      - name: Browser smoke tests
+      - name: Build offline assets and unit tests
+        run: npm ci --ignore-scripts && npm run build && npm test
+      - name: Real browser gameplay tests
         run: |
           node scripts/serve.mjs &
           server=$!
           trap 'kill "$server"' EXIT
-          npm run test:browser
+          npm run test:survival
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -33,7 +35,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: '8.13'
-      - name: Build installable prototype
+      - name: Compile APK and Android lint
         working-directory: android
         run: |
           mkdir -p ../.artifacts
@@ -45,9 +47,9 @@ jobs:
             python3 -c 'from pathlib import Path; s=Path("../.artifacts/android-build.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
           fi
           exit "$result"
-      - name: Enable emulator acceleration
+      - name: Enable Android emulator acceleration
         run: sudo chmod 666 /dev/kvm
-      - name: Real Android WebView smoke test
+      - name: Test packaged Android WebGL world
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
@@ -58,28 +60,65 @@ jobs:
           script: |
             adb install -r android/app/build/outputs/apk/debug/app-debug.apk
             adb install -r android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-            adb shell am instrument -w game.oneslice.layer.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt
+            adb shell am instrument -w game.oskol.survival.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt
             cat .artifacts/device-smoke.txt | sed 's/^/::notice::/'
-            grep -q 'layerSmoke=passed' .artifacts/device-smoke.txt
-      - name: Package APK
+            grep -q 'oskolSmoke=passed' .artifacts/device-smoke.txt
+      - name: Prepare test package
         run: |
-          mkdir -p .artifacts
-          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/one-more-layer-0.1.0-android.apk
-          cd .artifacts && sha256sum *.apk > SHA256SUMS.txt
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.3.0-dev01-android.apk
+          cd .artifacts && sha256sum *.apk > Android-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: one-more-layer-android
+          name: Oskol-Android-dev01
           include-hidden-files: true
+          if-no-files-found: error
           path: |
-            .artifacts/*.apk
-            .artifacts/SHA256SUMS.txt
+            .artifacts/oskol-*.apk
+            .artifacts/Android-SHA256.txt
             .artifacts/device-smoke.txt
-      - name: Publish downloadable GitHub prerelease
-        env:
-          GH_TOKEN: ${{ github.token }}
+  windows:
+    name: Windows x64 portable
+    runs-on: windows-2022
+    timeout-minutes: 25
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci && npm run build && npm test
+      - name: Smoke test real desktop runtime
         run: |
-          gh release create "prototype-${GITHUB_RUN_NUMBER}" \
-            --target "$GITHUB_SHA" --prerelease \
-            --title "ЕЩЁ СЛОЙ · Android 0.1.0 · build ${GITHUB_RUN_NUMBER}" \
-            --notes "Playable offline prototype. Android 8.0+. Debug-signed APK for sideloading, not a Play Store release. No ads, accounts or internet permission. Local records. Signatures may differ between CI machines; uninstall an older prototype before installing if Android reports a signature conflict (local records will be lost)." \
-            .artifacts/one-more-layer-0.1.0-android.apk .artifacts/SHA256SUMS.txt
+          set +e
+          node node_modules/electron/cli.js desktop/main.cjs --smoke 2>&1 | tee desktop-smoke.log
+          result=${PIPESTATUS[0]}
+          if [ "$result" -ne 0 ]; then
+            python -c 'from pathlib import Path; s=Path("desktop-smoke.log").read_text(errors="replace")[-15000:]; print("::error::"+s.replace("%","%25").replace("\n","%0A").replace("\r","%0D"))'
+          fi
+          exit "$result"
+      - name: Build portable Windows executable
+        run: |
+          set +e
+          npm run build:windows 2>&1 | tee windows-build.log
+          result=${PIPESTATUS[0]}
+          if [ "$result" -ne 0 ]; then
+            python -c 'from pathlib import Path; s=Path("windows-build.log").read_text(errors="replace")[-15000:]; print("::error::"+s.replace("%","%25").replace("\n","%0A").replace("\r","%0D"))'
+          fi
+          exit "$result"
+      - name: Checksums and instructions
+        run: |
+          cp desktop/README.txt release-build/START-HERE.txt
+          cd release-build && sha256sum *.exe > Windows-SHA256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Oskol-Windows-x64-dev01
+          if-no-files-found: error
+          path: |
+            release-build/*.exe
+            release-build/START-HERE.txt
+            release-build/Windows-SHA256.txt

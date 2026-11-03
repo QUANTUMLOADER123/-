@@ -3,11 +3,11 @@ android {
     namespace 'game.oneslice'
     compileSdk 35
     defaultConfig {
-        applicationId 'game.oneslice.layer'
+        applicationId 'game.oskol.survival'
         minSdk 26
         targetSdk 35
-        versionCode 1
-        versionName '0.1.0'
+        versionCode 3
+        versionName '0.3.0-dev01'
         testInstrumentationRunner 'game.oneslice.SmokeInstrumentation'
     }
     sourceSets { main { assets.srcDirs = ['../../web'] } }

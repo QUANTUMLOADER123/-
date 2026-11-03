@@ -20,24 +20,25 @@ public final class SmokeInstrumentation extends Instrumentation {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.setClassName(getTargetContext().getPackageName(), "game.oneslice.MainActivity");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("lowGraphics", true);
             Activity activity = startActivitySync(intent);
             runOnMainSync(() -> web = (WebView) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0));
-            await("document.title.includes('ЕЩЁ СЛОЙ') && typeof window.pauseLayer === 'function'");
-            await("(()=>{const c=document.querySelector('#game');if(!c||!c.width)return false;const p=c.getContext('2d').getImageData(c.width-2,c.height-2,1,1).data;return p[0]>100&&p[1]>100&&p[2]>100})()");
-            require("typeof window.AndroidBridge.share === 'function'", "Native bridge missing");
-            eval("document.querySelector('#start').click(); document.querySelector('#game').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})); true");
-            await("!document.querySelector('#result').hidden");
-            require("document.querySelector('#result-score').textContent === '0'", "Immediate miss must score zero");
-            eval("document.querySelector('#retry').click(); window.pauseLayer(); true");
-            require("!document.querySelector('#modal').hidden", "Lifecycle pause must stop play");
-            eval("document.querySelector('#modal-close').click(); true");
-            require("document.querySelector('#modal').hidden && document.querySelector('#home').hidden", "Resume must return to play");
-            eval("localStorage.setItem('layer.smoke','ok'); true");
-            require("localStorage.getItem('layer.smoke') === 'ok'", "Offline DOM storage unavailable");
-            result.putString("layerSmoke", "passed");
+            await("document.title.includes('ОСКОЛ') && !!window.oskol?.ready");
+            require("window.oskol.snapshot().stats.webgl2 && window.oskol.snapshot().stats.monuments === 10 && window.oskol.snapshot().stats.bots >= 12", "Incomplete WebGL2 world");
+            require("typeof window.AndroidBridge.vibrate === 'function'", "Native bridge missing");
+            eval("document.querySelector('#start').click(); document.querySelector('[data-multiplier=\"2\"]').click(); document.querySelector('#world-create').click(); true");
+            await("window.oskol.snapshot().mode === 'playing'");
+            require("window.oskol.snapshot().multiplier === 2 && window.oskol.snapshot().saved", "World settings / local save failed");
+            eval("window.pauseOskol(); true");
+            require("!document.querySelector('#pause').hidden", "Native lifecycle pause must stop play");
+            eval("document.querySelector('#resume').click(); true");
+            require("document.querySelector('#pause').hidden", "Resume must return to play");
+            eval("localStorage.setItem('oskol.smoke','ok'); true");
+            require("localStorage.getItem('oskol.smoke') === 'ok'", "Offline DOM storage unavailable");
+            result.putString("oskolSmoke", "passed");
             finish(Activity.RESULT_OK, result);
         } catch (Throwable error) {
-            result.putString("layerSmoke", "FAILED: " + error);
+            result.putString("oskolSmoke", "FAILED: " + error);
             finish(Activity.RESULT_CANCELED, result);
         }
     }
@@ -45,14 +46,14 @@ public final class SmokeInstrumentation extends Instrumentation {
         CountDownLatch done = new CountDownLatch(1);
         AtomicReference<String> value = new AtomicReference<>();
         runOnMainSync(() -> web.evaluateJavascript(script, answer -> { value.set(answer); done.countDown(); }));
-        if (!done.await(5, TimeUnit.SECONDS)) throw new AssertionError("JS callback timed out: " + script);
+        if (!done.await(15, TimeUnit.SECONDS)) throw new AssertionError("JS callback timed out: " + script);
         return value.get();
     }
     private void require(String expression, String message) throws Exception {
         if (!"true".equals(eval(expression))) throw new AssertionError(message);
     }
     private void await(String expression) throws Exception {
-        long deadline = System.currentTimeMillis() + 15000;
+        long deadline = System.currentTimeMillis() + 120000;
         while (System.currentTimeMillis() < deadline) {
             if ("true".equals(eval(expression))) return;
             Thread.sleep(100);

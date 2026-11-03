@@ -1,6 +1,7 @@
 package game.oneslice;
 
 import android.app.Activity;
+import android.view.View;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -23,7 +24,7 @@ public final class MainActivity extends Activity {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         web = new WebView(this);
-        web.setBackgroundColor(Color.rgb(238, 230, 245));
+        web.setBackgroundColor(Color.rgb(21, 29, 23));
         web.getSettings().setJavaScriptEnabled(true);
         web.getSettings().setDomStorageEnabled(true);
         web.getSettings().setAllowFileAccess(false);
@@ -40,13 +41,14 @@ public final class MainActivity extends Activity {
                 String path = request.getUrl().getPath();
                 if (!"https".equals(request.getUrl().getScheme()) || !HOST.equals(request.getUrl().getHost()) || path == null || !path.startsWith("/assets/") || path.contains("..")) return blocked();
                 String file = path.substring(8);
-                String mime = file.endsWith(".js") ? "application/javascript" : file.endsWith(".css") ? "text/css" : file.endsWith(".svg") ? "image/svg+xml" : "text/html";
+                String mime = file.endsWith(".js") ? "application/javascript" : file.endsWith(".css") ? "text/css" : file.endsWith(".svg") ? "image/svg+xml" : file.endsWith(".glb") ? "model/gltf-binary" : file.endsWith(".png") ? "image/png" : file.endsWith(".jpg") ? "image/jpeg" : file.endsWith(".json") ? "application/json" : file.endsWith(".txt") || file.endsWith(".md") ? "text/plain" : "text/html";
                 try { return new WebResourceResponse(mime, "UTF-8", 200, "OK", Collections.singletonMap("Cache-Control", "no-cache"), getAssets().open(file)); }
                 catch (IOException ex) { return blocked(); }
             }
         });
         setContentView(web);
-        web.loadUrl("https://" + HOST + "/assets/index.html");
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        web.loadUrl("https://" + HOST + "/assets/index.html" + (getIntent().getBooleanExtra("lowGraphics", false) ? "?quality=low" : ""));
     }
     private WebResourceResponse blocked() {
         return new WebResourceResponse("text/plain", "UTF-8", 404, "Not Found", Collections.emptyMap(), new ByteArrayInputStream(new byte[0]));

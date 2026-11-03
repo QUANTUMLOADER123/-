@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { StackGame, BASE_SIZE, BLOCK_HEIGHT, seededRandom, dailySeed } from '../web/engine.js';
+import { StackGame, BASE_SIZE, BLOCK_HEIGHT, seededRandom, dailySeed } from '../web/layer/engine.js';
 function perfect(g){g.moving[g.axis]=g.blocks.at(-1)[g.axis];return g.place();}
 test('starts with a full platform and alternating axes',()=>{const g=new StackGame({seed:1});assert.equal(g.blocks[0].w,BASE_SIZE);assert.equal(g.axis,'x');perfect(g);assert.equal(g.axis,'z');assert.equal(g.score,1);assert.equal(g.blocks.at(-1).y,BLOCK_HEIGHT);});
 test('cuts exactly the overlapping part in either direction and axis',()=>{for(const delta of [-42,42])for(const level of [0,1]){const g=new StackGame({seed:1});if(level)perfect(g);const axis=g.axis,size=axis==='x'?'w':'d';g.moving[axis]=g.blocks.at(-1)[axis]+delta;const e=g.place();assert.equal(e.type,'cut');assert.equal(g.blocks.at(-1)[size],BASE_SIZE-42);assert.equal(g.blocks.at(-1)[axis],delta/2);assert.equal(e.cut[size],42);assert.equal(e.cut[axis],Math.sign(delta)*(BASE_SIZE/2+21));}});
