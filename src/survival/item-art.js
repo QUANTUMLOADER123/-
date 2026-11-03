@@ -9,5 +9,15 @@ export const ITEM_ART=Object.freeze({
   "stone": "assets/items/stone.webp?v=7df243878a",
   "sulfur": "assets/items/sulfur.webp?v=a1a6b24f3b",
   "sulfurOre": "assets/items/sulfurOre.webp?v=16c8d85d8c",
-  "wood": "assets/items/wood.webp?v=a581ffd987"
+  "wood": "assets/items/wood.webp?v=a581ffd987",
+  "ammo": "assets/items/ammo.webp?v=c0bf8a122c",
+  "armor": "assets/items/armor.webp?v=d7d48a9567",
+  "axe": "assets/items/axe.webp?v=b2499db30d",
+  "bandage": "assets/items/bandage.webp?v=04fc9b85a0",
+  "berries": "assets/items/berries.webp?v=f78607d0c6",
+  "hammer": "assets/items/hammer.webp?v=db9d1d4a67",
+  "pickaxe": "assets/items/pickaxe.webp?v=5546d7f72b",
+  "rifle": "assets/items/rifle.webp?v=bffa7ee002",
+  "satchel": "assets/items/satchel.webp?v=a3e1c820f1",
+  "water": "assets/items/water.webp?v=efab11e6ec"
 });

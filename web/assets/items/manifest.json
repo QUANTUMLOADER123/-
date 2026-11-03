@@ -82,6 +82,86 @@
       "alpha": true,
       "sha256": "a581ffd987825808e370b9a95d1101dd91272a3655d234c1b91cb79df5ae4e16",
       "sourceSha256": "4d6c4ee8de9af6c92f9f6de9369d17520e573332b1f425a86f5e836c7d21dab3"
+    },
+    "ammo": {
+      "file": "ammo.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c0bf8a122c2a9c9b2965cc99a899e1d2b2e253375adf88af559fb36f18501a32",
+      "sourceSha256": "8eb526f3451ea27ed30f7e8e0fb55b176edcdf122563774e5808b62c49748c25"
+    },
+    "armor": {
+      "file": "armor.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "d7d48a9567467533cdf1b7289bf7becfa7be57489856a7766f6e35a56ded6993",
+      "sourceSha256": "b2536b7b0a34c144428ff85409f0487d46ca663b78a6f654a7d9600e5931a0c0"
+    },
+    "axe": {
+      "file": "axe.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "b2499db30d6d3b6bf6a37668287b92c4e953333d08731cad2191fe853f3d1142",
+      "sourceSha256": "97ca3a829705f252d62e7b32c843fe53aca8f056f36c3e5ee116685b78dffcaf"
+    },
+    "bandage": {
+      "file": "bandage.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "04fc9b85a0aa41a56e1fc0395c05ed186cc2e0934f3f1d4a870db579d8a86099",
+      "sourceSha256": "811c6441c1825021a5767860bceaa4623671debd5ceb83abe5dac8353b48ab07"
+    },
+    "berries": {
+      "file": "berries.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "f78607d0c6a32b9f82c9517c16d743012dfacb4f01909c24cc5e954c8471ad7d",
+      "sourceSha256": "eb204378b0046d66fcd2d5971a94f5454736144b9846af9bd1cfc32124c86bbd"
+    },
+    "hammer": {
+      "file": "hammer.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "db9d1d4a67a3d01f4e30cbc6799a21f72166c80d35c208398be64e59c2454e79",
+      "sourceSha256": "1343ff2aab02c55b389ce77c82b8c6fc7c640a478f27389460e850da537c4204"
+    },
+    "pickaxe": {
+      "file": "pickaxe.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "5546d7f72be5bdc7abf031bd04c24f8aa3e841aedd78c948be41bd7600bb72da",
+      "sourceSha256": "f5fccb81dd0b557b14d8d7be28d81c86897129c7ce06652cc2c5c9dbad0538c9"
+    },
+    "rifle": {
+      "file": "rifle.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "bffa7ee0029d4368761d8f614b9eb78762cfa245669e12fe6ccd2fdb8bac2f93",
+      "sourceSha256": "bfb2a9d46bfada53c4436981a851d0b3772b8f088d4d043998c6912e95bc86a0"
+    },
+    "satchel": {
+      "file": "satchel.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "a3e1c820f174da79b41a4d51b05c04762c3008fca6ef41732b24d45f95b27abe",
+      "sourceSha256": "dbbd6b120e92e0aca920f0093d0d0dd0724881ef3e8a961d3c6be48bf1a40112"
+    },
+    "water": {
+      "file": "water.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "efab11e6ec3f87862b4233533c1c3977a893b0191e2ef99c7c4b3a7efc3642fb",
+      "sourceSha256": "5dd6054d76a571a447e9d004818e11634e22a333cc584cd7020a70430abcfc6c"
     }
   }
 }

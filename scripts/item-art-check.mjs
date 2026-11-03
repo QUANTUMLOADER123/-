@@ -3,11 +3,12 @@ import {mkdir} from 'node:fs/promises';
 import {launchBrowser} from './browser-runtime.mjs';
 import {newGame,encodeSave,SAVE_KEY} from '../src/survival/state.js';
 import {ITEM_ART} from '../src/survival/item-art.js';
+import {stackLimit} from '../src/survival/inventory.js';
 const browser=await launchBrowser(),errors=[];
 try{
  const page=await browser.newPage({viewport:{width:1100,height:780}});page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});page.on('requestfailed',r=>errors.push(r.url()));
  const time=new Date('2026-11-03T12:00:00Z');await page.clock.install({time});await page.clock.pauseAt(time);
- const s=newGame({difficulty:'peaceful'});s.position={x:0,z:13};s.yaw=0;s.pitch=-.12;for(const id of Object.keys(ITEM_ART))s.inventory[id]=20;
+ const s=newGame({difficulty:'peaceful'});s.position={x:0,z:13};s.yaw=0;s.pitch=-.12;for(const id of Object.keys(ITEM_ART))s.inventory[id]=Math.min(20,stackLimit(id));
  s.buildings=[{id:'build-art-furnace',kind:'furnace',x:0,z:10,rotation:0,tier:0,hp:75}];s.furnaces={'build-art-furnace':{on:false,progress:0,fuelTime:0,slots:['wood','metalOre','sulfurOre','metal','charcoal','sulfur'].map(item=>({item,count:2}))}};
  await page.addInitScript(({key,save})=>{localStorage.setItem(key,save);localStorage.setItem('oskol.settings',JSON.stringify({quality:'low',sound:false,haptics:false}));},{key:SAVE_KEY,save:encodeSave(s)});
  await page.goto('http://localhost:3000/?quality=low');
