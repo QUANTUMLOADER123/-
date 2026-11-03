@@ -27,7 +27,14 @@ jobs:
           node scripts/serve.mjs &
           server=$!
           trap 'kill "$server"' EXIT
-          npm run test:survival
+          mkdir -p .artifacts
+          set +e
+          npm run test:survival 2>&1 | tee .artifacts/browser-ci.log
+          result=${PIPESTATUS[0]}
+          if [ "$result" -ne 0 ]; then
+            python3 -c 'from pathlib import Path; s=Path(".artifacts/browser-ci.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
+          fi
+          exit "$result"
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
