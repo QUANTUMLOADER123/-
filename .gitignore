@@ -15,3 +15,8 @@ android/local.properties
 release-build/
 
 .cache/
+
+# Development-only vector artwork rasterizer environment
+.venv-art/
+
+/image-search/

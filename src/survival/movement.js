@@ -1,11 +1,11 @@
 /** Feet-space character controller. No camera-relative flying or mid-air braking. */
 export class CharacterMotor {
  constructor(){this.reset(0);}
- reset(y){this.y=y;this.vx=0;this.vz=0;this.vy=0;this.grounded=true;this.airSpeed=0;}
+ reset(y){this.y=y;this.vx=0;this.vz=0;this.vy=0;this.grounded=true;this.airSpeed=0;this.lastImpact=0;}
  stop(){if(this.grounded)this.vx=this.vz=0;}
  jump(){if(!this.grounded)return false;this.grounded=false;this.vy=6.6;this.airSpeed=Math.max(3.8,Math.hypot(this.vx,this.vz));return true;}
  step(dt,{x=0,z=0,yaw=0,sprint=false,crouch=false,water=false},position,{floor,canMove}){
-  dt=Math.min(.1,Math.max(0,dt));const steps=Math.max(1,Math.ceil(dt/(1/120))),h=dt/steps;
+  this.lastImpact=0;dt=Math.min(.1,Math.max(0,dt));const steps=Math.max(1,Math.ceil(dt/(1/120))),h=dt/steps;
   const length=Math.hypot(x,z);if(length>1){x/=length;z/=length;}
   const ix=x*Math.cos(yaw)+z*Math.sin(yaw),iz=-x*Math.sin(yaw)+z*Math.cos(yaw),speed=(crouch?1.8:sprint&&z<-.1&&Math.abs(x)<.18?7.2:3.8)*(water?.55:1);
   for(let i=0;i<steps;i++){
@@ -18,7 +18,7 @@ export class CharacterMotor {
    tryAxis('x',this.vx*h);tryAxis('z',this.vz*h);
    const ground=floor(position.x,position.z,this.y);
    if(this.grounded&&ground>=this.y-.16){this.y=ground;this.vy=0;}
-   else{this.grounded=false;this.vy-=18*h;this.y+=this.vy*h;if(this.y<=ground&&this.vy<=0){this.y=ground;this.vy=0;this.grounded=true;}}
+   else{this.grounded=false;this.vy-=18*h;this.y+=this.vy*h;if(this.y<=ground&&this.vy<=0){this.lastImpact=Math.max(this.lastImpact,-this.vy);this.y=ground;this.vy=0;this.grounded=true;}}
   }
   return Math.min(1,Math.hypot(this.vx,this.vz)/3.8);
  }

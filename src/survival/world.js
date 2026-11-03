@@ -1,3 +1,8 @@
+import {installHands05} from './hands05.js';
+import {installProps05} from './props05.js';
+import {installPerformance05} from './performance05.js';
+import {installSettlements05} from './settlements05.js';
+import {installGraphics05} from './graphics05.js';
 import {installProjectiles04} from './projectiles04.js';
 import {installWorld04,decorateLoot,structuralFloor} from './world04.js';
 import {installViewmodel04} from './viewmodel04.js';
@@ -232,11 +237,11 @@ export class IslandWorld {
   this.ghost.visible=true;this.ghost.position.set(position.x,position.y??terrainHeight(position.x,position.z),position.z);this.ghost.rotation.y=rotation;this.ghost.traverse(o=>{if(o.isMesh)o.material.color.set(ok?0xb6db8c:0xea885b);});
  }
  clearPreview(){if(this.ghost)this.ghost.visible=false;}
- floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){let h=terrainHeight(x,z);for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY+1.8>=buildingHeight(b))h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of this.walkFloors)if((!f.structureId||!state.depleted.includes(f.structureId))&&(!f.roof||feetY>=f.y-.5)&&Math.abs(x-f.x)<f.w/2&&Math.abs(z-f.z)<f.d/2)h=Math.max(h,f.y);if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
+ floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){this.refreshDead05?.(state);let h=terrainHeight(x,z);for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY+1.8>=buildingHeight(b))h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of(this.nearFloors05?.(x,z)||this.walkFloors))if((!f.structureId||!(this.deadIds05?.has(f.structureId)??state.depleted.includes(f.structureId)))&&(!f.roof||feetY>=f.y-.5)&&Math.abs(x-f.x)<f.w/2&&Math.abs(z-f.z)<f.d/2)h=Math.max(h,f.y);if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
 
- canMove(x,z,state,feetY=null){
+ canMove(x,z,state,feetY=null){this.refreshDead05?.(state);
   if(Math.hypot(x,z)>WORLD_RADIUS-2&&!this.walkFloors.some(f=>f.offshore&&Math.abs(x-f.x)<f.w/2+1&&Math.abs(z-f.z)<f.d/2+1))return false;
-  for(const c of (this.nearColliders?this.nearColliders(x,z):this.colliders)){if(feetY!==null&&c.box&&(feetY>=(c.y??terrainHeight(c.x,c.z))+(c.h??3.02)-.02||feetY+(state.crouched?1.05:1.7)<(c.y??terrainHeight(c.x,c.z))))continue;if(c.id&&state.depleted.includes(c.id)||c.data&&!c.data.owner&&c.data.hp<=0||c.door&&c.data.open)continue;if(c.box){if(Math.abs(x-c.x)<c.w/2+.27&&Math.abs(z-c.z)<c.d/2+.27)return false;}else if(Math.hypot(x-c.x,z-c.z)<c.r+.26)return false;}
+  for(const c of (this.nearColliders?this.nearColliders(x,z):this.colliders)){if(feetY!==null&&(c.box||Number.isFinite(c.y))&&(feetY>=(c.y??terrainHeight(c.x,c.z))+(c.h??3.02)-.02||feetY+(state.crouched?1.05:1.7)<(c.y??terrainHeight(c.x,c.z))))continue;if(c.id&&(this.deadIds05?.has(c.id)??state.depleted.includes(c.id))||c.data&&!c.data.owner&&c.data.hp<=0||c.door&&c.data.open)continue;if(c.box){if(Math.abs(x-c.x)<c.w/2+.27&&Math.abs(z-c.z)<c.d/2+.27)return false;}else if(Math.hypot(x-c.x,z-c.z)<c.r+.26)return false;}
   return true;
  }
 
@@ -280,3 +285,11 @@ installWorld04(IslandWorld);
 installViewmodel04(IslandWorld);
 
 installProjectiles04(IslandWorld);
+
+installSettlements05(IslandWorld);
+installGraphics05(IslandWorld);
+
+installPerformance05(IslandWorld);
+
+installProps05(IslandWorld);
+installHands05(IslandWorld);

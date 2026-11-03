@@ -1,0 +1,1 @@
+Oskol DEV05 original synthesized PCM effects. Generated with scripts/make-sounds05.py. No Facepunch or third-party recordings. Same license as project source.

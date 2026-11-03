@@ -1,0 +1,4 @@
+export function installPerformance05(World){
+ World.prototype.refreshDead05=function(state){if(this.deadState05!==state||this.deadArray05!==state.depleted||this.deadLength05!==state.depleted.length){this.deadState05=state;this.deadArray05=state.depleted;this.deadLength05=state.depleted.length;this.deadIds05=new Set(state.depleted);}};
+ World.prototype.nearFloors05=function(x,z){if(this.floorSource05!==this.walkFloors||this.floorCount05!==this.walkFloors.length){this.floorSource05=this.walkFloors;this.floorCount05=this.walkFloors.length;this.floorCells05=new Map();for(const f of this.walkFloors)for(let a=Math.floor((f.x-f.w/2-.3)/16);a<=Math.floor((f.x+f.w/2+.3)/16);a++)for(let b=Math.floor((f.z-f.d/2-.3)/16);b<=Math.floor((f.z+f.d/2+.3)/16);b++){const key=a+':'+b;if(!this.floorCells05.has(key))this.floorCells05.set(key,[]);this.floorCells05.get(key).push(f);}}return this.floorCells05.get(Math.floor(x/16)+':'+Math.floor(z/16))||[];};
+}

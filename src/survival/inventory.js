@@ -1,3 +1,4 @@
+import {lootAmount,normalizeLoot,randomLootContainer} from './loot-policy.js';
 import {firearmForTier,crateTier} from './loot04.js';
 import {WEAPONS,isGun} from './catalog.js';
 /** Six belt + thirty backpack slots. Aggregated totals remain the crafting adapter. */
@@ -20,11 +21,11 @@ export function moveSlot(state,from,to,split=false){syncSlots(state);if(!Number.
 export function takeContainer(state,id,item,amount=Infinity){syncSlots(state);const c=state.containers?.[id];if(!c||!(c[item]>0))return 0;const n=Math.min(c[item],Math.max(0,Math.floor(amount===Infinity?c[item]:amount)),capacity(state.slots,item));if(!n)return 0;pack(state.slots,item,n);state.inventory[item]=(state.inventory[item]||0)+n;c[item]-=n;if(!c[item])delete c[item];return n;}
 export function depositSlot(state,id,index,half=false){syncSlots(state);const s=state.slots[index];if(!s||!state.containers?.[id])return 0;if((id.startsWith('tc-')||state.buildings.some(b=>b.id===id&&b.kind==='cupboard'))&&!['wood','stone','metal','highMetal'].includes(s.item))return 0;const storage=state.buildings.find(b=>b.id===id&&['storage','largeStorage','cupboard'].includes(b.kind)),c=state.containers[id],limit=storage?(storage.kind==='storage'?12:storage.kind==='cupboard'?24:30):id.startsWith('tc-')?24:Infinity,used=Object.entries(c).reduce((n,[k,v])=>n+Math.ceil(v/stackLimit(k)),0),partial=c[s.item]?Math.ceil(c[s.item]/stackLimit(s.item))*stackLimit(s.item)-c[s.item]:0;const n=Math.min(half?Math.ceil(s.count/2):s.count,partial+(limit-used)*stackLimit(s.item));if(n<=0)return 0;state.containers[id][s.item]=(state.containers[id][s.item]||0)+n;state.inventory[s.item]-=n;s.count-=n;if(!s.count)state.slots[index]=null;return n;}
 export function createContainer(state,id,base,gunChance=.8){
- state.containers??={};if(Object.hasOwn(state.containers,id)){const c=state.containers[id];if(!id.startsWith('build-')&&!id.startsWith('drop-')){let kept=false;for(const gun of Object.keys(WEAPONS))if(c[gun]){if(kept)delete c[gun];else{c[gun]=1;kept=true;}}}return c;}const out={};
+ state.containers??={};if(Object.hasOwn(state.containers,id))return randomLootContainer(id)?normalizeLoot(state.containers[id]):state.containers[id];const out={};
  if(!state.looted.includes(id)){let h=state.seed>>>0;for(const c of id)h=Math.imul(h^c.charCodeAt(0),16777619);h=Math.imul(h^h>>>16,0x7feb352d);h=Math.imul(h^h>>>15,0x846ca68b);h^=h>>>16;const roll=(h>>>0)/4294967296;
-  for(const [item,n]of Object.entries(base))if(!isGun(item)&&n>0)out[item]=Math.floor(n*state.multiplier);
-  if(roll<gunChance){const gun=firearmForTier(id,state.seed,crateTier(id,state.seed));out[gun]=1;out[WEAPONS[gun].ammo]??=WEAPONS[gun].capacity*state.multiplier;}
+  for(const [item,n]of Object.entries(base))if(!isGun(item)&&n>0)out[item]=lootAmount(item,n,state.multiplier);
+  if(roll<gunChance){const gun=firearmForTier(id,state.seed,crateTier(id,state.seed));out[gun]=1;out[WEAPONS[gun].ammo]??=lootAmount(WEAPONS[gun].ammo,WEAPONS[gun].capacity,state.multiplier);}
   if((Math.imul(h,1664525)+1013904223>>>0)/4294967296<.35)out.bandage=(out.bandage||0)+state.multiplier;
  }
- state.containers[id]=out;return out;
+ state.containers[id]=normalizeLoot(out);return state.containers[id];
 }

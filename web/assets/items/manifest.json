@@ -1,55 +1,16 @@
 {
-  "schema": 1,
+  "schema": 2,
   "style": "original colored survival inventory illustrations",
-  "source": "AI-generated individually for Oskol; chroma key removed; no third-party game assets",
+  "source": "Mixed provenance: preserved individual AI illustrations + original authored vector illustrations. No third-party game art.",
   "items": {
-    "charcoal": {
-      "file": "charcoal.webp",
+    "wood": {
+      "file": "wood.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "7fc41a256c6105f4598f382696e4f4dff9f7154c19e591a0ee401f89dc205416",
-      "sourceSha256": "040f3eebca2b8cf181e4e80ca419ff1aeeba1419f78bf8bdb5a3fd15b9e6fd40"
-    },
-    "fiber": {
-      "file": "fiber.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "8c21c7d5c03f2d85cef3a483858508779d0cb6e54efb0a68603427b50c572caf",
-      "sourceSha256": "68dbe88dab4653b897d52d91ebd19fabcd911eb8993802e6ff9c9dc56be69717"
-    },
-    "gunpowder": {
-      "file": "gunpowder.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "59bf7dfda713de6f8609d971733b5721cfdfeae714f66011a8f7071ada7fbe04",
-      "sourceSha256": "cf7f8254d8b7c0e26a9e0e625a5ee813b0b33d37b3f65924f0a49c249035104e"
-    },
-    "metal": {
-      "file": "metal.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "4e7d9f4ab65853e753ed7f075d6f4249f415edd231bc833871b0fee227d2f95b",
-      "sourceSha256": "51bdb75e6612faf15d0eef3b7e40d28964ce99288a430cd23ea2be7a6a07d04a"
-    },
-    "metalOre": {
-      "file": "metalOre.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "cbe4480080dd431f676c322c29c8f38a1819869f802b902071464b49c6ce69e8",
-      "sourceSha256": "5931a68c8f56b830829be54c671cff5ea339b426aff768fae83fd14cf1ee2c1e"
-    },
-    "scrap": {
-      "file": "scrap.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "71173810e35892dd37e5256e7bd45a0930f009e33f2fe8ae390356de42309337",
-      "sourceSha256": "f1a51afd2f34f54281afe33154b5bbfba3a0a91456f514e78ddeb6fdf6cda3f5"
+      "sha256": "a581ffd987825808e370b9a95d1101dd91272a3655d234c1b91cb79df5ae4e16",
+      "sourceSha256": "4d6c4ee8de9af6c92f9f6de9369d17520e573332b1f425a86f5e836c7d21dab3",
+      "method": "individual-ai-illustration"
     },
     "stone": {
       "file": "stone.webp",
@@ -57,15 +18,17 @@
       "height": 256,
       "alpha": true,
       "sha256": "7df243878a276bb726d727026677bd3255b03119b6a09211f88025010acf38c2",
-      "sourceSha256": "6b6764ed830bf105a0d9d964552116a4d2e5184b60009d862e1608b25d5b5c77"
+      "sourceSha256": "6b6764ed830bf105a0d9d964552116a4d2e5184b60009d862e1608b25d5b5c77",
+      "method": "individual-ai-illustration"
     },
-    "sulfur": {
-      "file": "sulfur.webp",
+    "metalOre": {
+      "file": "metalOre.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "a1a6b24f3b203ba6f61a4fb5e72634308f39fe5e161ec09a4e960de9760e28ac",
-      "sourceSha256": "38be24dfb8d9f34cd3011bf07572fb39cf52e0831a53236ec16a1a7bcf7c72c4"
+      "sha256": "cbe4480080dd431f676c322c29c8f38a1819869f802b902071464b49c6ce69e8",
+      "sourceSha256": "5931a68c8f56b830829be54c671cff5ea339b426aff768fae83fd14cf1ee2c1e",
+      "method": "individual-ai-illustration"
     },
     "sulfurOre": {
       "file": "sulfurOre.webp",
@@ -73,47 +36,62 @@
       "height": 256,
       "alpha": true,
       "sha256": "16c8d85d8c7a9fe40ab2c0c4d868328dedf4dd2bb59b3f3e69735e0425ada991",
-      "sourceSha256": "8d94029b87b5036245a4e872ce5e60baa8de517ce21a7f8881092f910a757c1b"
+      "sourceSha256": "8d94029b87b5036245a4e872ce5e60baa8de517ce21a7f8881092f910a757c1b",
+      "method": "individual-ai-illustration"
     },
-    "wood": {
-      "file": "wood.webp",
+    "metal": {
+      "file": "metal.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "a581ffd987825808e370b9a95d1101dd91272a3655d234c1b91cb79df5ae4e16",
-      "sourceSha256": "4d6c4ee8de9af6c92f9f6de9369d17520e573332b1f425a86f5e836c7d21dab3"
+      "sha256": "4e7d9f4ab65853e753ed7f075d6f4249f415edd231bc833871b0fee227d2f95b",
+      "sourceSha256": "51bdb75e6612faf15d0eef3b7e40d28964ce99288a430cd23ea2be7a6a07d04a",
+      "method": "individual-ai-illustration"
     },
-    "ammo": {
-      "file": "ammo.webp",
+    "sulfur": {
+      "file": "sulfur.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "c0bf8a122c2a9c9b2965cc99a899e1d2b2e253375adf88af559fb36f18501a32",
-      "sourceSha256": "8eb526f3451ea27ed30f7e8e0fb55b176edcdf122563774e5808b62c49748c25"
+      "sha256": "a1a6b24f3b203ba6f61a4fb5e72634308f39fe5e161ec09a4e960de9760e28ac",
+      "sourceSha256": "38be24dfb8d9f34cd3011bf07572fb39cf52e0831a53236ec16a1a7bcf7c72c4",
+      "method": "individual-ai-illustration"
     },
-    "armor": {
-      "file": "armor.webp",
+    "charcoal": {
+      "file": "charcoal.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "d7d48a9567467533cdf1b7289bf7becfa7be57489856a7766f6e35a56ded6993",
-      "sourceSha256": "b2536b7b0a34c144428ff85409f0487d46ca663b78a6f654a7d9600e5931a0c0"
+      "sha256": "7fc41a256c6105f4598f382696e4f4dff9f7154c19e591a0ee401f89dc205416",
+      "sourceSha256": "040f3eebca2b8cf181e4e80ca419ff1aeeba1419f78bf8bdb5a3fd15b9e6fd40",
+      "method": "individual-ai-illustration"
     },
-    "axe": {
-      "file": "axe.webp",
+    "gunpowder": {
+      "file": "gunpowder.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "b2499db30d6d3b6bf6a37668287b92c4e953333d08731cad2191fe853f3d1142",
-      "sourceSha256": "97ca3a829705f252d62e7b32c843fe53aca8f056f36c3e5ee116685b78dffcaf"
+      "sha256": "59bf7dfda713de6f8609d971733b5721cfdfeae714f66011a8f7071ada7fbe04",
+      "sourceSha256": "cf7f8254d8b7c0e26a9e0e625a5ee813b0b33d37b3f65924f0a49c249035104e",
+      "method": "individual-ai-illustration"
     },
-    "bandage": {
-      "file": "bandage.webp",
+    "fiber": {
+      "file": "fiber.webp",
       "width": 256,
       "height": 256,
       "alpha": true,
-      "sha256": "04fc9b85a0aa41a56e1fc0395c05ed186cc2e0934f3f1d4a870db579d8a86099",
-      "sourceSha256": "811c6441c1825021a5767860bceaa4623671debd5ceb83abe5dac8353b48ab07"
+      "sha256": "8c21c7d5c03f2d85cef3a483858508779d0cb6e54efb0a68603427b50c572caf",
+      "sourceSha256": "68dbe88dab4653b897d52d91ebd19fabcd911eb8993802e6ff9c9dc56be69717",
+      "method": "individual-ai-illustration"
+    },
+    "scrap": {
+      "file": "scrap.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "71173810e35892dd37e5256e7bd45a0930f009e33f2fe8ae390356de42309337",
+      "sourceSha256": "f1a51afd2f34f54281afe33154b5bbfba3a0a91456f514e78ddeb6fdf6cda3f5",
+      "method": "individual-ai-illustration"
     },
     "berries": {
       "file": "berries.webp",
@@ -121,39 +99,8 @@
       "height": 256,
       "alpha": true,
       "sha256": "f78607d0c6a32b9f82c9517c16d743012dfacb4f01909c24cc5e954c8471ad7d",
-      "sourceSha256": "eb204378b0046d66fcd2d5971a94f5454736144b9846af9bd1cfc32124c86bbd"
-    },
-    "hammer": {
-      "file": "hammer.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "db9d1d4a67a3d01f4e30cbc6799a21f72166c80d35c208398be64e59c2454e79",
-      "sourceSha256": "1343ff2aab02c55b389ce77c82b8c6fc7c640a478f27389460e850da537c4204"
-    },
-    "pickaxe": {
-      "file": "pickaxe.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "5546d7f72be5bdc7abf031bd04c24f8aa3e841aedd78c948be41bd7600bb72da",
-      "sourceSha256": "f5fccb81dd0b557b14d8d7be28d81c86897129c7ce06652cc2c5c9dbad0538c9"
-    },
-    "rifle": {
-      "file": "rifle.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "bffa7ee0029d4368761d8f614b9eb78762cfa245669e12fe6ccd2fdb8bac2f93",
-      "sourceSha256": "bfb2a9d46bfada53c4436981a851d0b3772b8f088d4d043998c6912e95bc86a0"
-    },
-    "satchel": {
-      "file": "satchel.webp",
-      "width": 256,
-      "height": 256,
-      "alpha": true,
-      "sha256": "a3e1c820f174da79b41a4d51b05c04762c3008fca6ef41732b24d45f95b27abe",
-      "sourceSha256": "dbbd6b120e92e0aca920f0093d0d0dd0724881ef3e8a961d3c6be48bf1a40112"
+      "sourceSha256": "eb204378b0046d66fcd2d5971a94f5454736144b9846af9bd1cfc32124c86bbd",
+      "method": "individual-ai-illustration"
     },
     "water": {
       "file": "water.webp",
@@ -161,7 +108,761 @@
       "height": 256,
       "alpha": true,
       "sha256": "efab11e6ec3f87862b4233533c1c3977a893b0191e2ef99c7c4b3a7efc3642fb",
-      "sourceSha256": "5dd6054d76a571a447e9d004818e11634e22a333cc584cd7020a70430abcfc6c"
+      "sourceSha256": "5dd6054d76a571a447e9d004818e11634e22a333cc584cd7020a70430abcfc6c",
+      "method": "individual-ai-illustration"
+    },
+    "bandage": {
+      "file": "bandage.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "04fc9b85a0aa41a56e1fc0395c05ed186cc2e0934f3f1d4a870db579d8a86099",
+      "sourceSha256": "811c6441c1825021a5767860bceaa4623671debd5ceb83abe5dac8353b48ab07",
+      "method": "individual-ai-illustration"
+    },
+    "axe": {
+      "file": "axe.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "b2499db30d6d3b6bf6a37668287b92c4e953333d08731cad2191fe853f3d1142",
+      "sourceSha256": "97ca3a829705f252d62e7b32c843fe53aca8f056f36c3e5ee116685b78dffcaf",
+      "method": "individual-ai-illustration"
+    },
+    "pickaxe": {
+      "file": "pickaxe.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "5546d7f72be5bdc7abf031bd04c24f8aa3e841aedd78c948be41bd7600bb72da",
+      "sourceSha256": "f5fccb81dd0b557b14d8d7be28d81c86897129c7ce06652cc2c5c9dbad0538c9",
+      "method": "individual-ai-illustration"
+    },
+    "hammer": {
+      "file": "hammer.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "db9d1d4a67a3d01f4e30cbc6799a21f72166c80d35c208398be64e59c2454e79",
+      "sourceSha256": "1343ff2aab02c55b389ce77c82b8c6fc7c640a478f27389460e850da537c4204",
+      "method": "individual-ai-illustration"
+    },
+    "rifle": {
+      "file": "rifle.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "bffa7ee0029d4368761d8f614b9eb78762cfa245669e12fe6ccd2fdb8bac2f93",
+      "sourceSha256": "bfb2a9d46bfada53c4436981a851d0b3772b8f088d4d043998c6912e95bc86a0",
+      "method": "individual-ai-illustration"
+    },
+    "ammo": {
+      "file": "ammo.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c0bf8a122c2a9c9b2965cc99a899e1d2b2e253375adf88af559fb36f18501a32",
+      "sourceSha256": "8eb526f3451ea27ed30f7e8e0fb55b176edcdf122563774e5808b62c49748c25",
+      "method": "individual-ai-illustration"
+    },
+    "satchel": {
+      "file": "satchel.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "a3e1c820f174da79b41a4d51b05c04762c3008fca6ef41732b24d45f95b27abe",
+      "sourceSha256": "dbbd6b120e92e0aca920f0093d0d0dd0724881ef3e8a961d3c6be48bf1a40112",
+      "method": "individual-ai-illustration"
+    },
+    "armor": {
+      "file": "armor.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "d7d48a9567467533cdf1b7289bf7becfa7be57489856a7766f6e35a56ded6993",
+      "sourceSha256": "b2536b7b0a34c144428ff85409f0487d46ca663b78a6f654a7d9600e5931a0c0",
+      "method": "individual-ai-illustration"
+    },
+    "foundation": {
+      "file": "foundation.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "ec41d0373072672b170610cafbc69e0b7bcbd9dfb3609bdadd5b9c2ee6139c26",
+      "sourceSha256": "2d212078590fc05374cc60ec016722a708a0b81d6c1ab3aa1a251c875bdbdb93",
+      "method": "original-vector-illustration",
+      "source": "vectors/foundation.svg"
+    },
+    "wall": {
+      "file": "wall.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "e664e23835f26bc7b3bf7bbc0fadabc07ea0c6d56443878da23a0ec5536942a5",
+      "sourceSha256": "2e8a92ecec386ceeab1cd9b6403a5cbc4d1862a9ee5ac2e2c84bf07b415cb684",
+      "method": "original-vector-illustration",
+      "source": "vectors/wall.svg"
+    },
+    "door": {
+      "file": "door.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "1969c41674d4a0e8fea06a3dd5db834369b031e0e0bc03418f07e352d3b9202b",
+      "sourceSha256": "c400f97228715fb7af2c6537f648809977e063c92262268a9545b225073413d3",
+      "method": "original-vector-illustration",
+      "source": "vectors/door.svg"
+    },
+    "roof": {
+      "file": "roof.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "eb70806c34f21069191c7bb54437742f1f00e316944f7e557e8b8fae8e897400",
+      "sourceSha256": "1023de913e86e185af8b939aa4e13bb4fb071db5966636f7f78f2b08e2abb0f8",
+      "method": "original-vector-illustration",
+      "source": "vectors/roof.svg"
+    },
+    "campfire": {
+      "file": "campfire.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "0081b4a684cf9337188e82e354055545decdcf6593d3549dd83426a8a978d947",
+      "sourceSha256": "dcce9fb44072b5ed133fb3db0bc95fdc812b90d539dac6b5bd2a97de09c5797f",
+      "method": "original-vector-illustration",
+      "source": "vectors/campfire.svg"
+    },
+    "furnace": {
+      "file": "furnace.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "f7924367dde9443ee15627801e97c806d2b03120913908f97928f1423610d823",
+      "sourceSha256": "c5b84f247147b1f06aadffcff01a261c9e147e67974edc1d94738188a45de468",
+      "method": "original-vector-illustration",
+      "source": "vectors/furnace.svg"
+    },
+    "workbench": {
+      "file": "workbench.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "6a7176e5275c1790860ff996936fe82a93777aff3215026b9be63475b40b684c",
+      "sourceSha256": "5af8debeeb659fcd159ea674f286874ec9cd932216cbc048a7a24d1ae4bc8906",
+      "method": "original-vector-illustration",
+      "source": "vectors/workbench.svg"
+    },
+    "battery": {
+      "file": "battery.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "1e955ea4a6be6ecab0db685dbb6ad35414b101641370213ec2be7932de536a35",
+      "sourceSha256": "517f7ee2f38db4cf9913b868d6145738580826ca58ee2519ae399b12a0ed7a20",
+      "method": "original-vector-illustration",
+      "source": "vectors/battery.svg"
+    },
+    "rock": {
+      "file": "rock.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "4f82084557eef0fe1fc49dfb42e64de933c5b180b16705f59472b286c02c2354",
+      "sourceSha256": "3100d2abb8c2b34bb901486912ff69f74f1954223fb5acbca0bf4ea2b72760f0",
+      "method": "original-vector-illustration",
+      "source": "vectors/rock.svg"
+    },
+    "torch": {
+      "file": "torch.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "0253327043b7ee704c97f490ff23866cddb1f370f4bbe2abfb68997bc904fd65",
+      "sourceSha256": "99c0fe2c0a6bf85bb0ef3918efbdaf38972de9549a26c82a7e0a10262d06bd5d",
+      "method": "original-vector-illustration",
+      "source": "vectors/torch.svg"
+    },
+    "pistol": {
+      "file": "pistol.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c23a6bd4eb977e83043cbe3fae8744b53c32a068adc8940df3e178288e8f631e",
+      "sourceSha256": "0dfd4da84feabe98033a6b29c70d0e87903ef3d23a9bdf082a097757e0d5b5ec",
+      "method": "original-vector-illustration",
+      "source": "vectors/pistol.svg"
+    },
+    "revolver": {
+      "file": "revolver.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "46dd3246c3eeef62c274fda9ec7b1e0cfd2c141a39efc96749d15ae3e8a09948",
+      "sourceSha256": "d0acffd37d8901c73ccab28cd5881e9f691a781d91a8ad5bc9e68523d5c2735d",
+      "method": "original-vector-illustration",
+      "source": "vectors/revolver.svg"
+    },
+    "smg": {
+      "file": "smg.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "1692a9b25fd79adbb7a77fbc8d49087d329ef34a3814fefe0f27b44733a12d19",
+      "sourceSha256": "0162351a65f4168270567e0414bf83c98970b05ece0a289aeb6cf08c35b7ca0b",
+      "method": "original-vector-illustration",
+      "source": "vectors/smg.svg"
+    },
+    "shotgun": {
+      "file": "shotgun.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "925620f14ec0c49536765b9919f5faba99a404681a5ddd8e59e1d9e7018006c3",
+      "sourceSha256": "59fe99b6242478dec823840d663b63f57759761711f74808d95c293d28aa312f",
+      "method": "original-vector-illustration",
+      "source": "vectors/shotgun.svg"
+    },
+    "assaultRifle": {
+      "file": "assaultRifle.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "cba10608809bb87739b5660a4bbaef5ec86312f9ee225179527f4329c9349b40",
+      "sourceSha256": "af1d6009aec87e4e1992c8e89144d1d53d58d9c0fda97754e171f09d52762a56",
+      "method": "original-vector-illustration",
+      "source": "vectors/assaultRifle.svg"
+    },
+    "boltRifle": {
+      "file": "boltRifle.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "255f105d25f15622be2c093c684c3892e4ccb2a018feecfcbc788ff716554991",
+      "sourceSha256": "86c7de45ea1fab3da81bec2cfa4238c589c7ea9a519c2aa50e444bc5f2bd479f",
+      "method": "original-vector-illustration",
+      "source": "vectors/boltRifle.svg"
+    },
+    "semiRifle": {
+      "file": "semiRifle.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "465f663d4f75a2070f940127458ed43fa68121f2fad1daad05947f2a227c116a",
+      "sourceSha256": "a116b92e835f371dcb91395939e352f9b6b2e5f55977b1c6d53c65496eb70ffa",
+      "method": "original-vector-illustration",
+      "source": "vectors/semiRifle.svg"
+    },
+    "heavyPistol": {
+      "file": "heavyPistol.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "07f55ce9a24c9effb736c6e5ea64a7a05ff22745c25eb1a6b03c399cd57b1164",
+      "sourceSha256": "20c013a37ef9679a3b811a72e92eed8d26997e9a9725b0ba3b7b214847f9fc90",
+      "method": "original-vector-illustration",
+      "source": "vectors/heavyPistol.svg"
+    },
+    "combatShotgun": {
+      "file": "combatShotgun.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "26eb61c2f723140e0acbe5281bc590c5f1275988379e206da1443a385f6233b9",
+      "sourceSha256": "40a2a1efebb77d58599bfe8260919bce1d40127212d6c904da761651af79aad7",
+      "method": "original-vector-illustration",
+      "source": "vectors/combatShotgun.svg"
+    },
+    "machineGun": {
+      "file": "machineGun.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "8a82ff97f56c13aedba8969f83cbb9a12aafe16590ada2b45179302c3afe8540",
+      "sourceSha256": "f85ce72a68a24185dacb3b51a92ead59307f1740181d4c8b5361eb35f7533391",
+      "method": "original-vector-illustration",
+      "source": "vectors/machineGun.svg"
+    },
+    "rocketLauncher": {
+      "file": "rocketLauncher.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "ee1871ff57d1df5a15282acf1da58a0c1b2e56802b1770d947519382dea24f82",
+      "sourceSha256": "efa814813ef9db1fd227dd565d34150d2cb414e6d17eb49e7940102424c1a3c7",
+      "method": "original-vector-illustration",
+      "source": "vectors/rocketLauncher.svg"
+    },
+    "plan": {
+      "file": "plan.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "6db2bf161bcd659abf682c80f0ac40446a94cb0b64d95a8f825431c844c5f97b",
+      "sourceSha256": "1d56827a257df92a55e6209ea0c6167e6669f3b87a7183bf88358a4ae5bfa3e0",
+      "method": "original-vector-illustration",
+      "source": "vectors/plan.svg"
+    },
+    "storage": {
+      "file": "storage.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "a8641ca4283615332bb117635881f316a97ac00de59e860be0bf7dca899e6be5",
+      "sourceSha256": "fc351d0a6276ed795733e007b1b3b8ebba6b7a245c9dab867bbdf14d974b2f5d",
+      "method": "original-vector-illustration",
+      "source": "vectors/storage.svg"
+    },
+    "largeStorage": {
+      "file": "largeStorage.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "5e682d27814f9848844cf6071e656350fff57e0132ae3cfcac2d7aa425f1d27f",
+      "sourceSha256": "e37b01c001ce76944753215531d968b134722b529c0628bc1be10ca80c34fec9",
+      "method": "original-vector-illustration",
+      "source": "vectors/largeStorage.svg"
+    },
+    "pistolAmmo": {
+      "file": "pistolAmmo.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "b38785134b0f7b0f916ccacd6796834ed3b659c68c3eb4fff43e17c558590241",
+      "sourceSha256": "8a55c43b3d9fe225a171b9bbf655f4ddc9cb607119ed993a53c11bd3f2b72376",
+      "method": "original-vector-illustration",
+      "source": "vectors/pistolAmmo.svg"
+    },
+    "shells": {
+      "file": "shells.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c4829437d8d030cb2a1a5a5198b43eb102d4ab02daec19824b4c2b6adc512b55",
+      "sourceSha256": "5871b03f9b987364abf4b0e6ea6ef6beac39657e50e7830cff602369953f7bd9",
+      "method": "original-vector-illustration",
+      "source": "vectors/shells.svg"
+    },
+    "syringe": {
+      "file": "syringe.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "eec7d55ec43e49589cadb1756a7055cfbe3a2c8a7c025abf6cf4f536e0baa133",
+      "sourceSha256": "fb450e9feb732792472ac8826610ea7b6bc5fa839758fbe7fa3d242b1b72d72d",
+      "method": "original-vector-illustration",
+      "source": "vectors/syringe.svg"
+    },
+    "medkit": {
+      "file": "medkit.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c0a55b37c53ef584464761a839f29b003d35f89543a1d1bf03d033b47565cd03",
+      "sourceSha256": "3eaf7efbbc65917ab031867bcc6d9018df268ae71ff892448fd7d25755b03f4b",
+      "method": "original-vector-illustration",
+      "source": "vectors/medkit.svg"
+    },
+    "cannedFood": {
+      "file": "cannedFood.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "ea69157fbe0ba6913a771248537080e5ccd7023efea41fd177d7cfb5146d98c0",
+      "sourceSha256": "effe5d309d73807d17d9202a62df63feb40080882ca00b9eed6a14309998bc1e",
+      "method": "original-vector-illustration",
+      "source": "vectors/cannedFood.svg"
+    },
+    "lowFuel": {
+      "file": "lowFuel.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "da1c696893f5019efbcf47295b557e19703534ad33b44a59ceea6c2ac1f9b15d",
+      "sourceSha256": "65e9e7b75f747db707f7bfa809a53f48d4c0ffa53d46fcca30bb7718756fbd1b",
+      "method": "original-vector-illustration",
+      "source": "vectors/lowFuel.svg"
+    },
+    "rope": {
+      "file": "rope.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "665ebc6f16b06918641b2e3624598eb8d61c5f8987aac05838e1da53f7a9cee3",
+      "sourceSha256": "80cece3ef935965fb797da7e2fc22b36689f3194af416949d486b7aff20e449e",
+      "method": "original-vector-illustration",
+      "source": "vectors/rope.svg"
+    },
+    "gears": {
+      "file": "gears.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "7c073777fe506c63194fb892868091c7f849dff808fb098274057aaf94ec5203",
+      "sourceSha256": "25adabc51e80bbc99d6d5f9063451d1e869a34f29980725e6f0184c68250324e",
+      "method": "original-vector-illustration",
+      "source": "vectors/gears.svg"
+    },
+    "spring": {
+      "file": "spring.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "d2f7d6b2b9545d8606f4b4215a12a25c057732ce0c9dd52b0ae94b2cca59e6eb",
+      "sourceSha256": "34dbf2584101c221bbc1af6b62a4c553e4c5e4826e5b8e8c902dfed6febfd28b",
+      "method": "original-vector-illustration",
+      "source": "vectors/spring.svg"
+    },
+    "sewingKit": {
+      "file": "sewingKit.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "b0e4bf0112afe125fdc1c9e927fbf85bcbcae7605667f1e78f27486cea1fc504",
+      "sourceSha256": "6af212e3eb6efdc5c63e2d733792e307762e3dfc08d728f0b4a17aae0b743288",
+      "method": "original-vector-illustration",
+      "source": "vectors/sewingKit.svg"
+    },
+    "metalPipe": {
+      "file": "metalPipe.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "057e27a66be4c6b50b8bb401ab4204d0d23a4e7c5ac969d7fb63b16dce794da4",
+      "sourceSha256": "22e950ce653f88bf752ebefe6bf6e75ccd7fda7d2266fdc742b82d00a056e433",
+      "method": "original-vector-illustration",
+      "source": "vectors/metalPipe.svg"
+    },
+    "metalCylinder": {
+      "file": "metalCylinder.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "f3bce381a8b52dbf33b539b9cdc73da2af85c6de69c7b31d16b3e8a4c4d5f370",
+      "sourceSha256": "4f281f3d122430d0732a75c806968df850696701c2185f9f3a38c20efee6924c",
+      "method": "original-vector-illustration",
+      "source": "vectors/metalCylinder.svg"
+    },
+    "rifleBody": {
+      "file": "rifleBody.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "99597e2e5b347d78e51b66bc7ffd66640a1955635a4dee9ace5b6acc8331f955",
+      "sourceSha256": "14cfd019d34cf05e8061c34e1edd3007ae222b03fea08452259f905c8137a8ab",
+      "method": "original-vector-illustration",
+      "source": "vectors/rifleBody.svg"
+    },
+    "smgBody": {
+      "file": "smgBody.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "3aead295faa2887832dee2b15142439e15d1748b870fa891753d50e7ac886131",
+      "sourceSha256": "3c4917b5f9f5e78c0f46f315a1920a79efa2ef6c3462dbc93c6e4768b13c6cd5",
+      "method": "original-vector-illustration",
+      "source": "vectors/smgBody.svg"
+    },
+    "semiBody": {
+      "file": "semiBody.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c6fe487b254fc0802c27576031face0ec8cbf1c82313edf008b644874722dc46",
+      "sourceSha256": "49d1dcf24be31f8355a54dd3d83a46239cd7c832f798e2296bed3063c7362d5e",
+      "method": "original-vector-illustration",
+      "source": "vectors/semiBody.svg"
+    },
+    "metalBlade": {
+      "file": "metalBlade.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "6a038b8496c6de22bb7b7b01f3fdf6339dd32912419e14a521d16c7e46da456d",
+      "sourceSha256": "59571529665a4881c1a07e09f89d194f8832932a7d6b5f8ec130b020e2476467",
+      "method": "original-vector-illustration",
+      "source": "vectors/metalBlade.svg"
+    },
+    "metalSheet": {
+      "file": "metalSheet.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "ff7dbb9e7d916c544713eeec925162f14ba72447bdf24e1c627e0efcd45b7e95",
+      "sourceSha256": "39d81b1cfcb5d9e207a56c04e6e37fa083c5bbe063931bc9a1b81bf4a4fddcb7",
+      "method": "original-vector-illustration",
+      "source": "vectors/metalSheet.svg"
+    },
+    "techParts": {
+      "file": "techParts.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c013932cc3abe93c132eb3cd11f2fe023d3a0dde41dc43ae33a9e3e3a36215d3",
+      "sourceSha256": "3966e895d5abb0a7d883be4f8b15d3a4a14bf452e53934bf9fb3ece490dc4d3a",
+      "method": "original-vector-illustration",
+      "source": "vectors/techParts.svg"
+    },
+    "tarp": {
+      "file": "tarp.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "282528738c8741b5702b5fc5d1720e479ab602d6c14b317e4b37fcc0e2193278",
+      "sourceSha256": "7e5f601d0db949d6c8b2674353f2dc3e11f87a8a5f8683198b9982d819e9f723",
+      "method": "original-vector-illustration",
+      "source": "vectors/tarp.svg"
+    },
+    "ductTape": {
+      "file": "ductTape.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "1df1ea18432923aa3ccff4e22ebf2f4fc341aaac5bbce29ccc7365622acab314",
+      "sourceSha256": "09d4f735761b034e6c3c6f3b0ac6999aad793819142d0d6d51406b3c9b846e0c",
+      "method": "original-vector-illustration",
+      "source": "vectors/ductTape.svg"
+    },
+    "highMetal": {
+      "file": "highMetal.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "f58c09bdc1038294da700f08e8f486f7734bb5298bacb76b1d5a5a7ccf595c15",
+      "sourceSha256": "d156220ac6cf41b1c08318de748ecda21dba940560553041d87395f7b063a634",
+      "method": "original-vector-illustration",
+      "source": "vectors/highMetal.svg"
+    },
+    "highMetalOre": {
+      "file": "highMetalOre.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "a3887411ce07dfa03722dd125e6247ae19904bec038996104e4d695a3ca8be31",
+      "sourceSha256": "4a07c73ecdc0e7d8bee9c61b19beb2b816cd85e8354c7a210a28876e8c788cb0",
+      "method": "original-vector-illustration",
+      "source": "vectors/highMetalOre.svg"
+    },
+    "explosives": {
+      "file": "explosives.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "085c8113cf1109a4e63cc0d966da7f05996629cd6a71be9ed70a7c9e90de9807",
+      "sourceSha256": "927a6fc0de790a9f57bd0b8e7f72c9b8033b17d08d8981b615cf9ac4ce61ffaa",
+      "method": "original-vector-illustration",
+      "source": "vectors/explosives.svg"
+    },
+    "rocket": {
+      "file": "rocket.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "cb11b6bc604fa476e144c24a9c2468d579a7a9d8b757975acee28f2b657064a5",
+      "sourceSha256": "21d61f94d9258f6485e42e4021686bfc0efafd55d36947852b4f21a0a97a354b",
+      "method": "original-vector-illustration",
+      "source": "vectors/rocket.svg"
+    },
+    "hvRocket": {
+      "file": "hvRocket.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "9347689c480cb178303e33b66313fbb0b442fd42fdcd07439a15ff835ee881e9",
+      "sourceSha256": "381b969b5bc601be00ed634382fa834cbeab07f50720efa9fd653807a088a303",
+      "method": "original-vector-illustration",
+      "source": "vectors/hvRocket.svg"
+    },
+    "incendiaryRocket": {
+      "file": "incendiaryRocket.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "ef2a118f1f33a5e81af2e054c6b3546fe7ef730174eeb98ee66c96191f7d757b",
+      "sourceSha256": "2b4d020da7780423dea1aa596ea2f92b2e988dbb187f20dcd8e04967aa5348b3",
+      "method": "original-vector-illustration",
+      "source": "vectors/incendiaryRocket.svg"
+    },
+    "timedCharge": {
+      "file": "timedCharge.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "60cdf85885cbebd550533bbf348bf5a78c3d431ed19359f3c1183638f64bf8d2",
+      "sourceSha256": "0aec33551f239c1802d3a3dbaf4d885282c3b93f87b0fd3868ec38562e872fee",
+      "method": "original-vector-illustration",
+      "source": "vectors/timedCharge.svg"
+    },
+    "f1Grenade": {
+      "file": "f1Grenade.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "562c966b6937f5898409ad3183f238c9a7fb9810417843f1a3fae7b04d3e1d36",
+      "sourceSha256": "079e923f5b73688a613e60f477a120f9e3aa5da884be62f1ea3ddb6c81a0d5fd",
+      "method": "original-vector-illustration",
+      "source": "vectors/f1Grenade.svg"
+    },
+    "beancan": {
+      "file": "beancan.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "df5faf860e780cd19591bb158528af0b4a0452928b64eef3c92d6d2bcbfe5b86",
+      "sourceSha256": "cfa84c4d28bcb9d57d8b1a231db1a344587523fd41e699a0b74e6ecc0f3281f8",
+      "method": "original-vector-illustration",
+      "source": "vectors/beancan.svg"
+    },
+    "mushroom": {
+      "file": "mushroom.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "0e2ec3420ea4b729b0950e4cdd72ff98cfcfb2ece801fbcf430fbd6523b78963",
+      "sourceSha256": "d1055ca0d9440301cfc32216c6c9c62f0799a9d8b7fcce2aff350f5f31af4e2b",
+      "method": "original-vector-illustration",
+      "source": "vectors/mushroom.svg"
+    },
+    "pumpkin": {
+      "file": "pumpkin.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "19ddccc7e32c085734f959fffb738f777f6ff01489178153e3523d96d07fe61f",
+      "sourceSha256": "db894beb73bd4b4c7c9d72121ab9b0d89e896796dd96f79b84a1cfcc9a787996",
+      "method": "original-vector-illustration",
+      "source": "vectors/pumpkin.svg"
+    },
+    "corn": {
+      "file": "corn.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "caac1434afeffa8fbfbf339a118f1fa212f797ace262c805a453c19f89195058",
+      "sourceSha256": "4705b43b157f4d376e4510dd215f0ebb549ea1c81ed19dcff9cfd7ef101bbef4",
+      "method": "original-vector-illustration",
+      "source": "vectors/corn.svg"
+    },
+    "meat": {
+      "file": "meat.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "d617fcc0fb1e9c1b0dbfd391e88696f93514610deb54eb04c195d42d2dd42484",
+      "sourceSha256": "4b131c1452903c49db55fb0edd769dbb48db231e55c0bb5d93b6d22e6233abca",
+      "method": "original-vector-illustration",
+      "source": "vectors/meat.svg"
+    },
+    "cookedMeat": {
+      "file": "cookedMeat.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "9553ba96a5eac4f46d7ab3a42a040b04700eb19b864898ae24bb6141af6d1150",
+      "sourceSha256": "36ad0db1c6e016af90869b784f5bce1a1828cfb703e4b7180b6c915d5be75f53",
+      "method": "original-vector-illustration",
+      "source": "vectors/cookedMeat.svg"
+    },
+    "cupboard": {
+      "file": "cupboard.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "1183b37055d13a7eda660601f3a79bc2a956dd155c68817b549a91cce66cac9a",
+      "sourceSha256": "27994e3c8773572c88d020ca97dcdd315d4ac64b73ddd3c9b838012fb98e54b2",
+      "method": "original-vector-illustration",
+      "source": "vectors/cupboard.svg"
+    },
+    "recycler": {
+      "file": "recycler.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "50a4b5036c2b9d10bb24bcef27e2fd81f02db7cf6a08d5a7a5c6beca376a633a",
+      "sourceSha256": "89f4550515c1e86eca695be987ab52b57b1488297aa2896f79d27b7c9202c9b7",
+      "method": "original-vector-illustration",
+      "source": "vectors/recycler.svg"
+    },
+    "repairBench": {
+      "file": "repairBench.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "bcb5a2b9742a3c91946e75bbd8fd56c32cf3e1cabe46e89f7dd87dd205d48c1f",
+      "sourceSha256": "e560c37d3a1ac857f300753bc0dbb5156034f1eac954891a8900d5e20e644e60",
+      "method": "original-vector-illustration",
+      "source": "vectors/repairBench.svg"
+    },
+    "triangleFoundation": {
+      "file": "triangleFoundation.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "ef044f1841341e452cb1794e94f59353a4f0a3307f5fa2c2a48a6d264c0318e3",
+      "sourceSha256": "a0ea517281a62da257834606c0ea8fb30103c7b7f8211abbb0ab3d55f02347cf",
+      "method": "original-vector-illustration",
+      "source": "vectors/triangleFoundation.svg"
+    },
+    "halfWall": {
+      "file": "halfWall.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "20e8ee828d0dba2f1b78f6aac9da0dd408776f87204b98e56cd6757133bd805e",
+      "sourceSha256": "5174eb1ff0516c9813be285b99ce06b29f61e026d10d3126181b89f20b25d953",
+      "method": "original-vector-illustration",
+      "source": "vectors/halfWall.svg"
+    },
+    "doorway": {
+      "file": "doorway.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "036e7853972334d9ef930967f97e3eaaf894220db8f30e308971566d4ef74121",
+      "sourceSha256": "a2cc04b1a63e40b030e94c6eb583bc17011db6ea7d66256b7c54daa4b93a6d16",
+      "method": "original-vector-illustration",
+      "source": "vectors/doorway.svg"
+    },
+    "triangleRoof": {
+      "file": "triangleRoof.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "1d4f671882d40dfa3b0cd38cd01e358c1b5d88e9150d196925eb1bae9a1e18ae",
+      "sourceSha256": "8febe07011dba4972a0b8cfa66b0176846c23e87fd00e8012ad46fc09c4dff27",
+      "method": "original-vector-illustration",
+      "source": "vectors/triangleRoof.svg"
+    },
+    "roofSlope": {
+      "file": "roofSlope.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "d1e31a0b2ba16691d8fb7824ec59be7074330e6f062f96bd9e23cc3a945e014c",
+      "sourceSha256": "df928102328e9bb1f68995015485d01b9691b7ae469cfefe8b4ec7e7df088d77",
+      "method": "original-vector-illustration",
+      "source": "vectors/roofSlope.svg"
+    },
+    "stairs": {
+      "file": "stairs.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "83d8356b869b5d2f7dcca7d6c55842ddb80820e527190588e39f3d72b2f7ad30",
+      "sourceSha256": "aa93d3d980ffbd124fb97a0980210505c13e8f4bb1c02b0d653325d00e231a44",
+      "method": "original-vector-illustration",
+      "source": "vectors/stairs.svg"
+    },
+    "ramp": {
+      "file": "ramp.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "d06b10e0da0ac38eae22d7265a47b6cd7912af1ba7ddacd926ece1a0c0553d95",
+      "sourceSha256": "8de2329ff7ebdce9f849407ae5d49a10aa06ea163c3f698ab979fc4c430cf345",
+      "method": "original-vector-illustration",
+      "source": "vectors/ramp.svg"
     }
-  }
+  },
+  "catalogCount": 88
 }

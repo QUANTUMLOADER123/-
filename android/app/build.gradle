@@ -6,8 +6,8 @@ android {
         applicationId 'game.oskol.survival'
         minSdk 26
         targetSdk 35
-        versionCode 6
-        versionName '0.6.0-dev04'
+        versionCode 7
+        versionName '0.7.0-dev05'
         testInstrumentationRunner 'game.oneslice.SmokeInstrumentation'
     }
     // Intentionally PUBLIC development key; keeps test APK updates compatible. Never use for a production app.
