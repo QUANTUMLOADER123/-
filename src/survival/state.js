@@ -1,3 +1,4 @@
+import {naturalHeight13,coastDistance13} from './terrain13.js';
 import {lootAmount} from './loot-policy.js';
 import {isFoundation,isFloor,isStructural} from './expansion.js';
 import {EXTRA_ITEMS,EXTRA_RECIPES,WEAPONS,BUILD_COSTS,isGun,magazine,setMagazine} from './catalog.js';
@@ -41,15 +42,26 @@ export function randomSeed(seed){let n=seed>>>0;return()=>{n+=0x6D2B79F5;let t=n
 const smooth=t=>t*t*(3-2*t);
 function hash(x,z){return(randomSeed(Math.imul(x,374761393)^Math.imul(z,668265263)^MAP_SEED))();}
 export function noise(x,z){const a=Math.floor(x),b=Math.floor(z),u=smooth(x-a),v=smooth(z-b);return(hash(a,b)*(1-u)+hash(a+1,b)*u)*(1-v)+(hash(a,b+1)*(1-u)+hash(a+1,b+1)*u)*v;}
-function rawHeight(x,z){x/=MAP_SCALE;z/=MAP_SCALE;const r=Math.hypot(x*.97,z);let hills=2.4+noise(x*.013,z*.013)*13+noise(x*.045,z*.045)*2.6;if(MAP_REVISION>=5){const ridge=Math.pow(1-Math.abs(noise(x*.018+18,z*.018-8)*2-1),3);hills+=ridge*24+noise(x*.038-45,z*.038+5)*12+noise(x*.085,z*.085)*4;hills+=32*Math.exp(-((x-110)**2+(z-65)**2)/1800)+26*Math.exp(-((x+135)**2+(z-75)**2)/1300)+38*Math.exp(-((x+40)**2+(z+125)**2)/1600);}
+function rawHeight(x,z){if(MAP_REVISION>=6)return naturalHeight13(x,z,MAP_SCALE,MAP_SEED,noise,riverAt);x/=MAP_SCALE;z/=MAP_SCALE;const r=Math.hypot(x*.97,z);let hills=2.4+noise(x*.013,z*.013)*13+noise(x*.045,z*.045)*2.6;if(MAP_REVISION>=5){const ridge=Math.pow(1-Math.abs(noise(x*.018+18,z*.018-8)*2-1),3);hills+=ridge*24+noise(x*.038-45,z*.038+5)*12+noise(x*.085,z*.085)*4;hills+=32*Math.exp(-((x-110)**2+(z-65)**2)/1800)+26*Math.exp(-((x+135)**2+(z-75)**2)/1300)+38*Math.exp(-((x+40)**2+(z+125)**2)/1600);}
  if(MAP_SCALE>3){hills+=165*Math.exp(-((x+125)**2/2600+(z+110)**2/3800))+115*Math.exp(-((x-140)**2/2000+(z+145)**2/2400));const river=riverAt(x*MAP_SCALE,z*MAP_SCALE);if(river){const blend=1-smooth(clamp((river.distance/MAP_SCALE-2.7)/4,0,1));hills=hills*(1-blend)+(river.water-1.2)*blend;}}return(hills+3)*(1-smooth(clamp((r-252)/66,0,1)))-3;}
-function authoredHeight08(x,z){let h=rawHeight(x,z);const d=Math.hypot(x+6,z+3),flat=1-smooth(clamp((d-22)/20,0,1));h=h*(1-flat)+1.7*flat;
+function authoredHeight08(x,z){
+ if(MAP_REVISION>=6){
+  let h=rawHeight(x,z);const camp=1-smooth(clamp((Math.hypot(x+6,z+3)-22)/63,0,1));h=h*(1-camp)+1.7*camp;
+  let coast,channel;
+  // Wide pad shoulders replace the former nine-metre walls around flat RT pads.
+  // Protect the channel and shoreline from pad grading; old revisions keep their exact formula.
+  for(const m of MONUMENTS){if(m.kind==='oilrig')continue;const dist=Math.hypot(x-m.x,z-m.z),rad=m.radius||12,shoulder=Math.max(28,rad*1.2);
+   if(dist<rad+shoulder){if(coast===undefined){coast=clamp(coastDistance13(x,z,MAP_SCALE,MAP_SEED)/18,0,1);const r=riverAt(x,z);channel=r?smooth(clamp((r.distance-r.width*.5-3)/15,0,1)):1;}const f=(1-smooth(clamp((dist-rad)/shoulder,0,1)))*coast*channel;m.terrainHeight13??=rawHeight(m.x,m.z);h=h*(1-f)+m.terrainHeight13*f;}
+  }
+  return h;
+ }
+ let h=rawHeight(x,z);const d=Math.hypot(x+6,z+3),flat=1-smooth(clamp((d-22)/20,0,1));h=h*(1-flat)+1.7*flat;
  for(const m of MONUMENTS){const dist=Math.hypot(x-m.x,z-m.z),rad=m.radius||12;if(dist<rad+9){const f=1-smooth(clamp((dist-rad)/9,0,1));h=h*(1-f)+rawHeight(m.x,m.z)*f;}}
  return h;
 }
 // Physics, vegetation, roads and rendered terrain use the SAME triangle surface.
 // Grid resolution is independent of graphics quality; no analytic-vs-mesh penetration.
-export function terrainGrid08(){const size=WORLD_RADIUS*2.15,segments=Math.min(768,Math.ceil(size/(MAP_SCALE>3?7:2)));return{size,segments,step:size/segments};}
+export function terrainGrid08(){const size=MAP_REVISION>=6?Math.max(WORLD_RADIUS*2.15,WORLD_RADIUS*2+300):WORLD_RADIUS*2.15,segments=Math.min(768,Math.ceil(size/(MAP_SCALE>3?7:2)));return{size,segments,step:size/segments};}
 let terrainCache08=null;
 export function terrainHeight(x,z){
  const {size,segments:n,step}=terrainGrid08(),key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION;
@@ -59,7 +71,7 @@ export function terrainHeight(x,z){
  const sample=(a,b)=>{const i=b*(n+1)+a;if(!c.ready[i]){c.values[i]=authoredHeight08(Math.fround(a*step-size/2),Math.fround(b*step-size/2));c.ready[i]=1;}return c.values[i];};
  const a=sample(ix,iz),b=sample(ix,iz+1),d=sample(ix+1,iz);if(fx+fz<=1)return a+(d-a)*fx+(b-a)*fz;const q=sample(ix+1,iz+1);return q+(b-q)*(1-fx)+(d-q)*(1-fz);
 }
-export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard',deferSpawn=false}={}){return{version:2,contentRevision:5,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:deferSpawn?{x:0,z:0}:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
+export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard',deferSpawn=false}={}){return{version:2,contentRevision:6,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:deferSpawn?{x:0,z:0}:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
 export function nearStation(state,kind){return state.buildings.some(b=>b.kind===kind&&b.hp>0&&Math.hypot(b.x-state.position.x,b.z-state.position.z)<5);}
 export function canCraft(state,id,quantity=1){const r=RECIPES[id];quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));return !!r&&(!r.station||nearStation(state,r.station))&&Object.entries(r.cost).every(([item,n])=>(state.inventory[item]||0)>=n*quantity);}
 export function craft(state,id,quantity=1){quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));if(!canCraft(state,id,quantity))return false;const r=RECIPES[id];for(const[item,n]of Object.entries(r.cost))state.inventory[item]-=n*quantity;state.inventory[id]+=(r.output||1)*quantity;return true;}
@@ -124,8 +136,9 @@ export function missionProgress(state){return[
 export function encodeSave(state){return JSON.stringify({...state,version:2});}
 export function decodeSave(raw){try{
  const s=JSON.parse(raw);if(!s||s.version!==2||!Number.isInteger(s.seed)||s.seed<1||s.seed>999999999||!Object.hasOwn(MAP_SIZES,s.size)||!['peaceful','standard','hard'].includes(s.difficulty)||!MULTIPLIERS.includes(s.multiplier))return null;const out=newGame({deferSpawn:true});
+ const deepTerrain13=Number.isInteger(s.contentRevision)&&s.contentRevision>=6;
  const coord=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z)&&Math.hypot(p.x,p.z)<=325*MAP_SIZES[s.size].scale*1.5+5;
- if(!coord(s.position)||s.feetY!==undefined&&(!Number.isFinite(s.feetY)||s.feetY< -5||s.feetY>350))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
+ if(!coord(s.position)||s.feetY!==undefined&&(!Number.isFinite(s.feetY)||s.feetY<(deepTerrain13?-40:-5)||s.feetY>350))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
  if(!Number.isFinite(s.elapsed)||s.elapsed<0||s.elapsed>1e8||!Number.isFinite(s.yaw)||!Number.isFinite(s.pitch))return null;
  if(!s.inventory||LEGACY_KEYS.some(k=>!Object.hasOwn(s.inventory,k))||Object.entries(s.inventory).some(([k,n])=>!Object.hasOwn(ITEMS,k)||!Number.isInteger(n)||n<0||n>1e8))return null;
  const ids=a=>Array.isArray(a)&&a.length<=300000&&a.every(x=>typeof x==='string'&&x.length<100);
@@ -138,7 +151,7 @@ export function decodeSave(raw){try{
  if(s.containers!==undefined&&(!s.containers||typeof s.containers!=='object'||Array.isArray(s.containers)||Object.keys(s.containers).length>30000||Object.entries(s.containers).some(([id,o])=>id.length>100||!validItems(o))))return null;
  if(s.slots!==undefined&&(!Array.isArray(s.slots)||s.slots.length!==36||s.slots.some(o=>o!==null&&(!o||!Object.hasOwn(ITEMS,o.item)||!Number.isInteger(o.count)||o.count<1||o.count>stackLimit(o.item)))))return null;
  if(s.markers!==undefined&&(!Array.isArray(s.markers)||s.markers.length>16||s.markers.some(m=>!coord(m)||typeof m.label!=='string'||m.label.length>40)))return null;
- if(s.groundBags!==undefined&&(!Array.isArray(s.groundBags)||s.groundBags.length>10000||s.groundBags.some(b=>!coord(b)||typeof b.id!=='string'||b.id.length>100||b.y!==undefined&&(!Number.isFinite(b.y)||b.y< -10||b.y>350)||b.source!==undefined&&(typeof b.source!=='string'||b.source.length>100))))return null;
+ if(s.groundBags!==undefined&&(!Array.isArray(s.groundBags)||s.groundBags.length>10000||s.groundBags.some(b=>!coord(b)||typeof b.id!=='string'||b.id.length>100||b.y!==undefined&&(!Number.isFinite(b.y)||b.y<(deepTerrain13?-40:-10)||b.y>350)||b.source!==undefined&&(typeof b.source!=='string'||b.source.length>100))))return null;
  if(s.authorizedBases!==undefined&&!ids(s.authorizedBases))return null;
  if(s.upkeep!==undefined&&(!s.upkeep||typeof s.upkeep!=='object'||Array.isArray(s.upkeep)||Object.keys(s.upkeep).length>1800||Object.entries(s.upkeep).some(([id,r])=>id.length>100||!r||typeof r!=='object'||!r.credit||typeof r.credit!=='object'||Array.isArray(r.credit)||Object.entries(r.credit).some(([k,n])=>!['wood','stone','metal'].includes(k)||!Number.isFinite(n)||n<0||n>1e7))))return null;
  if(s.condition!==undefined&&(!s.condition||typeof s.condition!=='object'||Array.isArray(s.condition)||Object.entries(s.condition).some(([id,n])=>!isGun(id)||!Number.isFinite(n)||n<0||n>100)))return null;

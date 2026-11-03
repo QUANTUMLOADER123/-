@@ -48,7 +48,7 @@ export function refreshFront10(saved){
  const size=MAP_SIZES[saved?.size||'small'],day=worldTime(saved?.elapsed||0).day;
  $('start-label').textContent=saved?'ПРОДОЛЖИТЬ':'СОЗДАТЬ МИР';
  $('front-world-name10').textContent=saved?'ОСТРОВ · '+saved.seed:'НОВЫЙ ОСТРОВ';
- $('front-world-state10').textContent=saved?'СОХРАНЕНИЕ НА УСТРОЙСТВЕ':'ЛОКАЛЬНОЕ ВЫЖИВАНИЕ';
+ $('front-world-state10').textContent=saved?((saved.contentRevision||3)>=6?'НОВЫЙ РЕЛЬЕФ · РЕВИЗИЯ 6':'ПРЕЖНИЙ РЕЛЬЕФ · БАЗА СОХРАНЕНА'):'НОВАЯ ГЕНЕРАЦИЯ · РЕВИЗИЯ 6';
  $('front-save-info10').textContent=saved?size.width+' × '+size.width+' М · ДЕНЬ '+day:'СОЗДАЙ СВОЙ ПЕРВЫЙ МИР';
  $('front-seed10').textContent=saved?String(saved.seed):'ВЫБИРАЕТСЯ ПРИ СОЗДАНИИ';
  $('front-size10').textContent=size.width+' × '+size.width+' М';

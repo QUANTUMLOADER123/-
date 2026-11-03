@@ -36,7 +36,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { terrainGrid08, terrainHeight, noise, randomSeed, resourceNodes, clamp, WORLD_SEED, MONUMENTS, BOT_BASES, WORLD_RADIUS, TIERS, buildingHeight, damageStructure } from './state.js';
 import {biomeAt} from './environment.js';
 import {installEnvironmentSystems} from './environment-systems.js';
-import {MAP_SCALE} from './map-data.js';
+import {MAP_SCALE,MAP_REVISION} from './map-data.js';
 import {addIslandContent} from './content.js';
 import {installWorldSystems} from './world-systems.js';
 const V=THREE.Vector3;
@@ -99,7 +99,7 @@ export class IslandWorld {
   progress(1,'Окружение точки входа готово.');
  }
  async makeTerrain(signal){
-  const {segments}=terrainGrid08();const geometry=new THREE.PlaneGeometry(WORLD_RADIUS*2.15,WORLD_RADIUS*2.15,segments,segments);geometry.rotateX(-Math.PI/2);const p=geometry.attributes.position,colors=[],climate=[];
+  const {segments,size}=terrainGrid08();const geometry=new THREE.PlaneGeometry(size,size,segments,segments);geometry.rotateX(-Math.PI/2);const p=geometry.attributes.position,colors=[],climate=[];
   for(let i=0;i<p.count;i++){if(i%8192===0)await paintLoading10(signal);const x=p.getX(i),z=p.getZ(i),h=terrainHeight(x,z);p.setY(i,h);const path=Math.abs(x-(5+Math.sin(z*.07)*2));const dirt=(z>-1&&z<25&&path<1.8)||Math.hypot(x+6,z+3)<11;
    const n=noise(x*.14,z*.14);const c=new THREE.Color(h<.8?0xd2bd8b:dirt?0x928460:biomeAt(x,z).color);c.multiplyScalar(.74+n*.42);colors.push(c.r,c.g,c.b);climate.push(biomeAt(x,z).id==='snow'?1:biomeAt(x,z).id==='arid'?-.9:0);
   }geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geometry.setAttribute('snow',new THREE.Float32BufferAttribute(climate,1));geometry.computeVertexNormals();
@@ -107,7 +107,7 @@ export class IslandWorld {
   const terrain=new THREE.Mesh(geometry,material);terrain.receiveShadow=true;terrain.name='Textured island terrain';this.scene.add(terrain);this.terrain=terrain;
   // Distant rock silhouettes extend the island beyond the playable clearing.
   const rand=randomSeed(919);const rocky=new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.6,.6),color:0x8e9483,roughness:1});
-  for(let i=0;i<17;i++){const a=rand()*Math.PI*2,x=Math.cos(a)*270*MAP_SCALE,z=Math.sin(a)*270*MAP_SCALE;const g=new THREE.IcosahedronGeometry(3+rand()*5,2);const p=g.attributes.position;for(let j=0;j<p.count;j++){const f=.85+noise(p.getX(j)*.7+i,p.getZ(j)*.7)*.35;p.setXYZ(j,p.getX(j)*f,p.getY(j)*f,p.getZ(j)*f);}g.computeVertexNormals();const r=new THREE.Mesh(g,rocky);r.position.set(x,terrainHeight(x,z)-1,z);r.scale.y=1.4+rand();r.castShadow=true;r.receiveShadow=true;this.scene.add(r);}
+  for(let i=0;i<17;i++){const a=rand()*Math.PI*2,x=Math.cos(a)*270*MAP_SCALE,z=Math.sin(a)*270*MAP_SCALE;const g=new THREE.IcosahedronGeometry(MAP_REVISION>=6?.9+rand()*2.1:3+rand()*5,2);const p=g.attributes.position;for(let j=0;j<p.count;j++){const f=.85+noise(p.getX(j)*.7+i,p.getZ(j)*.7)*.35;p.setXYZ(j,p.getX(j)*f,p.getY(j)*f,p.getZ(j)*f);}g.computeVertexNormals();const r=new THREE.Mesh(g,rocky);r.position.set(x,terrainHeight(x,z)-1,z);r.scale.y=MAP_REVISION>=6?1.1+rand()*.6:1.4+rand();r.castShadow=true;r.receiveShadow=true;this.scene.add(r);}
  }
  makeOcean(){
   const geometry=new THREE.PlaneGeometry(Math.max(4500,WORLD_RADIUS*5),Math.max(4500,WORLD_RADIUS*5),80,80);geometry.rotateX(-Math.PI/2);

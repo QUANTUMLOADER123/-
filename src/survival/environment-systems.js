@@ -3,7 +3,7 @@ import {visualState12} from './materials12.js';
 import {paintLoading11} from './loading11.js';
 import * as THREE from 'three';
 import {terrainHeight,randomSeed,buildingHeight} from './state.js';
-import {MAP_SCALE,ROADS,distanceToRoad,riverAt} from './map-data.js';
+import {MAP_SCALE,MAP_REVISION,ROADS,distanceToRoad,riverAt} from './map-data.js';
 import {biomeAt,worldTime} from './environment.js';
 const V=THREE.Vector3;
 export function installEnvironmentSystems(World){Object.assign(World.prototype,{
@@ -33,7 +33,7 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
  },
  updateTreeVisibility(){const range=this.settings.quality==='low'?210:this.settings.quality==='medium'?420:850;for(const b of this.treeBatches){const c=b.userData.center;if(c)b.visible=Math.hypot(c.x-this.camera.position.x,c.z-this.camera.position.z)<range+60;}},
  makeRiver(){
-  if(MAP_SCALE<3)return;const pos=[],indices=[];for(let i=0;i<=300;i++){const z=(-220+i/300*490)*MAP_SCALE,r=riverAt((35+Math.sin(z/MAP_SCALE*.035)*18)*MAP_SCALE,z);for(const side of[-1,1])pos.push(r.x+side*r.width*.5,r.water+.03,z);if(i){const v=i*2;indices.push(v-2,v,v-1,v-1,v,v+1);}}
+  if(MAP_REVISION<6&&MAP_SCALE<3)return;const natural=MAP_REVISION>=6,count=natural?Math.min(1600,Math.ceil(528*MAP_SCALE/3)):300,pos=[],indices=[];for(let i=0;i<=count;i++){const z=(natural?-218+i/count*528:-220+i/count*490)*MAP_SCALE,r=riverAt(0,z);for(const side of[-1,1])pos.push(r.x+side*r.width*.5,r.water+.03,z);if(i){const v=i*2;indices.push(v-2,v,v-1,v-1,v,v+1);}}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(indices);g.computeVertexNormals();this.river=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x4f9aaf,roughness:.2,metalness:.15,transparent:true,opacity:.83,side:THREE.DoubleSide}));this.scene.add(this.river);
  },
  vegetationInstances(name,nodes,height){

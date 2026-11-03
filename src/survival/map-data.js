@@ -1,7 +1,8 @@
+import {riverProfile13,riverSafeSites13,coastDistance13} from './terrain13.js';
 import {extendRoads10} from './network10.js';
 /** Authored landmarks, a closed island highway and seeded, uninhabited settlements. */
 export const MAP_SIZES={small:{name:'Маленький',scale:1,width:650},medium:{name:'Средний',scale:1.4,width:910},large:{name:'Большой',scale:1.8,width:1170},huge:{name:'Огромный',scale:4000/650,width:4000},vast:{name:'Бескрайний',scale:8000/650,width:8000}};
-export let MAP_REVISION=5;
+export let MAP_REVISION=6;
 export let MAP_SCALE=1,MAP_SEED=27182,WORLD_RADIUS=325;
 export let CURRENT_SIZE='small';
 const BASE_MONUMENTS=[
@@ -53,9 +54,9 @@ export function roadSamples(){
  return{ring:result,branch};
 }
 export let ROADS=roadSamples(),LEGACY_ROADS10=ROADS,ROAD_JUNCTIONS10=[];
-export function configureMap(size='small',seed=27182,revision=5){
+export function configureMap(size='small',seed=27182,revision=6){
  MAP_REVISION=revision;roadGrid=null;CURRENT_SIZE=Object.hasOwn(MAP_SIZES,size)?size:'small';MAP_SCALE=MAP_SIZES[CURRENT_SIZE].scale;MAP_SEED=Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182;WORLD_RADIUS=325*MAP_SCALE;
- MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();LEGACY_ROADS10=ROADS;BOT_BASES=settlements();
+ MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();LEGACY_ROADS10=ROADS;if(MAP_REVISION>=6)MONUMENTS=riverSafeSites13(MONUMENTS,MAP_SCALE,MAP_SEED);BOT_BASES=settlements();
  // Keep legacy settlement coordinates/IDs, floors, loot and raids stable on existing saves.
  // The historical two-road exclusion is used above; only then extend the road graph.
  const network=extendRoads10(ROADS,{scale:MAP_SCALE,seed:MAP_SEED,monuments:MONUMENTS,houses:BOT_BASES});
@@ -70,14 +71,15 @@ export function distanceToRoad(x,z,near=Infinity){let best=1e9;let segments;
 export function monumentAt(x,z){return MONUMENTS.find(m=>Math.hypot(x-m.x,z-m.z)<m.radius+3)||null;}
 export function locationName(x,z){return monumentAt(x,z)?.name||BOT_BASES.find(b=>Math.hypot(x-b.x,z-b.z)<20)?.name||'Дикие земли';}
 
-/** New large islands have a mountain watershed. Legacy island heights stay compatible. */
+/** Revision 6 lowland river; older maps retain the historical large-island watershed. */
 export function riverAt(x,z){
+ if(MAP_REVISION>=6)return riverProfile13(x,z,MAP_SCALE,MAP_SEED);
  if(MAP_SCALE<3)return null;const u=x/MAP_SCALE,v=z/MAP_SCALE;if(v< -220||v>270)return null;
  const center=35+Math.sin(v*.035)*18,dist=Math.abs(u-center),water=Math.max(0,10*(1-(v+220)/490));return{distance:dist*MAP_SCALE,water,x:center*MAP_SCALE,z,width:6*MAP_SCALE};
 }
 
 export function safeZoneAt(x,z){return MONUMENTS.find(m=>m.safe&&Math.hypot(x-m.x,z-m.z)<m.radius+10)||null;}
 function settlements(){const candidates=[],rand=()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};let n=MAP_SEED^0x7138;
- for(let ix=-34;ix<=34;ix++)for(let iz=-29;iz<=29;iz++){const x=(ix*8+(rand()-.5)*.35)*MAP_SCALE,z=(iz*9.5+(rand()-.5)*.35)*MAP_SCALE,r=riverAt(x,z);if(Math.hypot(x/MAP_SCALE,z/MAP_SCALE)>269||Math.hypot(x+6,z+3)<40||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+8)||distanceToRoad(x,z,12)<5||r&&r.distance<r.width/2+5)continue;candidates.push({x,z});}
+ for(let ix=-34;ix<=34;ix++)for(let iz=-29;iz<=29;iz++){const x=(ix*8+(rand()-.5)*.35)*MAP_SCALE,z=(iz*9.5+(rand()-.5)*.35)*MAP_SCALE,r=riverAt(x,z);if(Math.hypot(x/MAP_SCALE,z/MAP_SCALE)>269||Math.hypot(x+6,z+3)<40||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+8)||distanceToRoad(x,z,12)<5||r&&r.distance<r.width/2+5||MAP_REVISION>=6&&coastDistance13(x,z,MAP_SCALE,MAP_SEED)<18)continue;candidates.push({x,z});}
  for(let i=candidates.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
  return candidates.slice(0,120).map((p,i)=>{const material=rand(),tier=material<.4?1:material<.8?2:3,raided=rand()<.25;return{id:'settlement-'+i,name:'Убежище '+(i+1)+(raided?' · следы рейда':''),...p,tier,raided,leftovers:!raided||rand()<.5,stories:1+Math.floor(rand()*10),layout:rand()<.8?'2x2':'2x1'};});}
