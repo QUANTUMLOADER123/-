@@ -9,6 +9,6 @@ export function unsupportedPieces(state,staticEntries=[]){
  // Ground-placeable items survive without a foundation unless they stood on a removed one.
  const removed=state.buildings.filter(b=>b.hp<=0&&(isFoundation(b.kind)||isFloor(b.kind)));
  const own=live.filter(b=>!stable.has(b.id)&&(isStructural(b.kind)||b.kind==='door'||b.kind==='cupboard'||removed.some(f=>contains(f,b)&&Math.abs(buildingHeight(b)-(buildingHeight(f)+(isFloor(f.kind)?3:0)))<.55)));
- const foreign=staticEntries.filter(e=>!state.depleted.includes(e.data.id)&&e.data.supports?.length&&e.data.supports.every(id=>state.depleted.includes(id))).map(e=>e.data);
+ const dead=new Set(state.depleted),foreign=staticEntries.filter(e=>!dead.has(e.data.id)&&e.data.supports?.length&&e.data.supports.every(id=>dead.has(id))).map(e=>e.data);
  return [...own,...foreign];
 }

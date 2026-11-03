@@ -116,7 +116,7 @@ export function decodeSave(raw){try{
  if(!coord(s.position)||s.feetY!==undefined&&(!Number.isFinite(s.feetY)||s.feetY< -5||s.feetY>350))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
  if(!Number.isFinite(s.elapsed)||s.elapsed<0||s.elapsed>1e8||!Number.isFinite(s.yaw)||!Number.isFinite(s.pitch))return null;
  if(!s.inventory||LEGACY_KEYS.some(k=>!Object.hasOwn(s.inventory,k))||Object.entries(s.inventory).some(([k,n])=>!Object.hasOwn(ITEMS,k)||!Number.isInteger(n)||n<0||n>1e8))return null;
- const ids=a=>Array.isArray(a)&&a.length<=150000&&a.every(x=>typeof x==='string'&&x.length<100);
+ const ids=a=>Array.isArray(a)&&a.length<=300000&&a.every(x=>typeof x==='string'&&x.length<100);
  if(!ids(s.depleted)||!ids(s.looted)||!ids(s.visited)||s.visited.some(id=>!MONUMENTS.some(m=>m.id===id))||!Array.isArray(s.buildings)||s.buildings.length>400)return null;
  for(const b of s.buildings)if(!b||!BUILD_KINDS.includes(b.kind)||typeof b.id!=='string'||!coord(b)||!Number.isFinite(b.rotation)||(b.y!==undefined&&(!Number.isFinite(b.y)||b.y< -10||b.y>350))||!Number.isInteger(b.tier)||b.tier<0||b.tier>3||!Number.isFinite(b.hp)||b.hp<0||b.hp>TIERS[b.tier].hp)return null;
  if(!s.gathered||Object.keys(out.gathered).some(k=>!Number.isInteger(s.gathered[k])||s.gathered[k]<0||s.gathered[k]>1e8))return null;
@@ -144,6 +144,6 @@ export function decodeSave(raw){try{
  }catch{return null;}}
 
 let beachCache=null;
-export function beachSpawn(){const key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION+':'+MAP_REVISION;if(beachCache?.key===key)return{...beachCache.position};const r=randomSeed(MAP_SEED^0x18beac);let best=null,bestScore=Infinity;
+export function beachSpawn(){const key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION;if(beachCache?.key===key)return{...beachCache.position};const r=randomSeed(MAP_SEED^0x18beac);let best=null,bestScore=Infinity;
  for(let i=0;i<100;i++){const a=.12+r()*2.85;for(let radius=WORLD_RADIUS*.82;radius<WORLD_RADIUS*1.05;radius+=Math.max(.5,MAP_SCALE*.3)){const x=Math.cos(a)*radius,z=Math.sin(a)*radius,h=terrainHeight(x,z);if(h<.32||h>.78||monumentAt(x,z)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<18))continue;const score=Math.abs(h-.5);if(score<bestScore){best={x,z};bestScore=score;}}if(bestScore<.025)break;}
  if(!best)throw new Error('Не удалось найти безопасный пляж для этого зерна');beachCache={key,position:best};return{...best};}
