@@ -11,26 +11,33 @@ concurrency:
   cancel-in-progress: true
 jobs:
   apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: npm
       - run: npm ci && npm test
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: '8.13'
       - name: Build installable prototype
         working-directory: android
-        run: gradle --no-daemon :app:assembleDebug :app:lintDebug
+        run: |
+          mkdir -p ../.artifacts
+          set +e
+          gradle --no-daemon :app:assembleDebug :app:lintDebug 2>&1 | tee ../.artifacts/android-build.log
+          result=${PIPESTATUS[0]}
+          if [ "$result" -ne 0 ]; then
+            python3 -c 'from pathlib import Path; s=Path("../.artifacts/android-build.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
+          fi
+          exit "$result"
       - name: Package APK
         run: |
           mkdir -p .artifacts
