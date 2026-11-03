@@ -35,6 +35,7 @@ jobs:
           gradle --no-daemon :app:assembleDebug :app:lintDebug 2>&1 | tee ../.artifacts/android-build.log
           result=${PIPESTATUS[0]}
           if [ "$result" -ne 0 ]; then
+            cat app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt >> ../.artifacts/android-build.log 2>/dev/null || true
             python3 -c 'from pathlib import Path; s=Path("../.artifacts/android-build.log").read_text()[-18000:]; print("::error::" + s.replace("%","%25").replace("\r","%0D").replace("\n","%0A"))'
           fi
           exit "$result"
