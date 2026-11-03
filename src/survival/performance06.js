@@ -1,0 +1,5 @@
+/** Spatial broad phase for aiming; shared, rate-limited shadow-map refresh. */
+export function installPerformance06(World){
+ World.prototype.nearTargets06=function(key,list,x,z,range){this.targetGrids06??=new Map();let index=this.targetGrids06.get(key);if(!index||index.source!==list||index.count!==list.length){index={source:list,count:list.length,cells:new Map()};for(const o of list){const p=o.data||o,k=Math.floor(p.x/32)+':'+Math.floor(p.z/32);if(!index.cells.has(k))index.cells.set(k,[]);index.cells.get(k).push(o);}this.targetGrids06.set(key,index);}const result=[];for(let a=Math.floor((x-range-4)/32);a<=Math.floor((x+range+4)/32);a++)for(let b=Math.floor((z-range-4)/32);b<=Math.floor((z+range+4)/32);b++)for(const o of index.cells.get(a+':'+b)||[])result.push(o);return result;};
+ const render=World.prototype.render;World.prototype.render=function(){const now=performance.now();this.renderer.shadowMap.autoUpdate=false;if(!this.shadowAt06||now-this.shadowAt06>(this.settings.quality==='high'?66:100)||this.needsRender){this.shadowAt06=now;this.renderer.shadowMap.needsUpdate=true;}render.call(this);};
+}

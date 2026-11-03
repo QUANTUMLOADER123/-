@@ -47,7 +47,7 @@ export function terrainHeight(x,z){let h=rawHeight(x,z);const d=Math.hypot(x+6,z
  for(const m of MONUMENTS){const dist=Math.hypot(x-m.x,z-m.z),rad=m.radius||12;if(dist<rad+9){const f=1-smooth(clamp((dist-rad)/9,0,1));h=h*(1-f)+rawHeight(m.x,m.z)*f;}}
  return h;
 }
-export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard'}={}){return{version:2,contentRevision:5,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
+export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard'}={}){return{version:2,contentRevision:5,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
 export function nearStation(state,kind){return state.buildings.some(b=>b.kind===kind&&b.hp>0&&Math.hypot(b.x-state.position.x,b.z-state.position.z)<5);}
 export function canCraft(state,id,quantity=1){const r=RECIPES[id];quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));return !!r&&(!r.station||nearStation(state,r.station))&&Object.entries(r.cost).every(([item,n])=>(state.inventory[item]||0)>=n*quantity);}
 export function craft(state,id,quantity=1){quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));if(!canCraft(state,id,quantity))return false;const r=RECIPES[id];for(const[item,n]of Object.entries(r.cost))state.inventory[item]-=n*quantity;state.inventory[id]+=(r.output||1)*quantity;return true;}
@@ -126,7 +126,7 @@ export function decodeSave(raw){try{
  if(s.containers!==undefined&&(!s.containers||typeof s.containers!=='object'||Array.isArray(s.containers)||Object.keys(s.containers).length>30000||Object.entries(s.containers).some(([id,o])=>id.length>100||!validItems(o))))return null;
  if(s.slots!==undefined&&(!Array.isArray(s.slots)||s.slots.length!==36||s.slots.some(o=>o!==null&&(!o||!Object.hasOwn(ITEMS,o.item)||!Number.isInteger(o.count)||o.count<1||o.count>stackLimit(o.item)))))return null;
  if(s.markers!==undefined&&(!Array.isArray(s.markers)||s.markers.length>16||s.markers.some(m=>!coord(m)||typeof m.label!=='string'||m.label.length>40)))return null;
- if(s.groundBags!==undefined&&(!Array.isArray(s.groundBags)||s.groundBags.length>500||s.groundBags.some(b=>!coord(b)||typeof b.id!=='string'||b.id.length>100)))return null;
+ if(s.groundBags!==undefined&&(!Array.isArray(s.groundBags)||s.groundBags.length>10000||s.groundBags.some(b=>!coord(b)||typeof b.id!=='string'||b.id.length>100||b.y!==undefined&&(!Number.isFinite(b.y)||b.y< -10||b.y>350)||b.source!==undefined&&(typeof b.source!=='string'||b.source.length>100))))return null;
  if(s.authorizedBases!==undefined&&!ids(s.authorizedBases))return null;
  if(s.upkeep!==undefined&&(!s.upkeep||typeof s.upkeep!=='object'||Array.isArray(s.upkeep)||Object.keys(s.upkeep).length>1800||Object.entries(s.upkeep).some(([id,r])=>id.length>100||!r||typeof r!=='object'||!r.credit||typeof r.credit!=='object'||Array.isArray(r.credit)||Object.entries(r.credit).some(([k,n])=>!['wood','stone','metal'].includes(k)||!Number.isFinite(n)||n<0||n>1e7))))return null;
  if(s.condition!==undefined&&(!s.condition||typeof s.condition!=='object'||Array.isArray(s.condition)||Object.entries(s.condition).some(([id,n])=>!isGun(id)||!Number.isFinite(n)||n<0||n>100)))return null;
@@ -140,7 +140,7 @@ export function decodeSave(raw){try{
  if(!Number.isInteger(s.magazine)||s.magazine<0||s.magazine>WEAPONS.rifle.capacity||!Object.hasOwn(ITEMS,s.selected))return null;
  const inventory={...out.inventory,...s.inventory};if(!Object.hasOwn(s.inventory,'plan'))for(const [kind,cost]of Object.entries(BUILD_COSTS)){for(const [k,n]of Object.entries(cost))inventory[k]+=(inventory[kind]||0)*n;inventory[kind]=0;}
  // Validation is pure: reading a backup must never change the active map globals.
- return{...out,...s,contentRevision:Number.isInteger(s.contentRevision)?s.contentRevision:3,inventory,yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};
+ return{...out,...s,densityRevision:Number.isInteger(s.densityRevision)?s.densityRevision:0,contentRevision:Number.isInteger(s.contentRevision)?s.contentRevision:3,inventory,yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};
  }catch{return null;}}
 
 let beachCache=null;

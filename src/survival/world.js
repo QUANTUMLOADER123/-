@@ -1,3 +1,6 @@
+import {installPortrait06} from './portrait06.js';
+import {installTerrainProps06} from './terrain-props06.js';
+import {installPerformance06} from './performance06.js';
 import {installHands05} from './hands05.js';
 import {installProps05} from './props05.js';
 import {installPerformance05} from './performance05.js';
@@ -53,7 +56,7 @@ export class IslandWorld {
   const names=['Oak_LOD1','Oak_LOD2','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1','Cactus_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg'];
   await Promise.all([...names.map(async n=>{this.models[n]=await loader.loadAsync(ASSET+'models/'+n+'.glb');}),...textureNames.map(async n=>{const t=await tl.loadAsync(ASSET+'textures/'+n);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.includes('normal'))t.colorSpace=THREE.SRGBColorSpace;this.textures[n]=t;})]);
-  progress(.86,'Собираем берег и заброшенный лагерь…');this.makeTerrain();this.makeOcean();this.makeRiver();this.makeCamp();addIslandContent(this);decorateLoot(this);this.makeResources();this.makeGrass();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);progress(.98,'Проверяем снаряжение…');
+  progress(.86,'Собираем берег и заброшенный лагерь…');this.makeTerrain();this.makeOcean();this.makeRiver();this.makeCamp();addIslandContent(this);decorateLoot(this);this.alignTerrainProps06();this.makeResources();this.makeGrass();this.makeViewModel();this.makeNewViewModels();this.makeItemArt();this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);progress(.98,'Проверяем снаряжение…');
   this.menuCamera(0);for(const g of this.distantGroups)g.root.visible=Math.hypot(g.x-this.camera.position.x,g.z-this.camera.position.z)<g.range;await this.renderer.compileAsync(this.scene,this.camera);this.render();progress(1,'Остров готов.');
  }
  makeTerrain(){
@@ -293,3 +296,8 @@ installPerformance05(IslandWorld);
 
 installProps05(IslandWorld);
 installHands05(IslandWorld);
+
+installTerrainProps06(IslandWorld);
+installPerformance06(IslandWorld);
+
+installPortrait06(IslandWorld);
