@@ -88,6 +88,7 @@ export function decodeSave(raw){try{
  if(!s.gathered||Object.keys(out.gathered).some(k=>!Number.isInteger(s.gathered[k])||s.gathered[k]<0||s.gathered[k]>1e8))return null;
  for(const key of['nodeDamage','structureDamage','botStores'])if(!s[key]||typeof s[key]!=='object'||Array.isArray(s[key])||Object.keys(s[key]).length>2500||Object.values(s[key]).some(n=>!Number.isFinite(n)||n<0||n>1e8))return null;
  if(!s.botState||typeof s.botState!=='object'||Object.keys(s.botState).length>40||Object.values(s.botState).some(b=>!b||!Number.isFinite(b.hp)||b.hp<0||b.hp>120))return null;
- if(!Number.isInteger(s.magazine)||s.magazine<0||s.magazine>6||!(s.selected in ITEMS))return null;
- configureMap(s.size,s.seed);return{...out,...s,inventory:{...s.inventory},yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};
+ if(!Number.isInteger(s.magazine)||s.magazine<0||s.magazine>6||!Object.hasOwn(ITEMS,s.selected))return null;
+ // Validation is pure: reading a backup must never change the active map globals.
+ return{...out,...s,inventory:{...s.inventory},yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};
  }catch{return null;}}

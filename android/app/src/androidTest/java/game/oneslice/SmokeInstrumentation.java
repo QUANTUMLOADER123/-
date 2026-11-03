@@ -21,9 +21,19 @@ public final class SmokeInstrumentation extends Instrumentation {
             intent.setClassName(getTargetContext().getPackageName(), "game.oneslice.MainActivity");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("lowGraphics", true);
-            Activity activity = startActivitySync(intent);
+            // startActivitySync waits for the main queue to become idle; continuous
+            // WebGL on a software-rendered emulator may never reach that idle state.
+            ActivityMonitor monitor = addMonitor("game.oneslice.MainActivity", null, false);
+            getTargetContext().startActivity(intent);
+            Activity activity = waitForMonitorWithTimeout(monitor, 30000);
+            removeMonitor(monitor);
+            if (activity == null) throw new AssertionError("Activity did not launch");
+            result.putString("oskolPhase", "activity launched, waiting for WebGL world");
+            sendStatus(0, result);
             runOnMainSync(() -> web = (WebView) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0));
             await("document.title.includes('ОСКОЛ') && !!window.oskol?.ready");
+            result.putString("oskolPhase", "WebGL world ready");
+            sendStatus(0, result);
             require("window.oskol.snapshot().stats.webgl2 && window.oskol.snapshot().stats.monuments === 10 && window.oskol.snapshot().stats.bots >= 12", "Incomplete WebGL2 world");
             require("typeof window.AndroidBridge.vibrate === 'function'", "Native bridge missing");
             eval("document.querySelector('#start').click(); document.querySelector('[data-multiplier=\"2\"]').click(); document.querySelector('#world-create').click(); true");

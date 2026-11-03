@@ -58,10 +58,11 @@ jobs:
           profile: pixel_2
           disable-animations: true
           script: |
+            adb shell wm size 540x960
+            adb shell wm density 160
             adb install -r android/app/build/outputs/apk/debug/app-debug.apk
             adb install -r android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-            adb shell am instrument -w game.oskol.survival.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt
-            cat .artifacts/device-smoke.txt | sed 's/^/::notice::/'
+            timeout 360 adb shell am instrument -w game.oskol.survival.test/game.oneslice.SmokeInstrumentation | tee .artifacts/device-smoke.txt | sed -u 's/^/::notice::/'
             if ! grep -q 'oskolSmoke=passed' .artifacts/device-smoke.txt; then
               adb logcat -d -s OskolWeb:E chromium:E | tail -40 | sed 's/^/::error::/'
               exit 1
