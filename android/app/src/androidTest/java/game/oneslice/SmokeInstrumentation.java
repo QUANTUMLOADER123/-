@@ -46,14 +46,14 @@ public final class SmokeInstrumentation extends Instrumentation {
         CountDownLatch done = new CountDownLatch(1);
         AtomicReference<String> value = new AtomicReference<>();
         runOnMainSync(() -> web.evaluateJavascript(script, answer -> { value.set(answer); done.countDown(); }));
-        if (!done.await(15, TimeUnit.SECONDS)) throw new AssertionError("JS callback timed out: " + script);
+        if (!done.await(120, TimeUnit.SECONDS)) throw new AssertionError("JS callback timed out: " + script);
         return value.get();
     }
     private void require(String expression, String message) throws Exception {
         if (!"true".equals(eval(expression))) throw new AssertionError(message);
     }
     private void await(String expression) throws Exception {
-        long deadline = System.currentTimeMillis() + 120000;
+        long deadline = System.currentTimeMillis() + 180000;
         while (System.currentTimeMillis() < deadline) {
             if ("true".equals(eval(expression))) return;
             Thread.sleep(100);

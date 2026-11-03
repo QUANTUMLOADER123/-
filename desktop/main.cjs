@@ -2,6 +2,8 @@ const {app,BrowserWindow,protocol,session,Menu}=require('electron');
 const {readFile}=require('node:fs/promises');
 const path=require('node:path');
 const smoke=process.argv.includes('--smoke');
+// Pin the storage directory across product-name / packaging changes.
+const storage=path.join(app.getPath('appData'),'oskol-survival');require('node:fs').mkdirSync(storage,{recursive:true});app.setPath('userData',storage);
 protocol.registerSchemesAsPrivileged([{scheme:'oskol',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:true,stream:true}}]);
 if(smoke){app.commandLine.appendSwitch('enable-unsafe-swiftshader');app.commandLine.appendSwitch('use-angle','swiftshader');}
 let window;

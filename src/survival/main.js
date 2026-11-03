@@ -198,7 +198,7 @@ document.addEventListener('keydown',e=>{
  if(e.code==='Escape'){e.preventDefault();if(activeOverlay==='settings')closeSettings();else if(activeOverlay)closeOverlay();else if(mode==='playing')openOverlay('pause');return;}
  if(activeOverlay){if(e.code==='Tab'){const focusable=[...$(activeOverlay).querySelectorAll('button:not([disabled]),input,summary,a')].filter(el=>el.offsetParent!==null);const i=focusable.indexOf(document.activeElement);if(focusable.length){e.preventDefault();focusable[(i+(e.shiftKey?-1:1)+focusable.length)%focusable.length].focus();}}return;}
  if(mode!=='playing')return;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();keys.add(e.code);if(e.repeat)return;
- if(e.code==='KeyE')doAction();if(e.code==='KeyF')doAction(true);if(e.code==='KeyI'||e.code==='Tab'){e.preventDefault();openInventory();}if(e.code==='KeyC')openInventory('craft');if(e.code==='KeyB')openInventory('build');if(e.code==='KeyM')openOverlay('map');if(e.code==='KeyR'){if(BUILD_ITEMS.includes(state.selected))rotateBuild();else doReload();}if(e.code==='Space')jump();if(e.code==='KeyT')chooseItem(state.selected==='torch'?'rock':'torch');if(/^Digit[1-6]$/.test(e.code)){const n=Number(e.code.slice(-1))-1;chooseItem(n===4&&BUILD_ITEMS.includes(state.selected)?state.selected:HOTBAR[n]);}
+ if(e.code==='KeyE')doAction();if(e.code==='KeyF')doAction(true);if(e.code==='KeyI'||e.code==='Tab'){e.preventDefault();openInventory();}if(e.code==='KeyC')openInventory('craft');if(e.code==='KeyB')openInventory('build');if(e.code==='KeyM')openOverlay('map');if(e.code==='KeyR'){if(BUILD_ITEMS.includes(state.selected))rotateBuild();else doReload();}if(e.code==='Space')jump();if(e.code==='KeyT')chooseItem(state.selected==='torch'?'rock':'torch');if(/^Digit[1-6]$/.test(e.code)){const n=Number(e.code.slice(-1))-1;const item=$('hotbar').children[n]?.dataset.item;if(item)chooseItem(item);}
 });
 document.addEventListener('keyup',e=>keys.delete(e.code));
 document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&mode==='playing'&&!activeOverlay)$('look-hint').hidden=false;});
@@ -225,7 +225,7 @@ function frame(time){
    world.update(dt,state,true,{moving,damage:takeDamage});const site=monumentAt(state.position.x,state.position.z);if(site&&!state.visited.includes(site.id)){state.visited.push(site.id);toast('ОТКРЫТО РТ: '+site.name+' · '+state.visited.length+'/10',4);audio.pickup();}uiTimer+=dt;saveTimer+=dt;if(uiTimer>.16){uiTimer=0;updateHUD();}if(saveTimer>15){saveTimer=0;saveGame();}
    if(state.dead){saveGame();openOverlay('death');}
   }else if(mode==='front'&&!activeOverlay){world.menuCamera(time/1000);world.update(dt,state,false);}
-  if((mode==='front'&&!activeOverlay||running)&&(time-lastRendered>(mode==='front'?50:20))||world.needsRender){world.render();lastRendered=time;}
+  if((mode==='front'&&!activeOverlay||running)&&(time-lastRendered>(mode==='front'?(settings.quality==='low'?100:50):(settings.quality==='low'?40:settings.quality==='medium'?28:16)))||world.needsRender){world.render();lastRendered=time;}
  }
  if(time>toastUntil)$('toast').classList.remove('show');pickupTimers=pickupTimers.filter(p=>{if(time>p.until){p.el.remove();return false;}return true;});requestAnimationFrame(frame);
 }
@@ -236,7 +236,7 @@ async function boot(){
   await world.init((ratio,label)=>{$('loading-progress').style.width=Math.round(ratio*100)+'%';$('loading-text').textContent=label;});
   world.mapSignature=(saved?.size||'small')+'-'+(saved?.seed||27182);ready=true;$('start').disabled=false;$('loading').hidden=true;showFront();
   // Read-only diagnostics for browser and packaged-device smoke tests. No cheats or resource grants.
-  window.oskol={get ready(){return ready;},snapshot:()=>({mode,overlay:activeOverlay,health:state.health,position:{...state.position},selected:state.selected,inventory:{...state.inventory},buildings:state.buildings.length,radioFixed:state.radioFixed,multiplier:state.multiplier,size:state.size,seed:state.seed,magazine:state.magazine,visited:[...state.visited],stats:world.stats,saved:!!decodeSave(safeStorage.get(SAVE_KEY))})};
+  window.oskol={get ready(){return ready;},snapshot:()=>({mode,overlay:activeOverlay,health:state.health,position:{...state.position},yaw:state.yaw,pitch:state.pitch,bots:world.bots.map(b=>({id:b.id,x:b.x,z:b.z,hp:b.hp,dead:b.dead,mode:b.mode,base:b.base})),selected:state.selected,inventory:{...state.inventory},buildings:state.buildings.length,radioFixed:state.radioFixed,multiplier:state.multiplier,size:state.size,seed:state.seed,magazine:state.magazine,visited:[...state.visited],stats:world.stats,saved:!!decodeSave(safeStorage.get(SAVE_KEY))})};
  }catch(error){console.error('OSKOL initialization failed:',error);$('loading').hidden=true;$('fatal').hidden=false;$('fatal-text').textContent='Не удалось подготовить 3D-мир. '+(String(error.message).includes('WebGL')?'Нужны WebGL 2 и обновлённый Chrome / Android System WebView.':'Проверь целостность файлов игры и попробуй перезапуск.');}
 }
 boot();

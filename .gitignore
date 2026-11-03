@@ -13,3 +13,5 @@ android/local.properties
 /web/survival.js.LEGAL.txt
 
 release-build/
+
+.cache/

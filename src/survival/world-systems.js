@@ -19,10 +19,21 @@ export function installWorldSystems(IslandWorld){
   if(entry.reinforcements){model.remove(entry.reinforcements);entry.reinforcements.traverse(o=>{if(o.isMesh)o.geometry.dispose();});}
   if(tier>=1&&['wall','door'].includes(data.kind)){const rails=new THREE.Group(),material=new THREE.MeshStandardMaterial({color:tier>=2?0x515a53:0x514c34,metalness:tier>=2?.5:0,roughness:.8});for(const y of[.63,2.45]){const m=new THREE.Mesh(new THREE.BoxGeometry(3,.09,.09),material);m.position.set(0,y,-.09);rails.add(m);}if(tier===3){for(const x of[-1.3,1.3]){const m=new THREE.Mesh(new THREE.BoxGeometry(.12,2.6,.1),material);m.position.set(x,1.6,.1);rails.add(m);}}model.add(rails);entry.reinforcements=rails;}
  },
- lineOfSight(a,b,state){const d=b.clone().sub(a),len=d.length(),steps=Math.max(1,Math.ceil(len/1.5));for(let i=1;i<steps;i++){const t=i/steps,x=a.x+d.x*t,y=a.y+d.y*t,z=a.z+d.z*t;if(terrainHeight(x,z)>y+.15)return false;for(const c of this.colliders){if(!c.box||!c.data||c.data.open||state.depleted.includes(c.id)||!c.data.owner&&c.data.hp<=0)continue;if(y>terrainHeight(c.x,c.z)+3)continue;if(Math.abs(x-c.x)<c.w*.5&&Math.abs(z-c.z)<c.d*.5)return false;}}return true;},
+ lineOfSight(a,b,state){
+  const d=b.clone().sub(a),len=d.length(),steps=Math.max(1,Math.ceil(len/1.2));
+  for(let i=1;i<steps;i++){const t=i/steps;if(terrainHeight(a.x+d.x*t,a.z+d.z*t)>a.y+d.y*t+.15)return false;}
+  // Slab/ray intersection cannot skip thin walls as coarse sampled rays could.
+  const ray=new THREE.Ray(a,d.normalize()),box=new THREE.Box3(),hit=new V();
+  for(const c of this.colliders){
+   if(!c.box||!c.data||c.data.open||state.depleted.includes(c.id)||!c.data.owner&&c.data.hp<=0)continue;
+   const ground=terrainHeight(c.x,c.z);box.min.set(c.x-c.w/2,ground,c.z-c.d/2);box.max.set(c.x+c.w/2,ground+3.15,c.z+c.d/2);
+   if(ray.intersectBox(box,hit)&&hit.distanceToSquared(a)<(len-.05)**2)return false;
+  }
+  return true;
+ },
  makeBots(){
-  const spawns=BOT_BASES.flatMap(b=>[0,1].map(i=>({id:b.id+'-'+i,base:b.id,x:b.x,z:b.z,skin:i?'Swat':'Adventurer'})));for(const m of MONUMENTS.filter(m=>m.risk>=3))spawns.push({id:'guard-'+m.id,base:null,x:m.x,z:m.z,skin:'Swat'});
-  for(const data of spawns){const model=this.normalized(data.skin,1.78);this.scene.add(model);const weapon=this.normalized('Pistol_1',.2);this.scene.add(weapon);const bones={};model.traverse(o=>{if(o.isBone)bones[o.name]={bone:o,base:o.quaternion.clone()};});this.bots.push({id:data.id,base:data.base,homeX:data.x,homeZ:data.z,x:data.x+4,z:data.z+3,model,weapon,bones,hp:120,dead:false,mode:'patrol',cooldown:0,phase:this.stringSeed(data.id)%100,actionTime:0,alertUntil:0});}
+  const spawns=BOT_BASES.flatMap(b=>[0,1].map(i=>({id:b.id+'-'+i,base:b.id,x:b.x,z:b.z,slot:i,skin:i?'Swat':'Adventurer'})));for(const m of MONUMENTS.filter(m=>m.risk>=3))spawns.push({id:'guard-'+m.id,base:null,x:m.x,z:m.z,skin:'Swat'});
+  for(const data of spawns){const model=this.normalized(data.skin,1.78);this.scene.add(model);const weapon=this.normalized('Pistol_1',.2);this.scene.add(weapon);const bones={};model.traverse(o=>{if(o.isBone)bones[o.name]={bone:o,base:o.quaternion.clone()};});this.bots.push({id:data.id,base:data.base,homeX:data.x,homeZ:data.z,x:data.x+4,z:data.z+(data.slot===1?6:3),model,weapon,bones,hp:120,dead:false,mode:'patrol',cooldown:0,phase:this.stringSeed(data.id)%100,actionTime:0,alertUntil:0});}
  },
  animateBot(bot,dt,moving,shooting){
   const t=this.time*6+bot.phase;
@@ -49,6 +60,6 @@ export function installWorldSystems(IslandWorld){
   }
  },
  tracer(a,b,color=0xe9b26d){const geometry=new THREE.BufferGeometry().setFromPoints([a,b]);const line=new THREE.Line(geometry,new THREE.LineBasicMaterial({color,transparent:true,opacity:.7}));this.scene.add(line);this.effects.push({line,life:.10});},
- dispose(){this.renderer.dispose();this.scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){for(const m of(Array.isArray(o.material)?o.material:[o.material]))m.dispose();}});for(const t of Object.values(this.textures))t.dispose();this.environment.dispose();}
+ dispose(){this.renderer.dispose();this.scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){for(const m of(Array.isArray(o.material)?o.material:[o.material]))m.dispose();}});for(const t of Object.values(this.textures))t.dispose();this.environment?.dispose();}
  });
 }
