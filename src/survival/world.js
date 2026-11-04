@@ -1,3 +1,4 @@
+import {installGrass22} from './grass22.js';
 import {installStationContext20} from './station-context20.js';
 import {installSettlements20} from './settlements20.js';
 import {installDamage20} from './damage20.js';
@@ -77,7 +78,7 @@ export class IslandWorld {
   this.contextLost11=e=>{e.preventDefault();window.dispatchEvent(new Event('oskol-context-lost'));};this.renderer.domElement.addEventListener('webglcontextlost',this.contextLost11);
  }
  resize(){this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,this.settings.quality==='high'?1.5:this.settings.quality==='low'?.7:1));this.renderer.setSize(window.innerWidth,window.innerHeight,false);this.camera.aspect=window.innerWidth/window.innerHeight;this.camera.updateProjectionMatrix();this.needsRender=true;}
- applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment)refreshEnvironment12(this);this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}for(const c of this.grassChunks||[]){c.mesh.count=Math.max(1,Math.floor(c.count*(q==='low'?.3:q==='medium'?.65:1)));c.mesh.geometry.setDrawRange(0,Math.min(c.mesh.geometry.index.count,q==='low'?48:q==='medium'?84:108));}this.resize();}
+ applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment)refreshEnvironment12(this);this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}this.invalidateGrass22?.();this.resize();}
  async init(progress,{signal}={}){
   checkLoading11(signal);
   const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели и текстуры: '+done+' / '+total);
@@ -212,15 +213,6 @@ export class IslandWorld {
   }
  }
  stringSeed(str){let h=WORLD_SEED;for(const c of str)h=Math.imul(h^c.charCodeAt(0),16777619);return h;}
- makeGrass(){
-  const count=14000,geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute([-.035,0,0,.035,0,0,0,.44,.03, 0,0,-.035,0,0,.035,.025,.35,0],3));geometry.setAttribute('normal',new THREE.Float32BufferAttribute([0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,1,0,0],3));
-  const colors=[.035,.06,.015,.035,.06,.015,.14,.19,.045,.04,.065,.018,.04,.065,.018,.16,.20,.055];geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
-  const material=new THREE.MeshStandardMaterial({vertexColors:true,side:THREE.DoubleSide,roughness:1});
-  const wind={value:0};material.onBeforeCompile=shader=>{shader.uniforms.windTime=wind;shader.vertexShader='uniform float windTime;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 instPos=instanceMatrix*vec4(0.,0.,0.,1.);\ntransformed.x+=sin(windTime*1.8+instPos.x*.7+instPos.z*.6)*position.y*.16;');};
-  const mesh=new THREE.InstancedMesh(geometry,material,count),r=randomSeed(7892);let placed=0;const dummy=new THREE.Object3D();
-  while(placed<count){const x=(r()-.5)*350*MAP_SCALE,z=(r()-.5)*350*MAP_SCALE,h=terrainHeight(x,z);if(h<1.2||Math.hypot(x+6,z+3)<11||Math.abs(x-(5+Math.sin(z*.07)*2))<1.8&&z>0&&z<26)continue;dummy.position.set(x,h-.01,z);dummy.rotation.y=r()*6.28;const s=.7+r();dummy.scale.set(s,s,s);dummy.updateMatrix();mesh.setMatrixAt(placed++,dummy.matrix);}
-  mesh.receiveShadow=true;mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();this.scene.add(mesh);this.grass=mesh;this.wind=wind;this.applyQuality(this.settings.quality);
- }
  makeViewModel(){
   this.handRoot=new THREE.Group();this.camera.add(this.handRoot);this.handRoot.position.set(.38,-.45,-.66);
   const glove=new THREE.MeshStandardMaterial({color:0x454536,roughness:1}),sleeve=new THREE.MeshStandardMaterial({color:0x3a433b,roughness:1}),strap=new THREE.MeshStandardMaterial({color:0x252d26,roughness:.9});
@@ -326,7 +318,7 @@ export class IslandWorld {
  }
  menuCamera(time){this.camera.position.set(13+Math.sin(time*.06)*.35,6.4,18+Math.cos(time*.06)*.3);this.camera.lookAt(-4,3,-7);}
  render(){if(this.stormSky)this.stormSky.position.copy(this.camera.position);this.updateTreeVisibility();this.renderedFrames=(this.renderedFrames||0)+1;this.updateGrassVisibility();this.camera.layers.set(0);this.renderer.autoClear=true;this.renderer.render(this.scene,this.camera);this.frameStats={calls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles};if(this.handRoot?.visible){this.renderer.autoClear=false;this.renderer.clearDepth();this.camera.layers.set(1);const background=this.scene.background;this.scene.background=null;const shadows=this.renderer.shadowMap.autoUpdate;this.renderer.shadowMap.autoUpdate=false;this.renderer.render(this.scene,this.camera);this.renderer.shadowMap.autoUpdate=shadows;this.scene.background=background;this.camera.layers.set(0);this.renderer.autoClear=true;}this.needsRender=false;}
- get stats(){return{visibility:this.visibilityStats16,frames:this.renderedFrames||0,groundingMaxError:this.groundingMaxError,river:!!this.river,daylight:this.dayCycle?.daylight??1,grassInstances:(this.localGrass?.count||0)+(this.grassChunks||[]).reduce((n,c)=>n+c.mesh.count,0),visibleGrass:(this.localGrass?.visible?this.localGrass.count:0)+(this.grassChunks||[]).reduce((n,c)=>n+(c.mesh.visible?c.mesh.count:0),0),calls:this.frameStats?.calls||0,triangles:this.frameStats?.triangles||0,trees:this.nodes.filter(n=>n.type==='tree').length,models:Object.keys(this.models).length,monuments:MONUMENTS.length,bases:BOT_BASES.length,bots:this.bots.length,aiUpdates:this.bots.reduce((n,b)=>n+(b.aiUpdates||0),0),nearColliders:this.nearColliders(this.camera.position.x,this.camera.position.z).length,dormantBots:this.bots.filter(b=>Math.hypot(b.x-this.camera.position.x,b.z-this.camera.position.z)>100).length,boats:this.boats?.length||0,webgl2:this.renderer.capabilities.isWebGL2};}
+ get stats(){return{visibility:this.visibilityStats16,frames:this.renderedFrames||0,groundingMaxError:this.groundingMaxError,river:!!this.river,daylight:this.dayCycle?.daylight??1,grassTiles22:this.grass22?.tiles.size||0,grassQueue22:this.grass22?.queue.length||0,grassInstances:(this.localGrass?.count||0)+(this.grassChunks||[]).reduce((n,c)=>n+c.mesh.count,0),visibleGrass:(this.localGrass?.visible?this.localGrass.count:0)+(this.grassChunks||[]).reduce((n,c)=>n+(c.mesh.visible?c.mesh.count:0),0),calls:this.frameStats?.calls||0,triangles:this.frameStats?.triangles||0,trees:this.nodes.filter(n=>n.type==='tree').length,models:Object.keys(this.models).length,monuments:MONUMENTS.length,bases:BOT_BASES.length,bots:this.bots.length,aiUpdates:this.bots.reduce((n,b)=>n+(b.aiUpdates||0),0),nearColliders:this.nearColliders(this.camera.position.x,this.camera.position.z).length,dormantBots:this.bots.filter(b=>Math.hypot(b.x-this.camera.position.x,b.z-this.camera.position.z)>100).length,boats:this.boats?.length||0,webgl2:this.renderer.capabilities.isWebGL2};}
 }
 
 installWorldSystems(IslandWorld);
@@ -382,3 +374,5 @@ installSettlements20(IslandWorld);
 installDamage20(IslandWorld);
 
 installStationContext20(IslandWorld);
+
+installGrass22(IslandWorld);
