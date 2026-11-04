@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "status": "integrated-dev27",
+  "method": "individual-ai-generation-with-user-approved-reference",
+  "reference": "../items26/style-reference.webp",
+  "referenceSha256": "c682a592a6115ab6a8f8d1bd75d3d86c61590e92c348430286fbab9067a69189",
+  "width": 256,
+  "height": 256,
+  "alpha": true,
+  "items": {
+    "sleepingBag": {
+      "file": "sleepingBag.webp",
+      "label": "Спальный мешок",
+      "fitPx": 224,
+      "bytes": 33594,
+      "sha256": "ee579998e5465bd35ff2b79c8478d2b2db7d057e0cd68e73fcbe0cba26ac373f",
+      "sourceSha256": "f044d0ad8689099e14c5c428ca4cd8371cd98c2164ad817caf2880a5aad128ee"
+    }
+  }
+}

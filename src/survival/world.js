@@ -1,3 +1,5 @@
+import {installTactics27} from './tactics27.js';
+import {installSleeping27} from './sleeping-model27.js';
 import {installSociety26} from './society26.js';
 import {setWeaponSources26} from './weapon-sources26.js';
 import {installWeaponMods25} from './weapon-mods25.js';
@@ -280,7 +282,7 @@ export class IslandWorld {
   if(b.kind==='wall'||b.kind==='door')this.colliders.push({box:true,x:b.x,z:b.z,w:Math.abs(Math.cos(b.rotation))>0.5?3:.18,d:Math.abs(Math.cos(b.rotation))>0.5?.18:3,id:b.id,built:true,y:buildingHeight(b),h:3.02,door:b.kind==='door',data:b});
  }
  preview(kind,position,rotation,ok){
-  if(this.previewKind!==kind){if(this.ghost)this.scene.remove(this.ghost);this.ghost=['storage','largeStorage'].includes(kind)?this.normalized('Crate',kind==='storage'?.75:1.15):kind==='campfire'?this.normalized('Bonfire',.65):['furnace','workbench','cupboard','recycler','repairBench'].includes(kind)?this.stationModel(kind):this.timberGroup(kind);this.ghost.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshBasicMaterial({color:0xb5d98b,wireframe:true,transparent:true,opacity:.65,depthWrite:false});o.castShadow=false;o.receiveShadow=false;}});this.scene.add(this.ghost);this.previewKind=kind;}
+  if(this.previewKind!==kind){if(this.ghost)this.scene.remove(this.ghost);this.ghost=['storage','largeStorage'].includes(kind)?this.normalized('Crate',kind==='storage'?.75:1.15):kind==='campfire'?this.normalized('Bonfire',.65):['furnace','workbench','cupboard','recycler','repairBench','sleepingBag'].includes(kind)?this.stationModel(kind):this.timberGroup(kind);this.ghost.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshBasicMaterial({color:0xb5d98b,wireframe:true,transparent:true,opacity:.65,depthWrite:false});o.castShadow=false;o.receiveShadow=false;}});this.scene.add(this.ghost);this.previewKind=kind;}
   this.ghost.visible=true;this.ghost.position.set(position.x,position.y??terrainHeight(position.x,position.z),position.z);this.ghost.rotation.y=rotation;this.ghost.traverse(o=>{if(o.isMesh)o.material.color.set(ok?0xb6db8c:0xea885b);});
  }
  clearPreview(){if(this.ghost)this.ghost.visible=false;}
@@ -387,3 +389,7 @@ installBiomeLife23(IslandWorld);
 installWeaponMods25(IslandWorld);
 
 installSociety26(IslandWorld);
+
+installSleeping27(IslandWorld);
+
+installTactics27(IslandWorld);

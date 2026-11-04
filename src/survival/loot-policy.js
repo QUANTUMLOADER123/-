@@ -1,7 +1,7 @@
 import {isAttachment25} from './attachments25.js';
 import {isClothing24} from './clothing24.js';
 import {isGun} from './catalog.js';
-const singles=new Set(['rock','torch','axe','pickaxe','knife','hammer','armor','plan','furnace','workbench','storage','largeStorage','cupboard','recycler','repairBench','campfire','door','battery']);
+const singles=new Set(['sleepingBag','rock','torch','axe','pickaxe','knife','hammer','armor','plan','furnace','workbench','storage','largeStorage','cupboard','recycler','repairBench','campfire','door','battery']);
 const ammunition=new Set(['ammo','pistolAmmo','shells','rocket','hvRocket','incendiaryRocket']);
 const smallStacks=new Set(['berries','water','bandage','antiseptic','traumaKit','syringe','medkit','cannedFood','mushroom','pumpkin','corn','meat','cookedMeat','satchel','timedCharge','f1Grenade','beancan']);
 export const randomLootContainer=id=>!['build-','drop-','tc-'].some(p=>id.startsWith(p));

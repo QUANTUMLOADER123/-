@@ -1,6 +1,7 @@
 // DEV26: all 155 original inventory IDs, individually generated using the approved reference.
 // Additional DEV26 equipment uses explicitly shared category art, not new AI generations.
 export const ITEM_ART=Object.freeze({
+  "sleepingBag": "assets/items27/sleepingBag.webp?v=ee579998e5",
   "akRifle": "assets/items26/akRifle.webp?v=9cf38d92be",
   "compactSmg": "assets/items26/compactSmg.webp?v=250aafe3fc",
   "antiseptic": "assets/items26/antiseptic.webp?v=cee455bc24",

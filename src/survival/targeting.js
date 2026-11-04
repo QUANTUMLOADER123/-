@@ -16,6 +16,6 @@ export function installTargeting(World){World.prototype.target=function(state,qu
 
  for(const bot of this.bots)if(!bot.dead)modelHit({id:bot.id,type:'bot',x:bot.x,z:bot.z,bot},bot.model,gun?range:2.35);
  for(const wolf of this.wolves)if(!wolf.dead)modelHit({id:wolf.id,type:'wolf',x:wolf.x,z:wolf.z,wolf},wolf.model,gun?range:2.35);
- if(best){for(const model of this.occluders||[]){if(!visible(model))continue;const bounds=model.userData.worldBounds;if(bounds){const hit=raycaster.ray.intersectBox(bounds,new V());if(!hit||hit.distanceTo(origin)>nearest)continue;}const hits=raycaster.intersectObject(model,true);if(hits[0]&&hits[0].distance<nearest-.04)return null;}if(['bot','wolf'].includes(best.type)&&!this.lineOfSight(origin,new V(best.x,terrainHeight(best.x,best.z)+1.1,best.z),state))return null;}
+ if(best){for(const model of this.occluders||[]){if(!visible(model))continue;const bounds=model.userData.worldBounds;if(bounds){const hit=raycaster.ray.intersectBox(bounds,new V());if(!hit||hit.distanceTo(origin)>nearest)continue;}const hits=raycaster.intersectObject(model,true);if(hits[0]&&hits[0].distance<nearest-.04)return null;}if(['bot','wolf'].includes(best.type)&&!this.lineOfSight(origin,best.hitPoint||new V(best.x,terrainHeight(best.x,best.z)+1.1,best.z),state))return null;}
  return best;
 };}

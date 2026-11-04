@@ -1,4 +1,4 @@
-name: Oskol dev26 builds (no tests)
+name: Oskol dev27 builds (no tests)
 on:
   push:
     branches: [arena/ce299f3a-repo]
@@ -34,11 +34,11 @@ jobs:
       - name: Package
         run: |
           mkdir -p .artifacts
-          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.27.0-dev26-android.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.28.0-dev27-android.apk
           cd .artifacts && sha256sum *.apk > Android-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Android-dev26-NO-TESTS
+          name: Oskol-Android-dev27-NO-TESTS
           include-hidden-files: true
           if-no-files-found: error
           path: |
@@ -67,7 +67,7 @@ jobs:
           cd release-build && sha256sum *.exe > Windows-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Windows-x64-dev26-NO-TESTS
+          name: Oskol-Windows-x64-dev27-NO-TESTS
           if-no-files-found: error
           path: |
             release-build/*.exe

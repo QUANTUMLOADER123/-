@@ -1,3 +1,5 @@
+import {validTactics27} from './tactics-schema27.js';
+import {bagPlacement27,validBagSave27} from './sleeping-bags27.js';
 import {validSociety26} from './ai-schema26.js';
 import {landscape26} from './landscape26.js';
 import {MODS25,modCompatible25} from './attachments25.js';
@@ -47,7 +49,7 @@ export const RECIPES={
 };
 const LEGACY_KEYS=Object.keys(ITEMS);Object.assign(ITEMS,EXTRA_ITEMS);Object.assign(RECIPES,EXTRA_RECIPES);Object.assign(ITEMS,CLOTHING_ITEMS24);Object.assign(RECIPES,CLOTHING_RECIPES24);for(const k of [...Object.keys(BUILD_COSTS),'metal','sulfur','charcoal'])delete RECIPES[k];
 export const TIERS=[{name:'СОЛОМА',hp:75,cost:null,color:0x847250},{name:'ДЕРЕВО',hp:250,cost:{wood:20},color:0x6f684c},{name:'КАМЕНЬ',hp:550,cost:{stone:35},color:0x737971},{name:'МЕТАЛЛ',hp:1100,cost:{metal:30},color:0x5b6665}];
-export const BUILD_KINDS=[...Object.keys(BUILD_COSTS),'door','campfire','furnace','workbench','storage','largeStorage','cupboard','recycler','repairBench'];
+export const BUILD_KINDS=[...Object.keys(BUILD_COSTS),'door','campfire','furnace','workbench','storage','largeStorage','cupboard','recycler','repairBench','sleepingBag'];
 export const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 export function randomSeed(seed){let n=seed>>>0;return()=>{n+=0x6D2B79F5;let t=n;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
 const smooth=t=>t*t*(3-2*t);
@@ -116,7 +118,7 @@ export function placementHeight(state,kind,x,z,lift=0){
  const supports=state.buildings.filter(b=>b.hp>0&&(isFoundation(b.kind)||isFloor(b.kind))).map(b=>({...b,level:buildingHeight(b)+(isFloor(b.kind)?3:0)})).filter(b=>b.level<=(state.feetY??terrainHeight(state.position.x,state.position.z))+.9).sort((a,b)=>b.level-a.level||Math.hypot(a.x-x,a.z-z)-Math.hypot(b.x-x,b.z-z));
  const near=supports.find(b=>Math.hypot(b.x-x,b.z-z)<(isFoundation(kind)?4.4:2.5));
  if(isFoundation(kind)){const ground=Math.max(...[-1.5,1.5].flatMap(dx=>[-1.5,1.5].map(dz=>terrainHeight(x+dx,z+dz))));return(near?near.level:ground+.04)+Math.max(0,Math.min(2,lift));}
- return near?near.level:terrainHeight(x,z);
+ return near?near.level+(kind==='sleepingBag'?(isFoundation(near.kind)?.38:.11):0):terrainHeight(x,z);
 }
 export function placementCheck(state,kind,x,z,rotation=0,y=placementHeight(state,kind,x,z)){
  if(!BUILD_KINDS.includes(kind)||![x,z,rotation,y].every(Number.isFinite))return{ok:false,reason:'Неверная постройка'};
@@ -127,6 +129,7 @@ export function placementCheck(state,kind,x,z,rotation=0,y=placementHeight(state
  if(BOT_BASES.some(b=>Math.hypot(b.x-x,b.z-z)<14&&!state.authorizedBases?.includes(b.id)&&!state.depleted.includes('tc-'+b.id)))return{ok:false,reason:'Чужой шкаф: нет авторизации'};
  if(distanceToRoad(x,z,6)<4)return{ok:false,reason:'Нельзя перекрывать дорогу'};
  const alive=state.buildings.filter(b=>b.hp>0);
+ if(kind==='sleepingBag'){const check=bagPlacement27(state,x,z,rotation,y,terrainHeight);if(!check.ok)return check;}
  if(isFoundation(kind)){if([-1.5,1.5].some(dx=>[-1.5,1.5].some(dz=>terrainHeight(x+dx,z+dz)>y+.12)))return{ok:false,reason:'Подними фундамент Q / Z'};if(alive.some(b=>isFoundation(b.kind)&&Math.hypot(b.x-x,b.z-z)<2.7))return{ok:false,reason:'Основание уже занято'};}
  else if(isStructural(kind)||['door','cupboard'].includes(kind)){
   if(!alive.some(b=>(isFoundation(b.kind)||isFloor(b.kind))&&Math.hypot(b.x-x,b.z-z)<2.6))return{ok:false,reason:'Нужен свой фундамент или перекрытие'};
@@ -136,7 +139,7 @@ export function placementCheck(state,kind,x,z,rotation=0,y=placementHeight(state
  if(alive.some(b=>b.kind==='cupboard'&&kind==='cupboard'&&Math.hypot(b.x-x,b.z-z)<20))return{ok:false,reason:'Рядом уже есть свой шкаф'};
  return{ok:true};
 }
-export function placeBuilding(state,kind,x,z,rotation=0,y=placementHeight(state,kind,x,z)){const check=placementCheck(state,kind,x,z,rotation,y);if(!check.ok)return check;if(BUILD_COSTS[kind]){for(const [k,n]of Object.entries(BUILD_COSTS[kind]))state.inventory[k]-=n;}else state.inventory[kind]--;const building={id:'build-'+(Math.max(0,...state.buildings.map(b=>Number(b.id.split('-')[1])||0))+1),kind,x,z,y,rotation,open:false,tier:isStructural(kind)?0:1,hp:TIERS[isStructural(kind)?0:1].hp};state.buildings.push(building);return{ok:true,building};}
+export function placeBuilding(state,kind,x,z,rotation=0,y=placementHeight(state,kind,x,z)){const check=placementCheck(state,kind,x,z,rotation,y);if(!check.ok)return check;if(BUILD_COSTS[kind]){for(const [k,n]of Object.entries(BUILD_COSTS[kind]))state.inventory[k]-=n;}else state.inventory[kind]--;const building={id:'build-'+(Math.max(0,...state.buildings.map(b=>Number(b.id.split('-')[1])||0))+1),kind,x,z,y,rotation,open:false,tier:isStructural(kind)||kind==='sleepingBag'?0:1,hp:TIERS[isStructural(kind)||kind==='sleepingBag'?0:1].hp};state.buildings.push(building);return{ok:true,building};}
 export function upgradeBuilding(state,b){if(!b||!state.buildings.includes(b)||b.hp<=0||!isStructural(b.kind))return{ok:false,reason:'Нельзя улучшить'};if(Math.hypot(b.x-state.position.x,b.z-state.position.z)>6)return{ok:false,reason:'Слишком далеко'};const tier=TIERS[b.tier+1];if(!tier)return{ok:false,reason:'Максимальный уровень'};if(!Object.entries(tier.cost).every(([id,n])=>state.inventory[id]>=n))return{ok:false,reason:'Не хватает ресурсов'};for(const[id,n]of Object.entries(tier.cost))state.inventory[id]-=n;b.tier++;b.hp=tier.hp;return{ok:true};}
 export function repairBuilding(state,b){if(!b||!state.buildings.includes(b)||b.hp<=0||Math.hypot(b.x-state.position.x,b.z-state.position.z)>6)return false;const max=TIERS[b.tier].hp;if(b.hp>=max)return false;const id=b.tier>=3?'metal':b.tier===2?'stone':'wood',cost=Math.ceil((max-b.hp)/50);if(state.inventory[id]<cost)return false;state.inventory[id]-=cost;b.hp=max;return true;}
 export function damageStructure(state,structure,amount){if(!structure||!Number.isFinite(amount)||amount<=0)return 0;const max=TIERS[structure.tier??0].hp;const current=structure.owner?(state.structureDamage[structure.id]??max):structure.hp;if(current<=0)return 0;const hp=Math.max(0,current-amount);if(structure.owner){state.structureDamage[structure.id]=hp;if(state.buildings.includes(structure))structure.hp=hp;if(hp===0&&!state.depleted.includes(structure.id))state.depleted.push(structure.id);}else structure.hp=hp;return hp;}
@@ -153,6 +156,8 @@ export function decodeSave(raw){try{
  const deepTerrain13=Number.isInteger(s.contentRevision)&&s.contentRevision>=6;
  const coord=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z)&&Math.hypot(p.x,p.z)<=325*MAP_SIZES[s.size].scale*1.5+5;
  if(s.botLimit26!==undefined&&(!Number.isInteger(s.botLimit26)||s.botLimit26<0||s.botLimit26>96)||!validSociety26(s.society26,ITEMS,coord,WEAPONS))return null;
+ if(!validTactics27(s.society26,coord))return null;
+ if(!validBagSave27(s))return null;
  if(!coord(s.position)||s.feetY!==undefined&&(!Number.isFinite(s.feetY)||s.feetY<(deepTerrain13?-40:-5)||s.feetY>350))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
  if(!Number.isFinite(s.elapsed)||s.elapsed<0||s.elapsed>1e8||!Number.isFinite(s.yaw)||!Number.isFinite(s.pitch))return null;
  if(!s.inventory||LEGACY_KEYS.some(k=>!Object.hasOwn(s.inventory,k))||Object.entries(s.inventory).some(([k,n])=>!Object.hasOwn(ITEMS,k)||!Number.isInteger(n)||n<0||n>1e8))return null;

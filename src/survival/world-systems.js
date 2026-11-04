@@ -35,7 +35,7 @@ export function installWorldSystems(IslandWorld){
   // Slab/ray intersection cannot skip thin walls as coarse sampled rays could.
   const ray=new THREE.Ray(a,d.normalize()),box=new THREE.Box3(),hit=new V();
   for(const c of this.colliders){
-   if(!c.box&&!c.circle17||!c.data&&!c.scenery||c.data?.open||state.depleted.includes(c.id)||c.data&&!c.data.owner&&c.data.hp<=0)continue;
+   if(!c.box&&!c.circle17||!c.data&&!c.scenery||c.door&&c.data?.open||state.depleted.includes(c.id)||c.data&&!c.data.owner&&c.data.hp<=0)continue;
    const ground=c.y??terrainHeight(c.x,c.z);
    if(rayObstacle17({...c,y:ground},a,d,hit)&&hit.distanceToSquared(a)<(len-.05)**2)return false;
   }

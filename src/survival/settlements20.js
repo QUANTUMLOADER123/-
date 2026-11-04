@@ -20,7 +20,8 @@ export function installSettlements20(World){
  World.prototype.loadSettlement05=function(base,state){
   if(MAP_REVISION<11)return old.call(this,base,state);if(this.settlements05.has(base.id))return;
   const r=randomSeed(hash(base.id+'house20')),{plan,yaw,c,s,wealth,entry,airlock,shaft,world}=housePlan20(base,BOT_BASES,r),material=surfaceMaterial05(base.tier),ground=houseGround20(plan,world,terrainHeight);
-  const root=new THREE.Group();root.position.set(base.x,ground,base.z);this.scene.add(root);const house={root,base,batches:[],owned:[],entries:[],geometries20:[],material20:material,equipment20:[],renderReady21:false};this.settlements05.set(base.id,house);this.supportDirty05=true;const proxy=base.proxy05;
+  const outside27=world((airlock||entry).x,(airlock||entry).z+3.5);
+  const root=new THREE.Group();root.position.set(base.x,ground,base.z);this.scene.add(root);const house={root,base,batches:[],owned:[],entries:[],geometries20:[],material20:material,equipment20:[],renderReady21:false,ports27:[],cells27:plan.map((p,i)=>({...world(p.x,p.z),id:i,lx:p.x,lz:p.z,y:ground+.38})),entry27:{...outside27,y:terrainHeight(outside27.x,outside27.z)},entryCell27:plan.indexOf(airlock||entry)};this.settlements05.set(base.id,house);this.supportDirty05=true;const proxy=base.proxy05;
   const index=p=>plan.indexOf(p),id=(level,kind,i)=>'base-'+base.id+'-f'+level+'-'+kind+'-'+i,rootId=p=>id(0,'foundation',index(p)),under=(p,level)=>level&&p!==shaft?id(level-1,'roof',index(p)):rootId(p),defs=[];
   const add=(kind,p,level,i,angle=0,variant=kind,supports=[under(p,level)])=>{const q=world(p.x,p.z),data={id:id(level,kind,i),kind,x:q.x,z:q.z,y:ground+level*3,rotation:yaw+angle,tier:base.tier,hp:TIERS[base.tier].hp,owner:base.id,raided:base.raided,settlement:base.id,supports,variant};if(base.raided&&['wall','door'].includes(kind))state.structureDamage[data.id]??=TIERS[base.tier].hp*(.3+randomSeed(hash(data.id+'wear20'))()*.45);defs.push(data);return data;};
   for(let level=0;level<base.stories;level++)for(const p of plan){
@@ -28,7 +29,7 @@ export function installSettlements20(World){
    const edges=[];for(const [dx,dz,angle]of [[0,-1,0],[0,1,0],[-1,0,Math.PI/2],[1,0,Math.PI/2]]){
     if(plan.some(q=>q.x===p.x+dx*3&&q.z===p.z+dz*3))continue;
     const edge={x:p.x+dx*1.5,z:p.z+dz*1.5},front=(p===(airlock||entry)&&dz===1),isDoor=front&&level===0,kind=isDoor?'door':'wall',n=i*4+edges.length,variant=isDoor?'door':r()<.25?'window':'wall';
-    if(!(base.raided&&isDoor))edges.push(add(kind,edge,level,n,angle,variant,[under(p,level)]).id);
+    if(!(base.raided&&isDoor)){const b=add(kind,edge,level,n,angle,variant,[under(p,level)]);edges.push(b.id);if(level===0&&variant==='window'){const spot=world(p.x+dx*.78+dz*.15,p.z+dz*.78-dx*.15);house.ports27.push({id:b.id,...spot,y:ground+.38,cell:i,nx:dx*c+dz*s,nz:-dx*s+dz*c});}}
    }
    // Real airlock: a second door between the porch cell and the occupied rooms.
    if(p===entry&&airlock){const e={x:p.x,z:p.z+1.5};edges.push(add('door',e,level,900+i,0,'door',[under(p,level)]).id);}
@@ -50,7 +51,7 @@ export function installSettlements20(World){
     if(b.kind==='door'){const door=new THREE.Group(),pivot=new THREE.Group();door.position.set(b.x-base.x,b.y-ground,b.z-base.z);door.rotation.y=b.rotation;pivot.position.set(-.63,.38,0);const panel=new THREE.Mesh(box(1.26,2.1,.10,.63,1.05,0),material);panel.castShadow=panel.receiveShadow=true;pivot.add(panel);door.add(pivot);door.userData.doorPivot=pivot;pivot.rotation.y=state.doors?.[b.id]?1.6:0;b.open=!!state.doors?.[b.id];root.add(door);house.geometries20.push(panel.geometry);e.model=door;}
     this.setPieceVisible05(e,!state.depleted.includes(b.id)&&!b.supports.some(k=>state.depleted.includes(k)));
     const co=Math.abs(Math.cos(b.rotation)),si=Math.abs(Math.sin(b.rotation)),collide=(offset,width,y,height,frame=true)=>this.colliders.push({id:b.id,box:true,x:b.x+Math.cos(b.rotation)*offset,z:b.z-Math.sin(b.rotation)*offset,w:co*width+si*.16,d:si*width+co*.16,ow:width,od:.16,rotation:b.rotation,y:b.y+y,h:height,data:b,door:b.kind==='door'&&!frame,frame,settlement:base.id});
-    if(b.kind==='wall')collide(0,3,.38,3);if(b.kind==='halfWall')collide(0,1.35,.38,1.5);if(b.kind==='door'){collide(-1.08,.84,.38,3);collide(1.08,.84,.38,3);collide(0,1.32,2.48,.9);collide(0,1.26,.38,2.1,false);}
+    if(b.kind==='wall'){if(b.variant==='window'){collide(-1,1,.38,3);collide(1,1,.38,3);collide(0,1,.38,1.05);collide(0,1,2.43,.95);for(const x of[-.3,0,.3])collide(x,.035,1.43,1);}else collide(0,3,.38,3);}if(b.kind==='halfWall')collide(0,1.35,.38,1.5);if(b.kind==='door'){collide(-1.08,.84,.38,3);collide(1.08,.84,.38,3);collide(0,1.32,2.48,.9);collide(0,1.26,.38,2.1,false);}
     const floor=(y,w=3,d=3)=>this.walkFloors.push({x:b.x,z:b.z,w:co*w+si*d,d:si*w+co*d,ow:w,od:d,rotation:b.rotation,y:b.y+y,structureId:b.id,settlement:base.id,triangle20:b.kind.startsWith('triangle')});
     if(b.kind==='foundation')floor(.38);if(b.kind==='roof')floor(3.38);if(b.variant==='landing')floor(1.88,1.5,1.35);if(b.kind==='halfWall')floor(1.88,1.35,.14);if(b.kind==='triangleFoundation')floor(.38,3,3.47);if(b.kind==='triangleRoof')floor(3.38,3,3.47);
    });batch.computeBoundingSphere();
