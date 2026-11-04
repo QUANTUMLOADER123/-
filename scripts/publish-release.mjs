@@ -28,6 +28,7 @@ function gh(args,{allowMissing=false}={}){
 }
 const lookup=tag=>{const result=gh(['release','view',tag,'--repo',repository,'--json','targetCommitish,isDraft,url'],{allowMissing:true});return result?JSON.parse(result):null;};
 const version=exe.slice('oskol-'.length,-'-windows-x64.exe'.length);
+const iteration=/-dev(\d+)$/.exec(version)[1];
 let tag='v'+version,existing=lookup(tag);
 // Keep published downloads immutable if a later commit reuses the same app version.
 if(existing&&existing.targetCommitish!==sha){tag+='-'+sha.slice(0,7);existing=lookup(tag);}
@@ -42,7 +43,7 @@ const notes=`# ОСКОЛ ${version}\n\n`+
  `Android 8+; Windows 10/11 x64. EXE не подписан коммерческим сертификатом. Не отключайте защиту ради запуска прототипа.\n\n`+
  `Экспериментальная предварительная сборка. **Игра и тесты не запускались**: только компиляция и упаковка. `+
  `Сохранены прежние Android application ID/подпись разработки и каталог сохранений Windows.\n\n`+
- `[Изменения DEV29](https://github.com/${repository}/blob/${sha}/src/survival/DEV29.md) · [Сборка](${run})\n\n`+
+ `[Изменения DEV${iteration}](https://github.com/${repository}/blob/${sha}/src/survival/DEV${iteration}.md) · [Сборка](${run})\n\n`+
  `Исходный коммит: \`${sha}\`.\n`;
 const notesPath='.artifacts/release-notes.md';
 await writeFile(notesPath,notes);

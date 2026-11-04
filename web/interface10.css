@@ -52,3 +52,7 @@ body{font-family:var(--ui);background:#161615}button,input{font-family:inherit}b
 .loading-wordmark10{width:clamp(170px,24vw,340px)}
 .menu-wordmark10 .oskol-wordmark17{max-width:215px}
 @media(max-width:640px){.loading-wordmark10{width:180px}.menu-wordmark10 .oskol-wordmark17{max-width:145px}}
+
+/* Keep entry failures visible above the menu on phones and desktop. */
+.entry-error30{position:fixed;inset:0;z-index:35;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:#090d10de;overflow:auto}
+.entry-error-card30{width:min(620px,100%);max-height:85dvh;overflow:auto;padding:22px;background:#202720;border:1px solid #b46a42;box-sizing:border-box}.entry-error-card30 h2{font-size:23px;color:#e9a271;margin:0 0 16px}.entry-error-card30 p{font-size:13px;line-height:1.6;overflow-wrap:anywhere}.entry-error-card30 details{font-size:12px;margin:16px 0}.entry-error-card30 summary{cursor:pointer}.entry-error-card30 textarea{box-sizing:border-box;width:100%;min-height:140px;resize:vertical;background:#101710;color:#d5dec8;border:1px solid #82957755;padding:10px;user-select:text;font:12px/1.5 monospace}.entry-error-card30>div{display:flex;gap:10px;flex-wrap:wrap}.entry-error-card30 button{flex:1;min-height:44px;padding:10px;background:#b6794b;color:#151b17;font-weight:700;font-size:12px}.entry-error-card30 button:first-child{background:#4a5842;color:#e4ebd8}
