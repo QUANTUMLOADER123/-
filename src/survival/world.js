@@ -3,6 +3,7 @@ import {PBR_FILES12,pbrMaterial12,dressMaterials12} from './materials12.js';
 import {terrainMaterial12} from './terrain12.js';
 import {initWater12} from './water12.js';
 import {installVisuals12} from './visuals12.js';
+import {installViewmodel14} from './viewmodel14.js';
 import {installSurfaceTextures12} from './surface05.js';
 import {checkLoading11} from './loading11.js';
 import {paintLoading10} from './interface10.js';
@@ -219,10 +220,10 @@ export class IslandWorld {
   const pad=new THREE.Mesh(new RoundedBoxGeometry(.105,.06,.018,2,.013),strap);pad.position.set(0,.10,.068);pad.rotation.z=-.2;this.handRoot.add(pad);
   this.heldRock=new THREE.Mesh(new THREE.IcosahedronGeometry(.145,2),new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],color:0x898a7a,roughness:1}));this.heldRock.scale.set(1.15,1,.77);this.heldRock.position.set(-.02,.17,-.045);this.handRoot.add(this.heldRock);
   this.heldAxe=this.normalized('Axe',.72);this.heldAxe.rotation.set(.05,.55,-.25);this.heldAxe.position.set(-.03,-.11,-.02);this.handRoot.add(this.heldAxe);this.heldAxe.visible=false;
-  this.heldTorch=new THREE.Group();const stick=new THREE.Mesh(new THREE.CylinderGeometry(.026,.034,.65,9),new THREE.MeshStandardMaterial({color:0x67523b,roughness:1}));stick.position.y=.23;this.heldTorch.add(stick);const wrap=new THREE.Mesh(new THREE.CylinderGeometry(.06,.042,.17,9),glove);wrap.position.y=.56;this.heldTorch.add(wrap);this.torchFlame=new THREE.Mesh(new THREE.ConeGeometry(.065,.24,7),new THREE.MeshBasicMaterial({color:0xffb24b,transparent:true,opacity:.85,depthWrite:false}));this.torchFlame.position.y=.75;this.heldTorch.add(this.torchFlame);this.handRoot.add(this.heldTorch);this.heldTorch.visible=false;
+  this.heldTorch=new THREE.Group();const stick=new THREE.Mesh(new THREE.CylinderGeometry(.026,.034,.65,9),new THREE.MeshStandardMaterial({name:'WoodHandle14',color:0x67523b,roughness:1}));stick.position.y=.23;this.heldTorch.add(stick);const wrap=new THREE.Mesh(new THREE.CylinderGeometry(.06,.042,.17,9),glove);wrap.position.y=.56;this.heldTorch.add(wrap);this.torchFlame=new THREE.Mesh(new THREE.ConeGeometry(.065,.24,7),new THREE.MeshBasicMaterial({color:0xffb24b,transparent:true,opacity:.85,depthWrite:false}));this.torchFlame.position.y=.75;this.heldTorch.add(this.torchFlame);this.handRoot.add(this.heldTorch);this.heldTorch.visible=false;
   this.torchLight=new THREE.PointLight(0xffa558,0,12,2);this.torchLight.position.set(0,.6,0);this.handRoot.add(this.torchLight);
   this.heldGun=this.normalized('Shotgun_1',.25);this.heldGun.rotation.set(0,Math.PI*.5,-.04);this.heldGun.position.set(-.06,.12,-.25);this.handRoot.add(this.heldGun);
-  this.heldPickaxe=new THREE.Group();const pickWood=new THREE.MeshStandardMaterial({map:this.textures['wood.jpg'],color:0x756446,roughness:1}),pickMetal=new THREE.MeshStandardMaterial({color:0x7e8478,metalness:.5,roughness:.8});const ph=new THREE.Mesh(new THREE.CylinderGeometry(.022,.03,.72,9),pickWood);ph.position.y=.22;this.heldPickaxe.add(ph);const head=new THREE.Mesh(new THREE.ConeGeometry(.065,.40,7),pickMetal);head.rotation.z=Math.PI*.5;head.position.set(.05,.52,0);this.heldPickaxe.add(head);this.heldPickaxe.rotation.z=-.2;this.handRoot.add(this.heldPickaxe);
+  this.heldPickaxe=new THREE.Group();const pickWood=new THREE.MeshStandardMaterial({name:'WoodHandle14',map:this.textures['wood.jpg'],color:0x756446,roughness:1}),pickMetal=new THREE.MeshStandardMaterial({color:0x7e8478,metalness:.5,roughness:.8});const ph=new THREE.Mesh(new THREE.CylinderGeometry(.022,.03,.72,9),pickWood);ph.position.y=.22;this.heldPickaxe.add(ph);const head=new THREE.Mesh(new THREE.ConeGeometry(.065,.40,7),pickMetal);head.rotation.z=Math.PI*.5;head.position.set(.05,.52,0);this.heldPickaxe.add(head);this.heldPickaxe.rotation.z=-.2;this.handRoot.add(this.heldPickaxe);
   this.heldHammer=new THREE.Group();const hh=ph.clone();hh.scale.y=.65;this.heldHammer.add(hh);const hb=new THREE.Mesh(new RoundedBoxGeometry(.23,.16,.14,2,.025),pickWood);hb.position.y=.42;this.heldHammer.add(hb);this.handRoot.add(this.heldHammer);
   this.heldSatchel=new THREE.Mesh(new RoundedBoxGeometry(.24,.23,.12,2,.03),new THREE.MeshStandardMaterial({color:0x665b3e,roughness:1}));this.heldSatchel.position.set(0,.15,0);this.handRoot.add(this.heldSatchel);
   this.handRoot.traverse(o=>{o.layers.set(1);if(o.isMesh){o.renderOrder=0;const ms=Array.isArray(o.material)?o.material:[o.material];o.material=ms.map(m=>{const c=m.clone();c.depthTest=true;c.depthWrite=true;c.envMapIntensity=.6;return c;});if(o.material.length===1)o.material=o.material[0];o.castShadow=false;o.receiveShadow=false;}});this.handRoot.visible=false;this.sun.layers.enable(1);this.hemisphere.layers.enable(1);this.lowAmbient.layers.enable(1);this.torchLight.layers.enable(1);
@@ -291,7 +292,7 @@ export class IslandWorld {
   this.birds.forEach((b,i)=>{const a=this.time*.045+i*1.2;b.position.set(Math.cos(a)*65,25+Math.sin(a*2+i)*4,Math.sin(a)*60);b.rotation.set(Math.sin(this.time*3+i)*.12,-a+Math.PI*.5,Math.sin(this.time*2+i)*.14);});
   if(playing){
    this.updateDayNight(state.elapsed);this.handRoot.visible=true;const selected=state.selected;this.heldRock.visible=!isGun(selected)&&!['axe','pickaxe','hammer','torch','satchel','plan'].includes(selected);this.heldAxe.visible=selected==='axe';this.heldPickaxe.visible=selected==='pickaxe';for(const [id,view]of Object.entries(this.weaponViews))view.visible=selected===id;this.heldPlan.visible=selected==='plan';this.heldHammer.visible=selected==='hammer';this.heldSatchel.visible=selected==='satchel';this.heldTorch.visible=selected==='torch';this.torchLight.intensity=selected==='torch'?2.3:0;
-   this.swing=Math.max(0,this.swing-dt*3.2);const hit=Math.sin(this.swing*Math.PI);this.handRoot.position.set(.39+Math.sin(this.time*7)*moving*.012-hit*.17,-.43+Math.cos(this.time*14)*moving*.012+hit*.08,-.66-hit*.16);this.handRoot.rotation.set(-hit*.65,hit*.1,-.1+hit*.55);this.torchFlame.scale.y=1+Math.sin(this.time*15)*.18;
+   this.swing=Math.max(0,this.swing-dt*3.2);if(!this.viewmodel14){const hit=Math.sin(this.swing*Math.PI);this.handRoot.position.set(.39+Math.sin(this.time*7)*moving*.012-hit*.17,-.43+Math.cos(this.time*14)*moving*.012+hit*.08,-.66-hit*.16);this.handRoot.rotation.set(-hit*.65,hit*.1,-.1+hit*.55);}this.torchFlame.scale.y=1+Math.sin(this.time*15)*.18;
    const shadowCenter=new V(state.position.x,this.camera.position.y-1.72,state.position.z);this.sun.target.position.copy(shadowCenter);this.sun.position.copy(shadowCenter).add(this.sunDirection.clone().multiplyScalar(72));this.sun.target.updateMatrixWorld();
 
    this.updateBots(dt,state,damage);
@@ -343,3 +344,5 @@ installAtmosphere08(IslandWorld);
 installCollision08(IslandWorld);
 
 installVisuals12(IslandWorld);
+
+installViewmodel14(IslandWorld);

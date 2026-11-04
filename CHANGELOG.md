@@ -1,5 +1,16 @@
 # ОСКОЛ — тестовые итерации
 
+## DEV 0.15.0 · iteration 14 — first-person hands / build only
+
+- Original lofted fingerless-glove hands: opposed thumbs, smooth three-bone finger skinning, nails and authored procedural microdetail.
+- Continuous skinned cloth arms with camera-space shoulders, wrist-locked two-bone IK and hidden-anchor compensation at reach limits.
+- One authoritative pose controller replaces the DEV04/05/08 update chain. Velocity-driven locomotion, forward sprint lowering, crouch/air/landing, turn lag, ADS, equip, melee/release/reach and swimming transitions.
+- Twelve weapon grip profiles plus tool/plan/rock/explosive holds. Tool shaft sockets derive from authored geometry. Actual optic-center ADS; eligible ADS also controls HUD reticle.
+- Magazine, ammo-box, cylinder, internal/tube and rocket reload presentation on the existing clock; visible bolt/pistol slide/pump actions. Ammunition remains an atomic gameplay operation at completion.
+- Spring recoil, muzzle flashes and an eight-instance short-lived visual casing pool; no casing collisions/loot. Last-grenade release survives belt reconciliation.
+- Existing saved worlds receive the new viewmodels without a map/save revision bump. Combat/terrain/loot/bots not rebalanced. APK code16, Windows portable, same app ID/dev signature/save paths.
+- No tests or game/browser/native/visual/audio execution. Compilation and packaging only; animation quality, intersections, performance and sound synchronization remain unverified on devices.
+
 ## DEV 0.5 · iteration 03
 
 - Свои сохраняемые 12-слотовые ящики; пустые случайные лут-контейнеры удаляются, свои остаются.
