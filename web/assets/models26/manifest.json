@@ -1,0 +1,20 @@
+[
+  {
+    "file": "models/Carbine26.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/c664c6f231d3dd522b38ba52fc39ec33028624e2/public/glb/modular_sci_fi_guns_pack/AR_1.glb",
+    "author": "Quaternius",
+    "pack": "Modular Sci-Fi Guns Pack",
+    "license": "CC0-1.0",
+    "sha256": "0370edb381d2f298efbc9ac7dd4ec11d22d3b0137bb135df1b89a2a284af9125",
+    "modification": "Runtime size/orientation normalization; material roughness and supplied local texture maps. Not realistic scanned firearms."
+  },
+  {
+    "file": "models/Smg26.glb",
+    "source": "https://github.com/trebeljahr/quaternius-showcase/blob/c664c6f231d3dd522b38ba52fc39ec33028624e2/public/glb/modular_sci_fi_guns_pack/SMG_1.glb",
+    "author": "Quaternius",
+    "pack": "Modular Sci-Fi Guns Pack",
+    "license": "CC0-1.0",
+    "sha256": "4a92c6765ce2e7688afd962ec1b741c95ace183a90d448d7e094a342d62114f2",
+    "modification": "Runtime size/orientation normalization; material roughness and supplied local texture maps. Not realistic scanned firearms."
+  }
+]

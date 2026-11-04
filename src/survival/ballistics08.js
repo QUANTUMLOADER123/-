@@ -3,7 +3,7 @@ import {rayObstacle17} from './spatial17.js';
 import * as THREE from 'three';
 import {terrainHeight} from './state.js';
 const V=THREE.Vector3;
-export const BALLISTICS08={akRifle:{speed:520,range:600},compactSmg:{speed:285,range:220},pistol:{speed:250,range:180},heavyPistol:{speed:280,range:200},revolver:{speed:270,range:200},smg:{speed:290,range:230},shotgun:{speed:180,range:85,pellets:8},combatShotgun:{speed:190,range:90,pellets:8},rifle:{speed:380,range:400},semiRifle:{speed:470,range:500},assaultRifle:{speed:510,range:550},machineGun:{speed:520,range:600},boltRifle:{speed:680,range:850}};
+export const BALLISTICS08={carbine26:{speed:530,range:600},pdw26:{speed:310,range:260},akRifle:{speed:520,range:600},compactSmg:{speed:285,range:220},pistol:{speed:250,range:180},heavyPistol:{speed:280,range:200},revolver:{speed:270,range:200},smg:{speed:290,range:230},shotgun:{speed:180,range:85,pellets:8},combatShotgun:{speed:190,range:90,pellets:8},rifle:{speed:380,range:400},semiRifle:{speed:470,range:500},assaultRifle:{speed:510,range:550},machineGun:{speed:520,range:600},boltRifle:{speed:680,range:850}};
 export function installBallistics08(World){
  World.prototype.fireBullet08=function({origin,direction,id,onHit,ignore=null,hostile=false,onPlayerHit=null}){
   const profile=BALLISTICS08[id]||BALLISTICS08.rifle;this.bullets08??=[];

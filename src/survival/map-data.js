@@ -1,3 +1,4 @@
+import {landscape26} from './landscape26.js';
 import {landscape21} from './landscape21.js';
 import {settlementPlots21} from './settlement-plots21.js';
 import {landscape20,gradeRoad20} from './landscape20.js';
@@ -8,7 +9,7 @@ import {extendRoads10} from './network10.js';
 /** Authored landmarks and uninhabited settlements. Revision 9 uses branching
  * rural roads; the old ring/grid remains only for previously saved revisions. */
 export const MAP_SIZES={small:{name:'Маленький',scale:1,width:650},medium:{name:'Средний',scale:1.4,width:910},large:{name:'Большой',scale:1.8,width:1170},huge:{name:'Огромный',scale:4000/650,width:4000},vast:{name:'Бескрайний',scale:8000/650,width:8000}};
-export let MAP_REVISION=13;
+export let MAP_REVISION=14;
 export let MAP_LAYOUT18=0;
 export let MAP_SCALE=1,MAP_SEED=27182,WORLD_RADIUS=325;
 export let CURRENT_SIZE='small';
@@ -61,13 +62,13 @@ export function roadSamples(){
  return{ring:result,branch};
 }
 export let ROADS=roadSamples(),LEGACY_ROADS10=ROADS,ROAD_JUNCTIONS10=[];
-export function configureMap(size='small',seed=27182,revision=13){
+export function configureMap(size='small',seed=27182,revision=14){
  MAP_LAYOUT18++;MAP_REVISION=revision;roadGrid=null;CURRENT_SIZE=Object.hasOwn(MAP_SIZES,size)?size:'small';MAP_SCALE=MAP_SIZES[CURRENT_SIZE].scale;MAP_SEED=Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182;WORLD_RADIUS=325*MAP_SCALE;
  MONUMENTS=[...BASE_MONUMENTS.map(m=>({...m,x:m.x*MAP_SCALE,z:m.z*MAP_SCALE})),...offshore()];BOT_BASES=BASE_BOT_BASES.map(b=>({...b,x:b.x*MAP_SCALE,z:b.z*MAP_SCALE}));ROAD_POINTS=BASE_ROAD_POINTS.map(p=>p.map(v=>v*MAP_SCALE));ROADS=roadSamples();LEGACY_ROADS10=ROADS;if(MAP_REVISION>=13)MONUMENTS=MONUMENTS.map(m=>{const siteScale25=m.kind==='radar'?1.8:m.kind==='airfield'?2.2:m.kind==='oilrig'?1.5:['gas','market','outpost','lighthouse'].includes(m.kind)?1.5:1.8;return {...m,siteScale25,radius:m.kind==='radar'?68:m.radius*siteScale25,name:m.kind==='radar'?'Промышленная сфера':m.name};});if(MAP_REVISION>=6)MONUMENTS=riverSafeSites13(MONUMENTS,MAP_SCALE,MAP_SEED);if(MAP_REVISION<9)BOT_BASES=settlements();
  if(MAP_REVISION>=9){
   // New network first, settlements second: no roads driven through house plots.
   const noise19=MAP_REVISION>=10?noiseField19(MAP_SEED):null;
-  const network=roadNetwork18({scale:MAP_SCALE,seed:MAP_SEED,monuments:MONUMENTS,maxShortcutGrade:MAP_REVISION>=11?.18:1.1,gradeCost:MAP_REVISION>=11?180:35,height:noise19?(x,z)=>(MAP_REVISION>=12?landscape21:MAP_REVISION>=11?landscape20:landscape19)(x,z,MAP_SCALE,MAP_SEED,noise19,MONUMENTS):null});
+  const network=roadNetwork18({scale:MAP_SCALE,seed:MAP_SEED,monuments:MONUMENTS,maxShortcutGrade:MAP_REVISION>=11?.18:1.1,gradeCost:MAP_REVISION>=11?180:35,height:noise19?(x,z)=>(MAP_REVISION>=14?landscape26:MAP_REVISION>=12?landscape21:MAP_REVISION>=11?landscape20:landscape19)(x,z,MAP_SCALE,MAP_SEED,noise19,MONUMENTS):null});
   ROADS=network.roads;ROAD_JUNCTIONS10=network.junctions;roadGrid=null;
   LEGACY_ROADS10=Object.fromEntries(Object.entries(ROADS).map(([name,path])=>[name,path.map(p=>({...p}))]));
   BOT_BASES=settlements();
@@ -95,7 +96,7 @@ export function riverAt(x,z){
 }
 
 export function safeZoneAt(x,z){return MONUMENTS.find(m=>m.safe&&Math.hypot(x-m.x,z-m.z)<m.radius+10)||null;}
-function settlements(){if(MAP_REVISION>=12){const field=noiseField19(MAP_SEED),base=(x,z)=>landscape21(x,z,MAP_SCALE,MAP_SEED,field,MONUMENTS);return settlementPlots21({scale:MAP_SCALE,seed:MAP_SEED,sites:MONUMENTS,river:riverAt,coast:(x,z)=>coastDistance13(x,z,MAP_SCALE,MAP_SEED),roadDistance:distanceToRoad,height:(x,z)=>gradeRoad20(x,z,base(x,z),{roads:ROADS,key:MAP_LAYOUT18,base,river:riverAt,sites:MONUMENTS})});}const candidates=[],rand=()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};let n=MAP_SEED^0x7138;
+function settlements(){if(MAP_REVISION>=12){const field=noiseField19(MAP_SEED),base=(x,z)=>(MAP_REVISION>=14?landscape26:landscape21)(x,z,MAP_SCALE,MAP_SEED,field,MONUMENTS);return settlementPlots21({scale:MAP_SCALE,seed:MAP_SEED,sites:MONUMENTS,river:riverAt,coast:(x,z)=>coastDistance13(x,z,MAP_SCALE,MAP_SEED),roadDistance:distanceToRoad,height:(x,z)=>gradeRoad20(x,z,base(x,z),{roads:ROADS,key:MAP_LAYOUT18,base,river:riverAt,sites:MONUMENTS})});}const candidates=[],rand=()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};let n=MAP_SEED^0x7138;
  for(let ix=-34;ix<=34;ix++)for(let iz=-29;iz<=29;iz++){const x=(ix*8+(rand()-.5)*.35)*MAP_SCALE,z=(iz*9.5+(rand()-.5)*.35)*MAP_SCALE,r=riverAt(x,z);if(Math.hypot(x/MAP_SCALE,z/MAP_SCALE)>269||Math.hypot(x+6,z+3)<40||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+8)||distanceToRoad(x,z,12)<5||r&&r.distance<r.width/2+5||MAP_REVISION>=6&&coastDistance13(x,z,MAP_SCALE,MAP_SEED)<18)continue;candidates.push({x,z});}
  for(let i=candidates.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
  const selected=[];for(const p of candidates){if(MAP_REVISION>=11&&selected.some(q=>Math.hypot(q.x-p.x,q.z-p.z)<20))continue;selected.push(p);if(selected.length===120)break;}

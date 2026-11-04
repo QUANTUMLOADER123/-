@@ -65,7 +65,7 @@ const rows=[
   ['winterGloves','Зимние рукавицы',3,'mittens','#b1b9ad',.12,.30,.09],
   ['tacticalGloves','Тактические перчатки',4,'knuckles','#4b5346',.21,.46,.16],
   ['kevlarGloves','Кевларовые перчатки',6,'knuckles','#747b50',.35,.54,.25],
-  ['steelGauntlets','Стальные наручи',7,'gauntlet','#8b9291',.48,.72,.36]
+  ['steelGauntlets','Бронированные перчатки',7,'gauntlet','#8b9291',.48,.72,.36]
  ]],
  ['feet',[
   ['clothShoes','Тканевые тапки',1,'shoes','#92856f',.02,.12,.02],

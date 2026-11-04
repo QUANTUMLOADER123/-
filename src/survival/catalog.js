@@ -7,7 +7,7 @@ Object.assign(WEAPONS,NEW_WEAPONS,{akRifle:{name:'Автомат АК-47',ammo:'
 // negative yaw moves the aim right, positive yaw left. Pitch positive is up.
 for(const[id,w]of Object.entries(WEAPONS)){
  w.interval=Number(Math.max(.055,w.interval*.78).toFixed(4));
- const rifle=['rifle','semiRifle','assaultRifle','akRifle','boltRifle','machineGun'].includes(id),pistol=['pistol','heavyPistol','revolver'].includes(id);
+ const rifle=['carbine26','rifle','semiRifle','assaultRifle','akRifle','boltRifle','machineGun'].includes(id),pistol=['pistol','heavyPistol','revolver'].includes(id);
  w.recoil17={up:w.projectile?.028:['shotgun','combatShotgun'].includes(id)?.033:w.automatic?.010:.019,side:rifle?-.005:pistol?0:.004};
 }
 export const isGun=id=>Object.hasOwn(WEAPONS,id);

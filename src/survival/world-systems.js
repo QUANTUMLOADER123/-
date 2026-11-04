@@ -49,7 +49,7 @@ export function installWorldSystems(IslandWorld){
   for(const data of spawns){const model=this.normalized(data.skin,1.78);this.scene.add(model);const weapon=this.normalized('Pistol_1',.2);this.scene.add(weapon);const bones={};model.updateMatrixWorld(true);model.traverse(o=>{if(o.isBone){const inverse=o.parent.getWorldQuaternion(new THREE.Quaternion()).invert();bones[o.name]={bone:o,base:o.quaternion.clone(),x:new V(1,0,0).applyQuaternion(inverse),y:new V(0,1,0).applyQuaternion(inverse),z:new V(0,0,1).applyQuaternion(inverse)};}});const bot={id:data.id,base:data.base,y:data.y??terrainHeight(data.x,data.z),homeX:data.x,homeZ:data.z,spawnOffset:data.exact17?0:data.slot===1?6:3,spawnXOffset17:data.exact17?0:4,x:data.x+(data.exact17?0:4),z:data.z+(data.exact17?0:data.slot===1?6:3),model,weapon,bones,hp:120,dead:false,mode:'patrol',cooldown:0,phase:this.stringSeed(data.id)%100,actionTime:0,alertUntil:0};this.bots.push(bot);this.animateBot(bot,0,0,false);bot.model.visible=bot.weapon.visible=Math.hypot(bot.x,bot.z)<150;}
  },
  animateBot(bot,dt,moving,shooting){
-  const t=this.time*6+bot.phase;
+  const t=this.time*((bot.speed26||0)>2.5?10:6)+bot.phase;
   const q=this.botRotation||(this.botRotation=new THREE.Quaternion());
   const rotate=(name,x=0,y=0,z=0)=>{const b=bot.bones[name.replaceAll('.','')];if(!b)return;b.bone.quaternion.copy(b.base);if(z)b.bone.quaternion.premultiply(q.setFromAxisAngle(b.z,z));if(y)b.bone.quaternion.premultiply(q.setFromAxisAngle(b.y,y));if(x)b.bone.quaternion.premultiply(q.setFromAxisAngle(b.x,x));};
   rotate('UpperLeg.L',Math.sin(t)*moving*.48);rotate('UpperLeg.R',-Math.sin(t)*moving*.48);rotate('LowerLeg.L',Math.max(0,-Math.sin(t))*moving*.5);rotate('LowerLeg.R',Math.max(0,Math.sin(t))*moving*.5);

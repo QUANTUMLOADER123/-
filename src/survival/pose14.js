@@ -65,6 +65,8 @@ const profile = (right, left, reload, kick, extra = {}) => ({
   ...extra,
 });
 export const GUN_POSES14 = {
+  carbine26: profile([.07,-.035,.06],[-.052,.015,-.38],"magazine",.72),
+  pdw26: profile([.065,-.035,.055],[-.052,.015,-.28],"magazine",.36),
   akRifle: profile([.07,-.035,.06],[-.055,.04,-.29],"magazine",.84),
   compactSmg: profile([.065,-.035,.055],[-.052,.04,-.25],"magazine",.35),
   rifle: profile(

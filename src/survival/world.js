@@ -1,3 +1,5 @@
+import {installSociety26} from './society26.js';
+import {setWeaponSources26} from './weapon-sources26.js';
 import {installWeaponMods25} from './weapon-mods25.js';
 import {hempPlant25} from './hemp25.js';
 import {installBiomeLife23} from './biome-life23.js';
@@ -87,12 +89,12 @@ export class IslandWorld {
   checkLoading11(signal);
   const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели и текстуры: '+done+' / '+total);
   const loader=new GLTFLoader(manager),tl=new THREE.TextureLoader(manager);
-  const names=['CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1'];
+  const names=['Carbine26','Smg26','CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg','BroadleafBark.jpg','BroadleafBark_Normal.png',...PBR_FILES12,...ITEM_FILES16];
   const bytes=async path=>{const response=await fetch(path,{signal});if(!response.ok)throw new Error('Не найден ресурс: '+path);return response;};
   // Wait for every decoder before cleanup, including parsers already running at cancellation.
   const jobs=[...names.map(async n=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');checkLoading11(signal);}),...textureNames.map(async n=>{const response=await bytes(ASSET+(n.startsWith('pbr12/')||n.startsWith('items16/')?n:'textures/'+n)),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.toLowerCase().includes('normal')&&!n.includes('-orm'))t.colorSpace=THREE.SRGBColorSpace;if(n.startsWith('pbr12/')){t.userData.kind12=n.split('/')[1].split('-')[0];if(this.settings.quality==='low'&&t.image.width>512){const c=document.createElement('canvas');c.width=c.height=512;c.getContext('2d').drawImage(t.image,0,0,512,512);t.image=c;t.needsUpdate=true;}}}finally{URL.revokeObjectURL(url);}})];
-  const results=await Promise.allSettled(jobs);checkLoading11(signal);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;installSurfaceTextures12(this.textures);itemTextures16(this.textures);
+  const results=await Promise.allSettled(jobs);checkLoading11(signal);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;installSurfaceTextures12(this.textures);itemTextures16(this.textures);setWeaponSources26(this.models,this.textures);
   progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10(signal);checkLoading11(signal);await this.makeTerrain(signal);this.makeOcean();this.makeRiver();await paintLoading10(signal);await initWater12(this,signal);
   progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10(signal);checkLoading11(signal);this.makeCamp();addIslandContent(this);addRockfields17(this);decorateLoot(this);this.alignTerrainProps06();
   progress(.91,'Размещаем ресурсы, лес и траву…');await paintLoading10(signal);checkLoading11(signal);this.makeResources();await this.makeGrass(signal,ratio=>progress(.91+ratio*.025,'Генерируем траву и растительность: '+Math.round(ratio*100)+'%'));
@@ -383,3 +385,5 @@ installGrass22(IslandWorld);
 installBiomeLife23(IslandWorld);
 
 installWeaponMods25(IslandWorld);
+
+installSociety26(IslandWorld);

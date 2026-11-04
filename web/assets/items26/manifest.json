@@ -1,0 +1,1338 @@
+{
+  "schema": 1,
+  "status": "complete-integrated-dev26",
+  "method": "individual-ai-generation-with-user-approved-reference",
+  "reference": "style-reference.webp",
+  "style": "Muted hand-painted survival inventory, thin dark contour, soft wear patches, diagonal three-quarter orientation; not photographic or glossy.",
+  "width": 256,
+  "height": 256,
+  "alpha": true,
+  "items": {
+    "gears": {
+      "file": "gears.webp",
+      "label": "Шестерня",
+      "bytes": 50734,
+      "fitPx": 224,
+      "sha256": "5fe538efdaf7f1bc3bb61cf827d2c69a31c4d46f4e5ea7551eb4922fd7482b99",
+      "sourceSha256": "560b3d0b63b5aa45dcb14f6c61bf06e7f583d296f716cdf09ac8b3dfc4e6fc9c"
+    },
+    "metalBlade": {
+      "file": "metalBlade.webp",
+      "label": "Лезвие тесака",
+      "bytes": 21970,
+      "fitPx": 224,
+      "sha256": "3c95762d2e0bba29935d551275b846db5e56a56dc79adb4524393f439715bc67",
+      "sourceSha256": "dfffa6f4172c674c7615f08a721d8d74d0d092e33a14c5ed0663c21b674a0363"
+    },
+    "metalCylinder": {
+      "file": "metalCylinder.webp",
+      "label": "Газовый баллон",
+      "bytes": 32220,
+      "fitPx": 224,
+      "sha256": "3b5b2a7329a1c7f12afc9be158001f7a5b05490c4898aa83e011826abbd8295a",
+      "sourceSha256": "bcf5d1c450ebd68d0013f7e545d4355cd862ce63da7edb5997bac13b456fdad8"
+    },
+    "metalPipe": {
+      "file": "metalPipe.webp",
+      "label": "Полая труба",
+      "bytes": 28102,
+      "fitPx": 224,
+      "sha256": "ab1379689758d7051fd1102b23bee1ad557d4f82bffc05a056dc26b15070ce41",
+      "sourceSha256": "fd949e26dbebf87ee71bd663e854707a7effb992469783fb3f872f37c929d497"
+    },
+    "metalSheet": {
+      "file": "metalSheet.webp",
+      "label": "Листовой металл",
+      "bytes": 29540,
+      "fitPx": 224,
+      "sha256": "b67f8344bd50a6c440a660ce99d0ab50dcabbbbfd108d012b21cc3568f0a4deb",
+      "sourceSha256": "e82d748fecbf3001981fd0b2fcb6958ec3d3b5f5c634e342ac3e5c656a889ad6"
+    },
+    "rifleBody": {
+      "file": "rifleBody.webp",
+      "label": "Корпус винтовки",
+      "bytes": 29842,
+      "fitPx": 224,
+      "sha256": "f25da762458c03a0c0d33b272fedf6f5690bcea5af6c649e2e51ba5c4617c69d",
+      "sourceSha256": "105542000b36b09904afb7d57d7ddd598af33f29f4c2ae03b05bd8414f04529e"
+    },
+    "semiBody": {
+      "file": "semiBody.webp",
+      "label": "Полуавтоматический корпус",
+      "bytes": 27212,
+      "fitPx": 224,
+      "sha256": "a36b0156b5ef0a699118f42276611f10369f9f242e6b13a571232873b783ff39",
+      "sourceSha256": "94fd0dde0666a6d6e6671cc593fe0895b4539839b4734ea3018e72df5a4ccc44"
+    },
+    "smgBody": {
+      "file": "smgBody.webp",
+      "label": "Корпус ПП",
+      "bytes": 28308,
+      "fitPx": 224,
+      "sha256": "115a5fe501e49a6d6f19e8700e444b83c5c6816a4c2b637c2b11236d54b554d7",
+      "sourceSha256": "649eb9a880e6db6397a4be1b07dd3f74928cd4d6a5db56d25f526ae81bfa1368"
+    },
+    "spring": {
+      "file": "spring.webp",
+      "label": "Пружина",
+      "bytes": 38642,
+      "fitPx": 224,
+      "sha256": "ff300494de7434b45d1cfdb1346c28d5bf6a489fdb0a286202c004fbf6c631ba",
+      "sourceSha256": "b547f21683b6b7757c806fa35c92f8ff4cb958b7641ed3298ce94a093718ac5a"
+    },
+    "techParts": {
+      "file": "techParts.webp",
+      "label": "Электронная плата",
+      "bytes": 38830,
+      "fitPx": 224,
+      "sha256": "f366a05f29a4e40b0139e8912a8be4eb37fffce02a33977c30d6b91e3e739f9d",
+      "sourceSha256": "e6fac36dbcd492e2887f7bf87209f1c9500e40a47fa7e67bde214e7daac27290"
+    },
+    "akRifle": {
+      "file": "akRifle.webp",
+      "label": "Автомат АК",
+      "bytes": 19380,
+      "fitPx": 224,
+      "sha256": "9cf38d92bed65c30f96bbd678ee2c2616c83e462a8a6fbff2a3d47bbc8845171",
+      "sourceSha256": "5fe102ee67a21206cbd5e72b46d1bd185ec8957534ee72168a3564d07ac14b50"
+    },
+    "antiseptic": {
+      "file": "antiseptic.webp",
+      "label": "Антисептик",
+      "bytes": 34708,
+      "fitPx": 224,
+      "sha256": "cee455bc24650bde35d05979a594ee16565cc7f2cc432865350e62422c890c5f",
+      "sourceSha256": "7a9257bd95a788ceabd88949e607f91d2272c803c9315be26256bbf7a679167a"
+    },
+    "compactSmg": {
+      "file": "compactSmg.webp",
+      "label": "Компактный ПП",
+      "bytes": 29456,
+      "fitPx": 224,
+      "sha256": "250aafe3fc4f539877b55756ea99d8c944c0157d0f6689bb83492435cc4e5932",
+      "sourceSha256": "0672621ba5f83afa7b02eaa1239aa6e9499fafbed60811f3af6dfc028c4db2ae"
+    },
+    "ductTape": {
+      "file": "ductTape.webp",
+      "label": "Изолента",
+      "bytes": 44990,
+      "fitPx": 224,
+      "sha256": "eed7be7d85850e00a1bc49fc4c50d80c07f3c56d57224d900e3a20cf54161b98",
+      "sourceSha256": "b0f8b03a8a636548d292dc1b1976176e43defe5ce1c85e0f3b63fa615a11f5dd"
+    },
+    "highMetal": {
+      "file": "highMetal.webp",
+      "label": "Высококачественный металл",
+      "bytes": 33046,
+      "fitPx": 224,
+      "sha256": "9dd0b68b89c95890b8d44252a562f3433611cf41a6c190b27128d8f692bd30cc",
+      "sourceSha256": "809dba45b75cfc842faaf7929079c63a5be5e786417aa0b112d28e26f67b3e12"
+    },
+    "rope": {
+      "file": "rope.webp",
+      "label": "Верёвка",
+      "bytes": 47128,
+      "fitPx": 224,
+      "sha256": "9ca6c20d204b01f08b54cf86786fceb1717a31505ffe98fc30ee88038075eee5",
+      "sourceSha256": "3a120b62cf9658336cb8024d120324f90f01311b8be5ce4422b9c9d9fda28509"
+    },
+    "sewingKit": {
+      "file": "sewingKit.webp",
+      "label": "Швейный набор",
+      "bytes": 38168,
+      "fitPx": 224,
+      "sha256": "65632ae7bf457ebeee497689cf520829a6f63684396388cfc0f12b0866ca1ae2",
+      "sourceSha256": "fff6c4cbb885092386f90eba389cdf36e59e2d80d5491eb3405c58c3d033472b"
+    },
+    "tarp": {
+      "file": "tarp.webp",
+      "label": "Брезент",
+      "bytes": 30408,
+      "fitPx": 224,
+      "sha256": "f47f7f1441e328756eddf9beb4074313bc25f4c425528a22c35d61a53746c0d8",
+      "sourceSha256": "d49905c2096cc78646fceb950723151dc77528d2408c278d0172b7fb6a66f705"
+    },
+    "traumaKit": {
+      "file": "traumaKit.webp",
+      "label": "Травмонабор",
+      "bytes": 46070,
+      "fitPx": 224,
+      "sha256": "2a7fe47a2e7e047e3009bdecbfcf65a72c0cac96ba5a2a6e1c755ba8cb76e3dd",
+      "sourceSha256": "f933076527675bb4a60a6992a9169b903efe1fa69468e3bc93e194582f50a11b"
+    },
+    "wood": {
+      "file": "wood.webp",
+      "label": "Древесина",
+      "bytes": 40872,
+      "fitPx": 224,
+      "sha256": "2836adb8abe40085ff3878e4ddb4a86f74a3c1483a52b7522104124eb0dae0c6",
+      "sourceSha256": "4c527221a621e907268e8080fb561c7138a8609f3ce1abb29d6a8915202c2291"
+    },
+    "berries": {
+      "file": "berries.webp",
+      "label": "Ягоды",
+      "bytes": 39928,
+      "fitPx": 224,
+      "sha256": "0dcb1ea782ab14400cca128dddea1aee54af4ab8e0d541d22ec7053a96fbc43f",
+      "sourceSha256": "62ba0304234ab76b89c27ab0041468561b804de06195f928f0508421c63a7d90"
+    },
+    "charcoal": {
+      "file": "charcoal.webp",
+      "label": "Уголь",
+      "bytes": 39248,
+      "fitPx": 224,
+      "sha256": "123a937b50b6fbc4f9dc41ea2681e66d0ae357d2cb6c6ca23125bd7a3411d21e",
+      "sourceSha256": "ae76d51a4eb879b6946aaca2d9bf51d5b40302daeab1557c603c68016a1386c3"
+    },
+    "fiber": {
+      "file": "fiber.webp",
+      "label": "Ткань",
+      "bytes": 33146,
+      "fitPx": 224,
+      "sha256": "58c308a45b0be08b839af7ff02b793c3812f17caaf88eef73d7e1a81d59a582a",
+      "sourceSha256": "6a0fe0f2a7db9a39603fd2fad742242afa3fa7d92181ca652c72d8bf08f76e05"
+    },
+    "gunpowder": {
+      "file": "gunpowder.webp",
+      "label": "Порох",
+      "bytes": 44620,
+      "fitPx": 224,
+      "sha256": "1bfa34a0c01b4bde05ac1b7d61cddabde4d4491e1da4d6c520b8d8e2d4d643a6",
+      "sourceSha256": "32fbaa8217f3479183a0c8874c17c023950599d04ae768a1347c59de6a47932b"
+    },
+    "metal": {
+      "file": "metal.webp",
+      "label": "Фрагменты металла",
+      "bytes": 38330,
+      "fitPx": 224,
+      "sha256": "a74bb916d79602aed7adbf026e2f05c6b958b4b85ae8c20d41e12c395bd658ea",
+      "sourceSha256": "8dcc21093ec22a501fc8c8b3936425a457042e7847621822b7e8134f911de3a5"
+    },
+    "metalOre": {
+      "file": "metalOre.webp",
+      "label": "Железная руда",
+      "bytes": 45754,
+      "fitPx": 224,
+      "sha256": "bafe16b0ccb9bfbeae3f6b8013a20f6ba50c02c6ea3d57f1efa2a6506b57c300",
+      "sourceSha256": "5efa0c47bd77c247064a47f100fd2ed7bdac1e34254e715399bdba6e2583fe36"
+    },
+    "scrap": {
+      "file": "scrap.webp",
+      "label": "Металлолом",
+      "bytes": 53514,
+      "fitPx": 224,
+      "sha256": "07acf6083f4d00f6c1a3dcdb40cd52275f4ed953b16fefa0d2876f0aa3621d7b",
+      "sourceSha256": "3dbc72f9b52a9eb5c625d01275108e69b4b7a381afeff102e08f11264e67b898"
+    },
+    "stone": {
+      "file": "stone.webp",
+      "label": "Камень",
+      "bytes": 38186,
+      "fitPx": 224,
+      "sha256": "2d22040e8a53f6727da59c7fb1133a7b84dd3b3bc8ab34bf93d34e68a5193541",
+      "sourceSha256": "4acd04c7154725a1dfb10722ad32cb1101fc72eb5b0396a4e5352c8eab91c832"
+    },
+    "sulfur": {
+      "file": "sulfur.webp",
+      "label": "Сера",
+      "bytes": 42104,
+      "fitPx": 224,
+      "sha256": "b648521420189f9b34fb67d492ff254f24e2dd72aacabee31156df496061a07d",
+      "sourceSha256": "eec8d56a4d79ed8f36ea382917bdb93fe89dce9a00fa9a8763fd9dfc48d399f3"
+    },
+    "sulfurOre": {
+      "file": "sulfurOre.webp",
+      "label": "Серная руда",
+      "bytes": 42904,
+      "fitPx": 224,
+      "sha256": "d260af2dce65708d916abc8840bbc818accf478441b319bd04c5bc999f74b21e",
+      "sourceSha256": "e2345d15f052952202ad8138fb8bfd23ee82fadd93f798bfd1cc0fbc084d5b90"
+    },
+    "ammo": {
+      "file": "ammo.webp",
+      "label": "Винтовочные патроны",
+      "bytes": 41728,
+      "fitPx": 224,
+      "sha256": "82a24dbe36046ad40b481230187934a146f798057320fd9caf7bf020ab67ca99",
+      "sourceSha256": "80aae9ae81065ab4e7824ab9d4fa77b55da5515842130c5d18578ace813ef685"
+    },
+    "armor": {
+      "file": "armor.webp",
+      "label": "Кожаная броня",
+      "bytes": 45234,
+      "fitPx": 224,
+      "sha256": "bcd1a7fede4ec71c894c4aa119912d8e0fb4e545629860c90e1c396c6a1b7b9a",
+      "sourceSha256": "4cde924ea02360cc732719f7bd412196955011f508f9f3f03074d3908a3a28cc"
+    },
+    "axe": {
+      "file": "axe.webp",
+      "label": "Топор",
+      "bytes": 24288,
+      "fitPx": 224,
+      "sha256": "547c44463c4d920fb0cd5f7252fb97e0cf927a6f4c900e3a59a46151f0b582ed",
+      "sourceSha256": "7742545c2426b46a852a9e9e42956094ea8f4439b17bc194c82cc7840cef11f8"
+    },
+    "bandage": {
+      "file": "bandage.webp",
+      "label": "Бинт",
+      "bytes": 38184,
+      "fitPx": 224,
+      "sha256": "48fc239fe0cab60c2a4cdbe4912934d016d412c4b17ffdb4e25f1084528c39a6",
+      "sourceSha256": "c14a86501dbf7c0f8b6db0af823cc8e443b8342aca9581e9ece2adfeeabcab12"
+    },
+    "foundation": {
+      "file": "foundation.webp",
+      "label": "Фундамент",
+      "bytes": 29694,
+      "fitPx": 224,
+      "sha256": "ed07eb954fd7f82409e6ffb8d807fa6aa76f73b5198bbfeef221e500b154f171",
+      "sourceSha256": "ac018daed04ef317fd6b221620b039323be4e888cd82d9b9f1e8fc067c6e2695"
+    },
+    "hammer": {
+      "file": "hammer.webp",
+      "label": "Строительная киянка",
+      "bytes": 35888,
+      "fitPx": 224,
+      "sha256": "79a433eb5ebee34c2f0af5ea7455350f064e1094b8cb70102769437c314915b3",
+      "sourceSha256": "9709703d8c1de4a9e1aeed4d580a10f89e1988cba302bb67222391a50b86738b"
+    },
+    "pickaxe": {
+      "file": "pickaxe.webp",
+      "label": "Кирка",
+      "bytes": 18108,
+      "fitPx": 224,
+      "sha256": "1ec80d65449ad4ff2b64f5ff3d923a8fa5f374f9e614a530ef9a238447b63754",
+      "sourceSha256": "b8ebb15971e17e3233fdd28097c563056cb2ce117a02595cbd6398ef18b8fc88"
+    },
+    "rifle": {
+      "file": "rifle.webp",
+      "label": "Самодельная винтовка",
+      "bytes": 15218,
+      "fitPx": 224,
+      "sha256": "f5823e55962ed0524bf1cdd497944433f573b31dbfbd2664729c7bcee3f6ed81",
+      "sourceSha256": "600164483e727adae6db8e574bf1a85b6c40aa8575c56a29dcc1ba3e352a950f"
+    },
+    "satchel": {
+      "file": "satchel.webp",
+      "label": "Взрывной заряд",
+      "bytes": 45240,
+      "fitPx": 224,
+      "sha256": "928be236a04e72b215ad2dbb84f0b5dbc2e0e75dc3caf534d232f4da8720e248",
+      "sourceSha256": "d36c000454106f4e666104dc6e21e1bf88ba6fa068d18442b4353a432eb43464"
+    },
+    "water": {
+      "file": "water.webp",
+      "label": "Вода",
+      "bytes": 29486,
+      "fitPx": 224,
+      "sha256": "222f9c8317f7cfd635f4cfda8904790a835c312c4d18294fb0cc0e55766bae3c",
+      "sourceSha256": "36bfd7da03e60c6377d7ea2dd49de0c1ffe7c632db8e1a8c2a7a8b8e00708c80"
+    },
+    "battery": {
+      "file": "battery.webp",
+      "label": "Аккумулятор",
+      "bytes": 48782,
+      "fitPx": 224,
+      "sha256": "94b8f2334da19e5c36aa662b70b59bc5af1eda8b7dc638f7d9fc2264022390ec",
+      "sourceSha256": "e952716af398a0b8728c4eebb3bd1213354b162f9a9365492687e3d84c195290"
+    },
+    "campfire": {
+      "file": "campfire.webp",
+      "label": "Костёр",
+      "bytes": 46622,
+      "fitPx": 224,
+      "sha256": "4485ca675dd0af5b454be860ddf410d9a734d28c5de642ba68679357d6f73eaf",
+      "sourceSha256": "3f2f8ef956546fdfd8cbbb08bb1a75856aef12158129b78234db1195b7a258d9"
+    },
+    "door": {
+      "file": "door.webp",
+      "label": "Вход с дверью",
+      "bytes": 26542,
+      "fitPx": 180,
+      "sha256": "3c766fa30d4df28df1a05f32fa26319db711704329c86331170e31b7aa495151",
+      "sourceSha256": "108b49fc6d90c98c32e89de3327adbdd2b6e83401cab55d1eace8478c5a450dc"
+    },
+    "furnace": {
+      "file": "furnace.webp",
+      "label": "Печь",
+      "bytes": 51882,
+      "fitPx": 224,
+      "sha256": "652b1549f59a9f3a191cd22e7707b2114f07b8ff1d9db86cba7489c2ff29ac6f",
+      "sourceSha256": "97f18b51abd22c19e14f4e33278af924c19793dca0dfbbc7cd34fa8287d2c5b9"
+    },
+    "pistol": {
+      "file": "pistol.webp",
+      "label": "Пистолет",
+      "bytes": 36574,
+      "fitPx": 224,
+      "sha256": "36e296686c313075ca765d62a196e033ba43df3440a5f0c49ea71fd1e7ee0b49",
+      "sourceSha256": "b61ae4938be17381194f4a008fa1163a849564573efb328d10f538d6f755aaf2"
+    },
+    "rock": {
+      "file": "rock.webp",
+      "label": "Камень в руке",
+      "bytes": 41222,
+      "fitPx": 224,
+      "sha256": "5410f5098644c36c2897e98e0c1680c22cfe71559e8cc1dfb39c3ead5bfb4092",
+      "sourceSha256": "2abf1ea834cc3f961627089c26a48e9578ebdac98be1acfa7b5c32279703f28f"
+    },
+    "roof": {
+      "file": "roof.webp",
+      "label": "Крыша",
+      "bytes": 28884,
+      "fitPx": 224,
+      "sha256": "e65fbf674a71b2a4ad6402b09e718d02fe541452458c5414fe52f1893d40d913",
+      "sourceSha256": "e059b88e77112eea28ba079cdb9014d88f682fe3094c6b204ccac0c7a498794a"
+    },
+    "torch": {
+      "file": "torch.webp",
+      "label": "Факел",
+      "bytes": 18082,
+      "fitPx": 224,
+      "sha256": "da0054b6a7416415b90cd71088b473d6905a52e2c22c0e5228672b01807dc3ae",
+      "sourceSha256": "5ca934ddffdcbbf4ae6626093312cd7bff04ffd7d89900a22f1c8c0cf4ee6ac7"
+    },
+    "wall": {
+      "file": "wall.webp",
+      "label": "Стена",
+      "bytes": 45950,
+      "fitPx": 224,
+      "sha256": "b7cb64937f126db0994fc031378077b0fc743bdcbe17b9872f0cd0a11ae51091",
+      "sourceSha256": "2ad1fc133ab8d26ed7ece8a68c8fc167dc70c7ba932a8cd773fc74090eba662a"
+    },
+    "workbench": {
+      "file": "workbench.webp",
+      "label": "Верстак",
+      "bytes": 41508,
+      "fitPx": 224,
+      "sha256": "39ffa649be75c3403e4fbe3a77c2859a1d809a5351a5b9f82a52bceb47551295",
+      "sourceSha256": "556a9a0f96ead720e85e525b6fc4f987c5de4c021db724d7b99b0d64e1b6b76a"
+    },
+    "assaultRifle": {
+      "file": "assaultRifle.webp",
+      "label": "Штурмовая винтовка",
+      "bytes": 21152,
+      "fitPx": 224,
+      "sha256": "ea6bdf1a5f62539db319c4ccc119d74e5a06938dc41e44439a06a0ff9dc20ffe",
+      "sourceSha256": "9826eff2fd03344d10ba37435709ad4a02addfcf76addf99a30c740c8eb37712"
+    },
+    "boltRifle": {
+      "file": "boltRifle.webp",
+      "label": "Болтовая винтовка",
+      "bytes": 12144,
+      "fitPx": 224,
+      "sha256": "a1e64a76b9a6e5acd448069278fda9b7e6965abbbb849bc2505a7a79a05ee1a6",
+      "sourceSha256": "0ec1babb9048bfd2de7e1038defe631eb8d34ab0e78958d1e841978338ba4a6f"
+    },
+    "combatShotgun": {
+      "file": "combatShotgun.webp",
+      "label": "Боевой дробовик",
+      "bytes": 17634,
+      "fitPx": 224,
+      "sha256": "875bdf6182338b2b9e5f42c8236d0d1029cd428017258922af34f0b64425761c",
+      "sourceSha256": "6f406c03ffdbbe334fdd8c16e090d58161362aaba263bc58d5d97d8335303bfc"
+    },
+    "heavyPistol": {
+      "file": "heavyPistol.webp",
+      "label": "Тяжёлый пистолет",
+      "bytes": 28366,
+      "fitPx": 224,
+      "sha256": "2c17e734bc7531e95a8fa8c56de2d04d1d408a992ef0fb3c8282dfda7934c3b8",
+      "sourceSha256": "031597701c50a813fe8e4832e6b342e10a17c6fc68b88d847cb8d0c0c416d430"
+    },
+    "revolver": {
+      "file": "revolver.webp",
+      "label": "Револьвер",
+      "bytes": 27804,
+      "fitPx": 224,
+      "sha256": "7f4db2b500024ba73cc7d2c31893b7bf570727552fcaecc82a5b662c6bbb7b99",
+      "sourceSha256": "a12aefb95d7aa29267397261cdc8a55038b0ca958b90f28c8da2229b7ffa510b"
+    },
+    "semiRifle": {
+      "file": "semiRifle.webp",
+      "label": "Полуавтоматическая винтовка",
+      "bytes": 15712,
+      "fitPx": 224,
+      "sha256": "3cd8fce8bd1467fa72e09dad6c5f39b8d270a37c00d15ff1438b327c6b9b7e12",
+      "sourceSha256": "846043e997cf6798a6304933a4e0f01e371f1f4a27c4e6bbdc01560bc81494f1"
+    },
+    "shotgun": {
+      "file": "shotgun.webp",
+      "label": "Помповый дробовик",
+      "bytes": 15972,
+      "fitPx": 224,
+      "sha256": "ecf8021b37b75f0fe12269eaf6327c2f9e5cdd81fbd7b0519fe28c44af7032d7",
+      "sourceSha256": "b436b4844d926b8a494665cca922084cf135225728ef3bd3635eb9ca77f089a4"
+    },
+    "smg": {
+      "file": "smg.webp",
+      "label": "Пистолет-пулемёт",
+      "bytes": 19226,
+      "fitPx": 224,
+      "sha256": "ab7d7a28639aa40e0aab559732a83376bc072450a2deba997b41c0e4c766e189",
+      "sourceSha256": "a52a9682407ddbf6187647d0f356a5551d1403f582be8705ed063c1cb5b13314"
+    },
+    "cannedFood": {
+      "file": "cannedFood.webp",
+      "label": "Консервы",
+      "bytes": 52500,
+      "fitPx": 224,
+      "sha256": "8cc5409b77638edb82365a0559554adf5d0a868cc0b2c79975ee982840125fcd",
+      "sourceSha256": "fc2d006433c874af7e0b1fade941337d0dd142109f0a22f3794c58fd0eccc2ef"
+    },
+    "largeStorage": {
+      "file": "largeStorage.webp",
+      "label": "Большой ящик",
+      "bytes": 39866,
+      "fitPx": 224,
+      "sha256": "bc22d77c6f6aa8d0de3583bc0718b58716a26665c9f466f63d9b46123eb92e79",
+      "sourceSha256": "81b3fea76ec389e73c5fc52bab888331872c308d8afc3dcffbe7d1fff4ff02c8"
+    },
+    "machineGun": {
+      "file": "machineGun.webp",
+      "label": "Пулемёт",
+      "bytes": 20296,
+      "fitPx": 224,
+      "sha256": "21448720d85515e43c057132154c848ba6cda61d80a3bbfc3d564ddf918db142",
+      "sourceSha256": "5b5699fc317b07b51446db9fdde62da8d2ae7446e59c9171ffed7a1b4d0ebd92"
+    },
+    "medkit": {
+      "file": "medkit.webp",
+      "label": "Аптечка",
+      "bytes": 45114,
+      "fitPx": 224,
+      "sha256": "d0d22e0ed2153ff12f14579b37ff1bca82ffe2dd8b1aac426c09d47bcb85004c",
+      "sourceSha256": "e422b0a6939221469f9a2ea8fd39e0322b67a885975b8969920030b3696b5e5b"
+    },
+    "pistolAmmo": {
+      "file": "pistolAmmo.webp",
+      "label": "Пистолетные патроны",
+      "bytes": 42350,
+      "fitPx": 224,
+      "sha256": "e5db135611ab812242ea5756779124a85345f619b7d67cc9383da45134faefeb",
+      "sourceSha256": "9b1123248560d4b5a408c6c5a4d9c364f96e58b408a4a82d8694becd39c21819"
+    },
+    "plan": {
+      "file": "plan.webp",
+      "label": "Строительный план",
+      "bytes": 38238,
+      "fitPx": 224,
+      "sha256": "0a55cddb3c101dded0b223189fc42ad694af85121cd05d271fc4740c32cdb34a",
+      "sourceSha256": "64b9c720e82886825939c551c7bd2d784bd6d58b0db890bdc9f32da685fe6317"
+    },
+    "rocketLauncher": {
+      "file": "rocketLauncher.webp",
+      "label": "Ракетница",
+      "bytes": 21690,
+      "fitPx": 224,
+      "sha256": "0b9fb17486fd9926bfcc9efa9b2e6c974bc6732a37841b3e54201abcc71a30e0",
+      "sourceSha256": "52e8dbda41eb954e651303c6f862fb8e91c27ffc50ade3f70578cbed72a4a7b8"
+    },
+    "shells": {
+      "file": "shells.webp",
+      "label": "Дробовые патроны",
+      "bytes": 40984,
+      "fitPx": 224,
+      "sha256": "e4d3ce7684ad52d9174d602a567e150f4fd78b8da8e358eca028eb133e358b4b",
+      "sourceSha256": "d7a68563f3f343e22e5d7332e85b92154cd06bd6b72236463bec03b7e118fa9c"
+    },
+    "storage": {
+      "file": "storage.webp",
+      "label": "Малый ящик",
+      "bytes": 54024,
+      "fitPx": 224,
+      "sha256": "88e5954e03eaf4332c0ffb8c59c73800140d42a74163452ae0b8dbe10ee81708",
+      "sourceSha256": "6946ca5669d86ba1bb91eb943d8e3e6e8212fefbe4b29d15ef8c074d4fe08617"
+    },
+    "syringe": {
+      "file": "syringe.webp",
+      "label": "Шприц",
+      "bytes": 19316,
+      "fitPx": 224,
+      "sha256": "ac02562b7e35c80d45d2e6798c64534c18f135ff83a003f13e4cea13f574ee64",
+      "sourceSha256": "a5d06a15f6ca277fc012062a23deb025e2844effb71e51d7679e6ed5701d12a0"
+    },
+    "beancan": {
+      "file": "beancan.webp",
+      "label": "Самодельная граната",
+      "bytes": 38918,
+      "fitPx": 224,
+      "sha256": "b3a402c387f4397d60911dc232177ff94f39e4f8ee51ec75efc47746442f8de1",
+      "sourceSha256": "290d907f461791595e905b14dcd594b7890c7d467ae0b9721a6eaaa4c534a4fd"
+    },
+    "explosives": {
+      "file": "explosives.webp",
+      "label": "Взрывчатое вещество",
+      "bytes": 34794,
+      "fitPx": 224,
+      "sha256": "c44969f333dad0ba20fbe8e0cc390312749bdee39cb52f03459a8ce7498fbb93",
+      "sourceSha256": "a17dc2b68db665f8896faa25e92c42fa1f2fd79de31355aa3579886a499f8c2f"
+    },
+    "f1Grenade": {
+      "file": "f1Grenade.webp",
+      "label": "Осколочная граната",
+      "bytes": 39270,
+      "fitPx": 224,
+      "sha256": "2f0d98e583701080932f82d934e4a29c078dabfc15538f49455ca50c5467b118",
+      "sourceSha256": "a03d349fb176312a30ae98d43fb4dd36c5ad86ddf3e67bdde53f639ea3822b9c"
+    },
+    "highMetalOre": {
+      "file": "highMetalOre.webp",
+      "label": "Богатая металлическая руда",
+      "bytes": 42848,
+      "fitPx": 224,
+      "sha256": "6f9cc416bf43db0b816b1ac03297e34714dbf4faa5e9761f5b31e171b6df8d41",
+      "sourceSha256": "0045fd0dfc8123155b18bbe0da0a026199a7b36c29b632634eb1937ed3e84557"
+    },
+    "hvRocket": {
+      "file": "hvRocket.webp",
+      "label": "Скоростная ракета",
+      "bytes": 19194,
+      "fitPx": 224,
+      "sha256": "224d5ce3f222af36ae595c448cc71d01174e6966fd7b12cf4504d0bebf8dcb86",
+      "sourceSha256": "96a4fee8c536f16c466dce01a79f9fc5f500d68ebf7c051b461737a6bb4296cd"
+    },
+    "incendiaryRocket": {
+      "file": "incendiaryRocket.webp",
+      "label": "Зажигательная ракета",
+      "bytes": 28976,
+      "fitPx": 224,
+      "sha256": "1c49a795c9a222e95c6fc77b5b31648ba46116df28e26be4d686efe7bc74dbeb",
+      "sourceSha256": "287bd608db5800961ef263907633b268bf18499aa028ed4990c37e91d589c66a"
+    },
+    "lowFuel": {
+      "file": "lowFuel.webp",
+      "label": "Топливо",
+      "bytes": 46118,
+      "fitPx": 224,
+      "sha256": "cbbf7be6172f84f96927f9a2f5de8a6e5c6c95d063cf163efe1089c9d71c44fe",
+      "sourceSha256": "67f1cf974d8bc345d6fef8a48117a8ce57fe507a6c02f4bad82548b88e388705"
+    },
+    "mushroom": {
+      "file": "mushroom.webp",
+      "label": "Гриб",
+      "bytes": 40338,
+      "fitPx": 224,
+      "sha256": "2eedf9e5ec1dd536699ca022ef60b11d395bd69d840b60bb6e69fc22f854545d",
+      "sourceSha256": "9c2b7aafb5c68629e24a6e946183282bb31722f2262db28afa560fc07d2b91c9"
+    },
+    "rocket": {
+      "file": "rocket.webp",
+      "label": "Обычная ракета",
+      "bytes": 25060,
+      "fitPx": 224,
+      "sha256": "b31d741d171bc33941ad5cfd5c0ae7783eec51f70369c47fce7bb849381ccea7",
+      "sourceSha256": "bc4ced6922051c20c1f68c6776ac84ba6dccf1a3b74c0539a1a2e736f243aa8a"
+    },
+    "timedCharge": {
+      "file": "timedCharge.webp",
+      "label": "Подрывной заряд",
+      "bytes": 37042,
+      "fitPx": 224,
+      "sha256": "8a9609a5f6969a3a58f150afa9361c5296cb3c375ffed80958ac3de2e9e85ac5",
+      "sourceSha256": "d3021813980616af3a127618612169ec370ca0019e8cd65ee203facb90ad867c"
+    },
+    "cookedMeat": {
+      "file": "cookedMeat.webp",
+      "label": "Приготовленное мясо",
+      "bytes": 31288,
+      "fitPx": 224,
+      "sha256": "d39666aba524cccfcf68c38744e69664fec531b4948f4483f0ad41bf240f61c4",
+      "sourceSha256": "75e043bed3f694f6d806a199da11d6371f40b3b0944d01c3d9e38fd4537a522f"
+    },
+    "corn": {
+      "file": "corn.webp",
+      "label": "Кукуруза",
+      "bytes": 42902,
+      "fitPx": 224,
+      "sha256": "20790cc2f6b80d249ac328b4eb5518395a0b865b4d37cf9d3bc39c4e4e481570",
+      "sourceSha256": "67af9bffbaaff2d1604d049422ec059d49e2ec5566edda11b578ae0aece3f184"
+    },
+    "cupboard": {
+      "file": "cupboard.webp",
+      "label": "Шкаф обслуживания",
+      "bytes": 30498,
+      "fitPx": 224,
+      "sha256": "8ef243e411d4c1a64a8423faaa38b41bb13d7aa997a80f5c0a86c56f5994d1cc",
+      "sourceSha256": "faf14cb10082b1936db0a7dda02153e9877e8c4a8e684b3f8a99db84eace2194"
+    },
+    "doorway": {
+      "file": "doorway.webp",
+      "label": "Дверной проём",
+      "bytes": 25636,
+      "fitPx": 224,
+      "sha256": "37ec0f9cc621c9d3b4fd20439266d65bfc83b4cbecebf11e661233c6ec5a8457",
+      "sourceSha256": "2c22b9dedd5b56b72229193f72eab719798ce9f2d247788a4951d3bfa88e72f0"
+    },
+    "halfWall": {
+      "file": "halfWall.webp",
+      "label": "Полустена",
+      "bytes": 35414,
+      "fitPx": 224,
+      "sha256": "5355c18ef4cd3ac75000a46a1c7e786c5995f36a9f9d0cfc9cc402ccb7bb953f",
+      "sourceSha256": "91b1921d0c3a03d47b348fe6b1f941387db65fc58331dc54972b52440066c69d"
+    },
+    "meat": {
+      "file": "meat.webp",
+      "label": "Сырое мясо",
+      "bytes": 36882,
+      "fitPx": 224,
+      "sha256": "a82a081cadb006825e2a97d0ba3c19c5611a3ad32b9ae8353a7b9a59ddd5b5dd",
+      "sourceSha256": "d476040a3bde301a24303ae70566c4099cff7c436dd95287f6f3dd2b4233f752"
+    },
+    "pumpkin": {
+      "file": "pumpkin.webp",
+      "label": "Тыква",
+      "bytes": 44082,
+      "fitPx": 224,
+      "sha256": "2d0e11928424f84fd48c38a7aa91c285ee803003a03bc30c4af4473e01d22c29",
+      "sourceSha256": "84f9ade7d65e483a1e717685210d737bb01509eb1dd310a58851306117f5ab6c"
+    },
+    "recycler": {
+      "file": "recycler.webp",
+      "label": "Переработчик",
+      "bytes": 50634,
+      "fitPx": 224,
+      "sha256": "1e2d4b712c5d14349c65ad7604d259fb61cc7349ce2cfdffbe797b2da7cd80eb",
+      "sourceSha256": "a7395a78b9ccfd27b96d8b3d0f99754244e40070e7313030c5259037c239e487"
+    },
+    "repairBench": {
+      "file": "repairBench.webp",
+      "label": "Ремонтный стол",
+      "bytes": 46588,
+      "fitPx": 224,
+      "sha256": "7442c4baab3bfb3ec17852d3f521d0f8e22e506422273b5207d0e85e3a2a9285",
+      "sourceSha256": "8685f674ac7d39bd33e31cd2f4d62113ff8044f3681ccab92089252784b3aaf1"
+    },
+    "triangleFoundation": {
+      "file": "triangleFoundation.webp",
+      "label": "Треугольный фундамент",
+      "bytes": 27012,
+      "fitPx": 224,
+      "sha256": "cc7aa0f5d5cb353813f1eef13351c686dee6e55d4639002506799bd5451bc4ae",
+      "sourceSha256": "e23ba1107c738a7f966ee2a35a3398b1e7a3f78f5a3da1b4b07adb2468101237"
+    },
+    "clothCap": {
+      "file": "clothCap.webp",
+      "label": "Тканевая кепка",
+      "bytes": 32574,
+      "fitPx": 224,
+      "sha256": "1c99e2398a4f7e9aa7438be04b4dd6e41998cb4f826f858273da2e07f0a7e352",
+      "sourceSha256": "e80821cbdb8efeb8a1a1962b29e2889be38a1222a6efae0283b259ca4bddf85d"
+    },
+    "furHat": {
+      "file": "furHat.webp",
+      "label": "Меховая ушанка",
+      "bytes": 43952,
+      "fitPx": 224,
+      "sha256": "4f7e3cfc79ef709c2670a9773d122ac48158f04f96f5cf22ba57b7c44b9a9dd3",
+      "sourceSha256": "6539883353495e45bdbc7a05dcbb3aa7b9e27c732655b07f36399f51160963b4"
+    },
+    "leatherHelmet": {
+      "file": "leatherHelmet.webp",
+      "label": "Кожаный шлем",
+      "bytes": 40396,
+      "fitPx": 224,
+      "sha256": "d830b996432ffb53c668dce74e02ee482b901a9014605086629f5e6a6e58ec30",
+      "sourceSha256": "d65a2b90919702cd41e187a5054559a6a66270df3468dc780b0c6e4924f39f48"
+    },
+    "ramp": {
+      "file": "ramp.webp",
+      "label": "Пандус",
+      "bytes": 30036,
+      "fitPx": 224,
+      "sha256": "a3241d4372ed66e63110271b61fcad4cf1d11276c950b32ced713fef42c5ef09",
+      "sourceSha256": "27dd868709773722d42656e64ab4b44dcee052e90b60a7fe620f48f93707b90a"
+    },
+    "riotHelmet": {
+      "file": "riotHelmet.webp",
+      "label": "Шлем штурмовика",
+      "bytes": 41314,
+      "fitPx": 224,
+      "sha256": "566589cbfac7aa74e4658c8da24316eefb307f5dfd39800cdc86a881687b3622",
+      "sourceSha256": "12c0b0b4e976207db74b790643d3cc223089db8b31eb760aeaf862ad29eb9d49"
+    },
+    "roofSlope": {
+      "file": "roofSlope.webp",
+      "label": "Скат крыши",
+      "bytes": 30850,
+      "fitPx": 224,
+      "sha256": "a73a3f636d1bc5b1b1252bd53f0d49bad8686e589abc9f17f93ce98d26ffa7bc",
+      "sourceSha256": "33aac186f00076e61702a20b23ad6c8fd8c0a556ff3657c206c8a6181cf42be1"
+    },
+    "salvageHelmet": {
+      "file": "salvageHelmet.webp",
+      "label": "Каска из лома",
+      "bytes": 46704,
+      "fitPx": 224,
+      "sha256": "0cd0583669a4cf0b3229b417f79f989ed6165ccd63e881258996538c7b113181",
+      "sourceSha256": "e910f202cca866c45117aebf1d024a344ff648b9a6614541654572af0ffc2c59"
+    },
+    "stairs": {
+      "file": "stairs.webp",
+      "label": "Лестница",
+      "bytes": 37408,
+      "fitPx": 224,
+      "sha256": "9882b18f276dce3272bb6e20151f57832867e9cb261d25eb5e4bc036fc064ddb",
+      "sourceSha256": "fb424a3f9aa8645e86369a5f57dbc50509e83e55236a0e442261efaa644936ff"
+    },
+    "triangleRoof": {
+      "file": "triangleRoof.webp",
+      "label": "Треугольная крыша",
+      "bytes": 28670,
+      "fitPx": 224,
+      "sha256": "ebb39976302bd749418d34ac322e203f322bccdce81a587c9a131015edfd306f",
+      "sourceSha256": "2100fab3076a436d17139cf0dd8b291197ce67e19bceb2af0ed601168a9cf602"
+    },
+    "woolHat": {
+      "file": "woolHat.webp",
+      "label": "Вязаная шапка",
+      "bytes": 43178,
+      "fitPx": 224,
+      "sha256": "642490017e152a1fa33d321357e0301f83a4ef5e66d688e3fbbc805451b24279",
+      "sourceSha256": "11bd10f1a1c936bd29fa10b1d42f7295f48f152941645a1325b8cb856ab8c4f5"
+    },
+    "balaclava": {
+      "file": "balaclava.webp",
+      "label": "Балаклава",
+      "bytes": 30842,
+      "fitPx": 224,
+      "sha256": "bac5ced585c3cb6272b3a0cc97527ff89bc68b300cceaa3f57ba734ebf1fb2d0",
+      "sourceSha256": "c79c9b1c238e67d4d4480921137a470cb1815f9790ec376b7c03e7f92e4fe5d6"
+    },
+    "ceramicHelmet": {
+      "file": "ceramicHelmet.webp",
+      "label": "Композитный шлем",
+      "bytes": 48246,
+      "fitPx": 224,
+      "sha256": "e36d1e15f90e7646f4f562e9bfa774341caef2c28e153ee80efdf96cda7ef210",
+      "sourceSha256": "316ac0ddab115fe9fee3c7dafb42de989bd6f4adaf48497d705e08230f17137a"
+    },
+    "clothBandana": {
+      "file": "clothBandana.webp",
+      "label": "Тканевая бандана",
+      "bytes": 43160,
+      "fitPx": 224,
+      "sha256": "d70b4d4471f221166a04ab680a1b4976d08133063a723e3a42a0af2f629dfcd9",
+      "sourceSha256": "c5ac0c2328df102ad75e1ef59bf1906aabb76721e31e8bd83d96670e32d747e7"
+    },
+    "desertScarf": {
+      "file": "desertScarf.webp",
+      "label": "Пустынный шарф",
+      "bytes": 43970,
+      "fitPx": 224,
+      "sha256": "7c262c10c92e2336eef06fa4382258fc257d4cc7db3cc24b41c09a34cec060c3",
+      "sourceSha256": "d50db09406c6129a579b1a5ec34836d0aba74aa03091e6612a5fa2a8a7841d7f"
+    },
+    "kevlarHelmet": {
+      "file": "kevlarHelmet.webp",
+      "label": "Кевларовый шлем",
+      "bytes": 36720,
+      "fitPx": 224,
+      "sha256": "6842e1a8a1cd81a19e698f8110a825d1da06b71ed33cf9e12216590bd2af091e",
+      "sourceSha256": "bf4a8a34639456ade2d3eebbd2a73c0773ecc60046e66eb0103ef8b24728f432"
+    },
+    "kevlarMask": {
+      "file": "kevlarMask.webp",
+      "label": "Кевларовая маска",
+      "bytes": 50062,
+      "fitPx": 224,
+      "sha256": "6bfbc5596a5f7c620fe63efbac1751c036c59bf4219d1db582e72d063ed13f14",
+      "sourceSha256": "b285f2d1274a3a83f6fc9ec93d5dc273b4741c40b9e581f2a44320aa50c4a083"
+    },
+    "leatherMask": {
+      "file": "leatherMask.webp",
+      "label": "Кожаная полумаска",
+      "bytes": 51586,
+      "fitPx": 224,
+      "sha256": "49b47db781c37ddd56178eed33b971da84b8918548c780bafe5fa66e8bcf17b8",
+      "sourceSha256": "097fc8e9edc3157404b08a38ef6319990f7b9528a9529c67c76cb04928984527"
+    },
+    "snowMask": {
+      "file": "snowMask.webp",
+      "label": "Северная маска",
+      "bytes": 45686,
+      "fitPx": 224,
+      "sha256": "ecea46dc8fd3057da9aa31e44d5918d4f1a800347acb22b1e4fd5282c83c08e4",
+      "sourceSha256": "4855e6995b32d124649df445d816993b87cd1942ce16fbf9acecf65cfa1e6120"
+    },
+    "steelMask": {
+      "file": "steelMask.webp",
+      "label": "Стальная лицевая пластина",
+      "bytes": 57866,
+      "fitPx": 224,
+      "sha256": "cc94ba1eb5226b2301da470a7071479b1e3489fd7c02f2740c9d0c915a3b6c62",
+      "sourceSha256": "a1ffb664db017892a9e7ac184cbab106c6d7ed8548e374b86880a48d97afb914"
+    },
+    "weldMask": {
+      "file": "weldMask.webp",
+      "label": "Сварочная маска",
+      "bytes": 38414,
+      "fitPx": 224,
+      "sha256": "e7430d3266cee873ae7639f4f2d699edfd197c2a22f2aa0de4c1bfa8753aeee1",
+      "sourceSha256": "4061a257e8550ade53d17d3faa9a46330fb94a51514757eb8cefd15d893d248b"
+    },
+    "combatShirt": {
+      "file": "combatShirt.webp",
+      "label": "Боевая рубашка",
+      "bytes": 37220,
+      "fitPx": 224,
+      "sha256": "020710233956ca070f87309b413d6d45afd25bab6676086165a69a5e85123fdc",
+      "sourceSha256": "e24ff9bcc70383b84d5653c2c15caf7cd8c6ec6a99bc5b3abda627f84af0000d"
+    },
+    "cottonShirt": {
+      "file": "cottonShirt.webp",
+      "label": "Хлопковая футболка",
+      "bytes": 32340,
+      "fitPx": 224,
+      "sha256": "da3d9e13953568229aefa12ded11c998e7b35880e7bbfc30fa992e1da957db60",
+      "sourceSha256": "43d15e52e81f6e86070a39eaaef812b745e5e195d75bd500a29a5723d04426cd"
+    },
+    "fleeceShirt": {
+      "file": "fleeceShirt.webp",
+      "label": "Флисовая кофта",
+      "bytes": 34064,
+      "fitPx": 224,
+      "sha256": "165e075668d35dc4b222036dbeebf238aa9ef2b0668fbbfc8774a37b089c5cb1",
+      "sourceSha256": "fbe1c97853328cdd4332db8c13dae61e644f837c95c5648077e1a1edb2c6f764"
+    },
+    "hoodie": {
+      "file": "hoodie.webp",
+      "label": "Толстовка с капюшоном",
+      "bytes": 40646,
+      "fitPx": 224,
+      "sha256": "1bddf2571e0c2a7a57741408387e81965e022e2a08b57c639682a32da8b87b10",
+      "sourceSha256": "1383aaecba8e1abd43798d4993e125f3b15c43545b4eac73e934c0584b7b469b"
+    },
+    "paddedShirt": {
+      "file": "paddedShirt.webp",
+      "label": "Стёганый поддоспешник",
+      "bytes": 44876,
+      "fitPx": 224,
+      "sha256": "953ad957cacb2c86764af315afd8c48d6730399fca185e62876c7844d20729e6",
+      "sourceSha256": "e6bd9193e990a27757eaeb029232676556c8eee000217781293c20165d413ab1"
+    },
+    "ragShirt": {
+      "file": "ragShirt.webp",
+      "label": "Лоскутная рубаха",
+      "bytes": 49604,
+      "fitPx": 224,
+      "sha256": "c2da6b3685830a79715c502ae146d26984152c45f47de5fc620572832a642940",
+      "sourceSha256": "3a39833bb4a8e6b0280e8ecb6bd52c39c787037bfc6ffc80770c0b0abb95a2ec"
+    },
+    "rainPoncho": {
+      "file": "rainPoncho.webp",
+      "label": "Брезентовый пончо",
+      "bytes": 32216,
+      "fitPx": 224,
+      "sha256": "2156b8b5012039bfd87f32ce3116a47582cafa0845c956ba88d20e0316a604f6",
+      "sourceSha256": "f366940fdc1186e2832154cd8c1b1718b7409e1227ec0e8122b4b7cbcedc9b88"
+    },
+    "stripedShirt": {
+      "file": "stripedShirt.webp",
+      "label": "Морская тельняшка",
+      "bytes": 45596,
+      "fitPx": 224,
+      "sha256": "ee4a5b1bfff050906f2fe34c95c874b3f39e06adbf8e667e203ded0905d85f5b",
+      "sourceSha256": "40635c285d8b924b413f177e7b65f57d550b7d5ed5ec15d1355765335e643f29"
+    },
+    "travelCloak": {
+      "file": "travelCloak.webp",
+      "label": "Плащ странника",
+      "bytes": 38892,
+      "fitPx": 224,
+      "sha256": "263380c61a5458c3f07ebee0727281e0146c7d9f886cc1404e29524173b82cda",
+      "sourceSha256": "bde60d6abec007106c1da15a55ef8189d4f8e09637e8c26670db4861eac9a890"
+    },
+    "workShirt": {
+      "file": "workShirt.webp",
+      "label": "Рабочая рубашка",
+      "bytes": 42392,
+      "fitPx": 224,
+      "sha256": "1a73d838e4ca410c07bc9e68878e902e0c3666d6470d22805389277522fdea80",
+      "sourceSha256": "e215b870be4e74e140b1c8d6bab429e012a0b198d0dc105907fc12b5ccbb2084"
+    },
+    "cargoPants": {
+      "file": "cargoPants.webp",
+      "label": "Брюки карго",
+      "bytes": 34442,
+      "fitPx": 224,
+      "sha256": "c4cc235fe638326bacbee99602391d9d99ce25ca7e97a11c9fb13c977139f074",
+      "sourceSha256": "ce5c8530422d8d8ff51bbb7518b9dac7162c3058a58351e229212290fab47f52"
+    },
+    "ceramicVest": {
+      "file": "ceramicVest.webp",
+      "label": "Керамический плитник",
+      "bytes": 42418,
+      "fitPx": 224,
+      "sha256": "be7cd80e8d0bb96cf4c47ec17f99e904341c2b3bb9bbb5b4b60f85a44f0e2081",
+      "sourceSha256": "8332624954e20d4a85905bfcbf9c08a7f4a6c1a994951a751c6b72e9b5908f4c"
+    },
+    "jeans": {
+      "file": "jeans.webp",
+      "label": "Плотные джинсы",
+      "bytes": 31514,
+      "fitPx": 224,
+      "sha256": "5d0dd4d1ccc683ed3ec36f8448ace4bbf3ff15997ca74dbdeec78bf117c5ad14",
+      "sourceSha256": "982bed0fee6cfcf7f74c4f22cd9bd2498e7c81c725547e98b094d40cd94e4832"
+    },
+    "kevlarVest": {
+      "file": "kevlarVest.webp",
+      "label": "Кевларовый бронежилет",
+      "bytes": 42470,
+      "fitPx": 224,
+      "sha256": "4079e3c35aad87231c6c3faca44c51af94ebe9ba464968f07e11d74909fe5023",
+      "sourceSha256": "a7d12884b48f5450c39f3cad29bc54773a31cbf98a52912825310ab8fab8b700"
+    },
+    "linenPants": {
+      "file": "linenPants.webp",
+      "label": "Льняные брюки",
+      "bytes": 29434,
+      "fitPx": 224,
+      "sha256": "371320dd68e7df50c4b353ba088fa3e6f5f1c8211c5b388ae73ebd0441eee07b",
+      "sourceSha256": "8aa73dfc8d0ce7d7cb214b3786f7f5d80c20ee04b332e118b1c6218759d4cb95"
+    },
+    "ragPants": {
+      "file": "ragPants.webp",
+      "label": "Лоскутные штаны",
+      "bytes": 34716,
+      "fitPx": 224,
+      "sha256": "2392912158bf690ace5874192993682535cd511f2a6fa1c18a20099c2ddd6a93",
+      "sourceSha256": "78f17c495d6a50b79141fdb012b4b442807e4ecb38c990edeb09c12c7c14c3e9"
+    },
+    "riotVest": {
+      "file": "riotVest.webp",
+      "label": "Противоударный жилет",
+      "bytes": 39608,
+      "fitPx": 224,
+      "sha256": "42be1ebd11cd4837df99f5b85343905a4bc0a8fe80bd49fb32783d97f990a7ed",
+      "sourceSha256": "e0f440cc14cdd179392d339c6837a30ecae42d3897d066ff7120c4906f962bd9"
+    },
+    "scrapVest": {
+      "file": "scrapVest.webp",
+      "label": "Нагрудник из лома",
+      "bytes": 47330,
+      "fitPx": 224,
+      "sha256": "d3da832b657630652698ec77eaf0be61d5ac5c6cc60fe6dc070bc4afffc0dad2",
+      "sourceSha256": "6fa2097175b88c0c5a4d141552383240bde1dc8377d4f08dc5b96bc6f45126d4"
+    },
+    "winterCoat": {
+      "file": "winterCoat.webp",
+      "label": "Меховой плащ",
+      "bytes": 37072,
+      "fitPx": 224,
+      "sha256": "ef825e91e0e7b01c4490bde60781b2153bfc57a61c672c7fafb014da8b33f162",
+      "sourceSha256": "8bed4d9f1945877aa91973f2704afe5d98bd285f6989e0b3c3598e2463d7dfa7"
+    },
+    "winterPants": {
+      "file": "winterPants.webp",
+      "label": "Зимние штаны",
+      "bytes": 37388,
+      "fitPx": 224,
+      "sha256": "e70da92544e7618523176faf5f99f5ba53b1f4ea1ea51a1454a2416bd0feb212",
+      "sourceSha256": "f5fddc64757ec8a556f1f2865d8f1dfb01d817233f0063be203ae7260d4851ec"
+    },
+    "clothWraps": {
+      "file": "clothWraps.webp",
+      "label": "Тканевые обмотки",
+      "bytes": 40704,
+      "fitPx": 224,
+      "sha256": "700a3918b469280da7d24fe8298cdebc1297b071cb621777fe05961a0c55b529",
+      "sourceSha256": "5c4e7361753893383c92e6472ea737426bde3b79f1994b81f42d88e195ad02d0"
+    },
+    "kevlarPants": {
+      "file": "kevlarPants.webp",
+      "label": "Кевларовые поножи",
+      "bytes": 31012,
+      "fitPx": 224,
+      "sha256": "bd12e978233f547a7e8869f2298e9c0af77d911184672642be491788243bdef1",
+      "sourceSha256": "23d86491322c0aea8f9cba4b4addbb6cdc2f017e37bc489cdb18f73a86865e49"
+    },
+    "knitGloves": {
+      "file": "knitGloves.webp",
+      "label": "Вязаные перчатки",
+      "bytes": 40042,
+      "fitPx": 224,
+      "sha256": "bd1582776bdbdbe009e2dc6eb7467d9229c3dd6589a9560aec48b758a732f90b",
+      "sourceSha256": "30d8a3fbf434834fcd50c2d2ce98c6150866f3b9f4005ac68a7957fc78543f38"
+    },
+    "leatherGloves": {
+      "file": "leatherGloves.webp",
+      "label": "Кожаные перчатки",
+      "bytes": 35134,
+      "fitPx": 224,
+      "sha256": "9ae41efad89c4fe04ca66a039ec0e657d28d919c20f189a9c833ee8af69e571c",
+      "sourceSha256": "be57c1a0863b2237975c388b0d884e42e0795c23cb4384f4175d570182e6735d"
+    },
+    "leatherPants": {
+      "file": "leatherPants.webp",
+      "label": "Кожаные поножи",
+      "bytes": 34720,
+      "fitPx": 224,
+      "sha256": "bfd44e00dd3e0b78219cbf5e355b53e259a8282f341f1fca0c82608d8e188294",
+      "sourceSha256": "57ea19f6d0aa7182373f42807f2ba8346fadbdd6b646639d4a106b0df862a153"
+    },
+    "riotPants": {
+      "file": "riotPants.webp",
+      "label": "Штурмовые поножи",
+      "bytes": 35458,
+      "fitPx": 224,
+      "sha256": "c8a5b7913fa04e55cd7270ee403335f0645dee1801525d7577f6224941e344fb",
+      "sourceSha256": "6664cca74ff50d46d2d16b431ce5599855c8600df8435c30d35f52c234375b26"
+    },
+    "tacticalGloves": {
+      "file": "tacticalGloves.webp",
+      "label": "Тактические перчатки",
+      "bytes": 46464,
+      "fitPx": 224,
+      "sha256": "ff37627fb240b3259285449eedabe25574184cb8fba2ae998e61bb3ffe866aa1",
+      "sourceSha256": "15ab8ed36ad9213512de0df5306c5b0c40c7e3473855231ff6b95de7a096b917"
+    },
+    "winterGloves": {
+      "file": "winterGloves.webp",
+      "label": "Зимние рукавицы",
+      "bytes": 41648,
+      "fitPx": 224,
+      "sha256": "8c3748df4dccba852671fdd889b2a9322ab5857a9dd23cc5c2295476c9018ba9",
+      "sourceSha256": "11bae7bf467a32b79deadac8502247ffbc5dc8109891afb7f9a97dd5308ca241"
+    },
+    "workGloves": {
+      "file": "workGloves.webp",
+      "label": "Рабочие перчатки",
+      "bytes": 47408,
+      "fitPx": 224,
+      "sha256": "0182f7b8c5055f7f646fba2d0510ab5ddabeca11b942ed5ecd34d0e73f81600d",
+      "sourceSha256": "7e7dc7d0d301f960260e40f9623331b5135510217b4dd9e3d6d5abe9796ee9b5"
+    },
+    "armoredBoots": {
+      "file": "armoredBoots.webp",
+      "label": "Бронированные сапоги",
+      "bytes": 40786,
+      "fitPx": 224,
+      "sha256": "43277450e967cdffc2378d7663deec6eb12b52a917682f65f064b4043217cf70",
+      "sourceSha256": "ef4bda84984654e26d5bf135c8c256c8afcdda86741268a88285cce798d595f7"
+    },
+    "clothShoes": {
+      "file": "clothShoes.webp",
+      "label": "Тканевые башмаки",
+      "bytes": 35364,
+      "fitPx": 224,
+      "sha256": "7273fd1d644a131eac644f8f213a3f048d64d5d1f485d0d819ad00ad6a2ea4dd",
+      "sourceSha256": "e1d98fd9671463ed231bca48586d0aa33f7ff8fa0aea5977f819c28f9df27674"
+    },
+    "combatBoots": {
+      "file": "combatBoots.webp",
+      "label": "Боевые берцы",
+      "bytes": 45208,
+      "fitPx": 224,
+      "sha256": "8f988a711d336eed9dfff01756666e1fd57a287b27807d8717622d3313d0d795",
+      "sourceSha256": "cf5a828da73598bec82064f8cf913a8dc4b1fb2b10bad0f325b3356292b67b87"
+    },
+    "kevlarGloves": {
+      "file": "kevlarGloves.webp",
+      "label": "Кевларовые перчатки",
+      "bytes": 41840,
+      "fitPx": 224,
+      "sha256": "5815ee57ef04250436091755ef65063f528d1bf8ddbf46f66b44a22bfaa9ef39",
+      "sourceSha256": "f4f2dd797440bcfa040c906e175bad98ae8b4c30dde2ea44d240d9a9278a44f5"
+    },
+    "leatherBoots": {
+      "file": "leatherBoots.webp",
+      "label": "Кожаные сапоги",
+      "bytes": 42008,
+      "fitPx": 224,
+      "sha256": "f9e208598390419b3183f07c7e4b2f4e42f5fd62b550c3e2d7ff714673f5a89f",
+      "sourceSha256": "3337be85810d1a2da8b627bec1bfc9b74a5a5ebbaf8490cc2fa3da7f99d1f2d0"
+    },
+    "sandals": {
+      "file": "sandals.webp",
+      "label": "Кожаные сандалии",
+      "bytes": 44330,
+      "fitPx": 224,
+      "sha256": "c5ac73749669cd1d73ffa93a79bc1ddfc9681da2dda51c7638032a9705932fe3",
+      "sourceSha256": "d03a68bc39342ef8bdf54d76b675f9237045ad10aa2c460c7f03c6666efcc504"
+    },
+    "sneakers": {
+      "file": "sneakers.webp",
+      "label": "Кеды",
+      "bytes": 42404,
+      "fitPx": 224,
+      "sha256": "b56e39f3cb8a32f7973320cc979d3b60722b3e6e4e7167d65244cc55651c926f",
+      "sourceSha256": "abd604b28a3819ef66ec964ffa8916cb741be7ad8fe6f5c05e90a5e6bf3c65aa"
+    },
+    "snowBoots": {
+      "file": "snowBoots.webp",
+      "label": "Зимние сапоги",
+      "bytes": 47254,
+      "fitPx": 224,
+      "sha256": "3f5cdbdabc7144e9a9d3e9eea46f59d36e03bbd550ed65b9aee7b69583be8ad2",
+      "sourceSha256": "9209895b08755c4e4da677750ca99d965a2196ff8688dcbc2af17c4baf01911a"
+    },
+    "steelGauntlets": {
+      "file": "steelGauntlets.webp",
+      "label": "Бронированные перчатки",
+      "bytes": 48834,
+      "fitPx": 224,
+      "sha256": "214c0ba463235f3e5208ae13e79d1cacbf5340fb1cddfb33b505c5a23612db57",
+      "sourceSha256": "1986ad029f295dd21d191299d7e2831f3c0af4fdafc9c5175314cdf9a2cc8937"
+    },
+    "workBoots": {
+      "file": "workBoots.webp",
+      "label": "Рабочие ботинки",
+      "bytes": 42956,
+      "fitPx": 224,
+      "sha256": "ceddf553841f0b5a38095252b01f5f23d54d0a053de0dc21c9d428a2f52d2f04",
+      "sourceSha256": "0e0cd211f47f6cccdfb942250d2733423ef411148f5a072b32a4cabc8f2c8a56"
+    },
+    "extendedMag": {
+      "file": "extendedMag.webp",
+      "label": "Увеличенный магазин",
+      "bytes": 34738,
+      "fitPx": 224,
+      "sha256": "a2d4b26e919d970a001aceca0c137c50fe91d54d5fe5b75c65314620aa6e3f3b",
+      "sourceSha256": "be1b199088d10c1150d8baf43259d0c7e43390d7f00280723748cedf18963ed9"
+    },
+    "flashHider": {
+      "file": "flashHider.webp",
+      "label": "Пламегаситель",
+      "bytes": 34082,
+      "fitPx": 224,
+      "sha256": "8f9d43c94c5a4f63d6a6c58cfca56365f9a182cb5b6b0c82fee335f2675e20f4",
+      "sourceSha256": "c4deca93a085e8ec9a45335cbf0619d54b9e1a92757802857a31582fa0dc3f03"
+    },
+    "holoSight": {
+      "file": "holoSight.webp",
+      "label": "Голографический прицел",
+      "bytes": 40496,
+      "fitPx": 224,
+      "sha256": "fffb67d2ada6a9246117c41b879bee1ccbae2c5728497556007083a99009c75b",
+      "sourceSha256": "b5e6c76a3a1e0e1c92c06f28c035dcc41f24238f7097c2a8b9f699fbb462ebfd"
+    },
+    "laserSight": {
+      "file": "laserSight.webp",
+      "label": "Лазерный целеуказатель",
+      "bytes": 41718,
+      "fitPx": 224,
+      "sha256": "51d5303f4979ff71fcf489fdcc2c1d9c6073aeff54c6e6fb6795c809e1caf1e9",
+      "sourceSha256": "57ca72b1247fc03b6eb066aeb156a5c9611de3811e956e893549ffb3c443cecb"
+    },
+    "muzzleBrake": {
+      "file": "muzzleBrake.webp",
+      "label": "Дульный тормоз",
+      "bytes": 37184,
+      "fitPx": 224,
+      "sha256": "267dc3c047685c404858613429d0f8f3b7f62e3d77de521550861e0c1d96cfe5",
+      "sourceSha256": "9e4d13ba2f57d9f1530e0a2850260aba0eced9f8c7ab2a2b992ab035ede1a038"
+    },
+    "reflexSight": {
+      "file": "reflexSight.webp",
+      "label": "Коллиматорный прицел",
+      "bytes": 41154,
+      "fitPx": 224,
+      "sha256": "96382611b026e290941bace099e9bea106fb58c7873bd2e0dabad4ac1015b58c",
+      "sourceSha256": "3f163ff656a37bc0209ccad3ea4a0eb89ebde36613359f3933de71138e0bb199"
+    },
+    "scope4x": {
+      "file": "scope4x.webp",
+      "label": "Прицел 4×",
+      "bytes": 24950,
+      "fitPx": 224,
+      "sha256": "5a33b4bb528548ecd1f5c242fae3c12cf37b916e2f7fee00960c8573e66e9231",
+      "sourceSha256": "252173446682ce18601fb13922ebeefd5cd78709595aee92154444a1d57ce01c"
+    },
+    "suppressor": {
+      "file": "suppressor.webp",
+      "label": "Глушитель",
+      "bytes": 25270,
+      "fitPx": 224,
+      "sha256": "6d2d40bab39b51d0ca4e09eca7a6d2e4853741f2b67bc95cb14d60a2487ed35d",
+      "sourceSha256": "4f4a8a63250d5cad02a328d0083a6232bef64dc25bbf96cf9a451d74a50e2c59"
+    }
+  },
+  "referenceSha256": "c682a592a6115ab6a8f8d1bd75d3d86c61590e92c348430286fbab9067a69189",
+  "ready": 155,
+  "total": 155,
+  "pending": [],
+  "replacementHistory": {
+    "door": [
+      {
+        "previous": {
+          "file": "door.webp",
+          "label": "Вход с дверью",
+          "bytes": 47606,
+          "sha256": "9a354aa0175544b3508f859b62124900215db97a53a0e5442495d78bff6fe2f5",
+          "sourceSha256": "d68053a21195822ca2bcfd609e3aab090c9c2089304901e21913782fec7952e4"
+        },
+        "reason": "User: icon too large; replace with door leaf only and reduce icon fit to 180 px."
+      }
+    ],
+    "rock": [
+      {
+        "previous": {
+          "file": "rock.webp",
+          "label": "Камень в руке",
+          "bytes": 41114,
+          "sha256": "6f6cfa32e798cee38a5e894bac891ea4a1cb629462ae5ef2c44a7215ad38cccc",
+          "sourceSha256": "7172146087157cacc1077053cf2f5988c7e1c0a0448bbd8529289ac9b6a930a1"
+        },
+        "reason": "User: egg/ruby silhouette; replace with irregular asymmetrical natural fieldstone, no crystal facets."
+      }
+    ],
+    "riotVest": [
+      {
+        "previous": {
+          "file": "riotVest.webp",
+          "label": "Противоударный жилет",
+          "bytes": 45460,
+          "fitPx": 224,
+          "sha256": "46e7b510db3d9ec94d3b97ba6b1e3f623a57410d136f04129c1404b22246ec4a",
+          "sourceSha256": "be21fdd1cac27d02a96d804d17d1ea1fb256d4fcd0b8d73bbe6c3de7b8536dd5"
+        },
+        "reason": "User rejected unwanted brown background object/pad. Regenerate isolated charcoal protective vest only, no backing props or brown backdrop."
+      }
+    ],
+    "steelGauntlets": [
+      {
+        "previous": {
+          "file": "steelGauntlets.webp",
+          "label": "Стальные наручи",
+          "bytes": 46106,
+          "fitPx": 224,
+          "sha256": "28f9552de4ffb4e2c4b7db8a479c36679ff6b06853b57c3c1e2de719168764dd",
+          "sourceSha256": "ca54e71338bcc03920e23adf69f8a624cfba6748c7767058c66553039809d9fc"
+        },
+        "reason": "User rejected medieval knight-like exposed metal armor. Regenerate modern tactical protective gloves/boots with molded matte protective pads, fabric and leather; no articulated steel plates."
+      }
+    ],
+    "armoredBoots": [
+      {
+        "previous": {
+          "file": "armoredBoots.webp",
+          "label": "Бронированные сапоги",
+          "bytes": 47864,
+          "fitPx": 224,
+          "sha256": "ea0267c206702d18050d1586451e7800b6946b3e418a98256eac876ade67c046",
+          "sourceSha256": "39b5a6f9e130a0f0e99b5de70f2fa36e825a84a9781de0e19ef680025af4151d"
+        },
+        "reason": "User rejected medieval knight-like exposed metal armor. Regenerate modern tactical protective gloves/boots with molded matte protective pads, fabric and leather; no articulated steel plates."
+      }
+    ]
+  },
+  "fitBounds": {
+    "default": 224,
+    "door": 180
+  },
+  "integration": {
+    "registry": "src/survival/item-art.js",
+    "release": "0.27.0-dev26",
+    "originalInventoryCount": 155,
+    "additionalEquipmentSharedArt": {
+      "carbine26": "assaultRifle",
+      "pdw26": "compactSmg",
+      "scope8x": "scope4x",
+      "compactSuppressor": "suppressor",
+      "compensator26": "muzzleBrake",
+      "drumMag26": "extendedMag"
+    }
+  }
+}

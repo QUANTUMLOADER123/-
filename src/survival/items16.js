@@ -1,3 +1,4 @@
+import {sourceWeapon26} from './weapon-sources26.js';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -50,6 +51,7 @@ function magazine(g,mat,curved=false,short=false){
  return mag;
 }
 export function weaponModel16(id){
+ const sourced=sourceWeapon26(id);if(sourced)return sourced;
  const g=new THREE.Group();g.name=`weapon16:${id}`;g.userData.authored16=true;
  const steel=material16('steel'),black=material16('polymer'),wood=material16('wood'),rubber=material16('rubber'),paint=material16('paint');
  const pistol=['pistol','heavyPistol','revolver'].includes(id),long=['rifle','boltRifle','semiRifle'].includes(id),smg=['smg','compactSmg'].includes(id),ak=id==='akRifle',shot=['shotgun','combatShotgun'].includes(id),mg=id==='machineGun';
