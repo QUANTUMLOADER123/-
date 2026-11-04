@@ -2,7 +2,7 @@ import {settlementProxies16,visibilityProfile16} from './visibility16.js';
 import {lootProp05} from './props05.js';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
-import {BOT_BASES,MAP_SEED} from './map-data.js';
+import {BOT_BASES,MAP_SEED,MAP_REVISION} from './map-data.js';
 import {terrainHeight,TIERS} from './state.js';
 import {cupboardModel,crateModel} from './world04.js';
 import {crateTier} from './loot04.js';
