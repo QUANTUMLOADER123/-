@@ -77,7 +77,7 @@ export function weaponModel16(id){
    barrel(g,.017,-.15,id==='heavyPistol'?-.34:-.30,.151,steel,black);
    const mag=side(g,[[.015,.02],[.075,.02],[.103,-.18],[.033,-.18]],.045,black);g.userData.magazine=mag;
   }
-  trigger(g,steel);const rail=round(g,[.074,.018,.078],[0,.215,-.09],black);if(g.userData.slide14){g.remove(rail);g.userData.slide14.add(rail);}g.userData.opticMount16=[0,.2915,-.09];
+  trigger(g,steel);const rail=round(g,[.074,.018,.078],[0,id==='revolver'?.169:.211,-.09],black);if(g.userData.slide14){g.remove(rail);g.userData.slide14.add(rail);}g.userData.opticMount16=[0,.2915,-.09];
  }else{
   side(g,profile29?.receiver||[[.11,.08],[.10,.205],[-.22,.205],[-.27,.13],[-.23,.065],[-.035,.04]],profile29?.width||.082,steel);
   grip(g,ak?wood:black);trigger(g,steel);
@@ -96,10 +96,10 @@ export function weaponModel16(id){
   else g.userData.bolt14=round(g,[.02,.023,.045],[.055,.139,-.07],steel);
   if(mg){g.userData.feedBox14=round(g,[.17,.18,.19],[0,-.01,-.17],paint,.018);for(const x of[-.07,.07]){const leg=round(g,[.016,.27,.018],[x,-.015,-.62],steel);leg.rotation.z=x<0?-.3:.3;}}
   const muzzleCollar=ring(g,shot?.030:.025,.004,[0,.146,end+.05],steel);muzzleCollar.name='MuzzleCollar16';
-  round(g,[.08,.022,.17],[0,.213,-.10],black);for(let i=0;i<6;i++)round(g,[.088,.008,.009],[0,.228,-.17+i*.025],steel,.001);
+  round(g,[.08,.012,.17],[0,.243,-.10],black);
   g.userData.opticMount16=[0,.3005,-.10];
   // Front sight is lower than the holographic window's central line.
-  round(g,[.014,.055,.016],[0,.18,end+.09],steel);ring(g,.018,.003,[0,.217,end+.09],steel);
+  // One iron-sight set is built by weapon-mods25; no duplicate front ring.
  }
  // DEV25: original field-repaired silhouettes: stamped covers, rivets and bindings.
  if(id!=='rocketLauncher'){
@@ -111,6 +111,7 @@ export function weaponModel16(id){
    if(g.userData.foregrip14){const f=g.userData.foregrip14;f.geometry.computeBoundingBox();const b=f.geometry.boundingBox;g.userData.supportGrip25=new THREE.Vector3(-.052,b.min.y-.025,(b.min.z+b.max.z)/2+.035);}
   }
  }
+ g.userData.receiverTop32=id==='revolver'?.178:id==='heavyPistol'?.23:pistol?.22:.249;
  detailWeapon29(g,id,{steel,wood,black,rubber});
  const moving=new Set(['magazine','slide14','foregrip14','bolt14','feedBox14','cylinder14'].map(k=>g.userData[k]).filter(Boolean));for(const part of moving)mergeStatic16(part);mergeStatic16(g,moving);
  g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});return g;

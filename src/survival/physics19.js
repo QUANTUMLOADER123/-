@@ -25,7 +25,7 @@ function contacts19(body){
  const q=body.model.getWorldQuaternion(new THREE.Quaternion());body.contacts=body.localContacts.map(p=>p.clone().applyQuaternion(q));body.offset=Math.min(...body.contacts.map(p=>p.y));
 }
 function align19(w,body,p,state){
- if(body.item.data)return;const point={...body,contacts:[new V()]},e=.45;
+ if(body.item.data)return;if(['barrel','crate'].includes(body.item.type)&&!body.bag){const q=new THREE.Quaternion().setFromAxisAngle(UP,body.yaw);if(body.model.parent)q.premultiply(body.model.parent.getWorldQuaternion(new THREE.Quaternion()).invert());body.model.quaternion.copy(q);body.model.updateWorldMatrix(false,true);contacts19(body);return;}const point={...body,contacts:[new V()]},e=.45;
  const gx=(support(w,point,new V(p.x+e,p.y,p.z),state)-support(w,point,new V(p.x-e,p.y,p.z),state))/(e*2),gz=(support(w,point,new V(p.x,p.y,p.z+e),state)-support(w,point,new V(p.x,p.y,p.z-e),state))/(e*2);
  const normal=new V(-gx,1,-gz).normalize(),q=new THREE.Quaternion().setFromUnitVectors(UP,normal).multiply(new THREE.Quaternion().setFromAxisAngle(UP,body.yaw));
  if(body.model.parent)q.premultiply(body.model.parent.getWorldQuaternion(new THREE.Quaternion()).invert());body.model.quaternion.copy(q);body.model.updateWorldMatrix(false,true);contacts19(body);
@@ -42,6 +42,7 @@ export function installPhysics19(World){
  World.prototype.registerProps19=function(state){
   this.refreshDead05?.(state);this.bodies19??=new Map();state.propPhysics19??={};
   if(this.colliderSource19!==this.colliders||this.colliderCount19!==this.colliders.length){this.colliderSource19=this.colliders;this.colliderCount19=this.colliders.length;this.colliderById19=new Map(this.colliders.filter(c=>c.id).map(c=>[c.id,c]));}
+  const previous32=this.propsRegistry32;if(previous32?.source===this.interactables&&previous32.count===this.interactables.length&&previous32.dead===state.depleted.length&&previous32.bodies===this.bodies19)return;
   const ids=new Set();
   for(const item of this.interactables){if(item.corpse29||!LOOSE.has(item.type)||item.station||item.fixedSupport25||item.owner&&!item.raided||this.deadIds05.has(item.id)||item.data?.hp<=0||!item.model?.parent)continue;ids.add(item.id);const old=this.bodies19.get(item.id);if(old?.model===item.model)continue;
    const model=item.model;model.updateWorldMatrix(true,true);const p=model.getWorldPosition(new V()),bounds=new THREE.Box3().setFromObject(model);if(bounds.isEmpty())continue;
@@ -56,14 +57,15 @@ export function installPhysics19(World){
    this.bodies19.set(item.id,body);
   }
   for(const [id]of this.bodies19)if(!ids.has(id)){this.bodies19.delete(id);delete state.propPhysics19[id];}
+  this.propsRegistry32={source:this.interactables,count:this.interactables.length,dead:state.depleted.length,bodies:this.bodies19};
  };
  World.prototype.stepProps19=function(dt,state){
   this.registerProps19(state);this.physicsClock19=(this.physicsClock19||0)+dt;let simulated=0,horizontal=false;
   const bags=new Map((state.groundBags||[]).map(b=>[b.id,b]));
   // Nearest loose objects first. Sleeping/far objects retain their exact pose;
   // support is periodically rechecked, including after structure destruction.
-  const bodies=[...this.bodies19.values()].sort((a,b)=>(a.item.x-state.position.x)**2+(a.item.z-state.position.z)**2-((b.item.x-state.position.x)**2+(b.item.z-state.position.z)**2));
-  for(const body of bodies){const p=position(body),near=Math.hypot(p.x-state.position.x,p.z-state.position.z)<105;if(!near||simulated>=48)continue;if(body.sleep&&this.physicsClock19<body.check)continue;simulated++;body.check=this.physicsClock19+.55;
+  const bodies=[...this.bodies19.values()].filter(b=>(b.item.x-state.position.x)**2+(b.item.z-state.position.z)**2<11025).sort((a,b)=>(a.item.x-state.position.x)**2+(a.item.z-state.position.z)**2-((b.item.x-state.position.x)**2+(b.item.z-state.position.z)**2));
+  for(const body of bodies){if(simulated>=24)break;if(body.sleep&&this.physicsClock19<body.check)continue;const p=position(body);simulated++;body.check=this.physicsClock19+.55+(body.id.length%7)*.041;
    const floor=support(this,body,p,state),bottom=p.y;
    if(body.sleep&&Math.abs(bottom-floor-.006)<.025)continue;body.sleep=false;
    const steps=Math.max(1,Math.ceil(Math.min(.06,dt)/(1/90))),step=Math.min(.06,dt)/steps;

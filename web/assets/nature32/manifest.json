@@ -1,0 +1,14 @@
+{
+  "naturalSource": "670e112: original DEV28 stone PBR; rockyGround textures unchanged",
+  "buildingImages": "AI-generated source images; periodic edge blending; derived luminance normals, not measured photogrammetry",
+  "iconReference": ".artifacts/items26/reference/approved-style.png",
+  "files": {
+    "web/assets/pbr12/metal-color.webp": "f37ffb7e51a43a38b46edf58ca94f971e5d27a2eefe842310a035382df668143",
+    "web/assets/pbr12/metal-normal.webp": "326c92ecd290e655107d2c2f8c80de3fd5ee2303706c6da8495ac1f9a30e2327",
+    "web/assets/pbr12/metal-orm.webp": "4ae08d4e75012545bd08a28e7d37545233d51e5f9018461f7f825f8b8f47daf6",
+    "web/assets/pbr12/stone-color.webp": "1f85e2d337ef382c15ca2acdddcbc9a33eeae3061c457cc54edbc9682c4b332d",
+    "web/assets/pbr12/stone-normal.webp": "e0bdacdf7077f5ef8b1c00d7b589e30547d5695a61ee47e09e20550eb87e7d7c",
+    "web/assets/pbr12/stone-orm.webp": "174acaf7b0e3e542491c7205c0d7402977446e52304b0ae55fe086fc61c25c93",
+    "web/assets/items32/cactusFlesh.webp": "9ecfce8964161720dc7c627db6e283b7b72d65e86e3b37a38561e98d5c08640b"
+  }
+}

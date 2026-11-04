@@ -1,7 +1,7 @@
 import {materialGraphics28} from './graphics28.js';
 import * as THREE from 'three';
 export const PBR_KINDS12=['wood','stone','metal','concrete','soil','asphalt','hqm'];
-export const PBR_FILES12=PBR_KINDS12.flatMap(k=>['color','normal','orm'].map(m=>'pbr12/'+k+'-'+m+'.webp'));
+export const PBR_FILES12=['nature32/rock-color.webp','nature32/rock-normal.webp','nature32/rock-orm.webp',...PBR_KINDS12.flatMap(k=>['color','normal','orm'].map(m=>'pbr12/'+k+'-'+m+'.webp'))];
 export function visualState12(w){
  if(w.visual12)return w.visual12;
  const roof=new THREE.DataTexture(new Float32Array([-100]),1,1,THREE.RedFormat,THREE.FloatType);roof.needsUpdate=true;

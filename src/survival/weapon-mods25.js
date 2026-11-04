@@ -10,9 +10,9 @@ export function installWeaponMods25(World){
   for(const [id,m]of Object.entries(this.weaponViews)){if(id==='rocketLauncher')continue;const base=m.userData.optic08;if(!base)continue;base.visible=false;m.userData.holoBase25=base;
    // Measure the receiver before adding optics. The old -.075 anchor put the
    // sight line INSIDE the receiver/rail (and inside the source models).
-   m.updateMatrixWorld(true);let top=-Infinity;const vertices=[new V(),new V(),new V()];m.traverse(o=>{if(!o.isMesh||o===m.userData.magazine)return;for(let n=o;n&&n!==m;n=n.parent)if(n===base)return;const geo=o.geometry,p=geo?.attributes.position;if(!p)return;const matrix=new THREE.Matrix4().copy(m.matrixWorld).invert().multiply(o.matrixWorld);for(let i=0;i<(geo.index?.count??p.count);i+=3){for(let k=0;k<3;k++)vertices[k].fromBufferAttribute(p,geo.index?geo.index.getX(i+k):i+k).applyMatrix4(matrix);if(Math.min(...vertices.map(v=>v.x))<.04&&Math.max(...vertices.map(v=>v.x))>-.04&&Math.min(...vertices.map(v=>v.z))<.14&&Math.max(...vertices.map(v=>v.z))>-.25)top=Math.max(top,...vertices.map(v=>v.y));}});
+   m.updateMatrixWorld(true);let top=m.userData.receiverTop32??-Infinity;const vertices=[new V(),new V(),new V()];if(!Number.isFinite(top))m.traverse(o=>{if(!o.isMesh||o===m.userData.magazine)return;for(let n=o;n&&n!==m;n=n.parent)if(n===base)return;const geo=o.geometry,p=geo?.attributes.position;if(!p)return;const matrix=new THREE.Matrix4().copy(m.matrixWorld).invert().multiply(o.matrixWorld);for(let i=0;i<(geo.index?.count??p.count);i+=3){for(let k=0;k<3;k++)vertices[k].fromBufferAttribute(p,geo.index?geo.index.getX(i+k):i+k).applyMatrix4(matrix);if(Math.min(...vertices.map(v=>v.x))<.04&&Math.max(...vertices.map(v=>v.x))>-.04&&Math.min(...vertices.map(v=>v.z))<.14&&Math.max(...vertices.map(v=>v.z))>-.25)top=Math.max(top,...vertices.map(v=>v.y));}});
 
-   if(!Number.isFinite(top))top=.24;const line=top+.038;
+   if(!Number.isFinite(top))top=.24;const line=top+.028;
    base.position.y=line+.085;base.scale.setScalar(1);
    const iron=new THREE.Object3D();iron.position.set(0,line,base.position.z);m.add(iron);m.userData.ironAim25=iron;
    const irons=new THREE.Group();m.add(irons);m.userData.irons28=irons;

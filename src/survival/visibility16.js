@@ -15,7 +15,7 @@ export function installCulling16(World){
   this.cullLast16={key,time:now,x:p.x,z:p.z};const r=visibilityProfile16(this.settings),within=(x,z,range)=>(x-p.x)**2+(z-p.z)**2<range*range;
   let trees=0,proxies=0;for(const b of this.treeBatches){const c=b.userData.center;if(!c)continue;const radius=Math.min(85,b.boundingSphere?.radius||60);b.visible=(!b.userData.understory19||this.settings.understory28!==0)&&within(c.x,c.z,(b.userData.understory19?Math.min(75,r.props):r.trees)+radius);b.castShadow=!b.userData.understory19&&b.visible&&this.settings.shadowSize28!==0&&within(c.x,c.z,(/^Leaf21/.test(b.material?.name||'')?Math.min(40,r.shadow):r.shadow)+radius);if(b.visible)trees++;}
   for(const b of this.proxyChunks16||[]){const c=b.boundingSphere;show16(b,within(c.center.x,c.center.z,Math.min(1800,r.proxies*Math.sqrt(MAP_SCALE))+c.radius));if(b.visible)proxies++;}
-  for(const g of this.distantGroups){g.maxRange16??=g.range;g.range=Math.min(g.maxRange16,g.root.userData.road16?r.props:r.sites);show16(g.root,within(g.x,g.z,g.range));}
+  for(const g of this.distantGroups){g.maxRange16??=g.range;g.range=Math.min(g.maxRange16,g.root.userData.road16?r.props:r.sites);show16(g.root,within(g.x,g.z,g.range));const lod=g.root.userData.oilLod32;if(lod){const near=within(g.x,g.z,this.settings.quality==='low'?95:this.settings.quality==='high'?220:150);lod.proxy.visible=!near;for(const o of lod.detail)o.visible=near;}}
   const state=this.state04,dead=this.deadIds05||new Set(state?.depleted||[]);
   for(const n of this.nodes)if(n.model)show16(n.model,within(n.x,n.z,r.props),!dead.has(n.id));
   for(const i of this.interactables)if(['crate','barrel'].includes(i.type))show16(i.model,within(i.x,i.z,r.props),!dead.has(i.id)&&!i.supports?.some(id=>dead.has(id)));

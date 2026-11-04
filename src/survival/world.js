@@ -1,3 +1,5 @@
+import {terrainChunks32} from './terrain-chunks32.js';
+import {installFoundations32} from './foundations32.js';
 import {texturePath30} from './asset-path30.js';
 import {logPanel29} from './logs29.js';
 import {installSolids29} from './solids29.js';
@@ -138,7 +140,7 @@ export class IslandWorld {
    const n=noise(x*.14,z*.14);const c=new THREE.Color(h<.8?0xd2bd8b:dirt?0x928460:biomeAt(x,z).color);c.multiplyScalar(.74+n*.42);colors.push(c.r,c.g,c.b);climate.push(biomeAt(x,z).climate25);
   }geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geometry.setAttribute('snow',new THREE.Float32BufferAttribute(climate,1));geometry.computeVertexNormals();
   const material=terrainMaterial12(this);
-  const terrain=new THREE.Mesh(geometry,material);terrain.receiveShadow=true;terrain.name='Textured island terrain';this.scene.add(terrain);this.terrain=terrain;
+  const terrain=terrainChunks32(geometry,segments,material);geometry.dispose();this.scene.add(terrain);this.terrain=terrain;
   // Distant rock silhouettes extend the island beyond the playable clearing.
   const rand=randomSeed(919);const rocky=new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.6,.6),color:0x8e9483,roughness:1});
   for(let i=0;i<17;i++){const a=rand()*Math.PI*2,x=Math.cos(a)*270*MAP_SCALE,z=Math.sin(a)*270*MAP_SCALE;const g=new THREE.IcosahedronGeometry(MAP_REVISION>=6?.9+rand()*2.1:3+rand()*5,2);const p=g.attributes.position;for(let j=0;j<p.count;j++){const f=.85+noise(p.getX(j)*.7+i,p.getZ(j)*.7)*.35;p.setXYZ(j,p.getX(j)*f,p.getY(j)*f,p.getZ(j)*f);}g.computeVertexNormals();const r=new THREE.Mesh(g,rocky);r.position.set(x,terrainHeight(x,z)-1,z);r.scale.y=MAP_REVISION>=6?1.1+rand()*.6:1.4+rand();r.castShadow=true;r.receiveShadow=true;this.scene.add(r);}
@@ -287,7 +289,7 @@ export class IslandWorld {
   else if(b.kind==='furnace'||b.kind==='workbench'){model=this.stationModel(b.kind);model.position.set(b.x,buildingHeight(b),b.z);model.rotation.y=b.rotation;this.scene.add(model);this.interactables.push({id:b.id,type:b.kind,x:b.x,z:b.z,model,data:b,radius:1.1});}
   else if(b.kind==='campfire'){model=this.normalized('Bonfire',.65);model.position.set(b.x,buildingHeight(b),b.z);this.scene.add(model);this.addFire(b.x,b.z,.65,buildingHeight(b));fire=this.fires.at(-1);}
   else{model=this.timberGroup(b.kind);model.position.set(b.x,buildingHeight(b),b.z);model.rotation.y=b.rotation;this.scene.add(model);}
-  if(b.kind==='foundation'&&buildingHeight(b)>terrainHeight(b.x,b.z)+.2){for(const dx of[-1.2,1.2])for(const dz of[-1.2,1.2]){const h=Math.max(.1,buildingHeight(b)-terrainHeight(b.x+dx,b.z+dz)+.3),post=new THREE.Mesh(new THREE.BoxGeometry(.18,h,.18),this.woodMaterial);post.position.set(dx,.3-h/2,dz);model.add(post);}}
+
   if(['furnace','workbench'].includes(b.kind))this.colliders.push({id:b.id,box:true,x:b.x,z:b.z,w:b.kind==='furnace'?1.4:1.9,d:b.kind==='furnace'?1.4:.8,y:buildingHeight(b),h:b.kind==='furnace'?1.9:1.3,data:b,built:true});this.built.set(b.id,{model,fire,data:b});this.applyBuildingTier({model,data:b});
   if(b.kind==='door'&&model.userData.doorPivot){model.userData.doorPivot.rotation.y=b.open?1.6:0;this.interactables=this.interactables.filter(i=>i.id!==b.id);this.interactables.push({id:b.id,type:'door',x:b.x,z:b.z,model,radius:1.4,data:b});}
   if(b.kind==='wall'||b.kind==='door')this.colliders.push({box:true,x:b.x,z:b.z,w:Math.abs(Math.cos(b.rotation))>0.5?3:.18,d:Math.abs(Math.cos(b.rotation))>0.5?.18:3,id:b.id,built:true,y:buildingHeight(b),h:3.02,door:b.kind==='door',data:b});
@@ -413,3 +415,5 @@ installPlayerPreview28(IslandWorld);
 
 installSolids29(IslandWorld);
 installBots29(IslandWorld);
+
+installFoundations32(IslandWorld);

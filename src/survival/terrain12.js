@@ -4,11 +4,12 @@ import {visualState12} from './materials12.js';
 export function terrainMaterial12(w){
  const t=w.textures,u=visualState12(w),m=new THREE.MeshStandardMaterial({map:t['pbr12/soil-color.webp'],normalMap:t['pbr12/soil-normal.webp'],roughness:1,metalness:0});m.userData.terrain12=true;
  m.onBeforeCompile=s=>{
-  Object.assign(s.uniforms,{soil12:{value:t['pbr12/soil-color.webp']},soilN12:{value:t['pbr12/soil-normal.webp']},sand12:{value:t['sand.jpg']},rock12:{value:t['pbr12/stone-color.webp']},rockN12:{value:t['pbr12/stone-normal.webp']},orm12:{value:t['pbr12/soil-orm.webp']},wetness12:u.wet,terrainDetail12:{value:w.settings.quality==='low'?.35:.65}});
+  Object.assign(s.uniforms,{soil12:{value:t['pbr12/soil-color.webp']},soilN12:{value:t['pbr12/soil-normal.webp']},sand12:{value:t['sand.jpg']},rock12:{value:t['nature32/rock-color.webp']},rockN12:{value:t['nature32/rock-normal.webp']},orm12:{value:t['pbr12/soil-orm.webp']},wetness12:u.wet,terrainDetail12:{value:w.settings.quality==='low'?.35:.65}});
   s.vertexShader='attribute float snow;varying float biome12;varying vec3 ground12;varying vec3 groundNormal12;\n'+s.vertexShader;
   s.vertexShader=s.vertexShader.replace('#include <worldpos_vertex>',`#include <worldpos_vertex>
  biome12=snow;ground12=(modelMatrix*vec4(transformed,1.)).xyz;groundNormal12=normalize(mat3(modelMatrix)*normal);`);
   s.fragmentShader=`uniform sampler2D soil12;uniform sampler2D soilN12;uniform sampler2D sand12;uniform sampler2D rock12;uniform sampler2D rockN12;uniform sampler2D orm12;uniform float wetness12;uniform float terrainDetail12;varying float biome12;varying vec3 ground12;varying vec3 groundNormal12;
+ mat3 terrainFrame32(vec3 eye,vec3 n,vec2 uv){vec3 a=dFdx(eye),b=dFdy(eye),bp=cross(b,n),ap=cross(n,a);vec2 u=dFdx(uv),v=dFdy(uv);vec3 t=bp*u.x+ap*v.x,bt=bp*u.y+ap*v.y;float scale=inversesqrt(max(1e-12,max(dot(t,t),dot(bt,bt))));return mat3(t*scale,bt*scale,n);}
  float hashGround12(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
  float macroGround12(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hashGround12(i),hashGround12(i+vec2(1,0)),f.x),mix(hashGround12(i+vec2(0,1)),hashGround12(i+vec2(1,1)),f.x),f.y);}
  `+s.fragmentShader;
@@ -39,7 +40,7 @@ export function terrainMaterial12(w){
  vec3 rockNormal12=texture2D(rockN12,uvStone12).xyz*2.-1.;
  vec3 mapNormal12=normalize(mix(soilNormal12,rockNormal12,rockWeight12));
  float distanceFade12=1.-smoothstep(45.,140.,length(vViewPosition));mapNormal12.xy*=terrainDetail12*distanceFade12*(1.-snowWeight12*.6);
- normal=normalize(getTangentFrame(-vViewPosition,normal,ground12.xz)*mapNormal12);
+ normal=normalize(terrainFrame32(-vViewPosition,normal,ground12.xz)*mapNormal12);
  `);
   s.fragmentShader=s.fragmentShader.replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
  float r12=texture2D(orm12,uvSoil12).g;

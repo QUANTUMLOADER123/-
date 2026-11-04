@@ -32,6 +32,6 @@ export function installBots29(World){const update=World.prototype.update,syncBag
    body.root.position.set(bag.x,bag.y,bag.z);if(body.weapon)body.weapon.visible=!!s.containers[bag.id]?.[bag.corpse29.gun];entry.x=bag.x;entry.z=bag.z;
   }
  };
- World.prototype.update=function(dt,s,playing,...args){update.call(this,dt,s,playing,...args);if(playing&&this.time>(this.corpseAt29||0)){this.corpseAt29=this.time+1;this.syncGroundBags(s);}for(const body of this.corpseModels29?.values()||[]){const t=THREE.MathUtils.clamp((this.time-body.born)/.65,0,1);body.actor.rotation.x=-Math.PI/2*(1-(1-t)**3);body.actor.rotation.z=Math.sin(t*Math.PI)*.18;}};
+ World.prototype.update=function(dt,s,playing,...args){update.call(this,dt,s,playing,...args);if(playing&&(s.groundBags?.some(b=>b.corpse29)||this.corpseModels29?.size)&&this.time>(this.corpseAt29||0)){this.corpseAt29=this.time+1;this.syncGroundBags(s);}for(const body of this.corpseModels29?.values()||[]){const t=THREE.MathUtils.clamp((this.time-body.born)/.65,0,1);body.actor.rotation.x=-Math.PI/2*(1-(1-t)**3);body.actor.rotation.z=Math.sin(t*Math.PI)*.18;}};
  World.prototype.dispose=function(){for(const body of this.corpseModels29?.values()||[]){clearClothes29(body.actor);for(const m of body.materials)m.dispose();for(const sk of body.skeletons)sk.dispose();body.weapon?.traverse(o=>o.geometry?.dispose());}this.corpseModels29?.clear();dispose.call(this);};
 }

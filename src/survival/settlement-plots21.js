@@ -1,11 +1,11 @@
 const TAU=Math.PI*2;
 /** New-world plots: real-metre coastal margin, stratified coverage, then infill.
  * No normalized 269m circle that strands homes 400m inland on 8km maps. */
-export function settlementPlots21({scale,seed,sites,river,coast,roadDistance,height}){
- let n=seed^0x7138;const r=()=>((n=(Math.imul(n,1664525)+1013904223)>>>0)/4294967296),step=Math.max(8,scale*4),extent=Math.ceil(325*scale/step),candidates=[];
+export function settlementPlots21({scale,seed,sites,river,coast,roadDistance,height,revision=15}){
+ const modernSmall=revision>=15&&scale<=1.01;let n=seed^0x7138;const r=()=>((n=(Math.imul(n,1664525)+1013904223)>>>0)/4294967296),step=modernSmall?4:Math.max(8,scale*4),extent=Math.ceil(325*scale/step),candidates=[];
  for(let ix=-extent;ix<=extent;ix++)for(let iz=-extent;iz<=extent;iz++){
   const x=(ix+(r()-.5)*.32)*step,z=(iz+(r()-.5)*.32)*step,shore=coast(x,z);
-  if(shore<24||Math.hypot(x+6,z+3)<46||sites.some(m=>m.kind!=='oilrig'&&Math.hypot(x-m.x,z-m.z)<m.radius+14)||roadDistance(x,z,16)<12)continue;
+  if(shore<(modernSmall?20:24)||Math.hypot(x+6,z+3)<46||sites.some(m=>m.kind!=='oilrig'&&Math.hypot(x-m.x,z-m.z)<m.radius+(modernSmall?10:14))||roadDistance(x,z,16)<(modernSmall?8:12))continue;
   const channel=river(x,z);if(channel&&channel.distance<channel.width*.5+14)continue;
   candidates.push({x,z,shore,sector:Math.floor(((Math.atan2(z,x)+TAU)%TAU)/TAU*24),rank:r()});
  }
@@ -15,8 +15,11 @@ export function settlementPlots21({scale,seed,sites,river,coast,roadDistance,hei
  // One coastal plot per sector where a safe site exists, also on large islands.
  for(let sector=0;sector<24;sector++)for(const p of candidates)if(p.sector===sector&&p.shore<100&&accept(p,24))break;
  for(let sector=0;sector<24;sector++)for(const p of candidates)if(p.sector===sector&&p.shore>=100&&accept(p,24))break;
- for(const spacing of [24,22,20,18]){for(const p of candidates){if(selected.length===120)break;accept(p,spacing);}if(selected.length===120)break;}
+ for(const spacing of (modernSmall?[20,18,16]:[24,22,20,18])){for(const p of candidates){if(selected.length===120)break;accept(p,spacing);}if(selected.length===120)break;}
+ // Dense small islands may need a fresh, uniformly spaced packing instead of
+ // retaining the first 24m coastal choices. Never relax the 16m safety margin.
+ if(modernSmall&&selected.length<120){selected.length=0;for(const p of candidates){accept(p,16);if(selected.length===120)break;}}
  // Never enter a silently empty/partial island and overwrite the previous save.
- if(selected.length!==120)throw new Error('Не удалось разместить 120 безопасных домов. Выбери другое зерно мира. Прежнее сохранение не заменено.');
+ if(selected.length!==120)throw new Error('Не удалось разместить 120 безопасных домов ('+selected.length+'/'+candidates.length+'). Выбери другое зерно мира. Прежнее сохранение не заменено.');
  return selected.map((p,i)=>{const material=r(),tier=material<.4?1:material<.8?2:3,raided=r()<.25,u=r();return{id:'settlement-'+i,name:'Убежище '+(i+1)+(raided?' · следы рейда':''),x:p.x,z:p.z,tier,raided,leftovers:!raided||r()<.5,stories:u<.5?1:u<.7?2:u<.8?3:u<.95?4:5,layout:r()<.8?'2x2':'2x1'};});
 }

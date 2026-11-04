@@ -11,24 +11,26 @@ varying vec3 vWater12;varying vec4 vReflect12;uniform mat4 reflectionMatrix12;vo
  #include <fog_pars_fragment>
  uniform float time;uniform float daylight;uniform vec3 skyColor;uniform vec3 sunDirection;uniform float rain12;uniform sampler2D height12;uniform float mapSpan12;uniform float heightTexel12;uniform float river12;uniform sampler2D reflection12;uniform float reflectionReady12;varying vec3 vWater12;varying vec4 vReflect12;
  float bedHeight12(vec2 uv){vec2 p=clamp(uv,0.,1.)/heightTexel12-.5;vec2 f=fract(p),b=(floor(p)+.5)*heightTexel12;return mix(mix(texture2D(height12,b).r,texture2D(height12,b+vec2(heightTexel12,0.)).r,f.x),mix(texture2D(height12,b+vec2(0.,heightTexel12)).r,texture2D(height12,b+vec2(heightTexel12)).r,f.x),f.y);}
+ float wave32(vec2 p,vec2 k,float phase){float footprint=dot(abs(k),fwidth(p));return sin(dot(p,k)+phase)*exp(-footprint*footprint*1.5);}
  void main(){
  vec2 uv=vWater12.xz/mapSpan12+.5;float inside=step(0.,uv.x)*step(uv.x,1.)*step(0.,uv.y)*step(uv.y,1.);
  float bed=mix(-20.,bedHeight12(uv),inside);float depth=max(.02,vWater12.y-bed);
  // Terrain depth testing, not the approximate coastal tint field, determines the actual shoreline.
  vec2 p=vWater12.xz;float speed=1.+rain12*.7;
- vec2 slope=vec2(cos(p.x*.31+p.y*.17+time*.83*speed)*.045+cos(p.x*.87-p.y*.54+time*1.45)*.023,cos(p.x*.31+p.y*.17+time*.83*speed)*.027-cos(p.x*.87-p.y*.54+time*1.45)*.032);
- float near29=1.-smoothstep(35.,100.,distance(cameraPosition.xz,p));
- if(near29>.01)slope+=vec2(sin(p.x*3.7+p.y*2.1-time*2.2),cos(p.y*4.1-p.x*1.3+time*2.7))*.013*near29;
- if(rain12>.01&&near29>.01)slope+=vec2(sin(p.x*17.+time*8.),cos(p.y*19.-time*9.))*rain12*.016*near29;
+ float detail32=1.-smoothstep(45.,180.,distance(cameraPosition.xz,p));
+ vec2 slope=vec2(wave32(p,vec2(.17,.113),time*.65*speed)*.038+wave32(p,vec2(.071,-.193),time*.91)*.023,wave32(p,vec2(-.137,.083),time*.71)*.032+wave32(p,vec2(.117,.227),-time*.83)*.019)*detail32;
+ float near29=1.-smoothstep(18.,65.,distance(cameraPosition.xz,p));
+ if(near29>.01)slope+=vec2(wave32(p,vec2(1.37,.81),-time*1.2),wave32(p,vec2(-.93,1.51),time*1.4))*.009*near29;
+ if(rain12>.01&&near29>.01)slope+=vec2(wave32(p,vec2(7.3,2.1),time*8.),wave32(p,vec2(-1.9,8.7),-time*9.))*rain12*.012*near29;
  vec3 n=normalize(vec3(-slope.x,1.,-slope.y));if(!gl_FrontFacing)n=-n;
  vec3 view=normalize(cameraPosition-vWater12);float nv=max(dot(view,n),0.);float fresnel=.025+.975*pow(1.-nv,5.);
  vec3 reflected=reflect(-view,n);vec3 sky=mix(skyColor*.8,vec3(.13,.36,.63),smoothstep(0.,.8,reflected.y));sky*=daylight;
  if(river12<.5&&reflectionReady12>.5&&vReflect12.w>0.){vec2 ruv=vReflect12.xy/vReflect12.w*.5+.5;ruv+=slope*.016;float valid=step(.01,ruv.x)*step(ruv.x,.99)*step(.01,ruv.y)*step(ruv.y,.99);sky=mix(sky,texture2D(reflection12,clamp(ruv,.002,.998)).rgb,valid*clamp(1.-length(cameraPosition-vWater12)/180.,0.,.85));}
  vec3 shallow=vec3(.13,.32,.29),deep=vec3(.014,.075,.10);vec3 color=mix(shallow,deep,1.-exp(-depth*.22))*daylight;
  color=mix(color,sky,max(fresnel,.13));
- float spec=pow(max(dot(reflect(-normalize(sunDirection),n),view),0.),mix(240.,105.,rain12));color+=vec3(1.,.83,.59)*spec*2.1*daylight;
+ float spec=pow(max(dot(reflect(-normalize(sunDirection),n),view),0.),mix(55.,125.,detail32)*(1.-rain12*.35));color+=vec3(1.,.83,.59)*spec*2.1*daylight;
  float shore=(1.-smoothstep(.06,.9,depth))*inside*(1.-river12);float foamWave=.5+.5*sin(depth*17.-time*2.2+sin(p.x*.73+p.y*.91)*2.);
- float foam=shore*smoothstep(.38,.77,foamWave)*(.65+.35*sin(p.x*19.)*sin(p.y*23.));color=mix(color,vec3(.68,.80,.81)*daylight,foam*.72);
+ float foam=shore*smoothstep(.38,.77,foamWave)*(.65+.35*wave32(p,vec2(5.7,2.9),0.)*wave32(p,vec2(-2.1,6.3),0.));color=mix(color,vec3(.68,.80,.81)*daylight,foam*.72);
  float alpha=river12>.5?mix(.52,.94,1.-exp(-depth*.35)):clamp(mix(.46,.99,1.-exp(-depth*.55))+fresnel*.42,.46,1.);gl_FragColor=vec4(color,alpha);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>

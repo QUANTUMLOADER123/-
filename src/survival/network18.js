@@ -11,8 +11,8 @@ class Heap18{
 /** Revisions 9+; revision 10 also penalizes terrain grade. A connected branching tree, NOT an outer ring or a lattice.
  * The routing grid is internal; shortcutting and safe corner rounding remove it
  * from the delivered geometry. Houses are placed AFTER this network is frozen. */
-export function roadNetwork18({scale,seed,monuments,height=null,maxShortcutGrade=1.1,gradeCost=35}){
- const sites=monuments.filter(m=>m.kind!=='oilrig'),roads={},blockers=[{x:-6,z:-3,r:32},{x:-31,z:-31,r:12},...sites.map(m=>({x:m.x,z:m.z,r:m.radius+7}))],step=8*scale,extent=328*scale,width=Math.ceil(extent*2/step)+1;
+export function roadNetwork18({scale,seed,monuments,height=null,maxShortcutGrade=1.1,gradeCost=35,cellStep=8}){
+ const sites=monuments.filter(m=>m.kind!=='oilrig'),roads={},blockers=[{x:-6,z:-3,r:32},{x:-31,z:-31,r:12},...sites.map(m=>({x:m.x,z:m.z,r:m.radius+7}))],step=cellStep*scale,extent=328*scale,width=Math.ceil(extent*2/step)+1;
  const coast=p=>coastDistance13(p.x,p.z,scale,seed);
  const clearPoint=p=>coast(p)>5&&!blockers.some(o=>distance(p,o)<o.r);
  function clear(a,b,grade=true){
@@ -93,6 +93,9 @@ export function roadNetwork18({scale,seed,monuments,height=null,maxShortcutGrade
  while(remaining.length){
   const order=remaining.map(p=>({p,hosts:hosts(p)})).sort((a,b)=>a.hosts[0].d-b.hosts[0].d);let chosen=null;
   for(const candidate of order){for(const h of candidate.hosts.slice(0,32)){const path=route(candidate.p,h.q);if(path){chosen={...candidate,h,path};break;}}if(chosen)break;}
+  // Dense new islands can put the preferred gate in a pocket enclosed by
+  // neighbouring RT bounds. Try a different perimeter gate, never drive through RT.
+  if(!chosen&&cellStep<8)outerGate32:for(const candidate of order){const m=sites.find(m=>m.id===candidate.p.id),r=m.radius+10;for(let i=0;i<48;i++){const a=i*Math.PI/24,gate={x:m.x+Math.sin(a)*r,z:m.z+Math.cos(a)*r};if(!clearPoint(gate)||nearest(gate).length<2)continue;for(const h of hosts(gate).slice(0,32)){const path=route(gate,h.q);if(path){chosen={p:candidate.p,h,path};break outerGate32;}}}}
   if(!chosen)throw new Error('Не удалось соединить подъезды РТ');
   const {p,h}=chosen;
   if(h.d<.02){remaining.splice(remaining.indexOf(p),1);continue;}

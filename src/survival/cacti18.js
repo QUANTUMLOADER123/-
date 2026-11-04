@@ -42,11 +42,14 @@ export function addCacti18(w){
  const dummy=new THREE.Object3D();
  for(const batch of groups.values()){
   const template=templates[batch.variant],root=new THREE.Group();root.position.set(batch.x,0,batch.z);root.userData.cactus18=true;w.scene.add(root);w.distantGroups.push({root,x:batch.x,z:batch.z,range:300});const mesh=new THREE.InstancedMesh(template.geometry,material,batch.list.length);root.add(mesh);mesh.castShadow=mesh.receiveShadow=true;
-  batch.list.forEach((p,i)=>{dummy.position.set(p.x-batch.x,p.y-.035,p.z-batch.z);dummy.rotation.set(0,p.yaw,0);dummy.scale.setScalar(p.s);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);const collider={id:p.id,scenery:true,circle17:true,cactus18:true,x:p.x,z:p.z,y:p.y-.035,r:template.r*p.s,h:template.h*p.s};w.colliders.push(collider);w.cacti18.push({...p,index:i,mesh,alive:true});});
+  batch.list.forEach((p,i)=>{dummy.position.set(p.x-batch.x,p.y-.035,p.z-batch.z);dummy.rotation.set(0,p.yaw,0);dummy.scale.setScalar(p.s);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);const collider={id:p.id,scenery:true,circle17:true,cactus18:true,x:p.x,z:p.z,y:p.y-.035,r:template.r*p.s,h:template.h*p.s};w.colliders.push(collider);w.cacti18.push({...p,type:'cactus',hp:3,remaining:3,r:template.r*p.s,h:template.h*p.s,index:i,mesh,alive:true});});
   mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();mesh.computeBoundingBox();mesh.updateWorldMatrix(true,false);mesh.userData.worldBounds=mesh.boundingBox.clone().applyMatrix4(mesh.matrixWorld);w.occluders.push(mesh);
  }
  w.cactusCount18=placed;delete w.entryBuildings18;
 }
 export function installCacti18(World){
+ const hide=World.prototype.hideNode,sync=World.prototype.syncState;
+ World.prototype.hideNode=function(n){if(n.type!=='cactus')return hide.call(this,n);const p=this.cacti18.find(p=>p.id===n.id);if(p){p.alive=false;p.mesh.setMatrixAt(p.index,park);p.mesh.instanceMatrix.needsUpdate=true;this.colliders=this.colliders.filter(c=>c.id!==p.id);this.collisionCount=-1;}};
+ World.prototype.syncState=function(s){sync.call(this,s);for(const p of this.cacti18||[]){p.remaining=s.nodeDamage[p.id]??3;if(s.depleted.includes(p.id))this.hideNode(p);}};
  const add=World.prototype.addBuilding;World.prototype.addBuilding=function(b){add.call(this,b);const removed=new Set();for(const p of this.cacti18||[])if(p.alive&&Math.hypot(p.x-b.x,p.z-b.z)<4.5){p.alive=false;p.mesh.setMatrixAt(p.index,park);p.mesh.instanceMatrix.needsUpdate=true;removed.add(p.id);}if(removed.size)this.colliders=this.colliders.filter(c=>!removed.has(c.id));};
 }
