@@ -1,3 +1,5 @@
+import {installWeaponMods25} from './weapon-mods25.js';
+import {hempPlant25} from './hemp25.js';
 import {installBiomeLife23} from './biome-life23.js';
 import {berryBush23} from './bush-models23.js';
 import {installGrass22} from './grass22.js';
@@ -119,7 +121,7 @@ export class IslandWorld {
  async makeTerrain(signal){
   const {segments,size}=terrainGrid08();const geometry=new THREE.PlaneGeometry(size,size,segments,segments);geometry.rotateX(-Math.PI/2);const p=geometry.attributes.position,colors=[],climate=[];
   for(let i=0;i<p.count;i++){if(i%8192===0)await paintLoading10(signal);const x=p.getX(i),z=p.getZ(i),h=terrainHeight(x,z);p.setY(i,h);const path=Math.abs(x-(5+Math.sin(z*.07)*2));const dirt=(z>-1&&z<25&&path<1.8)||Math.hypot(x+6,z+3)<11;
-   const n=noise(x*.14,z*.14);const c=new THREE.Color(h<.8?0xd2bd8b:dirt?0x928460:biomeAt(x,z).color);c.multiplyScalar(.74+n*.42);colors.push(c.r,c.g,c.b);climate.push(biomeAt(x,z).id==='snow'?1:biomeAt(x,z).id==='arid'?-.9:0);
+   const n=noise(x*.14,z*.14);const c=new THREE.Color(h<.8?0xd2bd8b:dirt?0x928460:biomeAt(x,z).color);c.multiplyScalar(.74+n*.42);colors.push(c.r,c.g,c.b);climate.push(biomeAt(x,z).climate25);
   }geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geometry.setAttribute('snow',new THREE.Float32BufferAttribute(climate,1));geometry.computeVertexNormals();
   const material=terrainMaterial12(this);
   const terrain=new THREE.Mesh(geometry,material);terrain.receiveShadow=true;terrain.name='Textured island terrain';this.scene.add(terrain);this.terrain=terrain;
@@ -211,7 +213,7 @@ export class IslandWorld {
     const g=new THREE.IcosahedronGeometry(.95+random()*.5,2),p=g.attributes.position;
     for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i);const f=.82+noise(x*2+n.x,y*2+n.z)*.35;p.setXYZ(i,x*f,y*f*.78,z*f);}
     g.computeVertexNormals();const rm=rockMaterial.clone();rm.color.set(n.type==='highMetalOre'?0x747f88:n.type==='metalOre'?0x9a9288:n.type==='sulfurOre'?0xaaa585:0x9d9d8b);n.model=new THREE.Mesh(g,rm);n.model.position.set(n.x,n.y+.4,n.z);n.model.rotation.y=random()*6.28;n.model.castShadow=true;n.model.receiveShadow=true;this.scene.add(n.model);if(n.type!=='rock'){const crystals=new THREE.Group();const oreMat=new THREE.MeshStandardMaterial({color:n.type==='highMetalOre'?0xabc6ce:n.type==='metalOre'?0x9c6b46:0xbbaf48,metalness:n.type==='metalOre'?.35:0,roughness:.75});for(let k=0;k<5;k++){const c=new THREE.Mesh(new THREE.IcosahedronGeometry(.12+random()*.14,0),oreMat);const angle=random()*Math.PI*2;c.position.set(Math.sin(angle)*.85,.25+random()*.35,Math.cos(angle)*.85);c.scale.set(1,.12,1);crystals.add(c);}n.model.add(crystals);}n.r=1.0;this.colliders.push({x:n.x,z:n.z,r:.9,y:n.y-.3,h:1.9,id:n.id});
-   }else if(['mushroom','pumpkin','corn'].includes(n.type)){n.model=this.iconModel04(n.type);n.model.position.set(n.x,n.y,n.z);n.model.scale.setScalar(.8);this.scene.add(n.model);}else if(n.type==='driftwood'){n.model=this.prop('WoodLog',n.x,n.z,.3,random()*6.28);}else if(n.type==='fiber'){n.model=hempModel();n.model.position.set(n.x,n.y,n.z);this.scene.add(n.model);}else if(n.type==='berries'){n.model=berryBush23(this,biomeAt(n.x,n.z).id);n.model.position.set(n.x,n.y,n.z);n.model.scale.setScalar(1.05);n.model.rotation.y=random()*6.28;this.scene.add(n.model);}else{n.model=this.prop('Plant_1',n.x,n.z,.75,random()*6.28);}
+   }else if(['mushroom','pumpkin','corn'].includes(n.type)){n.model=this.iconModel04(n.type);n.model.position.set(n.x,n.y,n.z);n.model.scale.setScalar(.8);this.scene.add(n.model);}else if(n.type==='driftwood'){n.model=this.prop('WoodLog',n.x,n.z,.3,random()*6.28);}else if(n.type==='fiber'){n.model=hempPlant25(this);n.model.position.set(n.x,n.y,n.z);this.scene.add(n.model);}else if(n.type==='berries'){n.model=berryBush23(this,biomeAt(n.x,n.z).id);n.model.position.set(n.x,n.y,n.z);n.model.scale.setScalar(1.05);n.model.rotation.y=random()*6.28;this.scene.add(n.model);}else{n.model=this.prop('Plant_1',n.x,n.z,.75,random()*6.28);}
   }
  }
  stringSeed(str){let h=WORLD_SEED;for(const c of str)h=Math.imul(h^c.charCodeAt(0),16777619);return h;}
@@ -379,3 +381,5 @@ installStationContext20(IslandWorld);
 
 installGrass22(IslandWorld);
 installBiomeLife23(IslandWorld);
+
+installWeaponMods25(IslandWorld);

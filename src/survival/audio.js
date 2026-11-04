@@ -52,9 +52,9 @@ export class SurvivalAudio {
  stop(v){try{const t=this.ctx.currentTime;v.gain.gain.cancelScheduledValues(t);v.gain.gain.setTargetAtTime(0,t,.004);v.source.stop(t+.02);}catch{}this.voices=this.voices.filter(x=>x!==v);}
  stopAll(includeUI=true){for(const v of [...this.voices])if(includeUI||v.bus!=='ui')this.stop(v);for(const tag of ['reload','shot'])this.epochs[tag]=(this.epochs[tag]||0)+1;}
  cancelReload(){this.epochs.reload=(this.epochs.reload||0)+1;for(const v of [...this.voices])if(v.tag==='reload')this.stop(v);}
- fire(id,{position=null,remote=false}={}){
+ fire(id,{position=null,remote=false,suppressed=false}={}){
   if(id==='rocketLauncher'){this.play('explosion',{bus:'weapons',volume:.68,rate:.78,position,key:'launch',cap:2,priority:3});this.play('debris',{bus:'weapons',volume:.18,rate:.65,delay:.045,position,priority:2});return;}
-  this.play(gunGroup(id),{bus:'weapons',volume:remote?.78:.88,rate:id==='machineGun'?.90:1,position,key:remote?'gun:remote':'gun:self',cap:remote?6:7,priority:3,tag:'shot'});
+  this.play(gunGroup(id),{bus:'weapons',volume:suppressed?.24:remote?.78:.88,rate:suppressed?.87:id==='machineGun'?.90:1,position,key:remote?'gun:remote':'gun:self',cap:remote?6:7,priority:3,tag:'shot'});
   if(!remote&&id==='shotgun')this.play('pump',{bus:'weapons',volume:.46,delay:.22,key:'pump',cap:1,priority:2,tag:'shot'});
   if(!remote&&['boltRifle','rifle'].includes(id))this.play('reload-rifle-in',{bus:'weapons',volume:.22,rate:1.15,delay:.32,key:'bolt',cap:1,tag:'shot'});
  }

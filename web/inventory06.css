@@ -75,3 +75,10 @@
  .rust-panel06 .loot-mode24 .right-column06{display:block;grid-column:1/-1}
  .rust-panel06 .loot-mode24 .container-slots{grid-template-columns:repeat(6,minmax(0,1fr));max-height:34vh}
 }
+
+/* DEV25: an explicitly opened, inventory-only four-slot weapon bench. */
+.mod-panel25{padding:18px;max-width:1050px;margin:auto;color:#d6d9cd;background:#202720e8;border:1px solid #77826b55;overflow:auto;max-height:72vh}
+.mod-panel25 header{display:block}.mod-panel25 h3{font-size:15px;letter-spacing:1.2px}.mod-panel25 p{color:#a8b09f;line-height:1.5;font-size:13px}
+.mod-slots25{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}.mod-slots25 button{display:flex;min-height:170px;align-items:center;justify-content:space-around;flex-direction:column;padding:10px;background:#364032;border:1px solid #7d8b6d;color:#e5e8db}.mod-slots25 svg{width:80px;height:80px}.mod-slots25 button>span{font-size:46px;color:#77816d}.mod-slots25 b{font-size:11px;letter-spacing:1px}.mod-slots25 small{text-align:center}
+.mod-candidates25{display:flex;flex-wrap:wrap;gap:10px}.mod-candidates25 button{display:grid;grid-template-columns:58px 1fr;align-items:center;text-align:left;max-width:260px;min-height:74px;padding:8px;background:#343b32;border:1px solid #77856c;color:#d6dfcd}.mod-candidates25 svg{grid-row:span 2;width:54px;height:54px}.mod-candidates25 small{font-size:10px;color:#a8c48f}.mod-candidates25 button:disabled{opacity:.4}
+@media(max-width:650px){.mod-panel25{padding:10px;max-height:68vh}.mod-slots25{gap:5px}.mod-slots25 button{padding:4px;min-height:135px}.mod-slots25 svg{width:55px;height:55px}.mod-slots25 b{font-size:8px}.mod-slots25 small{font-size:9px}}

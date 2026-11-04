@@ -11,7 +11,7 @@ export function equipClothing24(state,from,target=null){
  return true;
 }
 export function unequipClothing24(state,index){
- syncSlots(state);const id=state.wear24?.[index];if(!isClothing24(id)||capacity(state.slots,id)<1)return false;
+ syncSlots(state);const id=state.wear24?.[index];if(!isClothing24(id)||capacity(state.slots,id,state)<1)return false;
  state.inventory[id]=(state.inventory[id]||0)+1;state.wear24[index]=null;syncSlots(state);return true;
 }
 /** The first-person rig has shared per-world materials, never global templates. */

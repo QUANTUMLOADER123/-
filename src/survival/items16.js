@@ -95,6 +95,16 @@ export function weaponModel16(id){
   // Front sight is lower than the holographic window's central line.
   round(g,[.014,.055,.016],[0,.18,end+.09],steel);ring(g,.018,.003,[0,.217,end+.09],steel);
  }
+ // DEV25: original field-repaired silhouettes: stamped covers, rivets and bindings.
+ if(id!=='rocketLauncher'){
+  const worn=material16('rust',0x8c806b),binding=material16('cloth',ak?0xa99366:0x6f7758);
+  for(const side25 of [-1,1])for(const z of [-.15,-.03,.065]){const rivet=add(g,new THREE.SphereGeometry(.0055,6,4),steel,[side25*(pistol?.04:.045),pistol?.137:.155,z]);rivet.scale.x=.45;}
+  if(!pistol){side(g,[[-.21,.205],[-.18,.237],[.07,.237],[.105,.205]],.078,black);for(const z of [-.35,-.29]){const wrap=ring(g,.050,.006,[0,.128,z],binding);wrap.scale.x=1.05;wrap.scale.y=.86;}
+   if(id==='rifle'){tube(g,.037,.28,[0,.17,-.075],worn).rotation.x=Math.PI/2;for(const z of [-.19,.03])ring(g,.039,.006,[0,.17,z],steel);}
+   if(smg){const cover=tube(g,.036,.21,[0,.174,-.13],worn);cover.rotation.x=Math.PI/2;}
+   if(g.userData.foregrip14){const f=g.userData.foregrip14;f.geometry.computeBoundingBox();const b=f.geometry.boundingBox;g.userData.supportGrip25=new THREE.Vector3(-.052,b.min.y-.025,(b.min.z+b.max.z)/2+.035);}
+  }
+ }
  const moving=new Set(['magazine','slide14','foregrip14','bolt14','feedBox14','cylinder14'].map(k=>g.userData[k]).filter(Boolean));for(const part of moving)mergeStatic16(part);mergeStatic16(g,moving);
  g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});return g;
 }

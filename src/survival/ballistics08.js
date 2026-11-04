@@ -1,3 +1,4 @@
+import {spreadFactor25} from './attachments25.js';
 import {rayObstacle17} from './spatial17.js';
 import * as THREE from 'three';
 import {terrainHeight} from './state.js';
@@ -8,7 +9,7 @@ export function installBallistics08(World){
   const profile=BALLISTICS08[id]||BALLISTICS08.rifle;this.bullets08??=[];
   for(let i=0;i<(profile.pellets||1);i++){
    if(this.bullets08.length>=96)break;const dir=direction.clone(),state=this.state04,hip=({pistol:.014,heavyPistol:.012,revolver:.013,smg:.023,compactSmg:.022,machineGun:.020,boltRifle:.008})[id]||.015,move=Math.min(1,Math.hypot(this.locomotion14?.vx||0,this.locomotion14?.vz||0)/3.8),cone=hostile?.009:hip*(state?.aiming?.16:1)*(state?.crouched?.78:1)*(1+move*1.2+(this.locomotion14?.grounded===false?1.8:0));
-   const forward=dir.clone().normalize(),right=new V().crossVectors(forward,Math.abs(forward.y)>.99?new V(1,0,0):new V(0,1,0)).normalize(),up=new V().crossVectors(right,forward).normalize(),angle=Math.random()*Math.PI*2,radius=Math.sqrt(Math.random())*cone;dir.addScaledVector(right,Math.cos(angle)*radius).addScaledVector(up,Math.sin(angle)*radius).normalize();if(profile.pellets)dir.add(new V((Math.random()-.5)*.055,(Math.random()-.5)*.055,(Math.random()-.5)*.055)).normalize();
+   const forward=dir.clone().normalize(),right=new V().crossVectors(forward,Math.abs(forward.y)>.99?new V(1,0,0):new V(0,1,0)).normalize(),up=new V().crossVectors(right,forward).normalize(),angle=Math.random()*Math.PI*2,radius=Math.sqrt(Math.random())*cone*(hostile||state?.aiming?1:spreadFactor25(state,id));dir.addScaledVector(right,Math.cos(angle)*radius).addScaledVector(up,Math.sin(angle)*radius).normalize();if(profile.pellets)dir.add(new V((Math.random()-.5)*.055,(Math.random()-.5)*.055,(Math.random()-.5)*.055)).normalize();
    const velocity=dir.multiplyScalar(profile.speed);velocity.y+=9.81*50/(2*profile.speed); // fixed 50 m sight zero; gravity acts immediately
    const g=new THREE.BufferGeometry().setFromPoints([origin,origin]),line=new THREE.Line(g,new THREE.LineBasicMaterial({color:0xf3d7a2,transparent:true,opacity:.48,depthWrite:false}));this.scene.add(line);this.bullets08.push({position:origin.clone(),velocity,origin:origin.clone(),distance:0,age:0,profile,onHit,ignore,hostile,onPlayerHit,line,done:false});
   }

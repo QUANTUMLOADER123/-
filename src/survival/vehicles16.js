@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
-import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {mergeGeometries,mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
 import {material16,itemBank16} from './items16.js';
 // Authored sedan/pickup silhouettes. Templates are rebuilt for each world's textures.
 const worlds=new WeakMap();
@@ -58,6 +58,6 @@ export function vehicleModel16(truck=false,variant=0){
  // rather than rebuilding dozens of wheels/bolts and issuing a draw per detail.
  const groups=new Map();g.updateMatrixWorld(true);
  g.traverse(o=>{if(!o.isMesh)return;let geo=o.geometry.clone().applyMatrix4(o.matrixWorld);if(geo.index){const old=geo;geo=old.toNonIndexed();old.dispose();}if(!groups.has(o.material))groups.set(o.material,[]);groups.get(o.material).push(geo);});
- const root=new THREE.Group();for(const [material,list]of groups){const geo=mergeGeometries(list);for(const p of list)p.dispose();const m=new THREE.Mesh(geo,material);m.castShadow=m.receiveShadow=true;root.add(m);}
- root.add(crackMesh);g.traverse(o=>{if(o.isMesh)o.geometry.dispose();});templates.set(key,root);return root.clone(true);
+ const root=new THREE.Group();for(const [material,list]of groups){const raw25=mergeGeometries(list),geo=mergeVertices(raw25,1e-4);raw25.dispose();for(const p of list)p.dispose();const m=new THREE.Mesh(geo,material);m.castShadow=m.receiveShadow=true;root.add(m);}
+ root.add(crackMesh);g.traverse(o=>{if(o.isMesh)o.geometry.dispose();});root.userData.trunk25=[0,truck?1.012:.97,truck?-1.1:-1.34];templates.set(key,root);return root.clone(true);
 }

@@ -1,3 +1,4 @@
+import {module25} from './attachments25.js';
 import * as THREE from "three";
 const V = THREE.Vector3;
 /** Small, bounded presentation-only pool. Never enters target selection or the ammo inventory. */
@@ -93,7 +94,7 @@ export function updateEffects14(world, dt, selected, shotAge) {
   for (const [id, m] of Object.entries(world.weaponViews)) {
     const flash = m.userData.flash14;
     if (flash) {
-      flash.visible = id === selected && shotAge < 0.055;
+      flash.visible = id === selected && shotAge < 0.055 && !['suppressor','flashHider'].includes(module25(world.state04,id,1));
       flash.rotation.z = fx.serial * 2.399;
       flash.scale.setScalar(0.6 + Math.sin(shotAge * 87) ** 2 * 0.55);
     }

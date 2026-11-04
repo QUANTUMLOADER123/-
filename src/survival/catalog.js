@@ -1,3 +1,4 @@
+import {MOD_ITEMS25,MOD_RECIPES25,capacityBonus25} from './attachments25.js';
 import {STRUCTURAL,COMPONENTS,NEW_WEAPONS,GUN_COMPONENT_COSTS} from './expansion.js';
 /** Original weapon balance and construction costs; shared without state-module cycles. */
 export const WEAPONS={rifle:{name:'Самодельная винтовка',ammo:'ammo',capacity:6,damage:42,interval:.37,range:90},pistol:{name:'Пистолет П-9',ammo:'pistolAmmo',capacity:12,damage:26,interval:.22,range:55},revolver:{name:'Револьвер Р-6',ammo:'pistolAmmo',capacity:6,damage:38,interval:.42,range:65},smg:{name:'Пистолет-пулемёт МП-24',ammo:'pistolAmmo',capacity:24,damage:20,interval:.1,range:65,automatic:true},shotgun:{name:'Помповое ружьё',ammo:'shells',capacity:5,damage:90,interval:.85,range:26},assaultRifle:{name:'Автомат АР-30',ammo:'ammo',capacity:30,damage:32,interval:.13,range:110,automatic:true},boltRifle:{name:'Продольная винтовка',ammo:'ammo',capacity:5,damage:80,interval:1.15,range:160}};
@@ -45,3 +46,6 @@ Object.assign(EXTRA_RECIPES,{
  traumaKit:{name:'Травматологический набор',category:'tools',station:'workbench',cost:{medkit:1,antiseptic:2,sewingKit:1},description:'Восстанавливает 90 HP. Не воскрешает и не увеличивает максимум здоровья.'}
 });
 export const MEDICAL16={bandage:35,syringe:25,medkit:65,antiseptic:45,traumaKit:90};
+
+Object.assign(EXTRA_ITEMS,MOD_ITEMS25);Object.assign(EXTRA_RECIPES,MOD_RECIPES25);
+export const weaponCapacity25=(s,id=s.selected)=>Math.ceil((WEAPONS[id]?.capacity||0)*capacityBonus25(s,id));

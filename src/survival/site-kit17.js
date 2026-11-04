@@ -1,7 +1,7 @@
 import {recyclerModel20} from './recycler-model20.js';
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
-import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {mergeGeometries,mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
 import {terrainHeight} from './state.js';
 import {ROADS,MAP_SEED} from './map-data.js';
 import {crateModel,metalBarrel} from './world04.js';
@@ -29,7 +29,7 @@ export function approachYaw17(m){
  * once. No m.x + localX shortcuts for nested / rotated structures. */
 export class Site17{
  constructor(w,m,p,yaw=approachYaw17(m)){
-  this.w=w;this.m=m;this.p=p;this.solids=[];this.floors=[];this.loot=[];this.keep=new Set();this.root=new THREE.Group();this.root.name='RT17:'+m.id;this.root.position.set(m.x,m.kind==='oilrig'?0:terrainHeight(m.x,m.z)+.015,m.z);this.root.rotation.y=yaw;this.root.userData.site17=m.id;w.scene.add(this.root);w.distantGroups.push({root:this.root,x:m.x,z:m.z,range:m.kind==='oilrig'?900:650});
+  this.w=w;this.m=m;this.p=p;this.solids=[];this.floors=[];this.loot=[];this.keep=new Set();this.root=new THREE.Group();this.root.name='RT17:'+m.id;this.root.position.set(m.x,m.kind==='oilrig'?0:terrainHeight(m.x,m.z)+.015,m.z);this.root.rotation.y=yaw;this.root.scale.set(m.siteScale25||1,1,m.siteScale25||1);this.root.userData.site17=m.id;w.scene.add(this.root);w.distantGroups.push({root:this.root,x:m.x,z:m.z,range:m.kind==='oilrig'?900:650});
  }
  group(parent=this.root,pos=[0,0,0],yaw=0){const g=new THREE.Group();g.position.set(...pos);g.rotation.y=yaw;parent.add(g);return g;}
  mesh(parent,geo,mat,pos=[0,0,0],solid=false){const m=new THREE.Mesh(geo,mat);m.position.set(...pos);m.castShadow=m.receiveShadow=true;parent.add(m);if(solid)this.solids.push(m);return m;}
@@ -75,23 +75,23 @@ export class Site17{
  crate(parent,index,pos){const id='rt-'+this.m.id+'-'+index,model=crateModel(crateTier(id,MAP_SEED));model.position.set(pos[0],pos[1]+(parent.userData.floorLocal17||0),pos[2]);parent.add(model);this.keep.add(model);this.loot.push({id,type:'crate',model,lootType:this.m.loot});return model;}
  barrel(parent,index,pos){const id='rt-barrel-'+this.m.id+'-'+index,model=metalBarrel(barrelTier(id,MAP_SEED));model.position.set(...pos);parent.add(model);this.keep.add(model);this.loot.push({id,type:'barrel',model});return model;}
  terminal(parent,index,pos,recycler=false){if(recycler){const model=recyclerModel20();model.position.set(...pos);parent.add(model);this.keep.add(model);const hull=this.box(model,[1.8,1.4,.9],[0,1.15,0],this.p.metal,true);hull.visible=false;this.keep.add(hull);this.loot.push({id:'shop-'+this.m.id+'-'+index,type:'recycler',model,station:true});return model;}const id='shop-'+this.m.id+'-'+index,g=this.group(parent,pos);this.box(g,[.8,1.55,.6],[0,.775,0],recycler?this.p.rust:this.p.paint,true);this.box(g,[.64,.53,.025],[0,1.02,.315],this.p.glass);this.sign(g,recycler?'РАЗБОР':'ОБМЕН',[0,1.8,.32],1.8);this.keep.add(g);this.loot.push({id,type:recycler?'recycler':'shop',model:g,station:true});return g;}
- vehicle(parent,x,z,yaw=0,truck=false){const g=vehicleModel16(truck,truck?1:0);g.position.set(x,.18,z);g.rotation.y=yaw;parent.add(g);this.keep.add(g);for(const[size,pos]of[[[truck?2.5:2,.95,truck?5.5:3.8],[0,.475,0]],[[1.8,1,1.7],[0,1.36,truck?1.4:0]]]){const hull=this.box(g,size,pos,this.p.rubber,true);hull.visible=false;this.keep.add(hull);}return g;}
+ vehicle(parent,x,z,yaw=0,truck=false){const g=vehicleModel16(truck,truck?1:0);g.position.set(x,.18,z);g.rotation.y=yaw;parent.add(g);this.keep.add(g);for(const[size,pos]of[[[truck?2.5:2,.95,truck?5.5:3.8],[0,.475,0]],[[1.8,1,1.7],[0,1.36,truck?1.4:0]]]){const hull=this.box(g,size,pos,this.p.rubber,true);hull.visible=false;this.keep.add(hull);}const crate=this.crate(g,'trunk25-'+this.loot.length,g.userData.trunk25);crate.updateWorldMatrix(true,true);const target=g.localToWorld(new V(...g.userData.trunk25)).y;crate.position.y+=target-new THREE.Box3().setFromObject(crate).min.y;this.loot[this.loot.length-1].fixedSupport25=true;return g;}
  finish(){
   const w=this.w;this.root.updateMatrixWorld(true);const q=new THREE.Quaternion(),e=new THREE.Euler(0,0,0,'YXZ');
   for(const m of this.solids){m.geometry.computeBoundingBox();const local=m.geometry.boundingBox,size=local.getSize(new V()),bounds=local.clone().applyMatrix4(m.matrixWorld),c=bounds.getCenter(new V());m.getWorldQuaternion(q);e.setFromQuaternion(q,'YXZ');const yaw=e.y,scale=m.getWorldScale(new V()),ow=size.x*Math.abs(scale.x),od=size.z*Math.abs(scale.z),tilted=Math.abs(e.x)+Math.abs(e.z)>.0001;
    const cylinder=m.geometry.type==='CylinderGeometry'&&!tilted;w.colliders.push({box:!cylinder,circle17:cylinder,r:cylinder?Math.max(ow,od)/2:undefined,x:c.x,z:c.z,y:bounds.min.y,h:bounds.max.y-bounds.min.y,w:bounds.max.x-bounds.min.x,d:bounds.max.z-bounds.min.z,ow:tilted?bounds.max.x-bounds.min.x:ow,od:tilted?bounds.max.z-bounds.min.z:od,rotation:tilted?0:yaw,scenery:true,site17:this.m.id,deck08:this.floors.some(f=>f.mesh===m)});
   }
-  for(const f of this.floors){const m=f.mesh,c=m.getWorldPosition(new V()),yaw=m.getWorldQuaternion(q)&&e.setFromQuaternion(q,'YXZ').y,co=Math.abs(Math.cos(yaw)),si=Math.abs(Math.sin(yaw));w.walkFloors.push({x:c.x,z:c.z,w:co*f.w+si*f.d,d:si*f.w+co*f.d,ow:f.w,od:f.d,rotation:yaw,y:c.y+.09,site17:this.m.id,offshore:this.m.kind==='oilrig'});}
+  for(const f of this.floors){const m=f.mesh,c=m.getWorldPosition(new V()),scale=m.getWorldScale(new V()),fw=f.w*Math.abs(scale.x),fd=f.d*Math.abs(scale.z),yaw=m.getWorldQuaternion(q)&&e.setFromQuaternion(q,'YXZ').y,co=Math.abs(Math.cos(yaw)),si=Math.abs(Math.sin(yaw));w.walkFloors.push({x:c.x,z:c.z,w:co*fw+si*fd,d:si*fw+co*fd,ow:fw,od:fd,rotation:yaw,y:c.y+.09*Math.abs(scale.y),site17:this.m.id,offshore:this.m.kind==='oilrig'});}
   for(const item of this.loot){const c=item.model.getWorldPosition(new V());w.interactables.push({...item,site17:this.m.id,x:c.x,z:c.z,y:c.y});if(!item.station)w.colliders.push({id:item.id,x:c.x,z:c.z,y:c.y,r:item.type==='barrel'?.45:.55,h:item.type==='barrel'?1.07:.8,site17:this.m.id});}
   // Material + 10m spatial cells: fine details do not each require a draw call,
   // while a whole site is not one unbounded raycast/visibility object.
   const batches=new Map();this.root.traverse(m=>{if(!m.isMesh||!m.visible)return;for(let n=m;n&&n!==this.root;n=n.parent)if(this.keep.has(n))return;if(this.keep.has(m))return;
    const pos=m.getWorldPosition(new V()),key=m.material.uuid+':'+Math.floor((pos.x-this.m.x)/10)+':'+Math.floor((pos.z-this.m.z)/10),inverse=new THREE.Matrix4().copy(this.root.matrixWorld).invert();let geo=m.geometry.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inverse,m.matrixWorld));if(geo.index){const old=geo;geo=old.toNonIndexed();old.dispose();}if(!batches.has(key))batches.set(key,{mat:m.material,list:[],old:[]});batches.get(key).list.push(geo);batches.get(key).old.push(m);
   });
-  for(const {mat,list,old}of batches.values()){const geo=mergeGeometries(list);list.forEach(g=>g.dispose());old.forEach(m=>{m.removeFromParent();m.geometry.dispose();});const mesh=new THREE.Mesh(geo,mat);mesh.castShadow=mesh.receiveShadow=true;this.root.add(mesh);mesh.updateWorldMatrix(true,false);geo.computeBoundingBox();mesh.userData.worldBounds=geo.boundingBox.clone().applyMatrix4(mesh.matrixWorld);w.occluders.push(mesh);}
+  for(const {mat,list,old}of batches.values()){const raw25=mergeGeometries(list),geo=mergeVertices(raw25,1e-4);raw25.dispose();list.forEach(g=>g.dispose());old.forEach(m=>{m.removeFromParent();m.geometry.dispose();});const mesh=new THREE.Mesh(geo,mat);mesh.castShadow=mesh.receiveShadow=true;this.root.add(mesh);mesh.updateWorldMatrix(true,false);geo.computeBoundingBox();mesh.userData.worldBounds=geo.boundingBox.clone().applyMatrix4(mesh.matrixWorld);w.occluders.push(mesh);}
   const replacedLoot=new Set(this.loot.filter(i=>!i.station).map(i=>i.model)),seen=new Set();
-  for(const o of this.keep){if(replacedLoot.has(o))continue;o.traverse(m=>{if(!m.isMesh||!m.visible||seen.has(m))return;seen.add(m);m.updateWorldMatrix(true,false);m.geometry.computeBoundingBox();m.userData.worldBounds=m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld);w.occluders.push(m);});}
-  this.m.entry17=this.m.kind==='oilrig'?this.m.dock:this.root.localToWorld(new V(0,.18,this.m.radius*.72+1.4));
+  for(const o of this.keep){if(replacedLoot.has(o))continue;o.traverse(m=>{if(!m.isMesh||!m.visible||seen.has(m))return;for(let n=m;n;n=n.parent)if(replacedLoot.has(n))return;seen.add(m);m.updateWorldMatrix(true,false);m.geometry.computeBoundingBox();m.userData.worldBounds=m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld);w.occluders.push(m);});}
+  this.m.entry17=this.m.kind==='oilrig'?this.m.dock:this.root.localToWorld(new V(0,.18,this.m.radius/(this.m.siteScale25||1)*.72+1.4));
   w.siteLayouts17??=[];w.siteLayouts17.push({id:this.m.id,yaw:this.root.rotation.y,colliders:this.solids.length,floors:this.floors.length,loot:this.loot.length});
  }
 }

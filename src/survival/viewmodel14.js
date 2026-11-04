@@ -344,7 +344,7 @@ export function installViewmodel14(World) {
       }
       if (reload < 0) firePose = fireMechanism14(model, id, m.shotAge);
       model.updateMatrix();
-      const optic = model.userData.optic08;
+      const optic = model.userData.optic08?.visible?model.userData.optic08:model.userData.ironAim25;
       if (optic) {
         w.optic.copy(optic.position);
         if (optic.parent !== model) {
@@ -366,7 +366,7 @@ export function installViewmodel14(World) {
     }
     if(m.action==='consume'){const use=Math.sin(action*Math.PI);w.hip.x-=use*.16;w.hip.y+=use*.12;this.handRoot.rotation.z-=use*.14;}
     this.handRoot.position.copy(w.hip);
-    const fov = 69 - 20 * m.aim;
+    const fov = 69 - (69-69/(this.aimZoom25||1.13)) * m.aim;
     if (Math.abs(this.camera.fov - fov) > 0.005) {
       this.camera.fov = fov;
       this.camera.updateProjectionMatrix();
@@ -381,7 +381,7 @@ export function installViewmodel14(World) {
       index = 0.65;
     if (gun) {
       w.right.copy(reloadPose?.right || profile.right);
-      w.left.copy(reloadPose?.left || profile.left);
+      w.left.copy(reloadPose?.left || model.userData.supportGrip25 || profile.left);
       if (reload < 0) {
         if (firePose?.right) w.right.copy(firePose.right);
         if (firePose?.left) w.left.copy(firePose.left);

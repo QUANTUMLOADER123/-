@@ -1,3 +1,4 @@
+import {sphere25} from './sphere25.js';
 import {terrainHeight} from './state.js';
 import * as THREE from 'three';
 import {MONUMENTS} from './map-data.js';
@@ -112,7 +113,7 @@ const LAND17={lighthouse,harbor,airfield,power,quarry,radar,waterworks,gas,junky
 export function buildSites17(w){
  const p=siteMaterials17(w);w.siteLayouts17=[];w.guardSpawns17=new Map();
  for(const m of MONUMENTS){const coast=m.kind==='harbor'?Math.atan2(m.x,m.z):m.kind==='oilrig'?Math.atan2(-m.x,-m.z):undefined,k=new Site17(w,m,p,coast);
-  if(m.kind==='oilrig')oilrig(k,m.id==='oil-large');else{const build=LAND17[m.kind];if(!build)throw new Error('No DEV17 authored site for '+m.kind);build(k);if(!m.safe){k.floor(k.root,5,2.4,-m.radius*.5+1.5,m.radius*.82,.18,p.concrete);for(let i=0;i<3;i++)k.barrel(k.root,i,[-m.radius*.50+i*1.5,.18,m.radius*.82]);}perimeter(k,m.radius*.72);}
+  if(m.kind==='oilrig')oilrig(k,m.id==='oil-large');else{const build=LAND17[m.kind];if(!build)throw new Error('No DEV17 authored site for '+m.kind);build(k);if(!m.safe){k.floor(k.root,5,2.4,-m.radius*.5+1.5,m.radius*.82,.18,p.concrete);for(let i=0;i<3;i++)k.barrel(k.root,i,[-m.radius*.50+i*1.5,.18,m.radius*.82]);}perimeter(k,m.radius/(m.siteScale25||1)*.72);}
   const guard={airfield:[-5,18],power:[0,12],radar:[8,8],bunker:[0,10.5]}[m.kind];
   if(guard)w.guardSpawns17.set(m.id,k.root.localToWorld(new V(guard[0],.18,guard[1])));
   k.finish();
