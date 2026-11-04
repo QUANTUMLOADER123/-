@@ -1,4 +1,4 @@
-name: Oskol DEV32 validated builds
+name: Oskol DEV33 validated builds
 on:
   push:
     branches: [arena/ce299f3a-repo]
@@ -26,12 +26,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Oskol-DEV32-validation
+          name: Oskol-DEV33-validation
           include-hidden-files: true
           if-no-files-found: ignore
           path: |
-            .artifacts/dev32/smoke-results.json
-            .artifacts/dev32/smoke-*.png
+            .artifacts/dev33/smoke-results.json
+            .artifacts/dev33/*.png
   android:
     name: Android APK · after tested Windows build
     needs: windows
@@ -57,11 +57,11 @@ jobs:
       - name: Package
         run: |
           mkdir -p .artifacts
-          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.32.0-dev32-android.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.33.0-dev33-android.apk
           cd .artifacts && sha256sum *.apk > Android-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Android-dev32-VALIDATED
+          name: Oskol-Android-dev33-VALIDATED
           include-hidden-files: true
           if-no-files-found: error
           path: |
@@ -92,13 +92,24 @@ jobs:
           restore-keys: ${{ runner.os }}-electron-
       - run: npm ci
       - run: npm run build:windows
+      - name: Run the actual portable EXE in isolated smoke mode
+        run: node scripts/check-desktop-package.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Oskol-DEV33-desktop-smoke
+          include-hidden-files: true
+          if-no-files-found: ignore
+          path: |
+            .artifacts/desktop-smoke.json
+            .artifacts/desktop-smoke.log
       - name: Instructions and checksums
         run: |
           cp desktop/README.txt release-build/START-HERE.txt
           cd release-build && sha256sum *.exe > Windows-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Windows-x64-dev32-VALIDATED
+          name: Oskol-Windows-x64-dev33-VALIDATED
           if-no-files-found: error
           path: |
             release-build/*.exe

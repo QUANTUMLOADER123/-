@@ -36,7 +36,7 @@ import {
 } from "./effects14.js";
 const V = THREE.Vector3;
 function tools14(w) {
-  const medicine={};for(const id of ['syringe','medkit','antiseptic','traumaKit']){const m=medicalModel16(id);m.visible=false;m.traverse(o=>o.layers.set(1));w.handRoot.add(m);medicine[id]=m;}
+  const medicine={};for(const id of ['syringe','medkit','antiseptic','traumaKit','medicalGauze','fieldDressing','salineBottle']){const m=medicalModel16(id);m.visible=false;m.traverse(o=>o.layers.set(1));w.handRoot.add(m);medicine[id]=m;}
   return {...medicine,
     rock: w.heldRock,
     axe: w.heldAxe,
@@ -382,7 +382,7 @@ export function installViewmodel14(World) {
       leftGrip = 0.65,
       index = 0.65;
     if (gun) {
-      w.right.copy(reloadPose?.right || profile.right);
+      w.right.copy(reloadPose?.right || model.userData.rightGrip33 || profile.right);
       w.left.copy(reloadPose?.left || model.userData.supportGrip25 || profile.left);
       if (reload < 0) {
         if (firePose?.right) w.right.copy(firePose.right);

@@ -1,3 +1,4 @@
+import {grips33} from './weapon-profiles33.js';
 import * as THREE from "three";
 export const clamp14 = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 export const smooth14 = (t) => {
@@ -142,6 +143,9 @@ export const GUN_POSES14 = {
   ),
 };
 export const TOOL_POSES14 = {
+  medicalGauze:{right:new V(.058,.065,.040),rightQ:RIGHT14,left:new V(-.055,.06,.045),leftQ:LEFT_SIDE14,grip:.80,leftGrip:.65},
+  fieldDressing:{right:new V(.080,.075,.040),rightQ:RIGHT14,left:new V(-.077,.07,.045),leftQ:LEFT_SIDE14,grip:.65,leftGrip:.65},
+  salineBottle:{right:new V(.058,.070,.040),rightQ:RIGHT14,left:new V(-.055,.07,.045),leftQ:LEFT_SIDE14,grip:.77,leftGrip:.65},
   syringe: {right:new V(.067,.075,.04),rightQ:RIGHT14,left:new V(-.12,.03,-.045),leftQ:LEFT14,grip:.72,leftGrip:.2},
   antiseptic: {right:new V(.085,.07,.04),rightQ:RIGHT14,left:new V(-.09,.07,.025),leftQ:LEFT14,grip:.72,leftGrip:.6},
   medkit: {right:new V(.17,.08,.065),rightQ:RIGHT14,left:new V(-.16,.07,.045),leftQ:LEFT14,grip:.55,leftGrip:.55},
@@ -243,3 +247,5 @@ export function makeMotion14(state) {
     landing: { x: 0, v: 0 },
   };
 }
+
+for(const [id,p]of Object.entries(GUN_POSES14)){const g=grips33(id);if(g){p.right.fromArray(g.right);p.left.fromArray(g.left);if(g.pistol)p.leftQ.copy(LEFT_SIDE14);}}

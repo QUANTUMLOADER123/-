@@ -1,0 +1,1103 @@
+{
+  "provenance": "CC0 derivative chain: recorded07/manifest.json and authored29 manifest; no newly recorded/authentic model-specific claims",
+  "clips": {
+    "assault-1": {
+      "source": "web/assets/audio/recorded07/assault-1.wav",
+      "sourceSha256": "890983834cc93e0598dec3a9037593a8814adee6de695741af069fe249f59a0d",
+      "sha256": "df009e367fd4d671275b1f075778804e7576becd635d930c8bd5f6e6fa453d60",
+      "seconds": 0.4515,
+      "peak": 0.83201,
+      "rms": 0.06395,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "assault-2": {
+      "source": "web/assets/audio/recorded07/assault-2.wav",
+      "sourceSha256": "b12fe1a89fb79024db6ae11387e4d8d7e3d4a481ce3109b172d19664ecb209d0",
+      "sha256": "e462ee6a6a91ad51daa2643572b1fdfe85b1d8438acb0276ec457c4a032d2272",
+      "seconds": 0.4337,
+      "peak": 0.80925,
+      "rms": 0.05288,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "assault-3": {
+      "source": "web/assets/audio/recorded07/assault-3.wav",
+      "sourceSha256": "3dad4979f87726bd8868f430ef4ae2ced2dd9716f25f339752933033c7b05393",
+      "sha256": "4516ad9a40b7ac5d099c560c3044d603d44fda79d1efb17de6f49166f410d358",
+      "seconds": 0.4336,
+      "peak": 0.81927,
+      "rms": 0.05057,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "assault-4": {
+      "source": "web/assets/audio/recorded07/assault-4.wav",
+      "sourceSha256": "b5b9a160c9594d7d4da9709c4d9fd83a6467d19652c6c79d93a19d5eec1a996f",
+      "sha256": "e300398d860dbe86348ef82852cadf637befde49e06567e14840c8baa228720a",
+      "seconds": 0.4336,
+      "peak": 0.81875,
+      "rms": 0.06075,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "bolt-1": {
+      "source": "web/assets/audio/recorded07/bolt-1.wav",
+      "sourceSha256": "0038bdecb0ca0f74f912ef7f30f57701528706142aa2cea13e850f8faf130d15",
+      "sha256": "52df293bbf2906c3f771a9bf198cb8dfe599d1b156c86d902025733ef7cd64c4",
+      "seconds": 0.352,
+      "peak": 0.80883,
+      "rms": 0.05268,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "bolt-2": {
+      "source": "web/assets/audio/recorded07/bolt-2.wav",
+      "sourceSha256": "96aa984f2bd2611bb359ad061eee1f5ca299377faea03e517ca7b345387035f7",
+      "sha256": "9e64a619c33a81f112ba8482808ef814310cd8da8aefb8d6339498008777565b",
+      "seconds": 0.3575,
+      "peak": 0.81817,
+      "rms": 0.05838,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "bolt-3": {
+      "source": "web/assets/audio/recorded07/bolt-3.wav",
+      "sourceSha256": "b51f72b3e63c2dd2589273b46ccd119be8f724087898ec0901f9f0030ec32ede",
+      "sha256": "0b5adc6ccaacb5df9ee23c3cd8b0f5d9bccf61d509cf72048a8b56941e34c195",
+      "seconds": 0.3703,
+      "peak": 0.82427,
+      "rms": 0.06005,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "bolt-4": {
+      "source": "web/assets/audio/recorded07/bolt-4.wav",
+      "sourceSha256": "674fedd16a4cd4a60ce5eea3554221ce1bcdf69faf5c6a9028a044b54fe93978",
+      "sha256": "13325d63c987c7de8d6de561169099695d8a97b26d2cae26f1430a85a1141750",
+      "seconds": 0.3539,
+      "peak": 0.81765,
+      "rms": 0.06625,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "click-1": {
+      "source": "web/assets/audio/recorded07/click-1.wav",
+      "sourceSha256": "ed7cbcf93731a999cefcca8978490fb2271a48baf53d6eb87412845b4ef1b184",
+      "sha256": "145f0f766d861ef406ca7b4bde580297ac66d61d564332f8ce19f40133c514fc",
+      "seconds": 0.107,
+      "peak": 0.81768,
+      "rms": 0.14163,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "click-2": {
+      "source": "web/assets/audio/recorded07/click-2.wav",
+      "sourceSha256": "2c2e5268e2badddc605b94d4189209c8e41e29e638d41457e199a2630c7c169f",
+      "sha256": "6c592f328654fa494595d17732b72a16046d73f1c14b3c297d006ee9e6560c23",
+      "seconds": 0.0931,
+      "peak": 0.82045,
+      "rms": 0.13131,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "click-3": {
+      "source": "web/assets/audio/recorded07/click-3.wav",
+      "sourceSha256": "d5a49f3d8e9a2d62898164ed53ebf58a1e81da0d2748bf1813754fa224c08823",
+      "sha256": "e7ebbd97e01c68d8265177c4b3dcf8b2b3a82afca6dba2ba409d53db2e86ce7a",
+      "seconds": 0.1074,
+      "peak": 0.82312,
+      "rms": 0.14399,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "click-4": {
+      "source": "web/assets/audio/recorded07/click-4.wav",
+      "sourceSha256": "a5352e420f32d56987fcca245bc0d18d6bf004b5d47670bd912f93251b620826",
+      "sha256": "f0b2b7eac252abc551765ea99d9ab3c188dc1d4e8cd5ddfd46d681a36975350b",
+      "seconds": 0.1084,
+      "peak": 0.81844,
+      "rms": 0.12321,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "cloth-1": {
+      "source": "web/assets/audio/recorded07/cloth-1.wav",
+      "sourceSha256": "741f723f526d41485c7431d217149f36e3f3d31942a3cabbd7c62312db39e224",
+      "sha256": "1c5728825fe5bf9df7a7234df990b51a241767a170013d27cdf847fe5758958b",
+      "seconds": 0.1039,
+      "peak": 0.81984,
+      "rms": 0.18812,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "cloth-2": {
+      "source": "web/assets/audio/recorded07/cloth-2.wav",
+      "sourceSha256": "a49ed2b3e6a358235bee62caf5ae705638866df38f10113a4ea337c2fa12adee",
+      "sha256": "92d15bfcc2b9583cc62c29c366582f2c4ee84fa6e4f589327d9df89960806583",
+      "seconds": 0.1678,
+      "peak": 0.82002,
+      "rms": 0.20228,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "cloth-3": {
+      "source": "web/assets/audio/recorded07/cloth-3.wav",
+      "sourceSha256": "e09178877d1c80508db418edecb6fe439dd65564def97b8b9876fb3a319c75d1",
+      "sha256": "0b6c2c702a1cc5a03c60410c8e2e4063941c6ad4a67ff0d21538644fb9dd5acc",
+      "seconds": 0.1352,
+      "peak": 0.82004,
+      "rms": 0.2059,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "cloth-4": {
+      "source": "web/assets/audio/recorded07/cloth-4.wav",
+      "sourceSha256": "29ca787065f49f1b9957029d025751125a4e0eae97e68df226c30b89c91cc6f8",
+      "sha256": "e4956403220daea579e840c4861df880a444bc84ffeb0b8ed60e2549534c9478",
+      "seconds": 0.1403,
+      "peak": 0.82003,
+      "rms": 0.20624,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "debris-1": {
+      "source": "web/assets/audio/recorded07/debris-1.wav",
+      "sourceSha256": "22b11889cc42956c57c2df37ac328ce940a3fc05379bb2912c81a0786ff04fe6",
+      "sha256": "c16141e233266ffe7171028e764f4abfe29c7a218b6856dd2ef6013fcce4da5a",
+      "seconds": 0.3433,
+      "peak": 0.8076,
+      "rms": 0.07171,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "debris-2": {
+      "source": "web/assets/audio/recorded07/debris-2.wav",
+      "sourceSha256": "f2ce891ce120a6e1896f41457e706b62f848d744a0c73b4228a6bb5cdc348448",
+      "sha256": "a93123af89c25178359ed2bc725ae8255bffceeaabb84fe3923b7fff0395d3a3",
+      "seconds": 0.3133,
+      "peak": 0.83565,
+      "rms": 0.13091,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "debris-3": {
+      "source": "web/assets/audio/recorded07/debris-3.wav",
+      "sourceSha256": "be5ce6ed92099ed45a063d5d82d96c1acb63e4bb079ac768ebfbf617232c1da4",
+      "sha256": "464d5dfb66af5df4023f833135d7c82e0cc0b91a51f118a8f319b1245390d409",
+      "seconds": 0.4165,
+      "peak": 0.81766,
+      "rms": 0.08837,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "debris-4": {
+      "source": "web/assets/audio/recorded07/debris-4.wav",
+      "sourceSha256": "05d87b349d07e759e590aaa87952a431ee55a94e2bdbccb028c37d4e76387d7e",
+      "sha256": "237d01ea8e4d9b86c8043b684c5e7d65627b2c6f4d557ef94e5b332744991379",
+      "seconds": 0.2993,
+      "peak": 0.80773,
+      "rms": 0.10676,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "door-1": {
+      "source": "web/assets/audio/recorded07/door-1.wav",
+      "sourceSha256": "5b6fc11e4b043e82a98da7e63939ca375bab11d7332f9ae216307fd920ec1808",
+      "sha256": "788307f064a2ce1f86e368b47a13616a92173602389b0d9e4afd51321d52312d",
+      "seconds": 0.2073,
+      "peak": 0.8201,
+      "rms": 0.11248,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "door-2": {
+      "source": "web/assets/audio/recorded07/door-2.wav",
+      "sourceSha256": "e90b38d7b0ff5dc77e32be858c4afc2d8c99b83b3b9689aa642c969408e0650d",
+      "sha256": "38a7859c44b3a6868099e3f94de9a819ef7f2f433af4bb6f219c1ddaccd19fb6",
+      "seconds": 0.4166,
+      "peak": 0.81986,
+      "rms": 0.10864,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "door-3": {
+      "source": "web/assets/audio/recorded07/door-3.wav",
+      "sourceSha256": "8e4a9a9ccf2ee81e180a7d8f2abf01da338e6ac7fb6d5991af3ecaa2d37309a3",
+      "sha256": "e1af389f7f3102fac097c7c39f033f9f7ee467a570f965f3ebbea18d62d73593",
+      "seconds": 0.2174,
+      "peak": 0.82628,
+      "rms": 0.15438,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "door-4": {
+      "source": "web/assets/audio/recorded07/door-4.wav",
+      "sourceSha256": "a5c21b2197d10f7d1dd65886d75b0b3dd32c4af5fe8a85992dc078cbf94b7f06",
+      "sha256": "defefe437640e76b2b6c635f314e67e9901e887899a81bbc375fe83614b8f4b9",
+      "seconds": 0.2209,
+      "peak": 0.81984,
+      "rms": 0.13581,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "drop-wood-1": {
+      "source": "web/assets/audio/recorded07/drop-wood-1.wav",
+      "sourceSha256": "41f881862526094f46f62be4d0a7ca6cca339354d90e884ae0afce548812e1a2",
+      "sha256": "35246168bfde7a297002e84494d4c18d3e569cf9028a91173ff26b91f688951c",
+      "seconds": 0.1323,
+      "peak": 0.82009,
+      "rms": 0.12767,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "drop-wood-2": {
+      "source": "web/assets/audio/recorded07/drop-wood-2.wav",
+      "sourceSha256": "239f48a5078111a8cb88930a96437f5d857e3d607229a30282815b5d58c26ad3",
+      "sha256": "c1401e428dfe4455a6c4ee001306d52a05b87b5e8d2d825c77765cc7d4c41699",
+      "seconds": 0.1063,
+      "peak": 0.82049,
+      "rms": 0.12811,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "drop-wood-3": {
+      "source": "web/assets/audio/recorded07/drop-wood-3.wav",
+      "sourceSha256": "dca0df40c0071c94f75fa3a7772e027852f62b8868e98f1c539396d0f4bc741f",
+      "sha256": "ecbe90ae428b1a329630eb96a07d7f025100d6b3db39a16df1d9818a48c06aee",
+      "seconds": 0.1326,
+      "peak": 0.82008,
+      "rms": 0.12913,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "drop-wood-4": {
+      "source": "web/assets/audio/recorded07/drop-wood-4.wav",
+      "sourceSha256": "aac3aa989bd90a0217470222aed712760c4bda07b57c7158ab24c301ee4fb0a9",
+      "sha256": "aba16292a08fc9a61f4171632e7039d5d496af2b9ff8675f2282fb320753ca62",
+      "seconds": 0.1067,
+      "peak": 0.8202,
+      "rms": 0.12865,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "explosion-1": {
+      "source": "web/assets/audio/recorded07/explosion-1.wav",
+      "sourceSha256": "038ed8f43b9974d1de2ce4d3e6eefdc3735cafa48e48c4203d6eff5bcf86e503",
+      "sha256": "08731895e0e20f2efc369a6f3498bbe3fb0c805c20a3354bba0de3cfe4f4b909",
+      "seconds": 0.5202,
+      "peak": 0.81472,
+      "rms": 0.08043,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "explosion-2": {
+      "source": "web/assets/audio/recorded07/explosion-2.wav",
+      "sourceSha256": "96ae896b589a82acd5b6e58808b2f5aaffefd72f23a6ba94aad9f2a3cb8f6609",
+      "sha256": "611bd27aa33211bf07c637c43af04e7bd00b04fa7d08434899c525e42ccd9a84",
+      "seconds": 0.5197,
+      "peak": 0.83492,
+      "rms": 0.07675,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "heavy-pistol-1": {
+      "source": "web/assets/audio/recorded07/heavy-pistol-1.wav",
+      "sourceSha256": "095f4dfd585297ea2ea43ef1ad0d7241b5d630ce7f4aa33dfad634414975d0fa",
+      "sha256": "5ac376721d5e1c463d194263772195c591bcc3cbac66e3fe31dc9e9c2cfc7b5c",
+      "seconds": 1.3502,
+      "peak": 0.81338,
+      "rms": 0.04682,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "heavy-pistol-2": {
+      "source": "web/assets/audio/recorded07/heavy-pistol-2.wav",
+      "sourceSha256": "6b9666376c2cb59bcc9342aa166da6969b7ad5305957b61e3ad205f1db4a53ae",
+      "sha256": "a659a479d5a433e3a4210f733a46f9b7753d044e15f7fbb32ff5f2b6ef299eb3",
+      "seconds": 1.3473,
+      "peak": 0.82392,
+      "rms": 0.04405,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-barrel-1": {
+      "source": "web/assets/audio/recorded07/hit-barrel-1.wav",
+      "sourceSha256": "bb39eb5d7477b343e464e5874121cdf753664c8485b1285816b91017628e1024",
+      "sha256": "8904974f6f9ea73910d5d69f77b00a6f5adbec4c03f4f11ce7f7d1bfc824cd65",
+      "seconds": 0.1492,
+      "peak": 0.81835,
+      "rms": 0.12324,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-barrel-2": {
+      "source": "web/assets/audio/recorded07/hit-barrel-2.wav",
+      "sourceSha256": "4e5780ebbfeba8ee352786ef27fc04dcb3e3a099757a49b807272ee7dd6674ac",
+      "sha256": "6b10392c19f6265dd73d75ef5e99e9f19f477d4a9021c11dfa7158477848a28c",
+      "seconds": 0.1168,
+      "peak": 0.82223,
+      "rms": 0.1271,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-barrel-3": {
+      "source": "web/assets/audio/recorded07/hit-barrel-3.wav",
+      "sourceSha256": "3b3172d60994d08d19aed8e4b7003876f8271095615f71f15947c4292653b579",
+      "sha256": "9dbc80ba5926133c87ec080f7e4fb70523561bc47db48a18107fdb10a79eaee6",
+      "seconds": 0.1085,
+      "peak": 0.82083,
+      "rms": 0.12783,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-barrel-4": {
+      "source": "web/assets/audio/recorded07/hit-barrel-4.wav",
+      "sourceSha256": "c2a6867ee16439761e66a4bfb18e96b52652a6e5ee0a833ab31211ec96aab2e6",
+      "sha256": "8f97c083d92a5a1ed139becd738d8f56fc7c6d4ef8983c85c37bcf9a5ed1ff91",
+      "seconds": 0.1192,
+      "peak": 0.82311,
+      "rms": 0.12718,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-metal-1": {
+      "source": "web/assets/audio/recorded07/hit-metal-1.wav",
+      "sourceSha256": "dfc988792b3df9bf8db5f7e632d2b54c6d9600575a17cb1e86a20514e714a618",
+      "sha256": "69f801d9a0a8d21bd14da9225c0490f29cca8f8e8e9b74da099e7adaa4e28000",
+      "seconds": 0.179,
+      "peak": 0.81766,
+      "rms": 0.12384,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-metal-2": {
+      "source": "web/assets/audio/recorded07/hit-metal-2.wav",
+      "sourceSha256": "add8131b4e0b502a139677d8722c225d6ad7ad3f648c081fd59ca7a5332bda11",
+      "sha256": "ac71167a33426a38843a4a349abae8c600e275145d8161b98080801abb913a4f",
+      "seconds": 0.1132,
+      "peak": 0.81978,
+      "rms": 0.14373,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-metal-3": {
+      "source": "web/assets/audio/recorded07/hit-metal-3.wav",
+      "sourceSha256": "158b734ed96008e9f7873eaa43583730a0c88e9a3514ca0365c4bf2e010ceaba",
+      "sha256": "fd1173f1a98c351640ba4e448f8c89b97dbe3d6dd6104db4deeec064edb770b5",
+      "seconds": 0.0928,
+      "peak": 0.81698,
+      "rms": 0.11331,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-metal-4": {
+      "source": "web/assets/audio/recorded07/hit-metal-4.wav",
+      "sourceSha256": "9810ef14ca4f49fa8e1d60d100d1d74c0412c34cf6df740bedc85ba92798a102",
+      "sha256": "80fc7d5bf3d4b1c59cebe35c396200b40eb182c478f2ecf2098e6cd6ace0f5ca",
+      "seconds": 0.1698,
+      "peak": 0.82107,
+      "rms": 0.12245,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-stone-1": {
+      "source": "web/assets/audio/recorded07/hit-stone-1.wav",
+      "sourceSha256": "d61fa4aa05e584888999c63edef783dce6aef5407de74166efb033f1953f6b04",
+      "sha256": "483bd54417a030ed71d033a71af098a89988c3f69c6f5a153f56c3756d3aae27",
+      "seconds": 0.6011,
+      "peak": 0.8208,
+      "rms": 0.1174,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-stone-2": {
+      "source": "web/assets/audio/recorded07/hit-stone-2.wav",
+      "sourceSha256": "fd851fdb02894a795ae3a6f7bda2ccc3e3b2e6d54119575475c50251f7073c66",
+      "sha256": "2f11e3b841727fd646be7960850aea9d8b60fe9d7021d127a55008125c2b307b",
+      "seconds": 0.5622,
+      "peak": 0.82124,
+      "rms": 0.09992,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-stone-3": {
+      "source": "web/assets/audio/recorded07/hit-stone-3.wav",
+      "sourceSha256": "880be948d6651d09b25bbee4a514025bc833fff5c0e41fc4be4eb4a7e636c307",
+      "sha256": "5ca8d19474c95e7cb0c16b275c1b28e580878f9ff91e0b6db3cd0da8f369aaf6",
+      "seconds": 0.4974,
+      "peak": 0.82168,
+      "rms": 0.0984,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-stone-4": {
+      "source": "web/assets/audio/recorded07/hit-stone-4.wav",
+      "sourceSha256": "aa8858e31228e374828c8d0c1cd1ea71a6933546c9b110c8734cede2f835700a",
+      "sha256": "2dc2bd2018b3a6bcda58bbd8e55bb0216f69326701a36b26035d18a5fe1f71ac",
+      "seconds": 0.6004,
+      "peak": 0.82086,
+      "rms": 0.08302,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-wood-1": {
+      "source": "web/assets/audio/recorded07/hit-wood-1.wav",
+      "sourceSha256": "93a25f89eb434aa4640d7ec7da5a2ffc72c4f5b9ffca78e2ebe288982750084b",
+      "sha256": "25168b578f66fd72bd710f9a6a46c58dbaef72009deda1d4e8786c4b67503896",
+      "seconds": 0.1962,
+      "peak": 0.82002,
+      "rms": 0.12437,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-wood-2": {
+      "source": "web/assets/audio/recorded07/hit-wood-2.wav",
+      "sourceSha256": "d1f1cc8e81b090c4e914ce5b7bfdfd2105c9680c6c9f529669ba07822dda9350",
+      "sha256": "1aab12d0c97868b1c6383f2e3f0c5969f1efa957d0ba9bfd2e261992aab9b83f",
+      "seconds": 0.1921,
+      "peak": 0.82007,
+      "rms": 0.11993,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-wood-3": {
+      "source": "web/assets/audio/recorded07/hit-wood-3.wav",
+      "sourceSha256": "339a4ce353cac1e0877f747fadbdafbed43e2a1943ba1e4f3d8e77156f9569e3",
+      "sha256": "18a656c700ec48dcd0b52c2ce68cfe9b6a8ad0cfb291d6d40ac9e7b5d53a0918",
+      "seconds": 0.1837,
+      "peak": 0.82003,
+      "rms": 0.15251,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hit-wood-4": {
+      "source": "web/assets/audio/recorded07/hit-wood-4.wav",
+      "sourceSha256": "180c0ef4e24fd7de71f7c65bfed3b574566cfa6ec95fc474ac09381732e9154b",
+      "sha256": "6d4df1beeaa7ab874b5e13993d5c7eaa49abdc50665296175c0dc77199edb212",
+      "seconds": 0.1821,
+      "peak": 0.81994,
+      "rms": 0.11476,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hurt-1": {
+      "source": "web/assets/audio/recorded07/hurt-1.wav",
+      "sourceSha256": "41176f32c8715873197a61cffaf1389edd6f787c1c7815984868992d340b6888",
+      "sha256": "765a88b1fd11b89f9e8ac3029ea6819ecf12b19887c209cc3b2dd1afd0662134",
+      "seconds": 0.2657,
+      "peak": 0.81995,
+      "rms": 0.15823,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hurt-2": {
+      "source": "web/assets/audio/recorded07/hurt-2.wav",
+      "sourceSha256": "e6ef0fbd2f92d126434cdf1920c7e57e3e6f6754b267c4e5588ae71cf3c9aa72",
+      "sha256": "ed695ceb871b5679557b675c24900cc548105bfecce5e652d3538308dc187eb7",
+      "seconds": 0.2522,
+      "peak": 0.82043,
+      "rms": 0.15018,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hurt-3": {
+      "source": "web/assets/audio/recorded07/hurt-3.wav",
+      "sourceSha256": "badbdb2a08b4b42c4ee3520f6d9eeb2eacad6eaa4bd144007b0986ff2638ca73",
+      "sha256": "fff02f15199aa6e688bed994f2f62ecd68d68abda0eee1bd15d96ca349dc4add",
+      "seconds": 0.3237,
+      "peak": 0.8203,
+      "rms": 0.13787,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "hurt-4": {
+      "source": "web/assets/audio/recorded07/hurt-4.wav",
+      "sourceSha256": "56af5b555b3549a8b9e744dd145bd6ff13b35b0dc2f097b4ca61a36ff0ac5d1d",
+      "sha256": "9856a11d51a5bcf030a3d84043576a68a669856967461884176752d7ebe3bc5b",
+      "seconds": 0.2786,
+      "peak": 0.81991,
+      "rms": 0.14637,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "marksman-1": {
+      "source": "web/assets/audio/recorded07/marksman-1.wav",
+      "sourceSha256": "202860845c95418d01df053d8af4b55e2e389b77b16bacdc78f63bc966ecb983",
+      "sha256": "6d5122f2888c220dbca9a454d5d42752d08d7e1b18478e96a314281f299a77c7",
+      "seconds": 0.3908,
+      "peak": 0.81186,
+      "rms": 0.05081,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "marksman-2": {
+      "source": "web/assets/audio/recorded07/marksman-2.wav",
+      "sourceSha256": "e7a66854205ccf951fc63c1e1c05732f018557adfd1f386cd9de681cd8711b1d",
+      "sha256": "8f4409d3f8ac3a9d3ead8594ce6e27369af6fa99f861ee9cf4fefacbd1dea3a2",
+      "seconds": 0.4333,
+      "peak": 0.85351,
+      "rms": 0.05097,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "marksman-3": {
+      "source": "web/assets/audio/recorded07/marksman-3.wav",
+      "sourceSha256": "e9df1d14a4ec6add7126911d6f4f320159b5dc34d75e04c689957fd64122c60d",
+      "sha256": "4cf40c8dd2bf5b763158a0af19d79bc952fb536bc56637aff7d685e500b5cb01",
+      "seconds": 0.3909,
+      "peak": 0.82137,
+      "rms": 0.05516,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "pistol-1": {
+      "source": "web/assets/audio/recorded07/pistol-1.wav",
+      "sourceSha256": "5b75de64a2ade7a73f3f507db2fdbf3fc5c1a766bbcf3092b9c1e45083c706f3",
+      "sha256": "28ed569dbe72651f9979964e242ff7e10225d67166f74b8075567606eb0f19c4",
+      "seconds": 0.3804,
+      "peak": 0.83613,
+      "rms": 0.05659,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "pistol-2": {
+      "source": "web/assets/audio/recorded07/pistol-2.wav",
+      "sourceSha256": "d42e712d46f4d729b74220ddabc7c6cf8ba46d0844fbd1c43156eeae7eee597b",
+      "sha256": "a70cc118957d8c33e60954134818df7db8335caa429ca671470e859705609b7b",
+      "seconds": 0.4392,
+      "peak": 0.8225,
+      "rms": 0.04836,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "pistol-3": {
+      "source": "web/assets/audio/recorded07/pistol-3.wav",
+      "sourceSha256": "5029cab8166cbed97a8a64e902ac45ecca8ca61981267e0b7f89a76ee08087c3",
+      "sha256": "249b0dbc7766f70cdb7b103e44dc60fa6cf5c44e66f18ae2a10bafe00f34b338",
+      "seconds": 0.3692,
+      "peak": 0.82384,
+      "rms": 0.04897,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "pump": {
+      "source": "web/assets/audio/recorded07/pump.wav",
+      "sourceSha256": "09c553b41dc82f602be019265b6762f2d9699c59d385c79ddc95852293abfaa4",
+      "sha256": "e68d32d95ac784b823ed2c7921339f8df9711f14029dcc8fd324bbe2c953139f",
+      "seconds": 0.4738,
+      "peak": 0.84833,
+      "rms": 0.13346,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "reload-pistol-in": {
+      "source": "web/assets/audio/recorded07/reload-pistol-in.wav",
+      "sourceSha256": "60ef6f6f2754b64dd435095023c986ee3b1c1b70569ace158f3e9bac656100c0",
+      "sha256": "69a2cd0a8332daaaf138df68391444fefc298d0c6e6bab0a701a66dcdd45cebf",
+      "seconds": 0.7709,
+      "peak": 0.85877,
+      "rms": 0.08291,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "reload-pistol-out": {
+      "source": "web/assets/audio/recorded07/reload-pistol-out.wav",
+      "sourceSha256": "f98d18084c7022b2bc0cfd2036ae41621b00f7af3f6ae34aa7b1a98d800b8a82",
+      "sha256": "57ff5c75c9ac58351aef5fc1e3dd02fc5a061e15f130580fabcafdf3e88bb486",
+      "seconds": 0.2855,
+      "peak": 0.82971,
+      "rms": 0.05441,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "reload-rifle-in": {
+      "source": "web/assets/audio/recorded07/reload-rifle-in.wav",
+      "sourceSha256": "acf3d54463cf21a856eb91d13ecd1c9ffe39931061260b23fc85036fad28c4c0",
+      "sha256": "0e9a1836b33b795c336a72bc364f32f9706f6644c2a493a39eecbe34fc338457",
+      "seconds": 0.4838,
+      "peak": 0.83415,
+      "rms": 0.06935,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "reload-rifle-out": {
+      "source": "web/assets/audio/recorded07/reload-rifle-out.wav",
+      "sourceSha256": "18ab4014bc0bebd62d4fc731c2e3b8b1f379699d55412ccf2daa638ddfeab9bf",
+      "sha256": "f666431c2193e37c661d8eba32974f0f2a0b88d24f13b26a6a31e7ade022c428",
+      "seconds": 0.4923,
+      "peak": 0.82302,
+      "rms": 0.05049,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "revolver-1": {
+      "source": "web/assets/audio/recorded07/revolver-1.wav",
+      "sourceSha256": "625d7e587d6f26a7b4d367f68dadbf3c0519b7f8e9f89d826837f61f98fa4099",
+      "sha256": "3dcf7a2b2ecbba2eab6d3f8e834a5d05bca96520904a135cfffd625943c93946",
+      "seconds": 1.3492,
+      "peak": 0.81998,
+      "rms": 0.03829,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "revolver-2": {
+      "source": "web/assets/audio/recorded07/revolver-2.wav",
+      "sourceSha256": "6f24a9621dd22b751ea6d636ee7d08f1e3cd8cd86ea0b972b4144ef33c0da9d7",
+      "sha256": "69c19651d7d7e768e586818b327a3b0de422fbad1012c1522db77c79c3442f2d",
+      "seconds": 1.346,
+      "peak": 0.82137,
+      "rms": 0.03998,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "rustle-1": {
+      "source": "web/assets/audio/recorded07/rustle-1.wav",
+      "sourceSha256": "bc1b27ce4e684ae897fe522220fb555bda7b1d191952b7216f67d3f05ebdeb48",
+      "sha256": "aefef6fa93f136248d9bd7cdbb86ebb829fadd5e7a544d555ad5bdcc8e4c43af",
+      "seconds": 0.1019,
+      "peak": 0.82089,
+      "rms": 0.11784,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "rustle-2": {
+      "source": "web/assets/audio/recorded07/rustle-2.wav",
+      "sourceSha256": "b6ee1e9af59f9a678a7be1c8e6713079b8ca04d43ead1908f58893785f0cff16",
+      "sha256": "b68995a25b8a972afa983752f8b440b5805b4ad434b7890fb0384612bee6a75e",
+      "seconds": 0.1026,
+      "peak": 0.82186,
+      "rms": 0.14629,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "rustle-3": {
+      "source": "web/assets/audio/recorded07/rustle-3.wav",
+      "sourceSha256": "b6ee1e9af59f9a678a7be1c8e6713079b8ca04d43ead1908f58893785f0cff16",
+      "sha256": "b68995a25b8a972afa983752f8b440b5805b4ad434b7890fb0384612bee6a75e",
+      "seconds": 0.1026,
+      "peak": 0.82186,
+      "rms": 0.14629,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "rustle-4": {
+      "source": "web/assets/audio/recorded07/rustle-4.wav",
+      "sourceSha256": "206e6f20a7d7935d22c68bb6d92f368e5013b17530bbe56c964a67cbebb0b9b7",
+      "sha256": "ec6d460a4d7b20e09bfc2d45907e7ee90e8f268edf9d15eeab02b8de4b54c8bc",
+      "seconds": 0.0991,
+      "peak": 0.81971,
+      "rms": 0.10909,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "shotgun-1": {
+      "source": "web/assets/audio/recorded07/shotgun-1.wav",
+      "sourceSha256": "fab9e14caf867bbfdba10dd14d09a9b0a4d64864bdb1a7a54879e50e91626347",
+      "sha256": "2c799e3ae0b27a6c46592c2ea762c3710e062c76ba7f086d63214463b179300b",
+      "seconds": 0.4306,
+      "peak": 0.80925,
+      "rms": 0.04856,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "shotgun-2": {
+      "source": "web/assets/audio/recorded07/shotgun-2.wav",
+      "sourceSha256": "59290b35714a62c5a96b92931886bb069952ac2436f73cffa17af0c47721c32e",
+      "sha256": "ac53180692dd172cbea2cbbac288cfa48ec9aba26ddfb4a4e6aee3bcfefebc1c",
+      "seconds": 0.6864,
+      "peak": 0.82149,
+      "rms": 0.03967,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "smg-1": {
+      "source": "web/assets/audio/recorded07/smg-1.wav",
+      "sourceSha256": "b02e9023117a809aa2dac85ed183c094fdbbe1b90c4f5a324b8a3b1b17c84f89",
+      "sha256": "8a47b6daf83519b7079a82146ed064b3c2826fa7d2c5098df34681a1aa379783",
+      "seconds": 0.3593,
+      "peak": 0.81073,
+      "rms": 0.05858,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "smg-2": {
+      "source": "web/assets/audio/recorded07/smg-2.wav",
+      "sourceSha256": "5f34ca9b64b94cf3c6167503f913513b2b1f7946e78ceeabfd7c7061c2d8ee13",
+      "sha256": "07c4ca98a8896cecd2c84e9a3a373413ba6a219a4fe716c73d8a9ca04c0b8c66",
+      "seconds": 0.4082,
+      "peak": 0.82457,
+      "rms": 0.04942,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "smg-3": {
+      "source": "web/assets/audio/recorded07/smg-3.wav",
+      "sourceSha256": "f7991855e98132bd4f71db14a025dcbd6acdfb8f7f12c8ff1b209e3295e9cb70",
+      "sha256": "5b4af5bfdfd6f4c9fd91ffa457466cf48e829c575e9e062e73e42e303d8fd17f",
+      "seconds": 0.4271,
+      "peak": 0.78737,
+      "rms": 0.04376,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-grass-1": {
+      "source": "web/assets/audio/recorded07/step-grass-1.wav",
+      "sourceSha256": "3acdfd388c240ac33ad70a0e0b45df7386ccc6cb18de756d83da201b4e1d0857",
+      "sha256": "a4bf50859a6eb49845026b4a29b21a02a82d8607bda323472f5ff88cd756094b",
+      "seconds": 0.1603,
+      "peak": 0.82239,
+      "rms": 0.08319,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-grass-2": {
+      "source": "web/assets/audio/recorded07/step-grass-2.wav",
+      "sourceSha256": "cfd3a5029ecbed19bf640e9920ff16bf807739a3871274afb26e852c936653d1",
+      "sha256": "51d702e03c5f5583e66eec482dc5fa35986fc117d6045bf3e61e5971b6e742f4",
+      "seconds": 0.1725,
+      "peak": 0.82703,
+      "rms": 0.08638,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-grass-3": {
+      "source": "web/assets/audio/recorded07/step-grass-3.wav",
+      "sourceSha256": "93eeead89ec7b4bdb0e9a9ec65a750b8b7cc260ad775c03dc60bbe68e17e4a0c",
+      "sha256": "af24838384a806a94c0afb5eb09eda3b05b5ef24a257d0da51be884e4a5e4d8d",
+      "seconds": 0.1738,
+      "peak": 0.81499,
+      "rms": 0.08055,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-grass-4": {
+      "source": "web/assets/audio/recorded07/step-grass-4.wav",
+      "sourceSha256": "9fb010f7b7a9571375cb504529e0a8a763f837f588aec7edbad1bfe37954b071",
+      "sha256": "e7022c063be362057df089d715b2eb836dc6f12aa59d05b78580de9069e66845",
+      "seconds": 0.1442,
+      "peak": 0.8218,
+      "rms": 0.08316,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-snow-1": {
+      "source": "web/assets/audio/recorded07/step-snow-1.wav",
+      "sourceSha256": "c2f51e4147b3825de725df2a262c051aea0a7c14c397cda30ad05397e8d4c82d",
+      "sha256": "5027d9c5eef07352472690b51f66444d5bcdd23d121a931cd815e3ecdccdc43e",
+      "seconds": 0.202,
+      "peak": 0.81971,
+      "rms": 0.11463,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-snow-2": {
+      "source": "web/assets/audio/recorded07/step-snow-2.wav",
+      "sourceSha256": "daad1ac5f3bdfc4ec20a548f930a81267a2abeab0a0938987042465fdb910119",
+      "sha256": "18cb73589c042e11ac68db8bb17641bd98d781651b517179d03fde80c37ccd9d",
+      "seconds": 0.2032,
+      "peak": 0.81774,
+      "rms": 0.13966,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-snow-3": {
+      "source": "web/assets/audio/recorded07/step-snow-3.wav",
+      "sourceSha256": "b8809c393f8beb8933f514ae7221f170a5a0acda435c40edf3b41fa30c63ba2b",
+      "sha256": "58703d8d3da343f806459d99618ae0755b46cc73889e42da5d93d8a0b1080099",
+      "seconds": 0.2056,
+      "peak": 0.82032,
+      "rms": 0.13306,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-snow-4": {
+      "source": "web/assets/audio/recorded07/step-snow-4.wav",
+      "sourceSha256": "6a20878bd55b7225e3de074ce167a82c0f21f22ed202099d5e46db0ce991089b",
+      "sha256": "142a7ea7b240b883e57e597c1784d5bcc68858a16f927b10c4707d8eec599aa8",
+      "seconds": 0.2037,
+      "peak": 0.82052,
+      "rms": 0.10538,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-stone-1": {
+      "source": "web/assets/audio/recorded07/step-stone-1.wav",
+      "sourceSha256": "0c509cee28610ca405558a60cf3d83018fe71cde42afb2320084759ee5f4e4fa",
+      "sha256": "a0c3271017c52e7dd3a2a4dec3aeaa19c185f322b1e9ef5f318cb6501ab4248b",
+      "seconds": 0.0761,
+      "peak": 0.82023,
+      "rms": 0.13338,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-stone-2": {
+      "source": "web/assets/audio/recorded07/step-stone-2.wav",
+      "sourceSha256": "fec5e59c424d3da0dfcbe5f15930dde89fdb4b211a20bf6400073a918957134b",
+      "sha256": "779d506abc4c91b929c550175d1137c003505d37a7f44e3be2e9b253aa6b5153",
+      "seconds": 0.0959,
+      "peak": 0.80918,
+      "rms": 0.0906,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-stone-3": {
+      "source": "web/assets/audio/recorded07/step-stone-3.wav",
+      "sourceSha256": "7f5012e75e5feaa9f12d112c86778ea54cd6fa79246f413df002e98004fb6f24",
+      "sha256": "a920ef7bfda59acf93f3e360bc63fa23bfb7267842849618b0dd4f544b8e06d2",
+      "seconds": 0.095,
+      "peak": 0.81058,
+      "rms": 0.09587,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-stone-4": {
+      "source": "web/assets/audio/recorded07/step-stone-4.wav",
+      "sourceSha256": "bde262a4f750239d43ea1e96feea68c51f4ae59e9d86fa02dc061ccd7a65f8b1",
+      "sha256": "fe1e06c837a504df9fd20fe9e839cd9c80b8bc8e5846e14fe67c8f1067545e0a",
+      "seconds": 0.0782,
+      "peak": 0.81905,
+      "rms": 0.11411,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-wood-1": {
+      "source": "web/assets/audio/recorded07/step-wood-1.wav",
+      "sourceSha256": "e58f20ba2bde9f04654ab64a9d9908469034a6cbcf5edcb1b9cb07e6a96c46f2",
+      "sha256": "a8eaae0d6fcc4cdaaf3b5da1fb7d3cd186ca97782742b720d67f19dc78aeb0e8",
+      "seconds": 0.0851,
+      "peak": 0.81995,
+      "rms": 0.16126,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-wood-2": {
+      "source": "web/assets/audio/recorded07/step-wood-2.wav",
+      "sourceSha256": "a1f61a25a45fe17a57ea6d2d510c75519806273f2966e4821b02614ea94d2185",
+      "sha256": "85f960615db4579694921261ee16d0fbc260ad57e02c1ccad6e7ecd2ad23baec",
+      "seconds": 0.0875,
+      "peak": 0.82008,
+      "rms": 0.15845,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-wood-3": {
+      "source": "web/assets/audio/recorded07/step-wood-3.wav",
+      "sourceSha256": "f1f8666a32a4b751ef6f079e4fc7d33f05ce0a311cf4ec78778fa4c9c049429c",
+      "sha256": "fca35a932f9a5f2a06a5b6ac926628f57e2d174678ff9659b05972dcdc61a1d1",
+      "seconds": 0.0826,
+      "peak": 0.82006,
+      "rms": 0.1784,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "step-wood-4": {
+      "source": "web/assets/audio/recorded07/step-wood-4.wav",
+      "sourceSha256": "6aa5b8bad16520a3186ef9d054e019523a1f1b190080a69983ba2a4d256054d3",
+      "sha256": "a442c751154d062cd2946f67d838185d28bf80b988f11c0e5dadfad15a31b4ef",
+      "seconds": 0.0871,
+      "peak": 0.81995,
+      "rms": 0.15542,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-akRifle-1": {
+      "source": "web/assets/audio/weapons29/gun29-akRifle-1.wav",
+      "sourceSha256": "3f6600d8e87af518ad6d5d795dcd16e2e384c8d5575962b151264718f16b4e75",
+      "sha256": "6588706b925eae03acf53cae8ec6db59c11a259117a57d5e4d30cf231d2a5547",
+      "seconds": 0.4832,
+      "peak": 0.82046,
+      "rms": 0.06235,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-akRifle-2": {
+      "source": "web/assets/audio/weapons29/gun29-akRifle-2.wav",
+      "sourceSha256": "7fb62bc486298867ed2c859f9e787bd4824a9080df4726fa3b5613b349193746",
+      "sha256": "735c492c77aa05adc851455f59dea5d9f08a735c2e8ecaf83e7c7991e50b0004",
+      "seconds": 0.4629,
+      "peak": 0.8152,
+      "rms": 0.05661,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-assaultRifle-1": {
+      "source": "web/assets/audio/weapons29/gun29-assaultRifle-1.wav",
+      "sourceSha256": "91b9940872eee9a45fc25a6ed36d6e2ef906a5e3aabc8c619a16a2e7c324cce7",
+      "sha256": "bcf375c70c425bc3bceee8e135d1c9494b3d5815ba138e98afbaacfafdc9f527",
+      "seconds": 0.4607,
+      "peak": 0.82589,
+      "rms": 0.0646,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-assaultRifle-2": {
+      "source": "web/assets/audio/weapons29/gun29-assaultRifle-2.wav",
+      "sourceSha256": "051767840aba88245deb2be4db7aebd1cc600862c289f0f4e12b168227690107",
+      "sha256": "e98255e8deff8aba8978aebe10e33c8d99a3b4d652a74076bd4ce136fdeb9ee3",
+      "seconds": 0.4414,
+      "peak": 0.82442,
+      "rms": 0.05367,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-boltRifle-1": {
+      "source": "web/assets/audio/weapons29/gun29-boltRifle-1.wav",
+      "sourceSha256": "39e32a410e551a70dfb5b1f612789c02e399b0d9a825684532cb053a3fed9048",
+      "sha256": "20e27af69cba9c7f3f497a7b3168f773d0e1a07bfce1b9ad21be53bca4843240",
+      "seconds": 0.3972,
+      "peak": 0.81907,
+      "rms": 0.04968,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-boltRifle-2": {
+      "source": "web/assets/audio/weapons29/gun29-boltRifle-2.wav",
+      "sourceSha256": "3e0e66754c143f08b0f34c696d92f655c5ad06bb605d808b256c43c24008c3e0",
+      "sha256": "61bcea505d9aa35a0e0c7836c9ff8f9c7d30918a42a876e7f64f86fb2483e910",
+      "seconds": 0.405,
+      "peak": 0.81999,
+      "rms": 0.05259,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-carbine26-1": {
+      "source": "web/assets/audio/weapons29/gun29-carbine26-1.wav",
+      "sourceSha256": "6d2c454833a795c3c761629cffbafcf5b27fce53faddfb88c0f7a2c1b1a54a62",
+      "sha256": "020b968777531300cc56ca5b69ee7685555cb11af4dcb557f295785b45331178",
+      "seconds": 0.4223,
+      "peak": 0.8184,
+      "rms": 0.06058,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-carbine26-2": {
+      "source": "web/assets/audio/weapons29/gun29-carbine26-2.wav",
+      "sourceSha256": "991c8adbf9c0cd0969c2318a9173a169c5718983b375067cba1aad9dbfa3a76d",
+      "sha256": "c1d2057a423601b7b2e734129fb3448a7e8d8a052873a44dec685f531db61303",
+      "seconds": 0.4036,
+      "peak": 0.82074,
+      "rms": 0.05556,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-combatShotgun-1": {
+      "source": "web/assets/audio/weapons29/gun29-combatShotgun-1.wav",
+      "sourceSha256": "7a84afa52590a2f9e0e96ed5226ab0994dfb88a9418d1daf1351530a4817d86b",
+      "sha256": "c696f6288d4737192998392a74efece4f221d8cfa8bee8dd5cb40ace1cd49b22",
+      "seconds": 0.4146,
+      "peak": 0.82091,
+      "rms": 0.05129,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-combatShotgun-2": {
+      "source": "web/assets/audio/weapons29/gun29-combatShotgun-2.wav",
+      "sourceSha256": "2917dc16b2c9f303e9384acf110cbf42be6bf7a28da7ddeb80dc8d833cf6d028",
+      "sha256": "5450377e2f21d7d11388dc986ead92c258a71336f7687320bda0697f8b5a9702",
+      "seconds": 0.6437,
+      "peak": 0.82029,
+      "rms": 0.04139,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-compactSmg-1": {
+      "source": "web/assets/audio/weapons29/gun29-compactSmg-1.wav",
+      "sourceSha256": "f2198f2eaff520165083ad17d50380a3bc40f68173aa6eb466714362536ff6c5",
+      "sha256": "4166c63ea6071533ee3bc091f1afc1209147c47ff128cc509d08e02317d897e7",
+      "seconds": 0.3094,
+      "peak": 0.81703,
+      "rms": 0.05271,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-compactSmg-2": {
+      "source": "web/assets/audio/weapons29/gun29-compactSmg-2.wav",
+      "sourceSha256": "b289a7af515d7eee16d8096ddba37db643b201e4355c0b6904ba082e29b6f323",
+      "sha256": "1dce70f92d186be95a68e2d616cc4c7a0612efc496f4697a56852e260b1c8daf",
+      "seconds": 0.3484,
+      "peak": 0.81376,
+      "rms": 0.0468,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-heavyPistol-1": {
+      "source": "web/assets/audio/weapons29/gun29-heavyPistol-1.wav",
+      "sourceSha256": "0ea5d181fa257116b00b6b53910b756a2eefca429592a12f33f235496b548bbe",
+      "sha256": "503e31647dd30a8dbc1dc4469b9f02bbea257da191cf80a0d659c36a0cbf9566",
+      "seconds": 1.4869,
+      "peak": 0.82106,
+      "rms": 0.0418,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-heavyPistol-2": {
+      "source": "web/assets/audio/weapons29/gun29-heavyPistol-2.wav",
+      "sourceSha256": "22c61da47ff9fa166f2d4dd92ef1c37f9a1bac7ce0747a597fe8ac3f7150ec27",
+      "sha256": "53ca089f879d72bde203ee0d29bb5b7192f8099c4936bc9c731378cbadfaefe4",
+      "seconds": 1.4846,
+      "peak": 0.81996,
+      "rms": 0.03931,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-machineGun-1": {
+      "source": "web/assets/audio/weapons29/gun29-machineGun-1.wav",
+      "sourceSha256": "853780f63a7515837fc6cd04ba9888a59d4ac2c53aa1a39272572a3acf8a6b38",
+      "sha256": "f75ab8779ee392eb9c89bf08b4acc33a965931bcf208321b13fdf443c1b315c9",
+      "seconds": 0.5249,
+      "peak": 0.8197,
+      "rms": 0.06687,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-machineGun-2": {
+      "source": "web/assets/audio/weapons29/gun29-machineGun-2.wav",
+      "sourceSha256": "42afef5ee41049b4e5bc6a4f21a8f167761b95d8a9efc4ffd97bb260da987f2e",
+      "sha256": "67072a2a9f82628d26f83b1720a65188aaa80ec6c21cea4bd1817d4b2bbcae3d",
+      "seconds": 0.5012,
+      "peak": 0.81794,
+      "rms": 0.05516,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-pdw26-1": {
+      "source": "web/assets/audio/weapons29/gun29-pdw26-1.wav",
+      "sourceSha256": "755f94ec217b40635859ed964f76cf9d3155a079a2924c50ecefb976d65d8fe5",
+      "sha256": "000a322bf6b82423151dfe0fedb1adb3c1caede01cb7951915eddde26e8e3e14",
+      "seconds": 0.3232,
+      "peak": 0.82085,
+      "rms": 0.05536,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-pdw26-2": {
+      "source": "web/assets/audio/weapons29/gun29-pdw26-2.wav",
+      "sourceSha256": "60f75afe88cdc1b3827c3fdde6309d2952c6be91215260cff798ece1c52d249f",
+      "sha256": "a335092627b4d31d1331f134bef20917191f979f5b67ba70c11eb4422c864cc6",
+      "seconds": 0.3675,
+      "peak": 0.81995,
+      "rms": 0.04861,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-pistol-1": {
+      "source": "web/assets/audio/weapons29/gun29-pistol-1.wav",
+      "sourceSha256": "365e00eebfec229805ee361a19e67a261da814cc7ba1a1499281b7575928e427",
+      "sha256": "1ca130ff65a2e9db860ac18f81534224587cd5b512e3af812ba3b5b44bfffdc6",
+      "seconds": 0.3804,
+      "peak": 0.82092,
+      "rms": 0.05456,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-pistol-2": {
+      "source": "web/assets/audio/weapons29/gun29-pistol-2.wav",
+      "sourceSha256": "e9491b96e758568a3ba9e22156926f509a3646de315a97b7082da7b1ee121b6a",
+      "sha256": "fd8fcb653c37b57833f18395e6b224f1e6129506020d1a2a473cba9681386b10",
+      "seconds": 0.4388,
+      "peak": 0.81174,
+      "rms": 0.04569,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-revolver-1": {
+      "source": "web/assets/audio/weapons29/gun29-revolver-1.wav",
+      "sourceSha256": "707f1b38f76c13c78063dc4c5e205b69020c388195a564e6795b045c00d453e1",
+      "sha256": "effb047dfa4bdf19840862b9a43268cdce67013957d7b3d73ccc6e96ee84eb79",
+      "seconds": 1.4736,
+      "peak": 0.82053,
+      "rms": 0.03448,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-revolver-2": {
+      "source": "web/assets/audio/weapons29/gun29-revolver-2.wav",
+      "sourceSha256": "85bdb61696809924b54796372369dc3b9d30176c106ac146f7e94a6a3caf00df",
+      "sha256": "aed5c3247c1ac2ed4357f02aee6e60118625514cc3e5a9766cd6ff6e6815fee0",
+      "seconds": 1.4744,
+      "peak": 0.82054,
+      "rms": 0.03587,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-rifle-1": {
+      "source": "web/assets/audio/weapons29/gun29-rifle-1.wav",
+      "sourceSha256": "7be95f448ee6c0815ad4755323c216c40f0a9a50efd8c922383bc2fd363eb225",
+      "sha256": "848dddc1f69f1ce71594a5d0949b29fe5755a34a6b4bff4cc0d59fe4a89cb4fe",
+      "seconds": 0.4393,
+      "peak": 0.82172,
+      "rms": 0.0554,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-rifle-2": {
+      "source": "web/assets/audio/weapons29/gun29-rifle-2.wav",
+      "sourceSha256": "c15c4b4b0bea915d2c4fd2c085b66f3be1e60b79cdeab39eb9ba453c003324ab",
+      "sha256": "66337bef8584ec33a250fa46a91ae729f83a9ebe911249b1dbe0028ce87ed0a3",
+      "seconds": 0.4858,
+      "peak": 0.82054,
+      "rms": 0.05552,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-rocketLauncher-1": {
+      "source": "web/assets/audio/weapons29/gun29-rocketLauncher-1.wav",
+      "sourceSha256": "c4a5eebdb1d4cacab46ee95e5a514fc3430927e6d8b690877a85038224053f0f",
+      "sha256": "813dd46d38cf253bf13f29014f122e4b52c026e4a7cfb37d1cdfcafd42925462",
+      "seconds": 0.6451,
+      "peak": 0.82272,
+      "rms": 0.09607,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-rocketLauncher-2": {
+      "source": "web/assets/audio/weapons29/gun29-rocketLauncher-2.wav",
+      "sourceSha256": "6279312bc15d2825c2a3dbcf2149c7d9e8c5706156aaf9cf6289e9bdade2558c",
+      "sha256": "8a8a8676e54f4968c982bd4bb6358c1441f47637f1ef02702da714b322491829",
+      "seconds": 0.6358,
+      "peak": 0.81907,
+      "rms": 0.07783,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-semiRifle-1": {
+      "source": "web/assets/audio/weapons29/gun29-semiRifle-1.wav",
+      "sourceSha256": "4129a80d4c925ffabf4524eff9a5b452e984714d75cacb72eb06000df280a7e5",
+      "sha256": "81595e691a4473e622a5106b312fa5b53b75f5321301326acb30f2d346dd8d21",
+      "seconds": 0.3883,
+      "peak": 0.81311,
+      "rms": 0.05314,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-semiRifle-2": {
+      "source": "web/assets/audio/weapons29/gun29-semiRifle-2.wav",
+      "sourceSha256": "1aae68a84be8b0057fa1280e5b59b4aed6142b8fab6031c518b6f86fbc615dd8",
+      "sha256": "3851f9fdfbb61a8862948d583253bf58a30c409eb037e92ec2f24bc2cb101956",
+      "seconds": 0.4275,
+      "peak": 0.82036,
+      "rms": 0.05328,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-shotgun-1": {
+      "source": "web/assets/audio/weapons29/gun29-shotgun-1.wav",
+      "sourceSha256": "d917fb85e3b1783c6c963a2404c6352626e3cd34d0adb950e745abff5606d2f6",
+      "sha256": "70496754324127cd061f08aa1df2dd2c4137b4ed852dd348af25561340d84b5e",
+      "seconds": 0.4978,
+      "peak": 0.82332,
+      "rms": 0.05143,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-shotgun-2": {
+      "source": "web/assets/audio/weapons29/gun29-shotgun-2.wav",
+      "sourceSha256": "bce793b5d641b27cd4e0453ed82819a9a2496f391f818771ab1dbbb6bf69d9a2",
+      "sha256": "a4f254ce5e814ade91a1bb240ec49fc0fb69aae0f1989eb8ceabc8cb0bf38e2c",
+      "seconds": 0.7424,
+      "peak": 0.81876,
+      "rms": 0.04183,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-smg-1": {
+      "source": "web/assets/audio/weapons29/gun29-smg-1.wav",
+      "sourceSha256": "d4ac171ca355da21e5863ae61a71506a322e80ec3e4d87c33fc5e3d2d921514a",
+      "sha256": "65f31b6a98c121bb1a6548959a21f38e25e2af249c58778899b797f6bb59f22f",
+      "seconds": 0.3431,
+      "peak": 0.81923,
+      "rms": 0.04979,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    },
+    "gun29-smg-2": {
+      "source": "web/assets/audio/weapons29/gun29-smg-2.wav",
+      "sourceSha256": "3cc00d1b68dfe880d0c790856f8ebd11b1ecf06bfe536097928824ac1c424dbf",
+      "sha256": "a83686ae623afa208d9fa915edf19c43d9568c936ad10dc7ad9b128b92603dec",
+      "seconds": 0.3875,
+      "peak": 0.82023,
+      "rms": 0.04593,
+      "edit": "DC/rumble cleanup, gentle HF control, gun-only 110\u2013430 Hz body lift, -1.3 dBFS peak ceiling, silence trim, 18 ms fade, PCM16 mono 32 kHz"
+    }
+  }
+}

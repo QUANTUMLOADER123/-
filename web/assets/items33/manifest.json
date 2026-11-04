@@ -1,0 +1,46 @@
+{
+  "reference": ".artifacts/items26/reference/approved-style.png",
+  "method": "individual generation, border-connected alpha extraction",
+  "items": {
+    "bearingSet": {
+      "file": "bearingSet.webp",
+      "sha256": "676f1c7f76590cfc08c4f0c8b49cdacd35e27a99caf721e1bed6c71369296aa5"
+    },
+    "berryJuice": {
+      "file": "berryJuice.webp",
+      "sha256": "304777e550e5f8ae5666f2ebd5fe2f337522aa604c6bc48dcdf3b7c9a6ab40ae"
+    },
+    "copperWire": {
+      "file": "copperWire.webp",
+      "sha256": "a517a396f0d6ea388f2327c3faa0a6a5a769e74853b7eae794a4d118dd75d85b"
+    },
+    "driedFish": {
+      "file": "driedFish.webp",
+      "sha256": "372fc0a8355e3c0c7a9b9fff80233ff845261fd9b90c273df779cb225be56b32"
+    },
+    "fieldDressing": {
+      "file": "fieldDressing.webp",
+      "sha256": "e5ad306885e9910bed656637bff423b8e39342bd0e43542ee8c819629a669ce5"
+    },
+    "fruitTin": {
+      "file": "fruitTin.webp",
+      "sha256": "5fa1827630251f388c18c88a1a1ec0fa0142fa51afc086731d39fc8464c1f570"
+    },
+    "medicalGauze": {
+      "file": "medicalGauze.webp",
+      "sha256": "81ba6b5ee6e6a8268191ebfba08c52814dff71138e75ec3501ba51897f330e1b"
+    },
+    "oatBar": {
+      "file": "oatBar.webp",
+      "sha256": "5f84aa39a867a64a407007fde68dafce9a57583789ec429260254c836631fd42"
+    },
+    "salineBottle": {
+      "file": "salineBottle.webp",
+      "sha256": "cb7da30860205bf9ab975dfa7640cd0543fd3c3fec3bec8c921736cdf82af3b3"
+    },
+    "waterPouch": {
+      "file": "waterPouch.webp",
+      "sha256": "6ab6e70c3c76667bcf70267d2c24da02422e1dc5ce01b48b78fee4751a37a8c9"
+    }
+  }
+}

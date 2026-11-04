@@ -43,7 +43,7 @@ test('chunking preserves every physical terrain triangle and copied edge normals
  for(const mesh of root.children){const {x,z,nx,nz}=mesh.userData.sourceCells32;for(let j=0;j<=nz;j++)for(let i=0;i<=nx;i++){const from=(z+j)*(n+1)+x+i,to=j*(nx+1)+i;for(const name of Object.keys(source.attributes)){const a=source.attributes[name],b=mesh.geometry.attributes[name];for(let k=0;k<a.itemSize;k++)assert.equal(b.array[to*a.itemSize+k],a.array[from*a.itemSize+k]);}}}
 });
 test('natural stone is not the generated brick construction texture',()=>{
- const load=p=>readFileSync(new URL('../web/assets/'+p,import.meta.url)),hash=p=>createHash('sha256').update(load(p)).digest('hex');assert.notEqual(hash('nature32/rock-color.webp'),hash('pbr12/stone-color.webp'));const material=readFileSync(new URL('../src/survival/terrain12.js',import.meta.url),'utf8');assert.match(material,/nature32\/rock-color/);assert.doesNotMatch(material,/\['pbr12\/stone-color/);
+ const load=p=>readFileSync(new URL('../web/assets/'+p,import.meta.url)),hash=p=>createHash('sha256').update(load(p)).digest('hex');assert.notEqual(hash('nature32/rock-color.webp'),hash('pbr12/stone-color.webp'));const material=readFileSync(new URL('../src/survival/terrain12.js',import.meta.url),'utf8');assert.match(material,/nature33\/granite-color/);assert.doesNotMatch(material,/\['pbr12\/stone-color/);
 });
 
 test('new routing connects a formerly isolated RT gate without crossing its footprint',()=>{

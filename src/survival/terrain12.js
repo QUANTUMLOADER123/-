@@ -4,7 +4,7 @@ import {visualState12} from './materials12.js';
 export function terrainMaterial12(w){
  const t=w.textures,u=visualState12(w),m=new THREE.MeshStandardMaterial({map:t['pbr12/soil-color.webp'],normalMap:t['pbr12/soil-normal.webp'],roughness:1,metalness:0});m.userData.terrain12=true;
  m.onBeforeCompile=s=>{
-  Object.assign(s.uniforms,{soil12:{value:t['pbr12/soil-color.webp']},soilN12:{value:t['pbr12/soil-normal.webp']},sand12:{value:t['sand.jpg']},rock12:{value:t['nature32/rock-color.webp']},rockN12:{value:t['nature32/rock-normal.webp']},orm12:{value:t['pbr12/soil-orm.webp']},wetness12:u.wet,terrainDetail12:{value:w.settings.quality==='low'?.35:.65}});
+  Object.assign(s.uniforms,{soil12:{value:t['pbr12/soil-color.webp']},soilN12:{value:t['pbr12/soil-normal.webp']},sand12:{value:t['sand.jpg']},rock12:{value:t['nature33/granite-color.webp']},rockN12:{value:t['nature33/granite-normal.webp']},orm12:{value:t['pbr12/soil-orm.webp']},wetness12:u.wet,terrainDetail12:{value:w.settings.quality==='low'?.35:.65}});
   s.vertexShader='attribute float snow;varying float biome12;varying vec3 ground12;varying vec3 groundNormal12;\n'+s.vertexShader;
   s.vertexShader=s.vertexShader.replace('#include <worldpos_vertex>',`#include <worldpos_vertex>
  biome12=snow;ground12=(modelMatrix*vec4(transformed,1.)).xyz;groundNormal12=normalize(mat3(modelMatrix)*normal);`);

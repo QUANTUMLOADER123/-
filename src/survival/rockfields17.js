@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import {MAP_REVISION,MAP_SCALE,MAP_SEED,WORLD_RADIUS,MONUMENTS,BOT_BASES,distanceToRoad,riverAt} from './map-data.js';
 import {terrainHeight,randomSeed} from './state.js';
-import {pbrMaterial12} from './materials12.js';
+import {naturalRock33} from './materials12.js';
 /** Decorative, solid rockfields only on new revision-8 islands. Stable old bases
  * never acquire new colliders. Templates are instanced in bounded 80m chunks. */
 export function addRockfields17(w){
- if(MAP_REVISION<8)return;const random=randomSeed(MAP_SEED^0x17b01d),material=pbrMaterial12(w,'stone'),templates=[];
+ if(MAP_REVISION<8)return;const random=randomSeed(MAP_SEED^0x17b01d),material=naturalRock33(w),templates=[];
  for(let variant=0;variant<4;variant++){
   const geo=new THREE.IcosahedronGeometry(1,MAP_REVISION>=11?2:1),p=geo.attributes.position;
   for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),k=1+(MAP_REVISION>=11?.055:.12)*Math.sin(x*17+z*13+y*11+variant*2.3);p.setXYZ(i,x*k,y*(.92+.06*Math.cos(x*19+variant)),z*k);}

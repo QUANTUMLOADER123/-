@@ -1,3 +1,4 @@
+import {USE33} from './items33.js';
 import {isAttachment25} from './attachments25.js';
 import {isClothing24} from './clothing24.js';
 import {lootAmount,normalizeLoot,randomLootContainer} from './loot-policy.js';
@@ -6,12 +7,12 @@ import {WEAPONS,isGun} from './catalog.js';
 /** Six belt + thirty backpack slots. Aggregated totals remain the crafting adapter. */
 export const SLOT_COUNT=36;
 const SINGLE=new Set(['rock','torch','axe','pickaxe','knife','hammer','rifle','armor','furnace','workbench','plan','storage','largeStorage','cupboard','recycler','repairBench']);
-const baseStack25=item=>SINGLE.has(item)||isGun(item)||isClothing24(item)||isAttachment25(item)?1:['ammo','pistolAmmo','shells','rocket','hvRocket','incendiaryRocket'].includes(item)?64:['berries','bandage','syringe','medkit','antiseptic','traumaKit','water','satchel'].includes(item)?20:['foundation','wall','door','roof','campfire','battery'].includes(item)?10:1000;
+const baseStack25=item=>USE33[item]?20:SINGLE.has(item)||isGun(item)||isClothing24(item)||isAttachment25(item)?1:['ammo','pistolAmmo','shells','rocket','hvRocket','incendiaryRocket'].includes(item)?64:['berries','bandage','syringe','medkit','antiseptic','traumaKit','water','satchel'].includes(item)?20:['foundation','wall','door','roof','campfire','battery'].includes(item)?10:1000;
 export function stackLimit(item,context=1){const m=typeof context==='object'?context?.multiplier:context;return baseStack25(item)*(baseStack25(item)===1?1:[1,2,5,10,50].includes(m)?m:1);}
 export function slotTotals(slots){const out={};for(const s of slots)if(s)out[s.item]=(out[s.item]||0)+s.count;return out;}
 const backpackOrder=[...Array.from({length:30},(_,i)=>i+6)];
 export function capacity(slots,item,context=1){return slots.reduce((n,s,i)=>n+(!canHold08(item)&&i<6?0:!s?stackLimit(item,context):s.item===item?stackLimit(item,context)-s.count:0),0);}
-export const canHold08=item=>isGun(item)||['rock','torch','axe','pickaxe','knife','hammer','plan','knife','satchel','timedCharge','f1Grenade','beancan','bandage','antiseptic','traumaKit','syringe','medkit','berries','cannedFood','water','mushroom','corn','pumpkin','cookedMeat','meat','furnace','workbench','campfire','storage','largeStorage','cupboard','repairBench','recycler'].includes(item);
+export const canHold08=item=>Object.hasOwn(USE33,item)||item==='cactusFlesh'||isGun(item)||['rock','torch','axe','pickaxe','knife','hammer','plan','knife','satchel','timedCharge','f1Grenade','beancan','bandage','antiseptic','traumaKit','syringe','medkit','berries','cannedFood','water','mushroom','corn','pumpkin','cookedMeat','meat','furnace','workbench','campfire','storage','largeStorage','cupboard','repairBench','recycler'].includes(item);
 function pack(slots,item,amount,context=1){const order=canHold08(item)?[0,1,2,3,4,5,...Array.from({length:30},(_,i)=>i+6)]:backpackOrder;let left=amount;for(const i of order){const s=slots[i];if(s?.item===item&&s.count<stackLimit(item,context)){const n=Math.min(left,stackLimit(item,context)-s.count);s.count+=n;left-=n;if(!left)return 0;}}for(const i of order)if(!slots[i]){const n=Math.min(left,stackLimit(item,context));slots[i]={item,count:n};left-=n;if(!left)return 0;}return left;}
 export function syncSlots(state){
  if(!Array.isArray(state.slots)||state.slots.length!==SLOT_COUNT){state.slots=Array(SLOT_COUNT).fill(null);for(const [i,item]of[[0,'rock'],[1,'torch']])if(state.inventory[item]>0)state.slots[i]={item,count:Math.min(state.inventory[item],stackLimit(item,state))};}

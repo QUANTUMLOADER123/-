@@ -1,6 +1,7 @@
+import {AUDIO_FILES33} from './audio-manifest33.js';
 import {AUDIO_GROUPS29,AUDIO_FILES29} from './audio-manifest29.js';
 import {AUDIO_GROUPS07,AUDIO_FILES07} from './audio-manifest07.js';
-const GROUPS={...AUDIO_GROUPS07,...AUDIO_GROUPS29},FILES={...AUDIO_FILES07,...AUDIO_FILES29};
+const GROUPS={...AUDIO_GROUPS07,...AUDIO_GROUPS29},FILES={...AUDIO_FILES07,...AUDIO_FILES29,...AUDIO_FILES33};
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const gunGroup=id=>({carbine26:'assault',pdw26:'smg',pistol:'pistol',heavyPistol:'heavy-pistol',revolver:'revolver',smg:'smg',compactSmg:'smg',akRifle:'assault',assaultRifle:'assault',machineGun:'assault',boltRifle:'bolt',rifle:'marksman',semiRifle:'marksman',shotgun:'shotgun',combatShotgun:'shotgun'})[id]||'assault';
 /** Local recorded samples only: no oscillator beeps and no procedural noise fallback. */
@@ -20,7 +21,7 @@ export class SurvivalAudio {
  }
  warm11(signal){
   const priority=['step-grass','step-stone','hit-wood','hit-metal','hurt','click','pistol','assault'],first=priority.flatMap(k=>(GROUPS[k]||[]).slice(0,1)),queue=[...new Set([...first,...Object.keys(FILES)])].filter(k=>!this.buffers.has(k));this.warming11=true;
-  this.ready=Promise.all(Array.from({length:4},async()=>{while(queue.length&&!signal?.aborted)await this.load(queue.shift(),signal);})).finally(()=>{this.warming11=false;this.prepared11=!signal?.aborted;});
+  this.ready=Promise.all(Array.from({length:2},async()=>{while(queue.length&&!signal?.aborted)await this.load(queue.shift(),signal);})).finally(()=>{this.warming11=false;this.prepared11=!signal?.aborted;});
  }
  configure({master=this.levels.master,effects=this.levels.effects,steps=this.levels.steps}={}){
   this.levels={master:clamp(master),effects:clamp(effects),steps:clamp(steps)};

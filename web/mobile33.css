@@ -1,0 +1,23 @@
+/* All required actions are reachable on coarse AND hybrid touch devices. */
+html.touch33 .hud .touch-controls{display:block;position:absolute;inset:0;pointer-events:none;--touch-bottom33:80px}
+html.touch33 .hud .touch-controls button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;min-width:44px;min-height:44px;font-size:10px;line-height:1.1;padding:5px;background:#24302ee8;border:1px solid #c3d0bd80;color:#f0f1e8;border-radius:9px;text-shadow:0 1px 2px #000}
+html.touch33 .hud .touch-controls button.active{background:#bd7048;box-shadow:0 0 0 2px #f0b787}
+html.touch33 .hud .touch-controls .move-pad{left:max(18px,env(safe-area-inset-left));bottom:var(--touch-bottom33);width:94px;height:94px;pointer-events:auto;touch-action:none}
+html.touch33 .hud .touch-controls .move-knob{left:29px;top:29px}
+html.touch33 .hud .touch-controls .attack-button{right:max(16px,env(safe-area-inset-right));bottom:var(--touch-bottom33);width:64px;height:64px;padding:18px;border-radius:50%}
+html.touch33 .hud .touch-controls .jump{right:96px;bottom:var(--touch-bottom33);width:48px;height:48px}
+html.touch33 .hud .touch-controls .aim-button33{position:absolute;right:96px;bottom:calc(var(--touch-bottom33) + 72px);width:48px;height:48px}
+html.touch33 .hud .touch-controls .reload-button{right:16px;bottom:calc(var(--touch-bottom33) + 78px);width:48px;height:48px}
+html.touch33 .hud .touch-controls .interact-button{right:16px;bottom:calc(var(--touch-bottom33) + 140px);width:130px;height:44px}
+html.touch33 .hud .touch-controls .crouch-button{left:133px;bottom:var(--touch-bottom33);width:48px;height:48px}
+html.touch33 .hud .touch-controls .sprint{left:133px;bottom:calc(var(--touch-bottom33) + 62px);width:48px;height:48px}
+html.touch33 .hud .touch-controls .rotate-build{right:159px;bottom:calc(var(--touch-bottom33) + 74px);width:44px;height:44px}
+html.touch33 .touch-tools33{position:absolute;right:12px;top:max(65px,calc(env(safe-area-inset-top) + 50px));display:flex;gap:6px;pointer-events:auto}
+html.touch33 .touch-tools33 button{width:49px;height:44px}
+html.touch33 .hud .mission,html.touch33 #look-hint{display:none}
+html.touch33 .hud .hotbar-caption>span{visibility:hidden}
+@media(orientation:portrait){html.touch33 .hud .touch-controls{--touch-bottom33:170px}html.touch33 .touch-tools33{top:95px}html.touch33 .hud .vitals{bottom:115px}html.touch33 .hud .swim-status08{bottom:370px}html.touch33 .hud .oxygen08{bottom:340px}}
+@media(orientation:landscape) and (max-height:500px){html.touch33 .hud .touch-controls{--touch-bottom33:65px}html.touch33 .touch-tools33{top:56px}html.touch33 .hud .vitals{bottom:12px;right:12px}html.touch33 .hud .hud-bottom{bottom:6px}html.touch33 .touch-tools33 button{height:44px}}
+/* Keep health visible: never put vitals underneath the firing cluster. */
+html.touch33 .hud .vitals{position:fixed;left:12px;right:auto;top:66px;bottom:auto;width:108px;pointer-events:none}
+@media(orientation:portrait){html.touch33 .hud .vitals{top:160px;width:112px}}

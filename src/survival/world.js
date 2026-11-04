@@ -1,3 +1,4 @@
+import {naturalRock33} from './materials12.js';
 import {terrainChunks32} from './terrain-chunks32.js';
 import {installFoundations32} from './foundations32.js';
 import {texturePath30} from './asset-path30.js';
@@ -142,7 +143,7 @@ export class IslandWorld {
   const material=terrainMaterial12(this);
   const terrain=terrainChunks32(geometry,segments,material);geometry.dispose();this.scene.add(terrain);this.terrain=terrain;
   // Distant rock silhouettes extend the island beyond the playable clearing.
-  const rand=randomSeed(919);const rocky=new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.6,.6),color:0x8e9483,roughness:1});
+  const rand=randomSeed(919);const rocky=naturalRock33(this);
   for(let i=0;i<17;i++){const a=rand()*Math.PI*2,x=Math.cos(a)*270*MAP_SCALE,z=Math.sin(a)*270*MAP_SCALE;const g=new THREE.IcosahedronGeometry(MAP_REVISION>=6?.9+rand()*2.1:3+rand()*5,2);const p=g.attributes.position;for(let j=0;j<p.count;j++){const f=.85+noise(p.getX(j)*.7+i,p.getZ(j)*.7)*.35;p.setXYZ(j,p.getX(j)*f,p.getY(j)*f,p.getZ(j)*f);}g.computeVertexNormals();const r=new THREE.Mesh(g,rocky);r.position.set(x,terrainHeight(x,z)-1,z);r.scale.y=MAP_REVISION>=6?1.1+rand()*.6:1.4+rand();r.castShadow=true;r.receiveShadow=true;this.scene.add(r);}
  }
  makeOcean(){
@@ -223,7 +224,7 @@ export class IslandWorld {
   this.makeBiomeTrees();
   this.groundingMaxError=0;for(const n of trees.filter((_,i)=>i%Math.max(1,Math.floor(trees.length/32))===0)){let low=Infinity;for(const ref of n.instances||[]){ref.batch.geometry.computeBoundingBox();const b=ref.batch.geometry.boundingBox.clone().applyMatrix4(ref.matrix);low=Math.min(low,b.min.y);}if(Number.isFinite(low))this.groundingMaxError=Math.max(this.groundingMaxError,Math.abs(low-terrainHeight(n.x,n.z)));}
 
-  const rockMaterial=new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],normalScale:new THREE.Vector2(.65,.65),color:0x9d9d8b,roughness:.95});
+  const rockMaterial=naturalRock33(this);
   for(const n of this.nodes){n.y=terrainHeight(n.x,n.z);if(n.type==='tree'){this.colliders.push({x:n.x,z:n.z,r:n.r,y:n.y,h:10,id:n.id});continue;}
    if(['rock','metalOre','sulfurOre','highMetalOre'].includes(n.type)){
     // Rounded, textured geological mesh, not a cube or a collision-box placeholder.
@@ -244,7 +245,7 @@ export class IslandWorld {
   const thumb=new THREE.Mesh(new THREE.CapsuleGeometry(.025,.07,3,8),glove);thumb.rotation.set(.5,0,-.8);thumb.position.set(-.066,.06,-.02);this.handRoot.add(thumb);
   // Fine seams and knuckle pad avoid a featureless block-shaped hand.
   const pad=new THREE.Mesh(new RoundedBoxGeometry(.105,.06,.018,2,.013),strap);pad.position.set(0,.10,.068);pad.rotation.z=-.2;this.handRoot.add(pad);
-  this.heldRock=new THREE.Mesh(new THREE.IcosahedronGeometry(.145,2),new THREE.MeshStandardMaterial({map:this.textures['rockyGround_basecolor.png'],normalMap:this.textures['rockyGround_normal.png'],color:0x898a7a,roughness:1}));this.heldRock.scale.set(1.15,1,.77);this.heldRock.position.set(-.02,.17,-.045);this.handRoot.add(this.heldRock);
+  this.heldRock=new THREE.Mesh(new THREE.IcosahedronGeometry(.145,2),naturalRock33(this));this.heldRock.scale.set(1.15,1,.77);this.heldRock.position.set(-.02,.17,-.045);this.handRoot.add(this.heldRock);
   this.heldAxe=this.normalized('Axe',.72);this.heldAxe.rotation.set(.05,.55,-.25);this.heldAxe.position.set(-.03,-.11,-.02);this.handRoot.add(this.heldAxe);this.heldAxe.visible=false;
   this.heldTorch=new THREE.Group();const stick=new THREE.Mesh(new THREE.CylinderGeometry(.026,.034,.65,9),new THREE.MeshStandardMaterial({name:'WoodHandle14',color:0x67523b,roughness:1}));stick.position.y=.23;this.heldTorch.add(stick);const wrap=new THREE.Mesh(new THREE.CylinderGeometry(.06,.042,.17,9),glove);wrap.position.y=.56;this.heldTorch.add(wrap);this.torchFlame=new THREE.Mesh(new THREE.ConeGeometry(.065,.24,7),new THREE.MeshBasicMaterial({color:0xffb24b,transparent:true,opacity:.85,depthWrite:false}));this.torchFlame.position.y=.75;this.heldTorch.add(this.torchFlame);this.handRoot.add(this.heldTorch);this.heldTorch.visible=false;
   this.torchLight=new THREE.PointLight(0xffa558,0,12,2);this.torchLight.position.set(0,.6,0);this.handRoot.add(this.torchLight);

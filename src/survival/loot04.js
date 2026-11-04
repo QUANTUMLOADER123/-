@@ -1,3 +1,4 @@
+import {LOOT33} from './items33.js';
 import {MODS25} from './attachments25.js';
 import {clothingLoot24} from './clothing24.js';
 import {WEAPONS,isGun} from './catalog.js';
@@ -5,7 +6,7 @@ export const CRATE_TYPES={normal:{name:'Обычный ящик',color:0x997044,
 export function seedRoll(id,seed=27182){let h=seed>>>0;for(const c of id)h=Math.imul(h^c.charCodeAt(0),16777619);h=Math.imul(h^h>>>16,0x7feb352d);return(h>>>0)/4294967296;}
 export function crateTier(id,seed){const r=seedRoll(id,seed);return r<.5?'normal':r<.75?'tool':r<.9?'military':'elite';}
 const tables={normal:{bandage:2,scrap:5,metalPipe:1,metalCylinder:1,rope:1,beancan:1},tool:{syringe:1,antiseptic:1,scrap:9,metalBlade:2,semiBody:1,spring:2,axe:1,pickaxe:1,satchel:1},military:{syringe:2,medkit:1,scrap:15,metal:35,ammo:32,pistolAmmo:24,rifleBody:1,smgBody:1,gears:2,f1Grenade:1},elite:{medkit:2,traumaKit:1,scrap:25,metal:60,highMetal:12,techParts:2,explosives:4,timedCharge:1,rocket:2}};
-export function crateLoot(id,seed,tier=crateTier(id,seed)){const base=tables[tier],table={};for(const[k,v]of Object.entries(base))if(seedRoll(id+k,seed)>.18)table[k]=v;Object.assign(table,clothingLoot24(id,seed,tier));if(seedRoll(id+'mod25',seed)<(tier==='elite'?.85:tier==='military'?.60:tier==='tool'?.30:.08)){const pool=Object.keys(MODS25);table[pool[Math.floor(seedRoll(id+'whichmod25',seed)*pool.length)]]=1;}return table;}
+export function crateLoot(id,seed,tier=crateTier(id,seed)){const base={...tables[tier],...LOOT33[tier]},table={};for(const[k,v]of Object.entries(base))if(seedRoll(id+k,seed)>.18)table[k]=v;Object.assign(table,clothingLoot24(id,seed,tier));if(seedRoll(id+'mod25',seed)<(tier==='elite'?.85:tier==='military'?.60:tier==='tool'?.30:.08)){const pool=Object.keys(MODS25);table[pool[Math.floor(seedRoll(id+'whichmod25',seed)*pool.length)]]=1;}return table;}
 export function barrelLoot(id,seed,kind='normal'){const r=k=>seedRoll(id+k,seed);if(kind==='oil')return{lowFuel:4+Math.floor(r('fuel')*5)};const pool=kind==='advanced'?['rifleBody','smgBody','spring','gears','techParts','metalCylinder']:['metalPipe','metalBlade','rope','sewingKit','tarp','ductTape','metalSheet'];const a=pool[Math.floor(r('a')*pool.length)],b=pool[Math.floor(r('b')*pool.length)];return{scrap:kind==='advanced'?6:3,metal:kind==='advanced'?12:3,[a]:1,[b]:1};}
 export function firearmForTier(id,seed,tier){const pool=tier==='elite'?['carbine26','machineGun','rocketLauncher','assaultRifle','akRifle','boltRifle']:tier==='military'?['carbine26','pdw26','assaultRifle','akRifle','compactSmg','smg','semiRifle','combatShotgun','rocketLauncher']:tier==='tool'?['pistol','shotgun','smg','revolver']:['rifle','pistol','revolver'];return pool[Math.floor(seedRoll(id+'weapon',seed)*pool.length)];}
 

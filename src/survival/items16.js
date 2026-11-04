@@ -1,10 +1,9 @@
-import {GUNS29,GUN_TEXTURES29} from './weapon-profiles29.js';
-import {detailWeapon29} from './weapons29.js';
+import {weaponModel33} from './weapon-models33.js';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 export const ITEM_KINDS16=['steel','wood','polymer','cloth','rust','paint','rubber','brass','organic'];
-export const ITEM_FILES16=[...ITEM_KINDS16.flatMap(k=>['color','normal','orm'].map(s=>`items16/${k}-${s}.webp`)),...GUN_TEXTURES29];
+export const ITEM_FILES16=[...ITEM_KINDS16.flatMap(k=>['color','normal','orm'].map(s=>`items16/${k}-${s}.webp`))];
 let textures={};
 export function itemBank16(){return textures;}
 export function itemTextures16(t){textures=t;}
@@ -51,71 +50,7 @@ function magazine(g,mat,curved=false,short=false){
  for(const x of[-.034,.034])for(let i=0;i<3;i++){const rib=round(mag,[.006,short?.13:.20,.005],[x,-.085,-.126-i*.02],mat,.001);if(curved)rib.rotation.x=.20;}
  return mag;
 }
-export function weaponModel16(id){
- const profile29=GUNS29[id];
- const g=new THREE.Group();g.name=`weapon16:${id}`;g.userData.authored16=true;
- const steel=material16('steel'),black=material16('polymer'),wood=material16('wood'),rubber=material16('rubber'),paint=material16('paint');
- if(textures['weapons29/'+id+'-color.webp'])steel.map=textures['weapons29/'+id+'-color.webp'];
- const pistol=['pistol','heavyPistol','revolver'].includes(id),long=['rifle','boltRifle','semiRifle','carbine26'].includes(id),smg=['smg','compactSmg','pdw26'].includes(id),ak=id==='akRifle',shot=['shotgun','combatShotgun'].includes(id),mg=id==='machineGun';
- if(id==='rocketLauncher'){
-  g.userData.muzzle16=[0,.14,-.98];
-  barrel(g,.105,.28,-.98,.14,paint,black);for(const z of[-.97,-.62,-.16,.24])ring(g,.107,.012,[0,.14,z],black);
-  grip(g,black);side(g,[[-.30,.10],[-.50,.10],[-.48,.03],[-.31,.03]],.10,rubber);
-  round(g,[.13,.05,.32],[0,.25,-.50],steel);g.userData.opticMount16=[0,.4005,-.5];
-  trigger(g,steel);g.userData.foregrip14=round(g,[.09,.04,.2],[0,.06,-.43],rubber);
- }else if(pistol){
-  g.userData.muzzle16=[0,.151,id==='revolver'?-.37:id==='heavyPistol'?-.34:-.30];
-  grip(g,id==='revolver'?wood:black,true);
-  side(g,[[.10,.085],[.10,.16],[-.20,.16],[-.26,.09],[-.19,.04],[-.025,.04]],.067,steel);
-  if(id==='revolver'){
-   const cyl=tube(g,.061,.095,[0,.126,-.09],steel);g.userData.cylinder14=cyl;
-   for(let i=0;i<6;i++){const a=i*Math.PI/3;const flute=tube(cyl,.012,.09,[Math.cos(a)*.05,0,0],black);flute.rotation.x=0;flute.position.set(Math.cos(a)*.05,0,Math.sin(a)*.05);}
-   barrel(g,.024,-.14,-.37,.14,steel,black);
-  }else{
-   const slide=side(g,[[.09,.115],[.09,.202],[-.27,.202],[-.29,.15],[-.26,.115]],.073,steel);g.userData.slide14=slide;
-   for(const x of[-.04,.04])for(let i=0;i<5;i++)round(slide,[.003,.044,.004],[x,.166,.012+i*.012],black,.001);
-   barrel(g,.017,-.15,id==='heavyPistol'?-.34:-.30,.151,steel,black);
-   const mag=side(g,[[.015,.02],[.075,.02],[.103,-.18],[.033,-.18]],.045,black);g.userData.magazine=mag;
-  }
-  trigger(g,steel);const rail=round(g,[.074,.018,.078],[0,id==='revolver'?.169:.211,-.09],black);if(g.userData.slide14){g.remove(rail);g.userData.slide14.add(rail);}g.userData.opticMount16=[0,.2915,-.09];
- }else{
-  side(g,profile29?.receiver||[[.11,.08],[.10,.205],[-.22,.205],[-.27,.13],[-.23,.065],[-.035,.04]],profile29?.width||.082,steel);
-  grip(g,ak?wood:black);trigger(g,steel);
-  if(long||ak||shot)stock(g,wood,rubber);else if(id==='compactSmg'){
-   for(const x of[-.035,.035]){const rail=tube(g,.008,.29,[x,.13,.235],steel);rail.rotation.x=Math.PI/2;}
-   round(g,[.09,.14,.025],[0,.077,.39],rubber);
-  }else stock(g,black,rubber,smg);
-  const end=profile29?.end||-.75;
-  g.userData.muzzle16=[0,.146,end];barrel(g,shot?.029:mg?.023:.019,-.22,end,.146,steel,black);
-  const foreStart=smg?-.20:-.23,foreEnd=smg?-.37:shot?-.56:-.48;
-  const fore=side(g,[[foreStart,.075],[foreStart,.19],[foreEnd,.177],[foreEnd-.025,.09]],.087,ak||long||id==='shotgun'?wood:black);g.userData.foregrip14=fore;
-  for(const x of[-.047,.047])for(let i=0;i<5;i++)round(fore,[.004,.027,.012],[x,.134,foreStart-.035-i*.031],black,.002);
-  if(id==='shotgun'){tube(g,.019,.52,[0,.087,-.48],steel);}
-  else if(!['rifle','boltRifle'].includes(id))magazine(g,ak?steel:black,ak,smg);
-  if(long){const bolt=tube(g,.009,.11,[.09,.14,-.01],steel);bolt.rotation.set(0,0,Math.PI/2);g.userData.bolt14=bolt;add(bolt,new THREE.SphereGeometry(.016,10,8),black,[0,.058,0]);}
-  else g.userData.bolt14=round(g,[.02,.023,.045],[.055,.139,-.07],steel);
-  if(mg){g.userData.feedBox14=round(g,[.17,.18,.19],[0,-.01,-.17],paint,.018);for(const x of[-.07,.07]){const leg=round(g,[.016,.27,.018],[x,-.015,-.62],steel);leg.rotation.z=x<0?-.3:.3;}}
-  const muzzleCollar=ring(g,shot?.030:.025,.004,[0,.146,end+.05],steel);muzzleCollar.name='MuzzleCollar16';
-  round(g,[.08,.012,.17],[0,.243,-.10],black);
-  g.userData.opticMount16=[0,.3005,-.10];
-  // Front sight is lower than the holographic window's central line.
-  // One iron-sight set is built by weapon-mods25; no duplicate front ring.
- }
- // DEV25: original field-repaired silhouettes: stamped covers, rivets and bindings.
- if(id!=='rocketLauncher'){
-  const worn=material16('rust',0x8c806b),binding=material16('cloth',ak?0xa99366:0x6f7758);
-  for(const side25 of [-1,1])for(const z of [-.15,-.03,.065]){const rivet=add(g,new THREE.SphereGeometry(.0055,6,4),steel,[side25*(pistol?.04:.045),pistol?.137:.155,z]);rivet.scale.x=.45;}
-  if(!pistol){side(g,[[-.21,.205],[-.18,.237],[.07,.237],[.105,.205]],.078,black);for(const z of [-.35,-.29]){const wrap=ring(g,.050,.006,[0,.128,z],binding);wrap.scale.x=1.05;wrap.scale.y=.86;}
-   if(id==='rifle'){tube(g,.037,.28,[0,.17,-.075],worn).rotation.x=Math.PI/2;for(const z of [-.19,.03])ring(g,.039,.006,[0,.17,z],steel);}
-   if(smg){const cover=tube(g,.036,.21,[0,.174,-.13],worn);cover.rotation.x=Math.PI/2;}
-   if(g.userData.foregrip14){const f=g.userData.foregrip14;f.geometry.computeBoundingBox();const b=f.geometry.boundingBox;g.userData.supportGrip25=new THREE.Vector3(-.052,b.min.y-.025,(b.min.z+b.max.z)/2+.035);}
-  }
- }
- g.userData.receiverTop32=id==='revolver'?.178:id==='heavyPistol'?.23:pistol?.22:.249;
- detailWeapon29(g,id,{steel,wood,black,rubber});
- const moving=new Set(['magazine','slide14','foregrip14','bolt14','feedBox14','cylinder14'].map(k=>g.userData[k]).filter(Boolean));for(const part of moving)mergeStatic16(part);mergeStatic16(g,moving);
- g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});return g;
-}
+export function weaponModel16(id){return weaponModel33(id,material16);}
 export function toolModel16(id){
  const g=new THREE.Group(),wood=material16('wood'),steel=material16('steel'),cloth=material16('cloth');g.name=`tool16:${id}`;
  const len=id==='hammer'?.48:.72;
@@ -132,14 +67,20 @@ export function toolModel16(id){
   for(let i=0;i<p.count;i++){const x=p.getX(i),t=Math.max(.10,1-Math.pow(Math.abs(x)/.27,2));p.setZ(i,p.getZ(i)*t);}geo.computeVertexNormals();add(g,geo,steel);
   round(g,[.075,.09,.07],[0,.60,0],steel);
  }else round(g,[.21,.11,.095],[0,.425,0],steel,.012);
- g.userData.rightGrip16=new THREE.Vector3(.068,.11,.055);
+ g.userData.rightGrip16=new THREE.Vector3(.044,.11,.055);
  if(id!=='hammer')g.userData.supportGrip16=new THREE.Vector3(-.064,.29,.045);
  mergeStatic16(g);return g;
 }
 export function medicalModel16(id){
  const g=new THREE.Group(),cloth=material16('cloth'),steel=material16('steel'),paint=material16('paint');
  const red=new THREE.MeshStandardMaterial({color:0xb53e31,roughness:.7});
- if(id==='syringe'){
+ if(id==='medicalGauze'){
+  add(g,new THREE.CylinderGeometry(.037,.037,.10,20),cloth,[0,.065,0]);for(let i=0;i<7;i++){const wrap=add(g,new THREE.TorusGeometry(.037,.0014,4,18),cloth,[0,.020+i*.014,0]);wrap.rotation.x=Math.PI/2;}
+ }else if(id==='fieldDressing'){
+  round(g,[.12,.14,.055],[0,.075,0],cloth,.014);round(g,[.125,.029,.061],[0,.075,0],paint,.005);round(g,[.025,.055,.004],[0,.075,.033],red,.002);round(g,[.055,.021,.004],[0,.075,.034],red,.002);
+ }else if(id==='salineBottle'){
+  const bottle=new THREE.MeshStandardMaterial({color:0xc2d6d8,roughness:.26,transparent:true,opacity:.78});add(g,new THREE.CylinderGeometry(.035,.037,.14,20),bottle,[0,.075,0]);add(g,new THREE.CylinderGeometry(.023,.023,.024,16),paint,[0,.157,0]);round(g,[.053,.068,.004],[0,.08,.035],cloth,.004);round(g,[.030,.012,.004],[0,.083,.038],paint,.002);
+ }else if(id==='syringe'){
   const barrelMat=new THREE.MeshStandardMaterial({color:0xdbe2d4,roughness:.24,transparent:true,opacity:.72});
   add(g,new THREE.CylinderGeometry(.022,.022,.115,20),barrelMat,[0,.08,0]);
   add(g,new THREE.CylinderGeometry(.012,.012,.07,12),red,[0,.08,0]);
@@ -163,5 +104,5 @@ export function installItems16(World){
  World.prototype.makeViewModel=function(){makeBase.call(this);for(const [id,key]of [['axe','heldAxe'],['pickaxe','heldPickaxe'],['hammer','heldHammer']]){
   const old=this[key],m=toolModel16(id);m.position.copy(old.position);m.visible=false;m.traverse(o=>{o.layers.set(1);o.castShadow=false;o.receiveShadow=false;});old.removeFromParent();this.handRoot.add(m);this[key]=m;
  }this.heldSatchel.material=material16('cloth');this.heldTorch.traverse(o=>{if(!o.isMesh||o===this.torchFlame)return;o.material=material16(o.geometry.type==='CylinderGeometry'&&o.geometry.parameters.height>.3?'wood':'cloth');});};
- World.prototype.iconModel04=function(id){if(['axe','pickaxe','hammer'].includes(id))return toolModel16(id);if(['syringe','medkit','antiseptic','traumaKit'].includes(id))return medicalModel16(id);return icon.call(this,id);};
+ World.prototype.iconModel04=function(id){if(['axe','pickaxe','hammer'].includes(id))return toolModel16(id);if(['syringe','medkit','antiseptic','traumaKit','medicalGauze','fieldDressing','salineBottle'].includes(id))return medicalModel16(id);return icon.call(this,id);};
 }

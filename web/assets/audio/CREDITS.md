@@ -43,3 +43,12 @@ python -m venv /home/user/.venv-audio07
 ```
 
 The build does not need Python or internet audio downloads. Historical `scripts/make-sounds05.py` is obsolete and is not called by builds. No gameplay/browser/native/audio-device tests were run for DEV07, as requested. Offline waveform editing is asset preparation, not an in-game listening or device-loudness check.
+
+## DEV33 recording mastering
+All 122 existing recorded07/weapons29 derivatives are mastered into `master33/`.
+No new recordings or model-authentic firearm recordings are claimed. The upstream
+CC0 attributions above are unchanged (including airsoft handling and cannon/firework
+explosions). `master33/manifest.json` pins every input/output SHA-256, edit and level.
+Rebuild: `scripts/master-audio33.py` (numpy/scipy/soundfile). PCM16 mono 32 kHz,
+rumble/DC cleanup, gentle HF control, modest gun-only body lift, short fades and
+peak headroom. This was checked numerically, not subjectively auditioned on hardware.
