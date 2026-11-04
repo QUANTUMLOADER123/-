@@ -4,7 +4,7 @@ export const entryErrorOpen30=()=>!$('entry-error30').hidden;
 export function closeEntryError30(){if(!entryErrorOpen30())return false;$('entry-error30').hidden=true;$('start').focus({preventScroll:true});return true;}
 export function showEntryError30(error,stage){
  const message=String(error?.message||error||'Неизвестная ошибка').slice(0,1500);
- const report=['ОСКОЛ 0.30.1-dev30',new Date().toISOString(),'Этап: '+stage,(error?.name||'Error')+': '+message,String(error?.stack||'').slice(0,3500)].join('\n');
+ const report=['ОСКОЛ 0.31.0-dev31',new Date().toISOString(),'Этап: '+stage,(error?.name||'Error')+': '+message,String(error?.stack||'').slice(0,3500)].join('\n');
  try{localStorage.setItem('oskol.last-entry-error',report);}catch{/* Diagnostics must work even when storage is unavailable. */}
  $('entry-error-stage30').textContent='Этап: '+stage;
  $('entry-error-message30').textContent=message;

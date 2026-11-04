@@ -1,3 +1,4 @@
+import {oilrig31,restoreOilRig31} from './oilrig31.js';
 import {sphere25} from './sphere25.js';
 import {terrainHeight} from './state.js';
 import * as THREE from 'three';
@@ -97,23 +98,12 @@ function market(k){const g=k.root,p=k.p;k.floor(g,30,29,0,0,.18,p.brick);const a
  for(const side of[-1,1]){const stall=k.group(g,[side*9,.18,2],side*Math.PI/2);for(const x of[-3,3])for(const z of[-2,2])k.beam(stall,[x,0,z],[x,3,z],.07,p.wood);for(let i=0;i<8;i++){const canopy=k.box(stall,[.8,.08,4.7],[-2.8+i*.8,3.1,0],i%2?p.cream:p.red);canopy.rotation.x=.12;}k.box(stall,[5.8,.9,.8],[0,.45,0],p.wood,true);k.terminal(stall,side<0?0:1,[0,0,2]);k.pallet(stall,-2,-1);}
  k.tank(g,10,-9,1.1,4,p.wood);for(const x of[-8,8])k.box(g,[3,.2,.6],[x,.65,10],p.wood,true);k.sign(g,'ОБМЕН · ОТДЫХ · РЕМОНТ',[0,2.8,12],8);
 }
-function oilrig(k,large){const g=k.root,p=k.p,w=large?34:25,d=large?28:22,y=4.6;k.floor(g,w,d,0,0,y,p.metal);
- for(const x of[-w*.38,w*.38])for(const z of[-d*.36,d*.36]){const point=new V(x,0,z);g.localToWorld(point);const bottom=terrainHeight(point.x,point.z)-.6;k.cyl(g,.48,.64,y-bottom,[x,(y+bottom)/2,z],p.rust,true,16);}
- for(const side of[-1,1]){k.rail(g,[side*w/2,0,-d/2],[side*w/2,0,d/2],y);k.rail(g,[-w/2,0,side*d/2],[side>0?-1.5:w/2,0,side*d/2],y);if(side>0)k.rail(g,[1.5,0,d/2],[w/2,0,d/2],y);}
- const dockZ=d/2+7;k.floor(g,7,4,0,dockZ,1.2,p.metal);k.stairs(g,{x:0,z:d/2+5,y:1.2,rise:y-1.2,width:2.2,tread:.32});
- const upper=platform(k,g,-w*.25,-3,large?13:10,8,8);const room=k.room(upper,{x:0,z:-1,y:8,w:large?10:7,d:5,h:3,mat:p.blue,door:2.4});k.cabinet(room,2,-1);k.floor(g,5,1,0,-.5,8,p.metal);k.stairs(g,{x:0,z:5.44,y,rise:3.4,width:1.8});
- const derrick=k.group(g,[w*.22,y,-3]),h=large?22:16;for(const x of[-2,2])for(const z of[-2,2])k.beam(derrick,[x,0,z],[x*.25,h,z*.25],.105,p.rust);for(let yy=0;yy<h-3;yy+=3)for(const side of[-1,1]){const a=2*(1-yy/h*.75),b=2*(1-(yy+3)/h*.75);k.beam(derrick,[-a,yy,side*a],[b,yy+3,side*b],.045);k.beam(derrick,[side*a,yy,-a],[side*b,yy+3,b],.045);}k.cyl(derrick,.13,.13,h,[0,h/2,0],p.rubber);
- for(let i=0;i<(large?4:2);i++)k.tank(g,w/2-3,-d/2+3+i*3,1.05,3,p.paint,y);
- if(large){k.floor(g,12,10,-6,8,y+.05,p.paint);k.sign(g,'H',[-6,y+.066,8],5).rotation.x=-Math.PI/2;crane(k,g,-w/2+2,-d/2+3,12,y);}
- for(let i=0;i<(large?5:3);i++){const upperLoot=i%2===1;k.crate(upperLoot?room:g,i,upperLoot?[-2+(i%3)*2,0,0]:[-w*.3+i*2,large?y+.05:y,d*.2]);}
- k.sign(g,large?'ПЛАТФОРМА «ГОРИЗОНТ»':'ПЛАТФОРМА «РИФ»',[0,6,d/2+.06],large?10:8);
- g.updateMatrixWorld(true);const dock=g.localToWorld(new V(0,1.2,dockZ));k.m.dock={x:dock.x,z:dock.z,y:dock.y};
-}
+
 const LAND17={lighthouse,harbor,airfield,power,quarry,radar,waterworks,gas,junkyard,bunker,supermarket,satellite,trainyard,mining,wreckyard,waterTower,outpost,market};
 export function buildSites17(w){
  const p=siteMaterials17(w);w.siteLayouts17=[];w.guardSpawns17=new Map();
  for(const m of MONUMENTS){const coast=m.kind==='harbor'?Math.atan2(m.x,m.z):m.kind==='oilrig'?Math.atan2(-m.x,-m.z):undefined,k=new Site17(w,m,p,coast);
-  if(m.kind==='oilrig')oilrig(k,m.id==='oil-large');else{const build=LAND17[m.kind];if(!build)throw new Error('No DEV17 authored site for '+m.kind);build(k);if(!m.safe){k.floor(k.root,5,2.4,-m.radius*.5+1.5,m.radius*.82,.18,p.concrete);for(let i=0;i<3;i++)k.barrel(k.root,i,[-m.radius*.50+i*1.5,.18,m.radius*.82]);}perimeter(k,m.radius/(m.siteScale25||1)*.72);}
+  if(m.kind==='oilrig')oilrig31(k,m.id==='oil-large');else{const build=LAND17[m.kind];if(!build)throw new Error('No DEV17 authored site for '+m.kind);build(k);if(!m.safe){k.floor(k.root,5,2.4,-m.radius*.5+1.5,m.radius*.82,.18,p.concrete);for(let i=0;i<3;i++)k.barrel(k.root,i,[-m.radius*.50+i*1.5,.18,m.radius*.82]);}perimeter(k,m.radius/(m.siteScale25||1)*.72);}
   const guard={airfield:[-5,18],power:[0,12],radar:[8,8],bunker:[0,10.5]}[m.kind];
   if(guard)w.guardSpawns17.set(m.id,k.root.localToWorld(new V(guard[0],.18,guard[1])));
   k.finish();
@@ -121,6 +111,7 @@ export function buildSites17(w){
  // One-time recovery only if an old saved position is inside replacement scenery.
  // Do not touch the island revision, inventory, structures, or an occupied boat.
  w.restoreSites17=state=>{
+  restoreOilRig31(w,state,MONUMENTS);
   if(state.siteRevision17===17)return;state.siteRevision17=17;if(state.boat)return;
   const {x,z}=state.position,m=MONUMENTS.find(m=>Math.hypot(m.x-x,m.z-z)<m.radius+12);
   if(!m)return;const feet=Number.isFinite(state.feetY)?state.feetY:w.floorHeight(x,z,state);
