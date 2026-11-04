@@ -45,6 +45,8 @@ Quaternius/Facepunch/model-library assets were downloaded for this iteration.
 - `compactSmg`: 32 pistol rounds, 18 damage, .078s interval, 2.4s reload.
 - `antiseptic`: 45 HP; `traumaKit`: 90 HP; normal maximum remains 100.
 - Existing syringe (25 HP) and medkit (65 HP) gain models and crate availability.
+- Weapon/medical crafting categories include the new IDs; safe shops also sell
+  syringes, antiseptic and trauma kits for scrap.
 - New guns have recipes with mandatory firearm components, loot pools, profiles,
   ammunition, ballistics, sounds, icons, save/magazine/condition support.
 - Random containers still normalize to at most one gun; guns/tools are not multiplied.
