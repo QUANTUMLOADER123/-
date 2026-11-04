@@ -2,7 +2,7 @@ import * as THREE from 'three';
 /** Object visibility budgets, not collision or simulation budgets. Metres. */
 const PROFILES16={near:{trees:125,props:100,houses:95,proxies:190,sites:190,shadow:45},balanced:{trees:235,props:160,houses:145,proxies:320,sites:360,shadow:65},far:{trees:360,props:230,houses:190,proxies:520,sites:650,shadow:85}};
 export function visibilityProfile16(settings){return PROFILES16[settings.viewDistance16]||PROFILES16.balanced;}
-const zero16=new THREE.Matrix4().makeScale(0,0,0);
+const zero16=new THREE.Matrix4().makeScale(.000001,.000001,.000001).setPosition(0,-10000,0);
 function show16(model,near,alive=true){if(!model)return;model.userData.distanceCulled16=alive&&!near;model.visible=alive&&near;}
 export function installCulling16(World){
  const render=World.prototype.render,dormancy=World.prototype.updateDormancy,sync=World.prototype.syncState;

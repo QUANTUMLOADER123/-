@@ -46,3 +46,9 @@ body{font-family:var(--ui);background:#161615}button,input{font-family:inherit}b
 @keyframes gallery-drift15{from{transform:translate3d(-.65%,0,0) scale(1.035)}to{transform:translate3d(.65%,-.35%,0) scale(1.06)}}
 .loading-art-credit10 button:disabled{opacity:.55;cursor:default}
 @media(prefers-reduced-motion:reduce){.gallery-art15{animation:none;transform:none;will-change:auto}.gallery-art15.incoming15{transition:none}}
+
+/* DEV17 selected, extracted lettering — responsive logo, unchanged art gallery. */
+.oskol-wordmark17{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 2px 3px #0008)}
+.loading-wordmark10{width:clamp(170px,24vw,340px)}
+.menu-wordmark10 .oskol-wordmark17{max-width:215px}
+@media(max-width:640px){.loading-wordmark10{width:180px}.menu-wordmark10 .oskol-wordmark17{max-width:145px}}

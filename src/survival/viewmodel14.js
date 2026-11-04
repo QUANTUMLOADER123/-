@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {medicalModel16} from "./items16.js";
-import { isGun } from "./catalog.js";
+import { isGun, WEAPONS } from "./catalog.js";
 import {
   createHand14,
   createArm14,
@@ -170,7 +170,7 @@ export function installViewmodel14(World) {
       m.shotCount++;
       m.recoil.v = Math.min(13, m.recoil.v + kick * 7.4 * steady);
       m.push.v = Math.min(3, m.push.v + kick * 1.8 * steady);
-      m.roll.v += Math.sin(m.shotCount * 2.399) * kick * 0.9;
+      m.roll.v += Math.sign(WEAPONS[id]?.recoil17?.side||0) * kick * 0.8;
       m.equip = Math.max(m.equip, 0.7);
     } else if (kind === "land") {
       m.landing.v = Math.min(2, m.landing.v + Math.min(12, impact) * 0.07);

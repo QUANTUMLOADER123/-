@@ -19,15 +19,18 @@
     "wood": [
       {
         "file": "wood-color.webp",
-        "sha256": "0a62a943fb321001c79bd05a83be3f78230923eff1aff0b5db0c89a649da5931"
+        "sha256": "b36703a4d6da5d88f1bb03e6fc3e474f76a275dd84ef515b53011c490fe0857d",
+        "bytes": 102110
       },
       {
         "file": "wood-normal.webp",
-        "sha256": "4f0a245accbae334a797903039690486527d6c65ce2ddd9c4437083457b12bd0"
+        "sha256": "9e9eb4529933e831491a96d442033b66464439beef0607257baf94bd932070e1",
+        "bytes": 225682
       },
       {
         "file": "wood-orm.webp",
-        "sha256": "a9724309d9502cc18f9b260cab86a9af2eb204371190901b15bc8998fbf60d97"
+        "sha256": "3c40c3597a092407f7a40c97e743ab54e9c0e579e4ea09fc8c03b9bdb5221deb",
+        "bytes": 110650
       }
     ],
     "polymer": [
@@ -134,5 +137,9 @@
     "compactSmg",
     "antiseptic",
     "traumaKit"
-  ]
+  ],
+  "surfaceSizes17": {
+    "wood": 1024
+  },
+  "woodAuthor17": "scripts/author-surfaces17.py"
 }

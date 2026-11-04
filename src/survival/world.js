@@ -1,3 +1,6 @@
+import {obstacleContains17} from './spatial17.js';
+import {addRockfields17} from './rockfields17.js';
+import {installExplosives17} from './explosives17.js';
 import {refreshEnvironment12} from './sky12.js';
 import {PBR_FILES12,pbrMaterial12,dressMaterials12} from './materials12.js';
 import {terrainMaterial12} from './terrain12.js';
@@ -77,7 +80,7 @@ export class IslandWorld {
   const jobs=[...names.map(async n=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');checkLoading11(signal);}),...textureNames.map(async n=>{const response=await bytes(ASSET+(n.startsWith('pbr12/')||n.startsWith('items16/')?n:'textures/'+n)),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.toLowerCase().includes('normal')&&!n.includes('-orm'))t.colorSpace=THREE.SRGBColorSpace;if(n.startsWith('pbr12/')){t.userData.kind12=n.split('/')[1].split('-')[0];if(this.settings.quality==='low'&&t.image.width>512){const c=document.createElement('canvas');c.width=c.height=512;c.getContext('2d').drawImage(t.image,0,0,512,512);t.image=c;t.needsUpdate=true;}}}finally{URL.revokeObjectURL(url);}})];
   const results=await Promise.allSettled(jobs);checkLoading11(signal);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;installSurfaceTextures12(this.textures);itemTextures16(this.textures);
   progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10(signal);checkLoading11(signal);await this.makeTerrain(signal);this.makeOcean();this.makeRiver();await paintLoading10(signal);await initWater12(this,signal);
-  progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10(signal);checkLoading11(signal);this.makeCamp();addIslandContent(this);decorateLoot(this);this.alignTerrainProps06();
+  progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10(signal);checkLoading11(signal);this.makeCamp();addIslandContent(this);addRockfields17(this);decorateLoot(this);this.alignTerrainProps06();
   progress(.91,'Размещаем ресурсы, лес и траву…');await paintLoading10(signal);checkLoading11(signal);this.makeResources();await this.makeGrass(signal,ratio=>progress(.91+ratio*.025,'Генерируем траву и растительность: '+Math.round(ratio*100)+'%'));
   progress(.94,'Подготавливаем предметы и снаряжение…');await paintLoading10(signal);checkLoading11(signal);this.makeViewModel();this.makeNewViewModels();this.makeItemArt();
   progress(.96,'Подготавливаем объекты мира…');await paintLoading10(signal);checkLoading11(signal);this.makeCoastalBoats();this.makeWolves();this.makeBots();this.makeAmbient();this.updateDayNight(0);
@@ -247,7 +250,7 @@ export class IslandWorld {
   const light=new THREE.PointLight(0xff9b43,2.4,9,2);light.position.y=.7;root.add(light);this.scene.add(root);this.fires.push({root,light,x,z,size});
  }
  syncState(state){
-  for(const n of this.nodes){const gone=state.depleted.includes(n.id);if(n.type==='tree'){for(const ref of n.instances){const m=gone?new THREE.Matrix4().makeScale(0,0,0):ref.matrix;ref.batch.setMatrixAt(ref.index,m);ref.batch.instanceMatrix.needsUpdate=true;}}else n.model.visible=!gone;n.remaining=gone?0:(state.nodeDamage[n.id]??n.hp);}
+  for(const n of this.nodes){const gone=state.depleted.includes(n.id);if(n.type==='tree'){for(const ref of n.instances){const m=gone?new THREE.Matrix4().makeScale(.000001,.000001,.000001).setPosition(0,-10000,0):ref.matrix;ref.batch.setMatrixAt(ref.index,m);ref.batch.instanceMatrix.needsUpdate=true;}}else n.model.visible=!gone;n.remaining=gone?0:(state.nodeDamage[n.id]??n.hp);}
   for(const item of this.interactables){if(item.type==='barrel'){item.model.visible=!state.depleted.includes(item.id);if(item.model.visible&&item.savedCollider&&!this.colliders.some(c=>c.id===item.id))this.colliders.push({...item.savedCollider});}if(item.type==='crate'){item.model.traverse(o=>{if(o.isMesh){o.material=o.material.clone();if(state.looted.includes(item.id))o.material.color.multiplyScalar(.6);}});}}
   for(const w of this.wolves){w.dead=state.depleted.includes(w.id);w.model.visible=!w.dead;w.hp=65;w.x=w.homeX;w.z=w.homeZ;w.model.position.set(w.x,terrainHeight(w.x,w.z),w.z);}
   for(const[id,entry]of this.built){this.scene.remove(entry.model);if(entry.fire){this.scene.remove(entry.fire.root);this.fires=this.fires.filter(f=>f!==entry.fire);}this.built.delete(id);}
@@ -255,10 +258,10 @@ export class IslandWorld {
   for(const b of state.buildings)if(b.hp>0)this.addBuilding(b);
   this.interactables=this.interactables.filter(i=>!i.id.startsWith('build-')||state.buildings.some(b=>b.id===i.id&&b.hp>0));
   for(const entry of this.staticStructures){entry.model.visible=!state.depleted.includes(entry.data.id);entry.data.open=false;if(entry.model.userData.doorPivot)entry.model.userData.doorPivot.rotation.y=0;}
-  for(const bot of this.bots){bot.hp=state.botState[bot.id]?.hp??120;bot.dead=bot.hp<=0;bot.model.visible=!bot.dead;bot.weapon.visible=!bot.dead;bot.x=bot.homeX+4;bot.z=bot.homeZ+bot.spawnOffset;bot.model.rotation.z=0;}
+  for(const bot of this.bots){bot.hp=state.botState[bot.id]?.hp??120;bot.dead=bot.hp<=0;bot.model.visible=!bot.dead;bot.weapon.visible=!bot.dead;bot.x=bot.homeX+(bot.spawnXOffset17??4);bot.z=bot.homeZ+bot.spawnOffset;bot.y=this.floorHeight(bot.x,bot.z,state,bot.y??terrainHeight(bot.x,bot.z)+.5);bot.model.rotation.z=0;}
   this.nodes.forEach(n=>{if(n.model)n.model.visible=!state.depleted.includes(n.id);});
  }
- hideNode(node){if(node.type==='tree'){for(const ref of node.instances){ref.batch.setMatrixAt(ref.index,new THREE.Matrix4().makeScale(0,0,0));ref.batch.instanceMatrix.needsUpdate=true;}}else node.model.visible=false;}
+ hideNode(node){if(node.type==='tree'){for(const ref of node.instances){ref.batch.setMatrixAt(ref.index,new THREE.Matrix4().makeScale(.000001,.000001,.000001).setPosition(0,-10000,0));ref.batch.instanceMatrix.needsUpdate=true;}}else node.model.visible=false;}
  addBuilding(b){
   let model,fire;
   if(['storage','largeStorage'].includes(b.kind)){model=this.normalized('Crate',b.kind==='storage'?.75:1.15);model.position.set(b.x,buildingHeight(b),b.z);model.rotation.y=b.rotation;this.scene.add(model);this.interactables.push({id:b.id,type:'storage',x:b.x,z:b.z,model,data:b});this.colliders.push({id:b.id,x:b.x,z:b.z,r:b.kind==='storage'?.6:.9,built:true,data:b});}
@@ -275,7 +278,13 @@ export class IslandWorld {
   this.ghost.visible=true;this.ghost.position.set(position.x,position.y??terrainHeight(position.x,position.z),position.z);this.ghost.rotation.y=rotation;this.ghost.traverse(o=>{if(o.isMesh)o.material.color.set(ok?0xb6db8c:0xea885b);});
  }
  clearPreview(){if(this.ghost)this.ghost.visible=false;}
- floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){this.refreshDead05?.(state);let h=Math.max(terrainHeight(x,z),...[[.22,0],[-.22,0],[0,.22],[0,-.22]].map(([a,b])=>terrainHeight(x+a,z+b)));for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY>=buildingHeight(b)-.12)h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of(this.nearFloors05?.(x,z)||this.walkFloors))if((!f.structureId||!(this.deadIds05?.has(f.structureId)??state.depleted.includes(f.structureId)))&&(feetY>=floorY08(f,x,z)-.5)&&floorContains08(f,x,z))h=Math.max(h,floorY08(f,x,z));if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
+ floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){this.refreshDead05?.(state);let h=Math.max(terrainHeight(x,z),...[[.22,0],[-.22,0],[0,.22],[0,-.22]].map(([a,b])=>terrainHeight(x+a,z+b)));for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY>=buildingHeight(b)-.12)h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of(this.nearFloors05?.(x,z)||this.walkFloors))if((!f.structureId||!(this.deadIds05?.has(f.structureId)??state.depleted.includes(f.structureId)))&&(feetY>=floorY08(f,x,z)-.5)&&floorContains08(f,x,z,f.vehicle08?.28:0))h=Math.max(h,floorY08(f,x,z));// Finite scenery needs a landing surface as well as a side wall. In particular,
+ // the capsule must not fall through the expanded edge of a car / tank / crate.
+ for(const c of(this.nearColliders?.(x,z)||this.colliders)){
+  if(c.deck08||!Number.isFinite(c.y)||!(c.scenery||c.site17||c.built)||c.id&&(this.deadIds05?.has(c.id)??state.depleted.includes(c.id))||c.data?.hp<=0||c.door&&c.data?.open)continue;
+  const top=c.y+(c.h??3.02);if(feetY>=top-.5&&obstacleContains17(c,x,z,.28))h=Math.max(h,top);
+ }
+ if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
 
  canMove(x,z,state,feetY=null){this.refreshDead05?.(state);
   if(Math.hypot(x,z)>WORLD_RADIUS*1.48&&!this.walkFloors.some(f=>f.offshore&&Math.abs(x-f.x)<f.w/2+1&&Math.abs(z-f.z)<f.d/2+1))return false;
@@ -349,4 +358,5 @@ installVisuals12(IslandWorld);
 
 installViewmodel14(IslandWorld);
 installItems16(IslandWorld);
+installExplosives17(IslandWorld);
 installCulling16(IslandWorld);

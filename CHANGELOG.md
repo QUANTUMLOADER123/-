@@ -1,5 +1,16 @@
 # ОСКОЛ — тестовые итерации
 
+## DEV 0.18.0 · iteration 17 — sites, sharp terrain, combat/contact / build only
+
+- Replace all 20 site factories with distinct transformed layouts; retain stable loot/shop/guard IDs.
+- New-world revision 8: sharp shelves/ridges and deterministic solid rockfields; old terrain unchanged.
+- Faster weapon cadence and category-specific actual aim recoil; respawn resumes paused sound.
+- Capsule edge support, downward obstruction checks and bounded recovery for embedded players.
+- Shared textured explosive models; new original soil/stone/wood PBR surfaces; selected branding/icons.
+- Idle camera settling and conservative RGBA8/MSAA/instance/casing render hardening.
+- No tests or runtime/audio/visual gameplay checks. Black-flash cause remains unconfirmed.
+
+
 ## DEV 0.17.0 · iteration 16 — input, authored items, visibility / build only
 
 - Independent desktop mouse button events fix RMB/LMB chording; per-pointer touch attack/swim release ownership. Existing focus/pointer-lock reset retained.

@@ -42,5 +42,5 @@ export function roads08(w,material,paint,metal,concrete){
  for(const [part,path]of Object.entries(LEGACY_ROADS10)){const width=part==='ring'?6:4.5;sampleRoad08(path,width,levelJunction).forEach((p,i)=>{if(!p.bridge&&i%85===18&&terrainHeight(p.x,p.z)>p.water+.5)addRoadCluster(w,p.x+p.nx*(width/2+6),p.z+p.nz*(width/2+6),'road-'+part+'-'+i,Math.atan2(p.nz,-p.nx));});}
  if(dashes.length){w.scene.add(new THREE.Mesh(mergeGeometries(dashes),paint));dashes.forEach(g=>g.dispose());}
 }
-export function floorContains08(f,x,z){const dx=x-f.x,dz=z-f.z;if(f.ow){const c=Math.cos(f.rotation||0),s=Math.sin(f.rotation||0);return Math.abs(dx*c-dz*s)<f.ow/2&&Math.abs(dx*s+dz*c)<f.od/2;}return Math.abs(dx)<f.w/2&&Math.abs(dz)<f.d/2;}
+export function floorContains08(f,x,z,padding=0){const dx=x-f.x,dz=z-f.z;if(f.ow){const c=Math.cos(f.rotation||0),s=Math.sin(f.rotation||0);return Math.abs(dx*c-dz*s)<f.ow/2+padding&&Math.abs(dx*s+dz*c)<f.od/2+padding;}return Math.abs(dx)<f.w/2+padding&&Math.abs(dz)<f.d/2+padding;}
 export function floorY08(f,x,z){const a=f.slope08;if(!a)return f.y;const t=Math.max(0,Math.min(1,((x-a.x)*a.dx+(z-a.z)*a.dz)/a.len2));return a.y+t*a.dy;}

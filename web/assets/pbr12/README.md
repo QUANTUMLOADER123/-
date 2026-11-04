@@ -40,3 +40,12 @@ Periodic edge blending, luminance-derived relief, wrapping finite differences, m
 - Procedural clouds are layered noise with approximate self-shading, not ray-marched volumetric clouds. Sky-only PMREM updates are rate-limited and respond to weather/daylight. Bloom is subtle and restricted to high quality + maximum AA + float-buffer support.
 
 **No game, browser, GPU/visual, native, emulator or audio tests/runs were performed for DEV12. JS compilation and platform packaging do not validate GLSL on the user's device, appearance, rain occlusion, reflection artifacts, physics or FPS.**
+
+## DEV17 surface replacements
+
+Soil, stone and wood now use original procedural 1024px color/normal/ORM maps,
+not the previous source textures for those surfaces. Item wood is also 1024px;
+other DEV16 item surfaces remain 256px. Authoring: `scripts/author-surfaces17.py`;
+current replacement hashes/provenance: `web/assets/pbr12/surfaces-manifest.json`.
+Legacy surface manifests were refreshed for the replaced files. No game/render
+checks were performed.

@@ -2,6 +2,13 @@ import {STRUCTURAL,COMPONENTS,NEW_WEAPONS,GUN_COMPONENT_COSTS} from './expansion
 /** Original weapon balance and construction costs; shared without state-module cycles. */
 export const WEAPONS={rifle:{name:'Самодельная винтовка',ammo:'ammo',capacity:6,damage:42,interval:.37,range:90},pistol:{name:'Пистолет П-9',ammo:'pistolAmmo',capacity:12,damage:26,interval:.22,range:55},revolver:{name:'Револьвер Р-6',ammo:'pistolAmmo',capacity:6,damage:38,interval:.42,range:65},smg:{name:'Пистолет-пулемёт МП-24',ammo:'pistolAmmo',capacity:24,damage:20,interval:.1,range:65,automatic:true},shotgun:{name:'Помповое ружьё',ammo:'shells',capacity:5,damage:90,interval:.85,range:26},assaultRifle:{name:'Автомат АР-30',ammo:'ammo',capacity:30,damage:32,interval:.13,range:110,automatic:true},boltRifle:{name:'Продольная винтовка',ammo:'ammo',capacity:5,damage:80,interval:1.15,range:160}};
 Object.assign(WEAPONS,NEW_WEAPONS,{akRifle:{name:'Автомат АК-47',ammo:'ammo',capacity:30,damage:38,interval:.15,range:125,automatic:true,reload:2.9},compactSmg:{name:'Компактный ПП-32',ammo:'pistolAmmo',capacity:32,damage:18,interval:.078,range:60,automatic:true,reload:2.4}});for(const w of Object.values(WEAPONS))w.reload??=w.capacity>20?2.8:w.capacity>6?2:2.4;
+// DEV17: faster cadence; signed yaw follows Three's YXZ convention:
+// negative yaw moves the aim right, positive yaw left. Pitch positive is up.
+for(const[id,w]of Object.entries(WEAPONS)){
+ w.interval=Number(Math.max(.055,w.interval*.78).toFixed(4));
+ const rifle=['rifle','semiRifle','assaultRifle','akRifle','boltRifle','machineGun'].includes(id),pistol=['pistol','heavyPistol','revolver'].includes(id);
+ w.recoil17={up:w.projectile?.028:['shotgun','combatShotgun'].includes(id)?.033:w.automatic?.010:.019,side:rifle?-.005:pistol?0:.004};
+}
 export const isGun=id=>Object.hasOwn(WEAPONS,id);
 export const magazine=(s,id=s.selected)=>id==='rifle'?s.magazine:(s.magazines?.[id]||0);
 export function setMagazine(s,id,n){if(id==='rifle')s.magazine=n;else{ s.magazines??={};s.magazines[id]=n;}}

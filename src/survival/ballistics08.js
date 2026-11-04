@@ -1,3 +1,4 @@
+import {rayObstacle17} from './spatial17.js';
 import * as THREE from 'three';
 import {terrainHeight} from './state.js';
 const V=THREE.Vector3;
@@ -20,7 +21,7 @@ export function installBallistics08(World){
     const samples=Math.max(1,Math.ceil(length/.4));for(let j=1;j<=samples;j++){const p=old.clone().lerp(next,j/samples);if(p.y<=terrainHeight(p.x,p.z)+.015){const d=old.distanceTo(p);if(d<nearest){nearest=d;point=p;victim=null;}break;}}
     for(const c of new Set([...this.nearColliders(old.x,old.z),...this.nearColliders(next.x,next.z)])){
      if(target&&c.id&&c.id===target.id||c.id&&this.deadIds05?.has(c.id)||c.data?.hp<=0||c.door&&c.data?.open)continue;
-     const angle=c.rotation||0,co=Math.cos(angle),si=Math.sin(angle),local=new V((old.x-c.x)*co-(old.z-c.z)*si,old.y,(old.x-c.x)*si+(old.z-c.z)*co),ld=new V(direction.x*co-direction.z*si,direction.y,direction.x*si+direction.z*co),y=c.y??terrainHeight(c.x,c.z),wid=(c.ow||c.w||c.r*2||1)/2,dep=(c.od||c.d||c.r*2||1)/2,box=new THREE.Box3(new V(-wid,y,-dep),new V(wid,y+(c.h||2.5),dep)),p=new THREE.Ray(local,ld).intersectBox(box,new V());if(p){const d=p.distanceTo(local);if(d<nearest){nearest=d;point=old.clone().addScaledVector(direction,d);victim=null;}}
+     const p=rayObstacle17({...c,y:c.y??terrainHeight(c.x,c.z)},old,direction);if(p){const d=p.distanceTo(old);if(d<nearest){nearest=d;point=p;victim=null;}}
     }
     let hitPlayer=false;if(b.hostile){const box=new THREE.Box3(new V(state.position.x-.26,(state.feetY??0)+.12,state.position.z-.26),new V(state.position.x+.26,this.camera.position.y+.1,state.position.z+.26)),p=ray.intersectBox(box,new V());if(p&&p.distanceTo(old)<nearest){nearest=p.distanceTo(old);point=p;victim=null;hitPlayer=true;}}
     b.distance+=Math.min(length,nearest);b.position.copy(point||next);

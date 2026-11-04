@@ -49,7 +49,7 @@ export function createEffects14(world) {
   mesh.frustumCulled = false;
   mesh.visible = false;
   world.camera.add(mesh);
-  const matrix = new THREE.Matrix4().makeScale(0, 0, 0);
+  const matrix = new THREE.Matrix4().makeScale(.000001, .000001, .000001).setPosition(0,-10000,0);
   for (let i = 0; i < 8; i++) {
     mesh.setMatrixAt(i, matrix);
     mesh.setColorAt(i, new THREE.Color(0xb19a5c));
@@ -134,13 +134,14 @@ export function updateEffects14(world, dt, selected, shotAge) {
     const e = fx.particles[i];
     e.age += dt;
     if (e.age > 0.65) {
-      fx.matrix.makeScale(0, 0, 0);
+      fx.matrix.makeScale(.000001, .000001, .000001).setPosition(0,-10000,0);
     } else {
       active = true;
       e.v.y -= 9.81 * dt;
       e.p.addScaledVector(e.v, dt);
       fx.p.copy(e.p);
       world.camera.worldToLocal(fx.p);
+      if(!Number.isFinite(fx.p.x+fx.p.y+fx.p.z)||fx.p.z>-.10){e.age=1;fx.mesh.setMatrixAt(i,fx.matrix.makeScale(.000001,.000001,.000001).setPosition(0,-10000,0));continue;}
       fx.q.setFromEuler(
         new THREE.Euler(e.spin + e.age * 13, e.age * 9, e.age * 17),
       );

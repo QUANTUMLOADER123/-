@@ -7,7 +7,7 @@ import {terrainHeight,TIERS} from './state.js';
 import {cupboardModel,crateModel} from './world04.js';
 import {crateTier} from './loot04.js';
 import {surfaceMaterial05} from './surface05.js';
-const V=THREE.Vector3,zero=new THREE.Matrix4().makeScale(0,0,0);
+const V=THREE.Vector3,zero=new THREE.Matrix4().makeScale(.000001,.000001,.000001).setPosition(0,-10000,0);
 function solid(parts,w,h,d,x,y,z){const g=new THREE.BoxGeometry(w,h,d);g.translate(x,y,z);parts.push(g);}
 function geometry(kind,tier){const p=[];if(kind==='foundation')solid(p,3,.38,3,0,.19,0);
  else if(kind==='roof')solid(p,3,.18,3,0,3.02,0);

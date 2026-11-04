@@ -1,0 +1,18 @@
+{
+  "provenance": "Original procedural tileable surfaces authored for Oskol DEV17. No third-party photographs or game textures.",
+  "size": 1024,
+  "files": {
+    "web/assets/pbr12/soil-color.webp": "62b997d002f3418909253bdfede1b76ffc099548ab89b5a20539d29ebffc71fc",
+    "web/assets/pbr12/soil-normal.webp": "751c83129d472b454d6799ca308ac58654d07c58720ef55a8f239f67dfe9e2be",
+    "web/assets/pbr12/soil-orm.webp": "7efd82691fe8f392fc240354b8ae0596c49cea7308e0e4ab187c730523c9d461",
+    "web/assets/pbr12/wood-color.webp": "b36703a4d6da5d88f1bb03e6fc3e474f76a275dd84ef515b53011c490fe0857d",
+    "web/assets/pbr12/wood-normal.webp": "9e9eb4529933e831491a96d442033b66464439beef0607257baf94bd932070e1",
+    "web/assets/pbr12/wood-orm.webp": "5efd048ea1c19e6d0baf6b254f381d793fea2f148b28d6775f8be71427407d62",
+    "web/assets/items16/wood-color.webp": "b36703a4d6da5d88f1bb03e6fc3e474f76a275dd84ef515b53011c490fe0857d",
+    "web/assets/items16/wood-normal.webp": "9e9eb4529933e831491a96d442033b66464439beef0607257baf94bd932070e1",
+    "web/assets/items16/wood-orm.webp": "3c40c3597a092407f7a40c97e743ab54e9c0e579e4ea09fc8c03b9bdb5221deb",
+    "web/assets/pbr12/stone-color.webp": "b49850190be2ceee6af0f087d89a1dacf3c8dc8e6b12e3e91a7d954edd71e269",
+    "web/assets/pbr12/stone-normal.webp": "0f334b7b1a9ad4844100799ce6b7b5c0e30cc79ea315c3eedbe5c90c279db553",
+    "web/assets/pbr12/stone-orm.webp": "68237fbf4c45ceb818953e66cfcecf63ca6677c9e6b767d66f04d95f2a965c47"
+  }
+}
