@@ -37,7 +37,7 @@ export function installForestStreaming19(World){
     nodes.push({id,type:'tree',x,z,y:h,hp:5,remaining:5,instances:[]});
    }
    const before=this.treeBatches.length,broad=nodes.filter(n=>biomeAt(n.x,n.z).id!=='snow'&&!(biomeAt(n.x,n.z).id==='forest'&&n.z< -20*MAP_SCALE));
-   this.vegetationInstances('CommonTree_1',broad.filter((_,i)=>i%3!==0),9);this.vegetationInstances('CommonTree_3',broad.filter((_,i)=>i%3===0),10);
+   this.vegetationInstances('CommonTree_1',broad,9);
    this.vegetationInstances('PineTree_1',nodes.filter(n=>biomeAt(n.x,n.z).id==='forest'&&n.z< -20*MAP_SCALE),8);this.vegetationInstances('PineTree_Snow_1',nodes.filter(n=>biomeAt(n.x,n.z).id==='snow'),8.5);
    addUnderstory19(this,nodes);
    for(const n of nodes){this.nodes.push(n);this.colliders.push({id:n.id,x:n.x,z:n.z,r:.32,y:n.y,h:10});}
@@ -49,6 +49,6 @@ export function installForestStreaming19(World){
  World.prototype.dispose=function(){
   // Templates are CPU-side authoring caches; their cloned live meshes are
   // disposed by the normal scene lifecycle, including their atlas textures.
-  for(const root of this.forestTemplates19?.values()||[])root.traverse(m=>{m.geometry?.dispose();m.material?.dispose();});this.forestTemplates19?.clear();for(const mesh of this.understoryTemplates19||[]){mesh?.geometry.dispose();mesh?.material.dispose();}this.forestChunks19?.clear();dispose.call(this);
+  const atlasTextures=new Set();for(const root of this.forestTemplates21?.values()||[])root.traverse(m=>{m.geometry?.dispose();if(m.material){if(m.material.map&&!Object.values(this.textures).includes(m.material.map))atlasTextures.add(m.material.map);m.material.dispose();}});atlasTextures.forEach(t=>t.dispose());this.forestTemplates21?.clear();for(const root of this.forestTemplates19?.values()||[])root.traverse(m=>{m.geometry?.dispose();m.material?.dispose();});this.forestTemplates19?.clear();for(const mesh of this.understoryTemplates19||[]){mesh?.geometry.dispose();mesh?.material.dispose();}this.forestChunks19?.clear();dispose.call(this);
  };
 }

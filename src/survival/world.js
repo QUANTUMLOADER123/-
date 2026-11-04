@@ -197,8 +197,7 @@ export class IslandWorld {
  makeResources(){
   const random=randomSeed(518);this.nodes=resourceNodes();addForestNodes19(this,this.nodes);const trees=this.nodes.filter(n=>n.type==='tree');
   const broadleaf=trees.filter(n=>!['snow','arid'].includes(biomeAt(n.x,n.z).id)&&!(biomeAt(n.x,n.z).id==='forest'&&n.z< -20*MAP_SCALE));
-  this.vegetationInstances('CommonTree_1',broadleaf.filter((_,i)=>i%3!==0),9);
-  this.vegetationInstances('CommonTree_3',broadleaf.filter((_,i)=>i%3===0),10);
+  this.vegetationInstances('CommonTree_1',broadleaf,9);
   this.makeBiomeTrees();
   this.groundingMaxError=0;for(const n of trees.filter((_,i)=>i%Math.max(1,Math.floor(trees.length/32))===0)){let low=Infinity;for(const ref of n.instances||[]){ref.batch.geometry.computeBoundingBox();const b=ref.batch.geometry.boundingBox.clone().applyMatrix4(ref.matrix);low=Math.min(low,b.min.y);}if(Number.isFinite(low))this.groundingMaxError=Math.max(this.groundingMaxError,Math.abs(low-terrainHeight(n.x,n.z)));}
 

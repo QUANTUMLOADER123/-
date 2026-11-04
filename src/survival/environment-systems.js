@@ -1,3 +1,4 @@
+import {forestTemplate21,variedTree21,treeVariantCount21} from './forest21.js';
 import {forestTemplate19} from './forest19.js';
 import {grassGround19} from './ground-cover19.js';
 import {addCacti18} from './cacti18.js';
@@ -39,10 +40,10 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
   if(MAP_REVISION<6&&MAP_SCALE<3)return;const natural=MAP_REVISION>=6,count=natural?Math.min(1600,Math.ceil(528*MAP_SCALE/3)):300,pos=[],indices=[];for(let i=0;i<=count;i++){const z=(natural?-218+i/count*528:-220+i/count*490)*MAP_SCALE,r=riverAt(0,z);for(const side of[-1,1])pos.push(r.x+side*r.width*.5,r.water+.03,z);if(i){const v=i*2;indices.push(v-2,v,v-1,v-1,v,v+1);}}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(indices);g.computeVertexNormals();this.river=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x4f9aaf,roughness:.2,metalness:.15,transparent:true,opacity:.83,side:THREE.DoubleSide}));this.scene.add(this.river);
  },
- vegetationInstances(name,nodes,height){
-  if(!nodes.length)return;const template=forestTemplate19(this,name,height)||this.normalized(name,height);template.updateMatrixWorld(true);const meshes=[];template.traverse(o=>{if(o.isMesh)meshes.push(o);});
+ vegetationInstances(name,nodes,height,variant21=null){
+  if(!nodes.length)return;if(variant21===null&&variedTree21(name)){const groups=Array.from({length:treeVariantCount21(name)},()=>[]);for(const n of nodes)groups[(this.stringSeed(n.id+'species21')>>>0)%groups.length].push(n);groups.forEach((group,i)=>this.vegetationInstances(name,group,height,i));return;}const template=forestTemplate21(this,name,height,variant21)||forestTemplate19(this,name,height)||this.normalized(name,height);height=template.userData.height21||height;template.updateMatrixWorld(true);const meshes=[];template.traverse(o=>{if(o.isMesh)meshes.push(o);});
   for(const src of meshes){const authored=treeMaterial12(this,src,src.geometry.clone().applyMatrix4(src.matrixWorld),height),geometry=authored.geometry,mat=authored.material;mat.userData.depth12=authored.depth;
-   this.addTreeChunks(geometry,mat,nodes,n=>{const r=randomSeed(this.stringSeed(n.id)),s=.8+r()*.4;n.r=.55;return new THREE.Matrix4().compose(new V(n.x,terrainHeight(n.x,n.z)-.06,n.z),new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28),new V(s,s,s));});
+   this.addTreeChunks(geometry,mat,nodes,n=>{const r=randomSeed(this.stringSeed(n.id)),s=.74+r()*.45,sy=.70+r()*.60,sz=.78+r()*.43;n.r=.38*s;n.treeHeight21=height*sy;return new THREE.Matrix4().compose(new V(n.x,terrainHeight(n.x,n.z)-.06,n.z),new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28),new V(s,sy,sz));});
   }
  },
  makeBiomeTrees(){
