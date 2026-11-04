@@ -24,10 +24,10 @@ export function installWorldSystems(IslandWorld){
  },
  applyBuildingTier(entry){
   const {model,data}=entry,tier=data.tier||0;if(!['wall','door','roof','foundation'].includes(data.kind))return;
-  model.traverse(o=>{if(!o.isMesh)return;const mat=tier===0?this.strawMaterial():pbrMaterial12(this,tier===1?'wood':tier===2?'stone':'metal',{color:0xe9e7de});o.material=mat;});
+  model.traverse(o=>{if(!o.isMesh)return;if(o.userData.wallCore29&&tier>=2&&o.userData.coreTier29!==tier){o.geometry.dispose();o.geometry=new THREE.BoxGeometry(3,2.8,.16);o.geometry.translate(0,1.6,0);o.userData.coreTier29=tier;}const mat=tier===0?this.strawMaterial():pbrMaterial12(this,tier===1?'wood':tier===2?'stone':tier===4?'hqm':'metal',{color:0xe9e7de});o.material=mat;});
   // Higher tiers have physical reinforcement, rather than only a color swap.
   if(entry.reinforcements){model.remove(entry.reinforcements);entry.reinforcements.traverse(o=>{if(o.isMesh)o.geometry.dispose();});}
-  if(tier>=1&&['wall','door'].includes(data.kind)){const rails=new THREE.Group(),material=new THREE.MeshStandardMaterial({color:tier>=2?0x515a53:0x514c34,metalness:tier>=2?.5:0,roughness:.8});for(const y of[.63,2.45]){const m=new THREE.Mesh(new THREE.BoxGeometry(3,.09,.09),material);m.position.set(0,y,-.09);rails.add(m);}if(tier===3){for(const x of[-1.3,1.3]){const m=new THREE.Mesh(new THREE.BoxGeometry(.12,2.6,.1),material);m.position.set(x,1.6,.1);rails.add(m);}}model.add(rails);entry.reinforcements=rails;}
+  if(tier>=1&&['wall','door'].includes(data.kind)){const rails=new THREE.Group(),material=new THREE.MeshStandardMaterial({color:tier>=2?0x515a53:0x514c34,metalness:tier>=2?.5:0,roughness:.8});for(const y of[.63,2.45]){const m=new THREE.Mesh(new THREE.BoxGeometry(3,.09,.09),material);m.position.set(0,y,-.09);rails.add(m);}if(tier>=3){for(const x of[-1.3,1.3]){const m=new THREE.Mesh(new THREE.BoxGeometry(.12,2.6,.1),material);m.position.set(x,1.6,.1);rails.add(m);}}model.add(rails);entry.reinforcements=rails;}
  },
  lineOfSight(a,b,state){
   this.refreshDead05(state);const dead=this.deadIds05;

@@ -1,3 +1,6 @@
+import {logPanel29} from './logs29.js';
+import {installSolids29} from './solids29.js';
+import {installBots29} from './bots29.js';
 import {installPlayerPreview28} from './player-preview28.js';
 import {installSpatial28} from './spatial28.js';
 import {installGraphics28,assetTexture28,assetMaterials28} from './graphics28.js';
@@ -155,7 +158,8 @@ export class IslandWorld {
    for(let i=0;i<12;i++)box(.244,.15,3,-1.375+i*.25,.29,0);
    for(const z of[-1.15,1.15])box(3,.22,.17,0,.13,z);
    for(const x of[-1.15,1.15])for(const z of[-1.15,1.15])box(.17,.4,.17,x,.02,z);
-  }else if(kind==='wall'||kind==='door'){
+  }else if(kind==='wall'){const wall=new THREE.Mesh(logPanel29(3,2.8,0,1.6),material);wall.castShadow=wall.receiveShadow=true;wall.userData.wallCore29=true;group.add(wall);
+  }else if(kind==='door'){
    for(let i=0;i<12;i++){const x=-1.375+i*.25;if(kind==='door'&&Math.abs(x)<.6)box(.242,.55,.09,x,2.66,0);else box(.242,2.65,.09,x,1.6,0);}
    for(const y of[.55,2.45]){if(kind==='wall')box(3,.12,.12,0,y,.08);else for(const x of[-1.06,1.06])box(.87,.12,.12,x,y,.08);}
    for(const x of[-1.5,1.5])box(.12,2.8,.17,x,1.6,0);
@@ -405,3 +409,6 @@ installGraphics28(IslandWorld);
 installSpatial28(IslandWorld);
 
 installPlayerPreview28(IslandWorld);
+
+installSolids29(IslandWorld);
+installBots29(IslandWorld);

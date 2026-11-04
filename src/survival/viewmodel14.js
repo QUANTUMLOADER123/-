@@ -1,3 +1,4 @@
+import {GUNS29} from './weapon-profiles29.js';
 import * as THREE from "three";
 import {medicalModel16} from "./items16.js";
 import { isGun, WEAPONS } from "./catalog.js";
@@ -335,11 +336,12 @@ export function installViewmodel14(World) {
           this.reloadState04.needed || 1,
         );
         model.rotation.set(
-          0.12 * reloadPose.tilt,
-          -0.1 * reloadPose.tilt,
-          -0.27 * reloadPose.tilt,
+          (GUNS29[id]?.tilt[0]??.30) * reloadPose.tilt,
+          (GUNS29[id]?.tilt[1]??-.20) * reloadPose.tilt,
+          (GUNS29[id]?.tilt[2]??-.55) * reloadPose.tilt,
         );
-        model.position.y -= reloadPose.tilt * 0.035;
+        model.position.y -= reloadPose.tilt * 0.065;
+        model.position.x += Math.sin(reload*Math.PI)*.025;
         if (id === "rocketLauncher") model.position.z -= reloadPose.tilt * 0.22;
       }
       if (reload < 0) firePose = fireMechanism14(model, id, m.shotAge);

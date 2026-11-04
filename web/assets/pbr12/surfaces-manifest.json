@@ -2,17 +2,24 @@
   "provenance": "Original procedural tileable surfaces authored for Oskol DEV17. No third-party photographs or game textures.",
   "size": 1024,
   "files": {
-    "web/assets/pbr12/soil-color.webp": "62b997d002f3418909253bdfede1b76ffc099548ab89b5a20539d29ebffc71fc",
+    "web/assets/pbr12/soil-color.webp": "479a8d14232ea749bfbc6628263b95ee2f695fe6e41dd73e676b6a9144bc9231",
     "web/assets/pbr12/soil-normal.webp": "751c83129d472b454d6799ca308ac58654d07c58720ef55a8f239f67dfe9e2be",
     "web/assets/pbr12/soil-orm.webp": "7efd82691fe8f392fc240354b8ae0596c49cea7308e0e4ab187c730523c9d461",
-    "web/assets/pbr12/wood-color.webp": "b36703a4d6da5d88f1bb03e6fc3e474f76a275dd84ef515b53011c490fe0857d",
-    "web/assets/pbr12/wood-normal.webp": "9e9eb4529933e831491a96d442033b66464439beef0607257baf94bd932070e1",
-    "web/assets/pbr12/wood-orm.webp": "5efd048ea1c19e6d0baf6b254f381d793fea2f148b28d6775f8be71427407d62",
+    "web/assets/pbr12/wood-color.webp": "00bb7bd4f0d065be90fa5b686f8488a8a9f6000a744c2d6c77c2ebb6397a3882",
+    "web/assets/pbr12/wood-normal.webp": "b545b700857eed08b598465e88aa0e84cd0e4f385e8469b9ff58776f4ef00e6f",
+    "web/assets/pbr12/wood-orm.webp": "870a59132bc98211d675f4abadb65e90305f28455e200df7bded8f02c71f389b",
     "web/assets/items16/wood-color.webp": "b36703a4d6da5d88f1bb03e6fc3e474f76a275dd84ef515b53011c490fe0857d",
     "web/assets/items16/wood-normal.webp": "9e9eb4529933e831491a96d442033b66464439beef0607257baf94bd932070e1",
     "web/assets/items16/wood-orm.webp": "3c40c3597a092407f7a40c97e743ab54e9c0e579e4ea09fc8c03b9bdb5221deb",
-    "web/assets/pbr12/stone-color.webp": "b49850190be2ceee6af0f087d89a1dacf3c8dc8e6b12e3e91a7d954edd71e269",
-    "web/assets/pbr12/stone-normal.webp": "0f334b7b1a9ad4844100799ce6b7b5c0e30cc79ea315c3eedbe5c90c279db553",
-    "web/assets/pbr12/stone-orm.webp": "68237fbf4c45ceb818953e66cfcecf63ca6677c9e6b767d66f04d95f2a965c47"
-  }
+    "web/assets/pbr12/stone-color.webp": "971b088f253f92f3a31aa377206c21f4969756f8fa70dc79979fab526a0a588b",
+    "web/assets/pbr12/stone-normal.webp": "67791c4cc0e1d408c3ded477d8cf699cba70fb699102607ee976f4ab432add3b",
+    "web/assets/pbr12/stone-orm.webp": "c6fd689fb0c7eaf89e2a85548e72381aa8301226c0a5e35d38a82d09ed7b867e",
+    "web/assets/pbr12/metal-color.webp": "f7cc898e136716ddac3ad93da4f5f8eba10534d074f600bf738e5495673acb6b",
+    "web/assets/pbr12/metal-normal.webp": "7d8df6cc18d7eba17037ba9e195aa13336b86594887097da4909b0445de5e318",
+    "web/assets/pbr12/metal-orm.webp": "5c9b5d3ee17c1ae98319a03c724f743c3a7fc50c5f7c600015b135f3d06b8573",
+    "web/assets/pbr12/hqm-color.webp": "d34a74c4369905db422ea9935e0ef0f49d972d9bff3e52d5ef7db8a5ba6a21e3",
+    "web/assets/pbr12/hqm-normal.webp": "a0a22ea9f677f418ebdfbb987aaa714fafa661b39d2d75d3e4aa90c5b7b714d7",
+    "web/assets/pbr12/hqm-orm.webp": "f224160d699e4197ee3973facdc16d431a1a33b2c1bd845979bf7b6f848df97d"
+  },
+  "dev29": "Rounded logs, gray bricks, orange/red rusted pipes, gray HQM; original deterministic authoring."
 }

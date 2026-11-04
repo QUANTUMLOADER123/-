@@ -24,7 +24,7 @@ export function terrainMaterial12(w){
  // Meadow pigmentation is surface detail, not a green tint on desert/snow.
  float meadow19=(1.-smoothstep(.05,.45,abs(biome12)))*(1.-slope12)*smoothstep(1.5,4.,ground12.y);
  float patch19=smoothstep(.24,.7,macroGround12(ground12.xz*.14));
- soilColor12=mix(soilColor12,soilColor12*vec3(.68,.98,.46),meadow19*(.25+patch19*.48));
+ soilColor12=mix(soilColor12,soilColor12*vec3(.81,.96,.71),meadow19*(.32+patch19*.38));
  vec3 stoneColor12=texture2D(rock12,uvStone12).rgb;
  if(terrainDetail12>.5)stoneColor12=texture2D(rock12,ground12.zy*.22).rgb*weights12.x+stoneColor12*weights12.y+texture2D(rock12,ground12.xy*.22).rgb*weights12.z;
  vec3 sandColor12=texture2D(sand12,ground12.xz*.23).rgb*vec3(1.,.94,.80);

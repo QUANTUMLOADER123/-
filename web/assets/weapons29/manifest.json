@@ -1,0 +1,421 @@
+{
+  "license": "CC0-1.0",
+  "author": "Oskol original deterministic surface authoring",
+  "files": {
+    "web/assets/pbr12/wood-color.webp": "00bb7bd4f0d065be90fa5b686f8488a8a9f6000a744c2d6c77c2ebb6397a3882",
+    "web/assets/pbr12/wood-normal.webp": "b545b700857eed08b598465e88aa0e84cd0e4f385e8469b9ff58776f4ef00e6f",
+    "web/assets/pbr12/wood-orm.webp": "870a59132bc98211d675f4abadb65e90305f28455e200df7bded8f02c71f389b",
+    "web/assets/pbr12/stone-color.webp": "971b088f253f92f3a31aa377206c21f4969756f8fa70dc79979fab526a0a588b",
+    "web/assets/pbr12/stone-normal.webp": "67791c4cc0e1d408c3ded477d8cf699cba70fb699102607ee976f4ab432add3b",
+    "web/assets/pbr12/stone-orm.webp": "c6fd689fb0c7eaf89e2a85548e72381aa8301226c0a5e35d38a82d09ed7b867e",
+    "web/assets/pbr12/metal-color.webp": "f7cc898e136716ddac3ad93da4f5f8eba10534d074f600bf738e5495673acb6b",
+    "web/assets/pbr12/metal-normal.webp": "7d8df6cc18d7eba17037ba9e195aa13336b86594887097da4909b0445de5e318",
+    "web/assets/pbr12/metal-orm.webp": "5c9b5d3ee17c1ae98319a03c724f743c3a7fc50c5f7c600015b135f3d06b8573",
+    "web/assets/pbr12/hqm-color.webp": "d34a74c4369905db422ea9935e0ef0f49d972d9bff3e52d5ef7db8a5ba6a21e3",
+    "web/assets/pbr12/hqm-normal.webp": "a0a22ea9f677f418ebdfbb987aaa714fafa661b39d2d75d3e4aa90c5b7b714d7",
+    "web/assets/pbr12/hqm-orm.webp": "f224160d699e4197ee3973facdc16d431a1a33b2c1bd845979bf7b6f848df97d",
+    "web/assets/pbr12/soil-color.webp": "479a8d14232ea749bfbc6628263b95ee2f695fe6e41dd73e676b6a9144bc9231",
+    "web/assets/weapons29/rifle-color.webp": "b7c660c7c829820504ec3df40279be181810f46344858898e6d24f609387162a",
+    "web/assets/weapons29/pistol-color.webp": "2c83a1648bf892fde3bdb394219eebf77f33836604a2d0e1e617224efc0043cd",
+    "web/assets/weapons29/revolver-color.webp": "e5eb7181a450e7e33194ad9be20619dbd5381de201097a56380c8d27b92c284d",
+    "web/assets/weapons29/smg-color.webp": "0e594509d9620ccf261b67ff723975a5c0d6e3588181bf4ff02c143cb353efb5",
+    "web/assets/weapons29/shotgun-color.webp": "810d68a7ade41dede3ca07fd5056707ee0d22050fc137f8a919248ad76ef013a",
+    "web/assets/weapons29/assaultRifle-color.webp": "14a0cfce116d81fb081884b20a0435a778e339994cf33bf8373debd314ab168e",
+    "web/assets/weapons29/boltRifle-color.webp": "6a2b22aee46696b80ac5cf67d1371fb328cbbb48e6f8a5ccbf1a4352cda86f6d",
+    "web/assets/weapons29/carbine26-color.webp": "bfa6cd9b4c1bff557e244aa1cb5a2b779500cc01ed3140d75ecf0dc7886abc84",
+    "web/assets/weapons29/pdw26-color.webp": "ff75d1bb879faed3eb48f7ff1384d0b5b3a9b7ed5e60cb23a049367efdc4390c",
+    "web/assets/weapons29/semiRifle-color.webp": "4b8ea3257d8138affc79185c2876ad242a73b42a8234ecf98d7649242ac2ca0f",
+    "web/assets/weapons29/heavyPistol-color.webp": "9481511b45f9dad98f4698c5091324c2dc0c2aa037467a8ddd0c1dfdb290b39c",
+    "web/assets/weapons29/combatShotgun-color.webp": "2c49629d7cd42b8cee1e15cbb2801b7c120b47969f638f388804d5eab330725a",
+    "web/assets/weapons29/machineGun-color.webp": "dfa78c532e8a524dfdc1d6d483a36fcc1f8a6d9b50f5eb345c9407b8d48db707",
+    "web/assets/weapons29/rocketLauncher-color.webp": "7f89615789208311a6dab38f367d79360a711b69e88bc69fd6e2eec0b527f046",
+    "web/assets/weapons29/akRifle-color.webp": "b77c9c7b844a20e1a1746ff10f4d24eb5201e5dd62809b82e783b39816a92f65",
+    "web/assets/weapons29/compactSmg-color.webp": "f4c674301e3bd7a2f96529d1ef9591a13bab95bf6f4bd05e48bb1732a225f6df",
+    "web/assets/audio/weapons29/gun29-rifle-1.wav": "7be95f448ee6c0815ad4755323c216c40f0a9a50efd8c922383bc2fd363eb225",
+    "web/assets/audio/weapons29/gun29-rifle-2.wav": "c15c4b4b0bea915d2c4fd2c085b66f3be1e60b79cdeab39eb9ba453c003324ab",
+    "web/assets/audio/weapons29/gun29-pistol-1.wav": "365e00eebfec229805ee361a19e67a261da814cc7ba1a1499281b7575928e427",
+    "web/assets/audio/weapons29/gun29-pistol-2.wav": "e9491b96e758568a3ba9e22156926f509a3646de315a97b7082da7b1ee121b6a",
+    "web/assets/audio/weapons29/gun29-revolver-1.wav": "707f1b38f76c13c78063dc4c5e205b69020c388195a564e6795b045c00d453e1",
+    "web/assets/audio/weapons29/gun29-revolver-2.wav": "85bdb61696809924b54796372369dc3b9d30176c106ac146f7e94a6a3caf00df",
+    "web/assets/audio/weapons29/gun29-smg-1.wav": "d4ac171ca355da21e5863ae61a71506a322e80ec3e4d87c33fc5e3d2d921514a",
+    "web/assets/audio/weapons29/gun29-smg-2.wav": "3cc00d1b68dfe880d0c790856f8ebd11b1ecf06bfe536097928824ac1c424dbf",
+    "web/assets/audio/weapons29/gun29-shotgun-1.wav": "d917fb85e3b1783c6c963a2404c6352626e3cd34d0adb950e745abff5606d2f6",
+    "web/assets/audio/weapons29/gun29-shotgun-2.wav": "bce793b5d641b27cd4e0453ed82819a9a2496f391f818771ab1dbbb6bf69d9a2",
+    "web/assets/audio/weapons29/gun29-assaultRifle-1.wav": "91b9940872eee9a45fc25a6ed36d6e2ef906a5e3aabc8c619a16a2e7c324cce7",
+    "web/assets/audio/weapons29/gun29-assaultRifle-2.wav": "051767840aba88245deb2be4db7aebd1cc600862c289f0f4e12b168227690107",
+    "web/assets/audio/weapons29/gun29-boltRifle-1.wav": "39e32a410e551a70dfb5b1f612789c02e399b0d9a825684532cb053a3fed9048",
+    "web/assets/audio/weapons29/gun29-boltRifle-2.wav": "3e0e66754c143f08b0f34c696d92f655c5ad06bb605d808b256c43c24008c3e0",
+    "web/assets/audio/weapons29/gun29-carbine26-1.wav": "6d2c454833a795c3c761629cffbafcf5b27fce53faddfb88c0f7a2c1b1a54a62",
+    "web/assets/audio/weapons29/gun29-carbine26-2.wav": "991c8adbf9c0cd0969c2318a9173a169c5718983b375067cba1aad9dbfa3a76d",
+    "web/assets/audio/weapons29/gun29-pdw26-1.wav": "755f94ec217b40635859ed964f76cf9d3155a079a2924c50ecefb976d65d8fe5",
+    "web/assets/audio/weapons29/gun29-pdw26-2.wav": "60f75afe88cdc1b3827c3fdde6309d2952c6be91215260cff798ece1c52d249f",
+    "web/assets/audio/weapons29/gun29-semiRifle-1.wav": "4129a80d4c925ffabf4524eff9a5b452e984714d75cacb72eb06000df280a7e5",
+    "web/assets/audio/weapons29/gun29-semiRifle-2.wav": "1aae68a84be8b0057fa1280e5b59b4aed6142b8fab6031c518b6f86fbc615dd8",
+    "web/assets/audio/weapons29/gun29-heavyPistol-1.wav": "0ea5d181fa257116b00b6b53910b756a2eefca429592a12f33f235496b548bbe",
+    "web/assets/audio/weapons29/gun29-heavyPistol-2.wav": "22c61da47ff9fa166f2d4dd92ef1c37f9a1bac7ce0747a597fe8ac3f7150ec27",
+    "web/assets/audio/weapons29/gun29-combatShotgun-1.wav": "7a84afa52590a2f9e0e96ed5226ab0994dfb88a9418d1daf1351530a4817d86b",
+    "web/assets/audio/weapons29/gun29-combatShotgun-2.wav": "2917dc16b2c9f303e9384acf110cbf42be6bf7a28da7ddeb80dc8d833cf6d028",
+    "web/assets/audio/weapons29/gun29-machineGun-1.wav": "853780f63a7515837fc6cd04ba9888a59d4ac2c53aa1a39272572a3acf8a6b38",
+    "web/assets/audio/weapons29/gun29-machineGun-2.wav": "42afef5ee41049b4e5bc6a4f21a8f167761b95d8a9efc4ffd97bb260da987f2e",
+    "web/assets/audio/weapons29/gun29-rocketLauncher-1.wav": "c4a5eebdb1d4cacab46ee95e5a514fc3430927e6d8b690877a85038224053f0f",
+    "web/assets/audio/weapons29/gun29-rocketLauncher-2.wav": "6279312bc15d2825c2a3dbcf2149c7d9e8c5706156aaf9cf6289e9bdade2558c",
+    "web/assets/audio/weapons29/gun29-akRifle-1.wav": "3f6600d8e87af518ad6d5d795dcd16e2e384c8d5575962b151264718f16b4e75",
+    "web/assets/audio/weapons29/gun29-akRifle-2.wav": "7fb62bc486298867ed2c859f9e787bd4824a9080df4726fa3b5613b349193746",
+    "web/assets/audio/weapons29/gun29-compactSmg-1.wav": "f2198f2eaff520165083ad17d50380a3bc40f68173aa6eb466714362536ff6c5",
+    "web/assets/audio/weapons29/gun29-compactSmg-2.wav": "b289a7af515d7eee16d8096ddba37db643b201e4355c0b6904ba082e29b6f323"
+  },
+  "audio": {
+    "gun29-rifle-1": {
+      "source": "web/assets/audio/recorded07/marksman-1.wav",
+      "sourceSha256": "202860845c95418d01df053d8af4b55e2e389b77b16bacdc78f63bc966ecb983",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.92,
+        "lowPassHz": 2400,
+        "tailGain": 0.08,
+        "variant": 1
+      }
+    },
+    "gun29-rifle-2": {
+      "source": "web/assets/audio/recorded07/marksman-2.wav",
+      "sourceSha256": "e7a66854205ccf951fc63c1e1c05732f018557adfd1f386cd9de681cd8711b1d",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.92,
+        "lowPassHz": 2400,
+        "tailGain": 0.08,
+        "variant": 2
+      }
+    },
+    "gun29-pistol-1": {
+      "source": "web/assets/audio/recorded07/pistol-1.wav",
+      "sourceSha256": "5b75de64a2ade7a73f3f507db2fdbf3fc5c1a766bbcf3092b9c1e45083c706f3",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.04,
+        "lowPassHz": 5300,
+        "tailGain": 0.04,
+        "variant": 1
+      }
+    },
+    "gun29-pistol-2": {
+      "source": "web/assets/audio/recorded07/pistol-2.wav",
+      "sourceSha256": "d42e712d46f4d729b74220ddabc7c6cf8ba46d0844fbd1c43156eeae7eee597b",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.04,
+        "lowPassHz": 5300,
+        "tailGain": 0.04,
+        "variant": 2
+      }
+    },
+    "gun29-revolver-1": {
+      "source": "web/assets/audio/recorded07/revolver-1.wav",
+      "sourceSha256": "625d7e587d6f26a7b4d367f68dadbf3c0519b7f8e9f89d826837f61f98fa4099",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.93,
+        "lowPassHz": 4100,
+        "tailGain": 0.07,
+        "variant": 1
+      }
+    },
+    "gun29-revolver-2": {
+      "source": "web/assets/audio/recorded07/revolver-2.wav",
+      "sourceSha256": "6f24a9621dd22b751ea6d636ee7d08f1e3cd8cd86ea0b972b4144ef33c0da9d7",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.93,
+        "lowPassHz": 4100,
+        "tailGain": 0.07,
+        "variant": 2
+      }
+    },
+    "gun29-smg-1": {
+      "source": "web/assets/audio/recorded07/smg-1.wav",
+      "sourceSha256": "b02e9023117a809aa2dac85ed183c094fdbbe1b90c4f5a324b8a3b1b17c84f89",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.1,
+        "lowPassHz": 4900,
+        "tailGain": 0.035,
+        "variant": 1
+      }
+    },
+    "gun29-smg-2": {
+      "source": "web/assets/audio/recorded07/smg-2.wav",
+      "sourceSha256": "5f34ca9b64b94cf3c6167503f913513b2b1f7946e78ceeabfd7c7061c2d8ee13",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.1,
+        "lowPassHz": 4900,
+        "tailGain": 0.035,
+        "variant": 2
+      }
+    },
+    "gun29-shotgun-1": {
+      "source": "web/assets/audio/recorded07/shotgun-1.wav",
+      "sourceSha256": "fab9e14caf867bbfdba10dd14d09a9b0a4d64864bdb1a7a54879e50e91626347",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.94,
+        "lowPassHz": 3400,
+        "tailGain": 0.1,
+        "variant": 1
+      }
+    },
+    "gun29-shotgun-2": {
+      "source": "web/assets/audio/recorded07/shotgun-2.wav",
+      "sourceSha256": "59290b35714a62c5a96b92931886bb069952ac2436f73cffa17af0c47721c32e",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.94,
+        "lowPassHz": 3400,
+        "tailGain": 0.1,
+        "variant": 2
+      }
+    },
+    "gun29-assaultRifle-1": {
+      "source": "web/assets/audio/recorded07/assault-1.wav",
+      "sourceSha256": "890983834cc93e0598dec3a9037593a8814adee6de695741af069fe249f59a0d",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.02,
+        "lowPassHz": 6200,
+        "tailGain": 0.045,
+        "variant": 1
+      }
+    },
+    "gun29-assaultRifle-2": {
+      "source": "web/assets/audio/recorded07/assault-2.wav",
+      "sourceSha256": "b12fe1a89fb79024db6ae11387e4d8d7e3d4a481ce3109b172d19664ecb209d0",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.02,
+        "lowPassHz": 6200,
+        "tailGain": 0.045,
+        "variant": 2
+      }
+    },
+    "gun29-boltRifle-1": {
+      "source": "web/assets/audio/recorded07/bolt-1.wav",
+      "sourceSha256": "0038bdecb0ca0f74f912ef7f30f57701528706142aa2cea13e850f8faf130d15",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.91,
+        "lowPassHz": 4700,
+        "tailGain": 0.11,
+        "variant": 1
+      }
+    },
+    "gun29-boltRifle-2": {
+      "source": "web/assets/audio/recorded07/bolt-2.wav",
+      "sourceSha256": "96aa984f2bd2611bb359ad061eee1f5ca299377faea03e517ca7b345387035f7",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.91,
+        "lowPassHz": 4700,
+        "tailGain": 0.11,
+        "variant": 2
+      }
+    },
+    "gun29-carbine26-1": {
+      "source": "web/assets/audio/recorded07/assault-1.wav",
+      "sourceSha256": "890983834cc93e0598dec3a9037593a8814adee6de695741af069fe249f59a0d",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.12,
+        "lowPassHz": 5500,
+        "tailGain": 0.025,
+        "variant": 1
+      }
+    },
+    "gun29-carbine26-2": {
+      "source": "web/assets/audio/recorded07/assault-2.wav",
+      "sourceSha256": "b12fe1a89fb79024db6ae11387e4d8d7e3d4a481ce3109b172d19664ecb209d0",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.12,
+        "lowPassHz": 5500,
+        "tailGain": 0.025,
+        "variant": 2
+      }
+    },
+    "gun29-pdw26-1": {
+      "source": "web/assets/audio/recorded07/smg-1.wav",
+      "sourceSha256": "b02e9023117a809aa2dac85ed183c094fdbbe1b90c4f5a324b8a3b1b17c84f89",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.18,
+        "lowPassHz": 6100,
+        "tailGain": 0.025,
+        "variant": 1
+      }
+    },
+    "gun29-pdw26-2": {
+      "source": "web/assets/audio/recorded07/smg-2.wav",
+      "sourceSha256": "5f34ca9b64b94cf3c6167503f913513b2b1f7946e78ceeabfd7c7061c2d8ee13",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.18,
+        "lowPassHz": 6100,
+        "tailGain": 0.025,
+        "variant": 2
+      }
+    },
+    "gun29-semiRifle-1": {
+      "source": "web/assets/audio/recorded07/marksman-1.wav",
+      "sourceSha256": "202860845c95418d01df053d8af4b55e2e389b77b16bacdc78f63bc966ecb983",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.05,
+        "lowPassHz": 5100,
+        "tailGain": 0.06,
+        "variant": 1
+      }
+    },
+    "gun29-semiRifle-2": {
+      "source": "web/assets/audio/recorded07/marksman-2.wav",
+      "sourceSha256": "e7a66854205ccf951fc63c1e1c05732f018557adfd1f386cd9de681cd8711b1d",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.05,
+        "lowPassHz": 5100,
+        "tailGain": 0.06,
+        "variant": 2
+      }
+    },
+    "gun29-heavyPistol-1": {
+      "source": "web/assets/audio/recorded07/heavy-pistol-1.wav",
+      "sourceSha256": "095f4dfd585297ea2ea43ef1ad0d7241b5d630ce7f4aa33dfad634414975d0fa",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.92,
+        "lowPassHz": 3800,
+        "tailGain": 0.08,
+        "variant": 1
+      }
+    },
+    "gun29-heavyPistol-2": {
+      "source": "web/assets/audio/recorded07/heavy-pistol-2.wav",
+      "sourceSha256": "6b9666376c2cb59bcc9342aa166da6969b7ad5305957b61e3ad205f1db4a53ae",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.92,
+        "lowPassHz": 3800,
+        "tailGain": 0.08,
+        "variant": 2
+      }
+    },
+    "gun29-combatShotgun-1": {
+      "source": "web/assets/audio/recorded07/shotgun-1.wav",
+      "sourceSha256": "fab9e14caf867bbfdba10dd14d09a9b0a4d64864bdb1a7a54879e50e91626347",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.09,
+        "lowPassHz": 4400,
+        "tailGain": 0.07,
+        "variant": 1
+      }
+    },
+    "gun29-combatShotgun-2": {
+      "source": "web/assets/audio/recorded07/shotgun-2.wav",
+      "sourceSha256": "59290b35714a62c5a96b92931886bb069952ac2436f73cffa17af0c47721c32e",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.09,
+        "lowPassHz": 4400,
+        "tailGain": 0.07,
+        "variant": 2
+      }
+    },
+    "gun29-machineGun-1": {
+      "source": "web/assets/audio/recorded07/assault-1.wav",
+      "sourceSha256": "890983834cc93e0598dec3a9037593a8814adee6de695741af069fe249f59a0d",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.89,
+        "lowPassHz": 3200,
+        "tailGain": 0.09,
+        "variant": 1
+      }
+    },
+    "gun29-machineGun-2": {
+      "source": "web/assets/audio/recorded07/assault-2.wav",
+      "sourceSha256": "b12fe1a89fb79024db6ae11387e4d8d7e3d4a481ce3109b172d19664ecb209d0",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.89,
+        "lowPassHz": 3200,
+        "tailGain": 0.09,
+        "variant": 2
+      }
+    },
+    "gun29-rocketLauncher-1": {
+      "source": "web/assets/audio/recorded07/explosion-1.wav",
+      "sourceSha256": "038ed8f43b9974d1de2ce4d3e6eefdc3735cafa48e48c4203d6eff5bcf86e503",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.86,
+        "lowPassHz": 2100,
+        "tailGain": 0.15,
+        "variant": 1
+      }
+    },
+    "gun29-rocketLauncher-2": {
+      "source": "web/assets/audio/recorded07/explosion-2.wav",
+      "sourceSha256": "96ae896b589a82acd5b6e58808b2f5aaffefd72f23a6ba94aad9f2a3cb8f6609",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.86,
+        "lowPassHz": 2100,
+        "tailGain": 0.15,
+        "variant": 2
+      }
+    },
+    "gun29-akRifle-1": {
+      "source": "web/assets/audio/recorded07/assault-1.wav",
+      "sourceSha256": "890983834cc93e0598dec3a9037593a8814adee6de695741af069fe249f59a0d",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.97,
+        "lowPassHz": 4300,
+        "tailGain": 0.055,
+        "variant": 1
+      }
+    },
+    "gun29-akRifle-2": {
+      "source": "web/assets/audio/recorded07/assault-2.wav",
+      "sourceSha256": "b12fe1a89fb79024db6ae11387e4d8d7e3d4a481ce3109b172d19664ecb209d0",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 0.97,
+        "lowPassHz": 4300,
+        "tailGain": 0.055,
+        "variant": 2
+      }
+    },
+    "gun29-compactSmg-1": {
+      "source": "web/assets/audio/recorded07/smg-1.wav",
+      "sourceSha256": "b02e9023117a809aa2dac85ed183c094fdbbe1b90c4f5a324b8a3b1b17c84f89",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.23,
+        "lowPassHz": 7200,
+        "tailGain": 0.02,
+        "variant": 1
+      }
+    },
+    "gun29-compactSmg-2": {
+      "source": "web/assets/audio/recorded07/smg-2.wav",
+      "sourceSha256": "5f34ca9b64b94cf3c6167503f913513b2b1f7946e78ceeabfd7c7061c2d8ee13",
+      "license": "CC0-1.0; upstream provenance: audio/recorded07/manifest.json",
+      "edit": {
+        "rate": 1.23,
+        "lowPassHz": 7200,
+        "tailGain": 0.02,
+        "variant": 2
+      }
+    }
+  }
+}

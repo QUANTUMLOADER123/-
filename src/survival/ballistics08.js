@@ -1,3 +1,4 @@
+import {rayFloor29} from './solids29.js';
 import {spreadFactor25} from './attachments25.js';
 import {rayObstacle17} from './spatial17.js';
 import * as THREE from 'three';
@@ -25,9 +26,10 @@ export function installBallistics08(World){
      if(target&&c.id&&c.id===target.id||c.id&&this.deadIds05?.has(c.id)||c.data?.hp<=0||c.door&&c.data?.open)continue;
      const p=rayObstacle17({...c,y:c.y??terrainHeight(c.x,c.z)},old,direction);if(p){const d=p.distanceTo(old);if(d<nearest){nearest=d;point=p;victim=null;}}
     }
+    for(const f of this.rayCandidates28('slabs29',this.solidFloors29(state),old,next)){if(this.deadIds05?.has(f.structureId)||f.data?.hp<=0)continue;const p=rayFloor29(f,old,direction);if(p&&p.distanceTo(old)<nearest){nearest=p.distanceTo(old);point=p;victim=f.data?{id:f.structureId,type:'structure',data:f.data,hitPoint:p}:null;}}
     let hitPlayer=false;if(b.hostile){const box=new THREE.Box3(new V(state.position.x-.26,(state.feetY??0)+.12,state.position.z-.26),new V(state.position.x+.26,this.camera.position.y+.1,state.position.z+.26)),p=ray.intersectBox(box,new V());if(p&&p.distanceTo(old)<nearest){nearest=p.distanceTo(old);point=p;victim=null;hitPlayer=true;}}
     b.distance+=Math.min(length,nearest);b.position.copy(point||next);
-    if(point){b.done=true;if(hitPlayer)b.onPlayerHit?.();else if(victim)b.onHit(victim,Math.max(.3,1-b.distance/b.profile.range*.65)/(b.profile.pellets||1));else this.hitEffect({x:point.x,y:point.y,z:point.z,hitPoint:point},0xafa08a);}
+    if(point){b.done=true;if(hitPlayer)b.onPlayerHit?.(Math.max(.3,1-b.distance/b.profile.range*.65)/(b.profile.pellets||1));else if(victim)b.onHit(victim,Math.max(.3,1-b.distance/b.profile.range*.65)/(b.profile.pellets||1));else this.hitEffect({x:point.x,y:point.y,z:point.z,hitPoint:point},0xafa08a);}
     if(b.distance>=b.profile.range||b.age>5)b.done=true;
    }
    const tail=b.position.clone().addScaledVector(b.velocity,-.008),p=b.line.geometry.attributes.position;p.setXYZ(0,tail.x,tail.y,tail.z);p.setXYZ(1,b.position.x,b.position.y,b.position.z);p.needsUpdate=true;b.line.frustumCulled=false;

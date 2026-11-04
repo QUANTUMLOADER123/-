@@ -1,9 +1,9 @@
 import {isStructural} from './expansion.js';
 import {TIERS} from './state.js';
 const structural=b=>isStructural(b.kind)||b.kind==='door';
-export const upkeepMaterial=b=>b.tier>=3?'metal':b.tier===2?'stone':'wood';
+export const upkeepMaterial=b=>b.tier===4?'highMetal':b.tier>=3?'metal':b.tier===2?'stone':'wood';
 export function connectedHouse(s,cab){const pieces=s.buildings.filter(b=>b.hp>0&&structural(b)),found=pieces.filter(b=>Math.hypot(b.x-cab.x,b.z-cab.z)<2.8),ids=new Set(found.map(b=>b.id));for(let i=0;i<found.length;i++)for(const b of pieces)if(!ids.has(b.id)&&Math.hypot(b.x-found[i].x,b.z-found[i].z)<4.3&&Math.abs((b.y||0)-(found[i].y||0))<3.4){ids.add(b.id);found.push(b);}return found;}
-export function upkeepInfo(s,id,pieces){const rates={};for(const b of pieces)if(b.hp>0&&structural(b)){const resource=upkeepMaterial(b);rates[resource]=(rates[resource]||0)+(b.tier===0?1:b.tier===1?2:3);}const credit=s.upkeep?.[id]?.credit||{},contents=s.containers?.[id]||{};return Object.entries(rates).map(([item,perHour])=>({item,perHour,count:contents[item]||0,hours:((contents[item]||0)*3600/perHour+(credit[item]||0))/3600}));}
+export function upkeepInfo(s,id,pieces){const rates={};for(const b of pieces)if(b.hp>0&&structural(b)){const resource=upkeepMaterial(b);rates[resource]=(rates[resource]||0)+(b.tier===4?.5:b.tier===0?1:b.tier===1?2:3);}const credit=s.upkeep?.[id]?.credit||{},contents=s.containers?.[id]||{};return Object.entries(rates).map(([item,perHour])=>({item,perHour,count:contents[item]||0,hours:((contents[item]||0)*3600/perHour+(credit[item]||0))/3600}));}
 const clocks=new WeakMap();
 /** Playing time only: no surprise offline decay or cost when paused. */
 export function advanceMaintenance(s,dt,staticEntries){const elapsed=(clocks.get(s)||0)+dt;clocks.set(s,elapsed);if(elapsed<10)return false;const step=elapsed;clocks.set(s,0);s.upkeep??={};const dead=new Set(s.depleted),protectedIds=new Set(),staticPieces=staticEntries.map(e=>e.data),all=[...s.buildings,...staticPieces];let changed=false;

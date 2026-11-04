@@ -37,21 +37,24 @@ function exitOrder(w,s,b,h){
  if(!b.indoorPath27?.length){b.indoorKey27=null;return null;}openHome(w,s,h.base.id,b);return{mode:'withdraw',point:{...b.indoorPath27[0],local27:true}};
 }
 
+function mobileDefense29(w,s,b,h,f){b.post27=null;const exit=exitOrder(w,s,b,h);if(exit)return exit;const members=w.bots.filter(q=>q.base===f.id&&!q.dead),slot=Math.max(0,members.indexOf(b)),t=Math.floor(s.elapsed/5),angle=(slot*.97+t*.45),r=6+(slot%3)*2;return{mode:'defense-patrol',point:{x:h.entry27.x+Math.cos(angle)*r,z:h.entry27.z+Math.sin(angle)*r}};}
+
 function defend(w,s,b,f){
- const h=w.settlements05.get(f.id),contact=f.alarm27;if(!h?.ports27?.length)return{mode:'defend',point:{x:f.x,z:f.z+8}};
- const valid=h.ports27.filter(p=>!s.depleted.includes(p.id));if(!valid.length)return{mode:'defend',point:h.entry27};
+ const h=w.settlements05.get(f.id),contact=f.alarm27;if(!h?.ports27?.length)return h?mobileDefense29(w,s,b,h,f):{mode:'defend',point:{x:f.x+Math.cos(b.phase)*8,z:f.z+Math.sin(b.phase)*8}};
+ const valid=h.ports27.filter(p=>!s.depleted.includes(p.id)&&(b.blockedPorts29?.[p.id]||0)<s.elapsed);const residents=w.bots.filter(q=>!q.dead&&q.base===f.id),role=residents.indexOf(b);if(role%4===1)return mobileDefense29(w,s,b,h,f);if(!valid.length)return mobileDefense29(w,s,b,h,f);
  const occupied=new Set(w.bots.filter(q=>q!==b&&!q.dead&&q.base===f.id&&q.post27).map(q=>q.post27.id));
  if(!b.post27||s.elapsed>(b.postUntil27||0)||s.depleted.includes(b.post27.id)){
-  const candidates=valid.filter(p=>!occupied.has(p.id));const chosen=(candidates.length?candidates:valid).map(p=>({p,score:D(p,b)*.15+D(p,contact)*.2+(w.lineOfSight(new V(p.x,p.y+1.4,p.z),new V(contact.x,(w.floorHeight(contact.x,contact.z,s))+1.2,contact.z),s)?0:100)})).sort((a,c)=>a.score-c.score)[0];
-  b.post27=chosen.p;b.postUntil27=s.elapsed+9+(b.phase%5);b.indoorKey27=null;
+  const candidates=valid.filter(p=>!occupied.has(p.id));if(!candidates.length)return mobileDefense29(w,s,b,h,f);const chosen=candidates.map(p=>({p,score:(p.id===b.post27?.id?5:0)+D(p,b)*.15+D(p,contact)*.2+(w.lineOfSight(new V(p.x,p.y+1.4,p.z),new V(contact.x,(w.floorHeight(contact.x,contact.z,s))+1.2,contact.z),s)?0:100)})).sort((a,c)=>a.score-c.score)[0];
+  if(b.post27?.id!==chosen.p.id)b.indoorKey27=null;b.post27=chosen.p;b.postProgress29??={at:s.elapsed,x:b.x,z:b.z};b.postUntil27=s.elapsed+4+(b.phase%3);
  }
+ if(b.postProgress29&&s.elapsed-b.postProgress29.at>6){if(D(b,b.postProgress29)<.35&&D(b,b.post27)>.5){b.blockedPorts29??={};b.blockedPorts29[b.post27.id]=s.elapsed+25;b.post27=null;b.indoorKey27=null;return mobileDefense29(w,s,b,h,f);}b.postProgress29={at:s.elapsed,x:b.x,z:b.z};}
  const order=indoorOrder(w,s,b,h,b.post27,b.post27.cell);if(order.hold){b.holdPosition27=true;b.crouch27=b.hp<35||(s.elapsed+b.phase)%6<2.1;return{...order,mode:b.crouch27?'window-cover':'window-defense'};}
  return order;
 }
 function repair(w,s,b,f){
  if(s.elapsed-f.alarm27.lastHit<5)return null;
  const damaged=parts(w,s).filter(p=>p.owner===f.id&&livePart(s,p)&&['wall','door'].includes(p.kind)&&(s.structureDamage[p.id]??TIERS[p.tier].hp)<TIERS[p.tier].hp-20&&D(p,f)<18&&Math.abs(p.y-(w.settlements05.get(f.id)?.root.position.y??p.y))<1);
- const p=damaged.sort((a,c)=>D(b,a)-D(b,c))[0];if(!p)return null;const material=p.tier>=3?'metal':p.tier===2?'stone':'wood',a=b.actor26;
+ const p=damaged.sort((a,c)=>D(b,a)-D(b,c))[0];if(!p)return null;const material=p.tier===4?'highMetal':p.tier>=3?'metal':p.tier===2?'stone':'wood',a=b.actor26;
  if(!(a.bag[material]>0)){const home={x:f.depotX,z:f.depotZ};if(D(b,home)>2.6)return{mode:'repair-supply',point:home};if(!take(s.containers[stock(f.id)]||{},a.bag,material,10))return null;}
  if(D(b,p)>2.7)return{mode:'repair',point:{x:p.x,z:p.z}};
  if(s.elapsed>=(b.repairAt27||0)&&pay(a.bag,material,1)){b.repairAt27=s.elapsed+2;const hp=Math.min(TIERS[p.tier].hp,(s.structureDamage[p.id]??p.hp)+20);s.structureDamage[p.id]=hp;if(s.buildings.includes(p))p.hp=hp;const e=w.staticStructures.find(e=>e.data.id===p.id)||w.built.get(p.id);if(e)w.applyBuildingTier(e);}
@@ -91,16 +94,16 @@ function coordinate(w,s){
  for(const id of w.tacticalPins27)if(!w.settlements05.has(id)){const base=BOT_BASES.find(b=>b.id===id);if(base){w.loadSettlement05(base,s);break;}}
 }
 function raidOrder(w,s,b,f){
- const r=f.raid27;if(!r||!r.squad.includes(b.id))return null;const a=b.actor26,home={x:f.depotX,z:f.depotZ};
+ const r=f.raid27;if(!r||!r.squad.includes(b.id))return null;const a=b.actor26,slot=r.squad.indexOf(b.id),home={x:f.depotX+Math.cos(slot*1.6)*2,z:f.depotZ+Math.sin(slot*1.6)*2};
  if(r.stage==='rally'||r.stage==='withdraw'){
   if(D(b,home)<3)w.supplyBot27?.(s,b,f);return{mode:r.stage==='rally'?'rally':'withdraw',point:home};
  }
- if(r.stage==='scout')return{mode:'raid-scout',point:r};
+ if(r.stage==='scout')return{mode:'raid-scout',point:{x:r.x+Math.cos(slot*1.8)*2.5,z:r.z+Math.sin(slot*1.8)*2.5}};
  if(r.stage==='breach'){
   const target=parts(w,s).find(p=>p.id===r.target);if(!target)return{mode:'raid-scout',point:r};
   if(r.breacher===b.id){if(D(b,target)>2.7)return{mode:'breach',point:target};w.plantCharge27?.(s,b,target.id);return{mode:'charge-cover',point:r};}
-  const dx=target.x-r.x,dz=target.z-r.z,len=Math.hypot(dx,dz)||1,side=b.phase%2?1:-1;
-  return{mode:'raid-cover',point:{x:r.x-dz/len*side*3,z:r.z+dx/len*side*3}};
+  const dx=target.x-r.x,dz=target.z-r.z,len=Math.hypot(dx,dz)||1,side=slot%2?1:-1,spacing=2.5+Math.floor(slot/2)*2;
+  return{mode:'raid-cover',point:{x:r.x-dz/len*side*spacing,z:r.z+dx/len*side*spacing}};
  }
  if(r.stage==='assault'){
   const enemy=s.society26.factions[r.enemy],cache=w.depots26.find(e=>e.home26===r.enemy);if(!enemy||!cache)return{mode:'assault',point:r};
@@ -113,12 +116,16 @@ function raidOrder(w,s,b,f){
 }
 export function installTactics27(World){
  const update=World.prototype.updateBots,unload=World.prototype.unloadSettlement05,damage=World.prototype.damageBot26;
+ World.prototype.workExit29=function(s,b,f){const h=this.settlements05.get(f.id);return h?exitOrder(this,s,b,h)?.point:null;};
+ World.prototype.openWorkDoors29=function(s,b,f){openHome(this,s,f.id,b);};
+ World.prototype.workApproach29=function(s,b,f,p){const h=this.settlements05.get(f.id);if(!h)return null;const goal=h.cells27.reduce((a,c)=>D(p,c)<D(p,a)?c:a,h.cells27[0]);if(!goal)return null;const order=indoorOrder(this,s,b,h,goal,goal.id);return order.point;};
  World.prototype.reportStructure27=function(s,p,position){if(p.owner)alarm(this,s,p.owner,position,true);};
  World.prototype.reportShot27=function(s,p,source){if(!s.society26)return;const team=s.society26.factions[source]?.team;for(const f of Object.values(s.society26.factions))if(f.id!==source&&(team===undefined||f.team!==team)&&D(f,p)<65)alarm(this,s,f.id,p);};
  World.prototype.damageBot26=function(b,amount,s,...args){if(b.base){const f=s.society26?.factions[b.base];if(f&&D(f,b)<65){if(!f.alarm27||f.alarm27.until<s.elapsed)alarm(this,s,b.base,b,true);else{f.alarm27.lastHit=s.elapsed;f.alarm27.until=s.elapsed+55;}}}return damage.call(this,b,amount,s,...args);};
  World.prototype.unloadSettlement05=function(id){if(this.tacticalPins27?.has(id))return;return unload.call(this,id);};
  World.prototype.tacticalOrder27=function(s,b){b.holdPosition27=false;b.crouch27=false;const f=s.society26.factions[b.base];if(!f)return null;
   if(f.alarm27?.until>s.elapsed){if(!hasAmmo(b)&&b.actor26.gun&&(s.containers[stock(f.id)]?.[WEAPONS[b.actor26.gun].ammo]||0)>0){const h=this.settlements05.get(f.id),exit=h?exitOrder(this,s,b,h):null;if(exit)return exit;const home={x:f.depotX,z:f.depotZ};if(D(b,home)<3)this.supplyBot27?.(s,b,f);return{mode:'repair-supply',point:home};}if(b.phase%3===2){const order=repair(this,s,b,f);if(order)return order;}return defend(this,s,b,f);}
+  if(b.upgrade29&& !f.raid27)return null;
   b.post27=null;const h=this.settlements05.get(f.id),exit=h?exitOrder(this,s,b,h):null;if(exit)return exit;b.indoorKey27=null;return raidOrder(this,s,b,f);
  };
  World.prototype.updateBots=function(dt,s,...args){if(!s.society26)return;this.doorClose27??=new Map();this.tacticalPins27??=new Set();if(s.elapsed>=(this.tacticalAt27||0)){this.tacticalAt27=s.elapsed+2;coordinate(this,s);}

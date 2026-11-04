@@ -43,7 +43,7 @@ export function installPhysics19(World){
   this.refreshDead05?.(state);this.bodies19??=new Map();state.propPhysics19??={};
   if(this.colliderSource19!==this.colliders||this.colliderCount19!==this.colliders.length){this.colliderSource19=this.colliders;this.colliderCount19=this.colliders.length;this.colliderById19=new Map(this.colliders.filter(c=>c.id).map(c=>[c.id,c]));}
   const ids=new Set();
-  for(const item of this.interactables){if(!LOOSE.has(item.type)||item.station||item.fixedSupport25||item.owner&&!item.raided||this.deadIds05.has(item.id)||item.data?.hp<=0||!item.model?.parent)continue;ids.add(item.id);const old=this.bodies19.get(item.id);if(old?.model===item.model)continue;
+  for(const item of this.interactables){if(item.corpse29||!LOOSE.has(item.type)||item.station||item.fixedSupport25||item.owner&&!item.raided||this.deadIds05.has(item.id)||item.data?.hp<=0||!item.model?.parent)continue;ids.add(item.id);const old=this.bodies19.get(item.id);if(old?.model===item.model)continue;
    const model=item.model;model.updateWorldMatrix(true,true);const p=model.getWorldPosition(new V()),bounds=new THREE.Box3().setFromObject(model);if(bounds.isEmpty())continue;
    const body={id:item.id,item,model,offset:bounds.min.y-p.y,rx:Math.min(1,(bounds.max.x-bounds.min.x)*.42),rz:Math.min(1,(bounds.max.z-bounds.min.z)*.42),height:bounds.max.y-bounds.min.y,velocity:new V(),sleep:false,check:0,bag:item.id.startsWith('drop-'),yaw:new THREE.Euler().setFromQuaternion(model.getWorldQuaternion(new THREE.Quaternion()),'YXZ').y};
    const local=new THREE.Box3(),inverse=new THREE.Matrix4().compose(p,model.getWorldQuaternion(new THREE.Quaternion()),new V(1,1,1)).invert();

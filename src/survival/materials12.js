@@ -1,6 +1,6 @@
 import {materialGraphics28} from './graphics28.js';
 import * as THREE from 'three';
-export const PBR_KINDS12=['wood','stone','metal','concrete','soil','asphalt'];
+export const PBR_KINDS12=['wood','stone','metal','concrete','soil','asphalt','hqm'];
 export const PBR_FILES12=PBR_KINDS12.flatMap(k=>['color','normal','orm'].map(m=>'pbr12/'+k+'-'+m+'.webp'));
 export function visualState12(w){
  if(w.visual12)return w.visual12;
@@ -8,12 +8,12 @@ export function visualState12(w){
  return w.visual12={wet:{value:0},time:{value:0},day:{value:1},wind:{value:new THREE.Vector2(.65,.22)},roof:{value:roof},roofOrigin:{value:new THREE.Vector2()},roofSpan:{value:48},materials:new WeakSet(),defaultRoof:roof};
 }
 export function pbrMaterial12(w,kind,options={}){
- const t=w.textures,p='pbr12/'+kind+'-',m=new THREE.MeshStandardMaterial({map:t[p+'color.webp'],normalMap:t[p+'normal.webp'],roughnessMap:t[p+'orm.webp'],aoMap:t[p+'orm.webp'],aoMapIntensity:.32,metalnessMap:kind==='metal'?t[p+'orm.webp']:null,roughness:1,metalness:kind==='metal'?.9:0,color:0xffffff,...options});
+ const t=w.textures,p='pbr12/'+kind+'-',m=new THREE.MeshStandardMaterial({map:t[p+'color.webp'],normalMap:t[p+'normal.webp'],roughnessMap:t[p+'orm.webp'],aoMap:t[p+'orm.webp'],aoMapIntensity:.32,metalnessMap:['metal','hqm'].includes(kind)?t[p+'orm.webp']:null,roughness:1,metalness:['metal','hqm'].includes(kind)?.9:0,color:0xffffff,...options});
  m.normalScale.set(kind==='stone'?.65:.42,kind==='stone'?.65:.42);m.userData.kind12=kind;wetMaterial12(w,m);return m;
 }
 export function bindPBR12(w,m,kind){
  const p='pbr12/'+kind+'-',t=w.textures;if(!t[p+'color.webp'])return;
- m.map=t[p+'color.webp'];m.normalMap=t[p+'normal.webp'];m.roughnessMap=m.aoMap=t[p+'orm.webp'];m.aoMapIntensity=.28;m.metalnessMap=kind==='metal'?t[p+'orm.webp']:null;m.metalness=kind==='metal'?.8:0;m.roughness=1;m.normalScale??=new THREE.Vector2();m.normalScale.set(.45,.45);m.userData.kind12=kind;m.needsUpdate=true;wetMaterial12(w,m);
+ m.map=t[p+'color.webp'];m.normalMap=t[p+'normal.webp'];m.roughnessMap=m.aoMap=t[p+'orm.webp'];m.aoMapIntensity=.28;m.metalnessMap=['metal','hqm'].includes(kind)?t[p+'orm.webp']:null;m.metalness=['metal','hqm'].includes(kind)?.8:0;m.roughness=1;m.normalScale??=new THREE.Vector2();m.normalScale.set(.45,.45);m.userData.kind12=kind;m.needsUpdate=true;wetMaterial12(w,m);
 }
 export function wetMaterial12(w,m){
  materialGraphics28(w,m);

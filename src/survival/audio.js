@@ -1,4 +1,6 @@
-import {AUDIO_GROUPS07 as GROUPS,AUDIO_FILES07 as FILES} from './audio-manifest07.js';
+import {AUDIO_GROUPS29,AUDIO_FILES29} from './audio-manifest29.js';
+import {AUDIO_GROUPS07,AUDIO_FILES07} from './audio-manifest07.js';
+const GROUPS={...AUDIO_GROUPS07,...AUDIO_GROUPS29},FILES={...AUDIO_FILES07,...AUDIO_FILES29};
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const gunGroup=id=>({carbine26:'assault',pdw26:'smg',pistol:'pistol',heavyPistol:'heavy-pistol',revolver:'revolver',smg:'smg',compactSmg:'smg',akRifle:'assault',assaultRifle:'assault',machineGun:'assault',boltRifle:'bolt',rifle:'marksman',semiRifle:'marksman',shotgun:'shotgun',combatShotgun:'shotgun'})[id]||'assault';
 /** Local recorded samples only: no oscillator beeps and no procedural noise fallback. */
@@ -53,8 +55,8 @@ export class SurvivalAudio {
  stopAll(includeUI=true){for(const v of [...this.voices])if(includeUI||v.bus!=='ui')this.stop(v);for(const tag of ['reload','shot'])this.epochs[tag]=(this.epochs[tag]||0)+1;}
  cancelReload(){this.epochs.reload=(this.epochs.reload||0)+1;for(const v of [...this.voices])if(v.tag==='reload')this.stop(v);}
  fire(id,{position=null,remote=false,suppressed=false}={}){
-  if(id==='rocketLauncher'){this.play('explosion',{bus:'weapons',volume:.68,rate:.78,position,key:'launch',cap:2,priority:3});this.play('debris',{bus:'weapons',volume:.18,rate:.65,delay:.045,position,priority:2});return;}
-  this.play(gunGroup(id),{bus:'weapons',volume:suppressed?.24:remote?.78:.88,rate:suppressed?.87:id==='machineGun'?.90:1,position,key:remote?'gun:remote':'gun:self',cap:remote?6:7,priority:3,tag:'shot'});
+  if(id==='rocketLauncher'){this.play('gun29-rocketLauncher',{bus:'weapons',volume:.68,rate:1,position,key:'launch',cap:2,priority:3});this.play('debris',{bus:'weapons',volume:.18,rate:.65,delay:.045,position,priority:2});return;}
+  this.play(GROUPS['gun29-'+id]?'gun29-'+id:gunGroup(id),{bus:'weapons',volume:suppressed?.24:remote?.78:.88,rate:suppressed?.87:1,position,key:remote?'gun:remote':'gun:self',cap:remote?6:7,priority:3,tag:'shot'});
   if(!remote&&id==='shotgun')this.play('pump',{bus:'weapons',volume:.46,delay:.22,key:'pump',cap:1,priority:2,tag:'shot'});
   if(!remote&&['boltRifle','rifle'].includes(id))this.play('reload-rifle-in',{bus:'weapons',volume:.22,rate:1.15,delay:.32,key:'bolt',cap:1,tag:'shot'});
  }
