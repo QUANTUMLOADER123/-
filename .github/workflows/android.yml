@@ -73,3 +73,28 @@ jobs:
             release-build/*.exe
             release-build/START-HERE.txt
             release-build/Windows-SHA256.txt
+  release:
+    name: Publish standalone APK + EXE (no ZIP)
+    needs: [android, windows]
+    if: github.ref == 'refs/heads/arena/ce299f3a-repo'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      # Actions artifacts are internal transport. Users download Release assets,
+      # which retain their actual .apk/.exe filenames and need no unpacking.
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Oskol-*-NO-TESTS
+          path: .artifacts/release
+          merge-multiple: true
+      - name: Publish compiled binaries and SHA-256 only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/publish-release.mjs

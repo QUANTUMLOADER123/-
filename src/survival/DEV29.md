@@ -64,4 +64,4 @@ The sea retains existing resolution/frequency/off controls. A cached sparse came
 
 ## Delivery
 
-The existing build-only workflow packages Android debug APK and Windows x64 portable EXE from branch `arena/ce299f3a-repo`. No tests or application launch are included. Android application ID, development signing key and Windows save path remain unchanged. There is no store submission or automatic public release.
+The existing build-only workflow packages Android debug APK and Windows x64 portable EXE from branch `arena/ce299f3a-repo`. No tests or application launch are included. Android application ID, development signing key and Windows save path remain unchanged. There is no store submission. After both platform jobs succeed, the release job publishes standalone .apk and .exe assets plus SHA256SUMS.txt as a prerelease; Actions ZIPs are internal transport only. Release assets are not source archives. Reusing an application version for a different commit creates a SHA-suffixed release instead of overwriting the previous source revision.
