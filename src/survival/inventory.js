@@ -1,10 +1,11 @@
+import {isClothing24} from './clothing24.js';
 import {lootAmount,normalizeLoot,randomLootContainer} from './loot-policy.js';
 import {firearmForTier,crateTier} from './loot04.js';
 import {WEAPONS,isGun} from './catalog.js';
 /** Six belt + thirty backpack slots. Aggregated totals remain the crafting adapter. */
 export const SLOT_COUNT=36;
 const SINGLE=new Set(['rock','torch','axe','pickaxe','hammer','rifle','armor','furnace','workbench','plan','storage','largeStorage','cupboard','recycler','repairBench']);
-export const stackLimit=item=>SINGLE.has(item)||isGun(item)?1:['ammo','pistolAmmo','shells','rocket','hvRocket','incendiaryRocket'].includes(item)?64:['berries','bandage','syringe','medkit','antiseptic','traumaKit','water','satchel'].includes(item)?20:['foundation','wall','door','roof','campfire','battery'].includes(item)?10:1000;
+export const stackLimit=item=>SINGLE.has(item)||isGun(item)||isClothing24(item)?1:['ammo','pistolAmmo','shells','rocket','hvRocket','incendiaryRocket'].includes(item)?64:['berries','bandage','syringe','medkit','antiseptic','traumaKit','water','satchel'].includes(item)?20:['foundation','wall','door','roof','campfire','battery'].includes(item)?10:1000;
 export function slotTotals(slots){const out={};for(const s of slots)if(s)out[s.item]=(out[s.item]||0)+s.count;return out;}
 const backpackOrder=[...Array.from({length:30},(_,i)=>i+6)];
 export function capacity(slots,item){return slots.reduce((n,s,i)=>n+(!canHold08(item)&&i<6?0:!s?stackLimit(item):s.item===item?stackLimit(item)-s.count:0),0);}

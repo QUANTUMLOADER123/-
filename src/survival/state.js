@@ -1,3 +1,4 @@
+import {CLOTHING_ITEMS24,CLOTHING_RECIPES24,wearValid24} from './clothing24.js';
 import {landscape21} from './landscape21.js';
 import {stationContext20} from './station-context20.js';
 import {landscape20,gradeRoad20} from './landscape20.js';
@@ -24,7 +25,7 @@ export const RECIPES={
  pickaxe:{name:'Каменная кирка',category:'tools',cost:{wood:15,stone:15,fiber:4},description:'Вдвое быстрее добывает камень, железную и серную руду.'},
  hammer:{name:'Строительная киянка',category:'tools',cost:{wood:12,stone:4},description:'Возьми в руку и наведи на элемент: улучшение, ремонт, демонтаж.'},
  bandage:{name:'Бинт',category:'tools',cost:{fiber:6},description:'Восстанавливает 35 здоровья.'},
- armor:{name:'Кожаная броня',category:'tools',cost:{fiber:30,scrap:10},description:'Надета автоматически. Снижает получаемый урон на 30%.'},
+ armor:{name:'Кожаная броня',category:'clothing',cost:{fiber:30,scrap:10},description:'Надень в слот верхней одежды / брони. В рюкзаке защита не действует.'},
  rifle:{name:'Самодельная винтовка',category:'tools',station:'workbench',cost:{wood:30,metal:35,scrap:20},description:'Нужен верстак рядом. ЛКМ / удар — выстрел, R — перезарядка. 6 патронов.'},
  satchel:{name:'Взрывной заряд',category:'tools',station:'workbench',cost:{gunpowder:30,fiber:15,metal:10},description:'Урон постройке 300. Прицелься в дверь / стену и используй. Не стой рядом.'},
  campfire:{name:'Костёр',category:'build',cost:{wood:16,stone:8},description:'Свет и восстановление здоровья рядом.'},
@@ -41,7 +42,7 @@ export const RECIPES={
  ammo:{name:'Патроны ×6',category:'process',cost:{metal:2,gunpowder:3},output:6,description:'Для самодельной винтовки. Перезарядка — R.'},
  battery:{name:'Аккумулятор передатчика',category:'tools',cost:{scrap:6,fiber:8},description:'Верни питание радиостанции возле лагеря.'}
 };
-const LEGACY_KEYS=Object.keys(ITEMS);Object.assign(ITEMS,EXTRA_ITEMS);Object.assign(RECIPES,EXTRA_RECIPES);for(const k of [...Object.keys(BUILD_COSTS),'metal','sulfur','charcoal'])delete RECIPES[k];
+const LEGACY_KEYS=Object.keys(ITEMS);Object.assign(ITEMS,EXTRA_ITEMS);Object.assign(RECIPES,EXTRA_RECIPES);Object.assign(ITEMS,CLOTHING_ITEMS24);Object.assign(RECIPES,CLOTHING_RECIPES24);for(const k of [...Object.keys(BUILD_COSTS),'metal','sulfur','charcoal'])delete RECIPES[k];
 export const TIERS=[{name:'СОЛОМА',hp:75,cost:null,color:0x847250},{name:'ДЕРЕВО',hp:250,cost:{wood:20},color:0x6f684c},{name:'КАМЕНЬ',hp:550,cost:{stone:35},color:0x737971},{name:'МЕТАЛЛ',hp:1100,cost:{metal:30},color:0x5b6665}];
 export const BUILD_KINDS=[...Object.keys(BUILD_COSTS),'door','campfire','furnace','workbench','storage','largeStorage','cupboard','recycler','repairBench'];
 export const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -80,7 +81,7 @@ export function terrainHeight(x,z){
  const sample=(a,b)=>{const i=b*(n+1)+a;if(!c.ready[i]){c.values[i]=authoredHeight08(Math.fround(a*step-size/2),Math.fround(b*step-size/2));c.ready[i]=1;}return c.values[i];};
  const a=sample(ix,iz),b=sample(ix,iz+1),d=sample(ix+1,iz);if(fx+fz<=1)return a+(d-a)*fx+(b-a)*fz;const q=sample(ix+1,iz+1);return q+(b-q)*(1-fx)+(d-q)*(1-fz);
 }
-export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard',deferSpawn=false}={}){return{version:2,contentRevision:12,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:deferSpawn?{x:0,z:0}:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
+export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard',deferSpawn=false}={}){return{version:2,contentRevision:12,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:deferSpawn?{x:0,z:0}:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),wear24:Array(7).fill(null),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
 export function nearStation(state,kind){return [...state.buildings,...stationContext20(state)].some(b=>b.kind===kind&&b.hp>0&&!state.depleted.includes(b.id)&&Math.abs((b.y??terrainHeight(b.x,b.z))-(state.feetY??terrainHeight(state.position.x,state.position.z)))<2.2&&Math.hypot(b.x-state.position.x,b.z-state.position.z)<3.2);}
 export function canCraft(state,id,quantity=1){const r=RECIPES[id];quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));return !!r&&(!r.station||nearStation(state,r.station))&&Object.entries(r.cost).every(([item,n])=>(state.inventory[item]||0)>=n*quantity);}
 export function craft(state,id,quantity=1){quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));if(!canCraft(state,id,quantity))return false;const r=RECIPES[id];for(const[item,n]of Object.entries(r.cost))state.inventory[item]-=n*quantity;state.inventory[id]+=(r.output||1)*quantity;return true;}
@@ -150,6 +151,7 @@ export function decodeSave(raw){try{
  if(!coord(s.position)||s.feetY!==undefined&&(!Number.isFinite(s.feetY)||s.feetY<(deepTerrain13?-40:-5)||s.feetY>350))return null;for(const k of['health','hunger','thirst','stamina'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>100)return null;
  if(!Number.isFinite(s.elapsed)||s.elapsed<0||s.elapsed>1e8||!Number.isFinite(s.yaw)||!Number.isFinite(s.pitch))return null;
  if(!s.inventory||LEGACY_KEYS.some(k=>!Object.hasOwn(s.inventory,k))||Object.entries(s.inventory).some(([k,n])=>!Object.hasOwn(ITEMS,k)||!Number.isInteger(n)||n<0||n>1e8))return null;
+ if(s.wear24!==undefined&&!wearValid24(s.wear24))return null;
  const ids=a=>Array.isArray(a)&&a.length<=300000&&a.every(x=>typeof x==='string'&&x.length<100);
  if(!ids(s.depleted)||!ids(s.looted)||!ids(s.visited)||s.visited.some(id=>!MONUMENTS.some(m=>m.id===id))||!Array.isArray(s.buildings)||s.buildings.length>400)return null;
  for(const b of s.buildings)if(!b||!BUILD_KINDS.includes(b.kind)||typeof b.id!=='string'||!coord(b)||!Number.isFinite(b.rotation)||(b.y!==undefined&&(!Number.isFinite(b.y)||b.y< -10||b.y>350))||!Number.isInteger(b.tier)||b.tier<0||b.tier>3||!Number.isFinite(b.hp)||b.hp<0||b.hp>TIERS[b.tier].hp)return null;
@@ -176,8 +178,11 @@ export function decodeSave(raw){try{
  if(!Number.isInteger(s.magazine)||s.magazine<0||s.magazine>WEAPONS.rifle.capacity||!Object.hasOwn(ITEMS,s.selected))return null;
  if(s.oxygen!==undefined&&(!Number.isFinite(s.oxygen)||s.oxygen<0||s.oxygen>100))return null;
  const inventory={...out.inventory,...s.inventory};if(!Object.hasOwn(s.inventory,'plan'))for(const [kind,cost]of Object.entries(BUILD_COSTS)){for(const [k,n]of Object.entries(cost))inventory[k]+=(inventory[kind]||0)*n;inventory[kind]=0;}
+ const wear24=s.wear24===undefined?Array(7).fill(null):[...s.wear24];
+ // One-time migration of the old automatically active leather armour; no free duplicate.
+ if(s.wear24===undefined&&inventory.armor>0){inventory.armor--;wear24[3]='armor';}
  // Validation is pure: reading a backup must never change the active map globals.
- return{...out,...s,densityRevision:Number.isInteger(s.densityRevision)?s.densityRevision:0,contentRevision:Number.isInteger(s.contentRevision)?s.contentRevision:3,inventory,yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};
+ return{...out,...s,densityRevision:Number.isInteger(s.densityRevision)?s.densityRevision:0,contentRevision:Number.isInteger(s.contentRevision)?s.contentRevision:3,inventory,wear24,yaw:s.yaw%(Math.PI*2),pitch:clamp(s.pitch,-1.4,1.4),dead:s.health<=0,radioFixed:!!s.radioFixed};
  }catch{return null;}}
 
 let beachCache=null;

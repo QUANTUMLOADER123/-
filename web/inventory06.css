@@ -30,3 +30,48 @@
 
 /* DEV20 persistent six-input/six-output recycler */
 .recycler20{min-width:300px}.recycler-grid20{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}.recycler-grid20 button{position:relative;aspect-ratio:1;background:#ffffff10;border:1px solid #ffffff12;padding:2px;min-width:0}.recycler-grid20 img{width:100%;height:100%;object-fit:contain}.recycler-grid20 b{position:absolute;bottom:1px;right:3px}.recycler20 [data-recycler-toggle]{width:100%;padding:14px;background:#677d3b}.recycler20 .running20{background:#a24c36}.recycler20 h4{padding:7px;background:#ffffff13}
+
+/* DEV24: equipment owns seven real slots; loot never stacks quick craft above a container. */
+.rust-panel06 .loot-mode24 .right-column06{align-self:end;gap:0;min-height:0;max-width:100%}
+.rust-panel06 .loot-mode24 .right-column06 .quick-craft:not(.shop-pane),.rust-panel06 .loot-mode24 .loot-placeholder06{display:none!important}
+.rust-panel06 .loot-mode24 .container-loot{min-width:0;max-width:100%}
+.rust-panel06 .character-stage06{height:clamp(150px,32vh,290px);min-height:150px;max-height:290px;flex:none}
+.rust-panel06 .wear-preview24{display:block;width:100%;height:100%;filter:drop-shadow(0 5px 9px #0005)}
+.rust-panel06 .wear-panel24{min-width:0}
+.rust-panel06 .equipment06.wear-slots24{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:5px}
+.rust-panel06 .wear-slots24>button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;height:54px;min-width:0;padding:3px 2px 13px;background:#c4c4ad1c;border:1px solid #d7d9bd22;color:#dedfcd;border-radius:0}
+.rust-panel06 .wear-slots24>button.equipped{border-bottom:2px solid #859b58;background:#9eae7130}
+.rust-panel06 .wear-slots24>button:hover,.rust-panel06 .wear-slots24>button:focus-visible{background:#c6d2aa38;outline:1px solid #b1bc8b}
+.rust-panel06 .wear-slots24>button.wear-match24{outline:2px solid #c8a36b}
+.rust-panel06 .wear-slots24 img{display:block;width:100%;height:36px;filter:drop-shadow(0 2px 2px #0008)}
+.rust-panel06 .wear-slots24 small{position:absolute;bottom:2px;left:0;width:100%;text-align:center;font-size:8px;line-height:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#c1c5b2}
+.rust-panel06 .wear-slots24 .wear-empty24{font-size:22px;color:#aeb59c55}
+.rust-panel06 .wear-stats24{display:flex;gap:7px;justify-content:space-between;margin-top:8px;font-size:8px;color:#b8bcaa}
+.rust-panel06 .wear-stats24 b{display:block;font-size:14px;color:#d4dfb5}
+.rust-panel06 .wear-hint24,.rust-panel06 .wear-description24{font-size:9px;line-height:1.4;color:#aab19d;margin:5px 0 0}
+.rust-panel06 .wear-hint24{height:26px;overflow:hidden}
+.rust-panel06 .wear-description24{height:50px;overflow:auto;padding:5px;background:#16201866;scrollbar-width:thin}
+.rust-panel06 .trade-pane24{background:#252d2570;padding:10px;max-height:65vh;overflow:auto;min-width:0}
+.rust-panel06 .trade-pane24 h3{font-size:14px}.rust-panel06 .trade-pane24 p{font-size:11px;line-height:1.4}
+.rust-panel06 .trade-pane24 button{color:#e3e8d8;background:#84956235;border:1px solid #bbc6a52a;padding:8px;font-size:11px}
+.rust-panel06 .trade-pane24>.shop-offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+.rust-panel06 .trade-pane24 .shop-offers button{display:flex;align-items:center;flex-wrap:wrap;gap:4px;min-width:0}
+.rust-panel06 .trade-pane24 .item-art{width:35px;height:35px}.rust-panel06 .trade-pane24 button span{font-size:9px;white-space:normal}
+@media(min-width:1200px){.rust-panel06 .equipment06.wear-slots24{grid-template-columns:repeat(7,minmax(0,1fr))}}
+@media(max-height:550px) and (min-width:640px){
+ .rust-panel06 .character-stage06{height:115px;min-height:90px;max-height:115px}
+ .rust-panel06 .equipment06.wear-slots24{gap:2px;margin-top:2px}.rust-panel06 .wear-slots24>button{height:36px;padding-bottom:9px}
+ .rust-panel06 .wear-slots24 img{height:25px}.rust-panel06 .wear-slots24 small{font-size:6px;line-height:8px;bottom:0}
+ .rust-panel06 .wear-stats24{margin-top:3px;font-size:6px}.rust-panel06 .wear-stats24 b{font-size:10px}
+ .rust-panel06 .wear-hint24{display:none}.rust-panel06 .wear-description24{height:28px;font-size:8px;padding:2px;margin-top:3px}
+ .rust-panel06 .trade-pane24{max-height:70vh}
+}
+@media(max-width:639px){
+ .rust-panel06 .character-stage06{height:170px;min-height:130px;max-height:170px}
+ .rust-panel06 .equipment06.wear-slots24{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}
+ .rust-panel06 .wear-slots24>button{height:48px}.rust-panel06 .wear-slots24 img{height:30px}.rust-panel06 .wear-slots24 small{font-size:6px}
+ .rust-panel06 .wear-stats24{flex-wrap:wrap;gap:4px;font-size:7px}.rust-panel06 .wear-stats24 b{font-size:11px}
+ .rust-panel06 .wear-hint24{height:38px;font-size:8px}.rust-panel06 .wear-description24{height:50px;font-size:8px}
+ .rust-panel06 .loot-mode24 .right-column06{display:block;grid-column:1/-1}
+ .rust-panel06 .loot-mode24 .container-slots{grid-template-columns:repeat(6,minmax(0,1fr));max-height:34vh}
+}
