@@ -1,4 +1,4 @@
-import {paintLoading11,startGallery11,nextGallery11} from './loading11.js';
+import {paintLoading11,startGallery11,nextGallery11,startMenuGallery15,stopMenuGallery15} from './loading11.js';
 import {MAP_SIZES,MAP_SEED,WORLD_RADIUS,ROADS,MONUMENTS} from './map-data.js';
 import {terrainHeight} from './state.js';
 import {biomeAt,worldTime} from './environment.js';
@@ -41,7 +41,7 @@ export function tickLoading10(now){
 }
 export function frontTab10(tab){
  for(const name of['news','play']){$('front-'+name+'10').hidden=name!==tab;$('nav-'+name+(name==='news'?'10':'')).classList.toggle('active',name===tab);$('nav-'+name+(name==='news'?'10':'')).setAttribute('aria-pressed',String(name===tab));}
- if(tab==='play')drawFrontMap10();
+ if(tab==='play'){stopMenuGallery15();drawFrontMap10();}else startMenuGallery15();
 }
 export function refreshFront10(saved){
  previewWorld11=saved;

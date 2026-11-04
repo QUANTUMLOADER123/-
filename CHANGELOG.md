@@ -1,5 +1,12 @@
 # ОСКОЛ — тестовые итерации
 
+## DEV 0.16.0 · iteration 15 — dark night artwork / build only
+
+- Regenerated the night illustration: near-black forest, dark navy sky, two armored people walking toward camera, two green NVG points each and two rifle lasers. Authored ambient exposure reduction preserves green emitters.
+- Two-surface menu/loading gallery: 12-second dwell, 2.6-second incoming cross-dissolve, restrained lateral drift; outgoing image stays opaque until replacement covers it. Current/next decoded images only, no remote requests.
+- Decode/crossfade click locking, session cancellation, background-tab suspension, reduced-motion preference, unchanged foreground controls. No world construction in the menu and no save/terrain/gameplay/DEV14 hand changes.
+- Android code17 and Windows portable, unchanged IDs/signature/save paths. No tests or game/browser/native/visual/audio execution; compilation and packaging only.
+
 ## DEV 0.15.0 · iteration 14 — first-person hands / build only
 
 - Original lofted fingerless-glove hands: opposed thumbs, smooth three-bone finger skinning, nails and authored procedural microdetail.
