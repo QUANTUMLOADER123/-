@@ -1,3 +1,6 @@
+import {housePlan20,houseGround20,hashHouse20} from './house-plans20.js';
+import {MAP_REVISION,MAP_SEED} from './map-data.js';
+import {randomSeed} from './state.js';
 import * as THREE from 'three';
 /** Object visibility budgets, not collision or simulation budgets. Metres. */
 const PROFILES16={near:{trees:125,props:100,houses:95,proxies:190,sites:190,shadow:45},balanced:{trees:235,props:160,houses:145,proxies:320,sites:360,shadow:65},far:{trees:360,props:230,houses:190,proxies:520,sites:650,shadow:85}};
@@ -33,7 +36,7 @@ export function settlementProxies16(w,bases,material,heightAt){
  for(const b of bases){const key=b.tier+':'+Math.floor(b.x/96)+':'+Math.floor(b.z/96);if(!cells.has(key))cells.set(key,[]);cells.get(key).push(b);}
  for(const bucket of cells.values()){
   const mesh=new THREE.InstancedMesh(geo,material(bucket[0].tier),bucket.length),dummy=new THREE.Object3D();mesh.receiveShadow=true;mesh.castShadow=false;
-  bucket.forEach((b,i)=>{const height=b.stories*3+.4;dummy.position.set(b.x,heightAt(b.x,b.z)+height/2,b.z);dummy.scale.set(1,height,b.layout==='2x2'?1:.5);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);b.proxy05={mesh,index:i,matrix:dummy.matrix.clone()};});
+  bucket.forEach((b,i)=>{const height=b.stories*3+.4;dummy.position.set(b.x,heightAt(b.x,b.z)+height/2,b.z);dummy.scale.set(1,height,b.layout==='2x2'?1:.5);dummy.rotation.y=0;if(MAP_REVISION>=11){const shape=housePlan20(b,bases,randomSeed(hashHouse20(MAP_SEED,b.id+'house20'))),xs=shape.plan.map(p=>p.x),zs=shape.plan.map(p=>p.z),minX=Math.min(...xs)-1.5,maxX=Math.max(...xs)+1.5,minZ=Math.min(...zs)-1.5,maxZ=Math.max(...zs)+1.5,center=shape.world((minX+maxX)/2,(minZ+maxZ)/2),ground=houseGround20(shape.plan,shape.world,heightAt);dummy.position.set(center.x,ground+height/2,center.z);dummy.scale.set((maxX-minX)/6,height,(maxZ-minZ)/6);dummy.rotation.y=shape.yaw;}dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);b.proxy05={mesh,index:i,matrix:dummy.matrix.clone()};});
   mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();w.scene.add(mesh);w.proxyChunks16.push(mesh);
  }
 }

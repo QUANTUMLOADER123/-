@@ -1,3 +1,8 @@
+import {installStationContext20} from './station-context20.js';
+import {installSettlements20} from './settlements20.js';
+import {installDamage20} from './damage20.js';
+import {installRecyclerModels20} from './recycler-model20.js';
+import {installPlayerVolume20} from './player-volume20.js';
 import {installForestStreaming19} from './forest-stream19.js';
 import {addForestNodes19} from './forest19.js';
 import {installPhysics19} from './physics19.js';
@@ -282,11 +287,11 @@ export class IslandWorld {
   this.ghost.visible=true;this.ghost.position.set(position.x,position.y??terrainHeight(position.x,position.z),position.z);this.ghost.rotation.y=rotation;this.ghost.traverse(o=>{if(o.isMesh)o.material.color.set(ok?0xb6db8c:0xea885b);});
  }
  clearPreview(){if(this.ghost)this.ghost.visible=false;}
- floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5){this.refreshDead05?.(state);let h=Math.max(terrainHeight(x,z),...[[.22,0],[-.22,0],[0,.22],[0,-.22]].map(([a,b])=>terrainHeight(x+a,z+b)));for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY>=buildingHeight(b)-.12)h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of(this.nearFloors05?.(x,z)||this.walkFloors))if((!f.structureId||!(this.deadIds05?.has(f.structureId)??state.depleted.includes(f.structureId)))&&(feetY>=floorY08(f,x,z)-.5)&&floorContains08(f,x,z,f.vehicle08?.28:0))h=Math.max(h,floorY08(f,x,z));// Finite scenery needs a landing surface as well as a side wall. In particular,
+ floorHeight(x,z,state,feetY=state.feetY??terrainHeight(x,z)+.5,point20=false){this.refreshDead05?.(state);let h=point20?terrainHeight(x,z):Math.max(terrainHeight(x,z),...[[.22,0],[-.22,0],[0,.22],[0,-.22]].map(([a,b])=>terrainHeight(x+a,z+b)));for(const b of state.buildings)if(b.hp>0&&Math.abs(x-b.x)<1.5&&Math.abs(z-b.z)<1.5){if(b.kind==='foundation'&&feetY>=buildingHeight(b)-.12)h=Math.max(h,buildingHeight(b)+.38);if(b.kind==='roof'&&feetY>=buildingHeight(b)+2.8)h=Math.max(h,buildingHeight(b)+3.11);}for(const b of state.buildings)if(b.hp>0)h=Math.max(h,structuralFloor(b,x,z,feetY));for(const f of(this.nearFloors05?.(x,z)||this.walkFloors))if((!f.structureId||!(this.deadIds05?.has(f.structureId)??state.depleted.includes(f.structureId)))&&(feetY>=floorY08(f,x,z)-.5)&&floorContains08(f,x,z,!point20&&f.vehicle08?.28:0))h=Math.max(h,floorY08(f,x,z));// Finite scenery needs a landing surface as well as a side wall. In particular,
  // the capsule must not fall through the expanded edge of a car / tank / crate.
  for(const c of(this.nearColliders?.(x,z)||this.colliders)){
   if(c.deck08||!Number.isFinite(c.y)||!(c.scenery||c.site17||c.built)||c.id&&(this.deadIds05?.has(c.id)??state.depleted.includes(c.id))||c.data?.hp<=0||c.door&&c.data?.open)continue;
-  const top=c.y+(c.h??3.02);if(feetY>=top-.5&&obstacleContains17(c,x,z,.28))h=Math.max(h,top);
+  const top=c.y+(c.h??3.02);if(feetY>=top-.5&&obstacleContains17(c,x,z,point20?0:.28))h=Math.max(h,top);
  }
  if(x>-10.3&&x<-3.7&&z>-7.5&&z<-2.5)h=Math.max(h,terrainHeight(-7,-5)+.27);return h;}
 
@@ -369,3 +374,12 @@ installCacti18(IslandWorld);
 installPhysics19(IslandWorld);
 
 installForestStreaming19(IslandWorld);
+
+installPlayerVolume20(IslandWorld);
+
+installRecyclerModels20(IslandWorld);
+
+installSettlements20(IslandWorld);
+installDamage20(IslandWorld);
+
+installStationContext20(IslandWorld);

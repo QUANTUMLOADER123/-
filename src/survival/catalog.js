@@ -20,7 +20,7 @@ Object.assign(EXTRA_ITEMS,Object.fromEntries(Object.entries(COMPONENTS).map(([id
 Object.assign(EXTRA_RECIPES,{
  cupboard:{name:'Шкаф обслуживания',category:'build',cost:{wood:120,metal:15},description:'Поставь на фундамент. Дерево, камень и металл внутри оплачивают обслуживание только соответствующих частей связанного дома.'},
  door:{name:'Деревянная дверь',category:'build',cost:{wood:50,metal:5},description:'Крафтится отдельно. Установи в дверной проём строительного плана.'},
- recycler:{name:'Разборочный верстак',category:'build',station:'workbench',cost:{wood:80,metal:50,gears:3},description:'Выбери компонент в рюкзаке и разбери на материалы. Без повторного множителя.'},
+ recycler:{name:'Переработчик компонентов',category:'build',station:'workbench',cost:{wood:80,metal:50,gears:3},description:'Шесть входных и шесть выходных слотов. Включи машину: один компонент за 2,5 секунды. Содержимое сохраняется.'},
  repairBench:{name:'Ремонтный стол',category:'build',cost:{wood:60,metal:25},description:'Ремонт огнестрела за металл. Оружие постепенно изнашивается при стрельбе.'},
  metalPipe:{name:'Металлическая труба',category:'process',station:'workbench',cost:{metal:15,scrap:4},description:'Обязательный компонент огнестрела.'},
  metalCylinder:{name:'Металлический баллон',category:'process',station:'workbench',cost:{metal:20,scrap:5},description:'Компонент револьвера, дробовика и ракетницы.'},

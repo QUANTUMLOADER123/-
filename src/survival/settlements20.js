@@ -1,0 +1,68 @@
+import {housePlan20,houseGround20} from './house-plans20.js';
+import {dressMaterials12} from './materials12.js';
+import * as THREE from 'three';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {MAP_REVISION,MAP_SEED,BOT_BASES} from './map-data.js';
+import {terrainHeight,randomSeed,TIERS} from './state.js';
+import {surfaceMaterial05} from './surface05.js';
+import {lootProp05} from './props05.js';
+import {crateModel} from './world04.js';
+const V=THREE.Vector3,zero=new THREE.Matrix4().makeScale(.000001,.000001,.000001).setPosition(0,-10000,0);
+function hash(id){let n=MAP_SEED;for(const c of id)n=Math.imul(n^c.charCodeAt(0),16777619);return n;}
+function box(w,h,d,x,y,z){const g=new THREE.BoxGeometry(w,h,d);g.translate(x,y,z);return g;}
+function combine(parts){const g=mergeGeometries(parts);parts.forEach(p=>p.dispose());return g;}
+function piece(kind){if(kind==='foundation')return box(3,.38,3,0,.19,0);if(kind==='roof')return box(3,.18,3,0,3.29,0);if(kind==='wall')return box(3,3,.16,0,1.88,0);if(kind==='halfWall')return box(1.35,1.5,.14,0,1.13,0);if(kind==='landing')return box(1.5,.14,1.35,0,1.81,0);
+ if(kind==='door')return combine([box(.84,3,.16,-1.08,1.88,0),box(.84,3,.16,1.08,1.88,0),box(1.32,.9,.16,0,2.93,0)]);
+ return combine([box(1.0,3,.16,-1,1.88,0),box(1.0,3,.16,1,1.88,0),box(1,1.05,.16,0,.905,0),box(1,.95,.16,0,2.905,0),...[-.3,0,.3].map(x=>box(.035,1.0,.04,x,1.92,0))]);}
+function triangle(height,top){const shape=new THREE.Shape();shape.moveTo(-1.5,-.8660254);shape.lineTo(1.5,-.8660254);shape.lineTo(0,1.7320508);shape.closePath();const g=new THREE.ExtrudeGeometry(shape,{depth:height,bevelEnabled:false});g.rotateX(Math.PI/2);g.translate(0,top,0);return g;}
+export function installSettlements20(World){
+ const old=World.prototype.loadSettlement05,unload=World.prototype.unloadSettlement05;
+ World.prototype.loadSettlement05=function(base,state){
+  if(MAP_REVISION<11)return old.call(this,base,state);if(this.settlements05.has(base.id))return;
+  const r=randomSeed(hash(base.id+'house20')),{plan,yaw,c,s,wealth,entry,airlock,shaft,world}=housePlan20(base,BOT_BASES,r),material=surfaceMaterial05(base.tier),ground=houseGround20(plan,world,terrainHeight);
+  const root=new THREE.Group();root.position.set(base.x,ground,base.z);this.scene.add(root);const house={root,base,batches:[],owned:[],entries:[],geometries20:[],material20:material,equipment20:[]};this.settlements05.set(base.id,house);this.supportDirty05=true;const proxy=base.proxy05;if(proxy){proxy.mesh.setMatrixAt(proxy.index,zero);proxy.mesh.instanceMatrix.needsUpdate=true;}
+  const index=p=>plan.indexOf(p),id=(level,kind,i)=>'base-'+base.id+'-f'+level+'-'+kind+'-'+i,rootId=p=>id(0,'foundation',index(p)),under=(p,level)=>level&&p!==shaft?id(level-1,'roof',index(p)):rootId(p),defs=[];
+  const add=(kind,p,level,i,angle=0,variant=kind,supports=[under(p,level)])=>{const q=world(p.x,p.z),data={id:id(level,kind,i),kind,x:q.x,z:q.z,y:ground+level*3,rotation:yaw+angle,tier:base.tier,hp:TIERS[base.tier].hp,owner:base.id,raided:base.raided,settlement:base.id,supports,variant};if(base.raided&&['wall','door'].includes(kind))state.structureDamage[data.id]??=TIERS[base.tier].hp*(.3+randomSeed(hash(data.id+'wear20'))()*.45);defs.push(data);return data;};
+  for(let level=0;level<base.stories;level++)for(const p of plan){
+   const i=index(p);if(!level)add('foundation',p,0,i,0,'foundation',[]);
+   const edges=[];for(const [dx,dz,angle]of [[0,-1,0],[0,1,0],[-1,0,Math.PI/2],[1,0,Math.PI/2]]){
+    if(plan.some(q=>q.x===p.x+dx*3&&q.z===p.z+dz*3))continue;
+    const edge={x:p.x+dx*1.5,z:p.z+dz*1.5},front=(p===(airlock||entry)&&dz===1),isDoor=front&&level===0,kind=isDoor?'door':'wall',n=i*4+edges.length,variant=isDoor?'door':r()<.25?'window':'wall';
+    if(!(base.raided&&isDoor))edges.push(add(kind,edge,level,n,angle,variant,[under(p,level)]).id);
+   }
+   // Real airlock: a second door between the porch cell and the occupied rooms.
+   if(p===entry&&airlock){const e={x:p.x,z:p.z+1.5};edges.push(add('door',e,level,900+i,0,'door',[under(p,level)]).id);}
+   if(p!==shaft||level===base.stories-1)add('roof',p,level,i,0,'roof',edges.length?edges:[under(p,level)]);
+   if(p===shaft&&level<base.stories-1){const side=level%2?1:-1,nx=plan.some(q=>q.x===p.x+3&&q.z===p.z)?1:0,nz=1-nx,neighbor=plan.find(q=>q.x===p.x+nx*3&&q.z===p.z+nz*3),wall={x:p.x+nx*1.5+nz*side*.75,z:p.z+nz*1.5+nx*side*.75},mid={x:p.x+nx*.75+nz*side*.75,z:p.z+nz*.75+nx*side*.75},support=add('halfWall',wall,level,i,nx?Math.PI/2:0,'halfWall',[under(neighbor,level)]);add('roofSlope',mid,level,800+i,nx?0:Math.PI/2,'landing',[support.id]);}
+  }
+  // Closed triangular honeycomb cells: retain the original outer wall, add two
+  // exterior faces and a triangular cap. No doors/loot/spawn inside these voids.
+  let buffer=0;for(const p of plan)for(const [dx,dz]of [[0,-1],[0,1],[-1,0],[1,0]]){
+   if(buffer>=6||p===airlock||plan.some(q=>q.x===p.x+dx*3&&q.z===p.z+dz*3)||p===entry&&dz===1||r()>.35)continue;
+   const edge={x:p.x+dx*1.5,z:p.z+dz*1.5},angle=Math.atan2(dx,dz),point={x:edge.x+dx*.8660254,z:edge.z+dz*.8660254},tip=world(edge.x+dx*2.598076,edge.z+dz*2.598076);
+   if(BOT_BASES.some(b=>b!==base&&Math.hypot(tip.x-b.x,tip.z-b.z)<9))continue;
+   const fid=add('triangleFoundation',point,0,100+buffer,angle,'bufferBase',[rootId(p)]);add('triangleRoof',point,0,100+buffer,angle,'bufferRoof',[fid.id]);
+   const ca=Math.cos(angle),sa=Math.sin(angle),verts=[[-1.5,-.8660254],[1.5,-.8660254],[0,1.7320508]];
+   for(const [a,b]of [[verts[0],verts[2]],[verts[1],verts[2]]]){const x=(a[0]+b[0])/2,z=(a[1]+b[1])/2,ep={x:point.x+x*ca+z*sa,z:point.z-x*sa+z*ca},rotation=angle+Math.atan2(-(b[1]-a[1]),b[0]-a[0]);add('wall',ep,0,1200+buffer*2+(a===verts[0]?0:1),rotation,'wall',[fid.id]);}buffer++;
+  }
+  const geometries=new Map();for(const variant of new Set(defs.map(b=>b.variant))){const list=defs.filter(b=>b.variant===variant),g=variant==='bufferBase'?triangle(.38,.38):variant==='bufferRoof'?triangle(.18,3.38):piece(variant),batch=new THREE.InstancedMesh(g,material,list.length);batch.castShadow=batch.receiveShadow=true;root.add(batch);house.batches.push(batch);house.geometries20.push(g);geometries.set(variant,g);batch.userData.entries=[];
+   list.forEach((b,i)=>{const model=new THREE.Object3D();model.position.set(b.x,b.y,b.z);const matrix=new THREE.Matrix4().compose(new V(b.x-base.x,b.y-ground,b.z-base.z),new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),b.rotation),new V(1,1,1)),e={data:b,model,batch,instance:i,matrix,settlement:base.id};house.entries.push(e);this.staticStructures.push(e);batch.userData.entries[i]=e;
+    if(b.kind==='door'){const door=new THREE.Group(),pivot=new THREE.Group();door.position.set(b.x-base.x,b.y-ground,b.z-base.z);door.rotation.y=b.rotation;pivot.position.set(-.63,.38,0);const panel=new THREE.Mesh(box(1.26,2.1,.10,.63,1.05,0),material);panel.castShadow=panel.receiveShadow=true;pivot.add(panel);door.add(pivot);door.userData.doorPivot=pivot;pivot.rotation.y=state.doors?.[b.id]?1.6:0;b.open=!!state.doors?.[b.id];root.add(door);house.geometries20.push(panel.geometry);e.model=door;}
+    this.setPieceVisible05(e,!state.depleted.includes(b.id)&&!b.supports.some(k=>state.depleted.includes(k)));
+    const co=Math.abs(Math.cos(b.rotation)),si=Math.abs(Math.sin(b.rotation)),collide=(offset,width,y,height,frame=true)=>this.colliders.push({id:b.id,box:true,x:b.x+Math.cos(b.rotation)*offset,z:b.z-Math.sin(b.rotation)*offset,w:co*width+si*.16,d:si*width+co*.16,ow:width,od:.16,rotation:b.rotation,y:b.y+y,h:height,data:b,door:b.kind==='door'&&!frame,frame,settlement:base.id});
+    if(b.kind==='wall')collide(0,3,.38,3);if(b.kind==='halfWall')collide(0,1.35,.38,1.5);if(b.kind==='door'){collide(-1.08,.84,.38,3);collide(1.08,.84,.38,3);collide(0,1.32,2.48,.9);collide(0,1.26,.38,2.1,false);}
+    const floor=(y,w=3,d=3)=>this.walkFloors.push({x:b.x,z:b.z,w:co*w+si*d,d:si*w+co*d,ow:w,od:d,rotation:b.rotation,y:b.y+y,structureId:b.id,settlement:base.id,triangle20:b.kind.startsWith('triangle')});
+    if(b.kind==='foundation')floor(.38);if(b.kind==='roof')floor(3.38);if(b.variant==='landing')floor(1.88,1.5,1.35);if(b.kind==='halfWall')floor(1.88,1.35,.14);if(b.kind==='triangleFoundation')floor(.38,3,3.47);if(b.kind==='triangleRoof')floor(3.38,3,3.47);
+   });batch.computeBoundingSphere();
+  }
+  const rooms=plan.filter(p=>p!==shaft&&p!==airlock),room=rooms[0]||entry;
+  const item=(kind,model,p,level,suffix,extra={})=>{const q=world(p.x,p.z),y=ground+level*3+.38,identity=suffix;model.position.set(q.x-base.x,y-ground,q.z-base.z);model.rotation.y=yaw;root.add(model);house.owned.push(model);const data={id:identity,kind,x:q.x,z:q.z,y,tier:base.tier,hp:TIERS[base.tier].hp,owner:base.id,supports:[under(plan.find(c=>Math.abs(c.x-p.x)<1.51&&Math.abs(c.z-p.z)<1.51)||room,level)],settlement:base.id};if(kind!=='storage')this.staticStructures.push({data,model,settlement:base.id});this.interactables.push({id:identity,type:kind==='storage'?'crate':kind,x:q.x,z:q.z,y,model,data,owner:base.raided?null:base.id,raided:base.raided,settlement:base.id,supports:data.supports,...extra});this.colliders.push({id:identity,x:q.x,z:q.z,y,r:kind==='furnace'?.7:.55,h:kind==='cupboard'?1.9:kind==='furnace'?1.9:1.2,data,settlement:base.id});model.visible=!state.depleted.includes(identity);return data;};
+  const tcid='tc-'+base.id;item('cupboard',lootProp05('cupboard'),{x:room.x-.88,z:room.z+.85},0,tcid);state.containers??={};if(!state.containers[tcid]){const tcR=randomSeed(hash(tcid+'contents20'));const amount=wealth<.3?.35:wealth<.8?1:2.5,contents={wood:Math.round((1600+tcR()*6500)*amount),stone:Math.round((1000+tcR()*5000)*amount),metal:Math.round((200+tcR()*1800)*amount),fiber:Math.round((100+tcR()*900)*amount),sulfurOre:Math.round((80+tcR()*1600)*amount),charcoal:Math.round((200+tcR()*1600)*amount),lowFuel:Math.round((30+tcR()*200)*amount)};for(const [key,max]of Object.entries({metalPipe:40,spring:30,gears:24,metalSheet:20,metalBlade:20,rope:25,sewingKit:16,tarp:12,ductTape:15,semiBody:5,smgBody:4,rifleBody:4,techParts:12,highMetal:70}))if(tcR()>.2)contents[key]=Math.max(1,Math.floor(tcR()*max*amount));state.containers[tcid]=base.raided&&!base.leftovers?{}:base.raided?Object.fromEntries(Object.entries(contents).map(([k,n])=>[k,Math.max(1,Math.floor(n*.2))])):contents;}
+  const benches=rooms.slice(0,wealth>.65?2:1);benches.forEach((p,i)=>{const kind=i?'repairBench':'workbench',model=this.stationModel(kind);item(kind,model,{x:p.x+.3,z:p.z-1.02},0,'furniture20-'+base.id+'-'+kind);house.equipment20.push(model);});
+  const fp=rooms.at(-1)||entry,furnace=this.stationModel('furnace'),fd=item('furnace',furnace,{x:fp.x-.85,z:fp.z+.7},0,'furniture20-'+base.id+'-furnace');house.equipment20.push(furnace);state.furnaces??={};state.furnaces[fd.id]??={slots:[{item:'wood',count:250},{item:'metalOre',count:150},wealth>.5?{item:'sulfurOre',count:80}:null,{item:'metal',count:70},null,{item:'charcoal',count:40}],on:false,progress:0,fuelTime:0};
+  for(let level=0;level<base.stories;level++){const count=level===0?wealth<.3?1:2:wealth>.65?2:1;for(let i=0;i<count;i++){const p=rooms[(level+i)%Math.max(1,rooms.length)]||entry,tier=wealth<.3?'normal':wealth>.8&&i?'elite':wealth>.5?'military':i?'tool':'normal',identity='base-loot-'+base.id+(level?'-f'+level:'')+'-'+i;item('storage',crateModel(tier),{x:p.x+.8,z:p.z+(i?.7:-.7)},level,identity,{crateType:tier,startEmpty:base.raided&&!base.leftovers,houseLoot20:wealth>.35?{wood:40+Math.floor(r()*180),metal:20+Math.floor(r()*80),fiber:10+Math.floor(r()*60)}:{wood:20,fiber:5}});}}
+  // Continuous low entry ramp, not a staircase/ladder mesh.
+  const porch=airlock||entry,start=world(porch.x,porch.z+3.5),end=world(porch.x,porch.z+1.5),low=terrainHeight(start.x,start.z),high=ground+.38,dx=end.x-start.x,dz=end.z-start.z,len=Math.hypot(dx,dz),angle=Math.atan2(dx,dz),ramp=new THREE.Mesh(new THREE.PlaneGeometry(1.3,Math.hypot(len,high-low)),material);ramp.rotation.set(-Math.PI/2-Math.atan2(high-low,len),angle,0,'YXZ');ramp.position.set((start.x+end.x)/2-base.x,(low+high)/2-ground,(start.z+end.z)/2-base.z);root.add(ramp);house.geometries20.push(ramp.geometry);this.walkFloors.push({x:(start.x+end.x)/2,z:(start.z+end.z)/2,w:Math.abs(Math.cos(angle))*1.3+Math.abs(Math.sin(angle))*len,d:Math.abs(Math.sin(angle))*1.3+Math.abs(Math.cos(angle))*len,ow:1.3,od:len,rotation:angle,y:(low+high)/2,slope08:{x:start.x,z:start.z,y:low,dx,dz,dy:high-low,len2:len*len},settlement:base.id});root.updateMatrixWorld(true);dressMaterials12(this,root);
+ };
+ World.prototype.unloadSettlement05=function(id){const h=this.settlements05.get(id);if(h?.geometries20){const geometries=new Set(h.geometries20),materials=new Set([h.material20]);for(const b of h.batches){geometries.add(b.geometry);if(b.material.userData.wear20)materials.add(b.material);b.customDepthMaterial?.dispose();}for(const e of h.entries)if(e.data.kind==='door')e.model.traverse(m=>{if(m.material?.userData.wear20){materials.add(m.material);m.customDepthMaterial?.dispose();}});for(const model of h.equipment20)model.traverse(m=>{if(m.geometry)geometries.add(m.geometry);});unload.call(this,id);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());}else unload.call(this,id);};
+}

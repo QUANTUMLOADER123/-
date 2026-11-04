@@ -11,7 +11,7 @@ class Heap18{
 /** Revisions 9+; revision 10 also penalizes terrain grade. A connected branching tree, NOT an outer ring or a lattice.
  * The routing grid is internal; shortcutting and safe corner rounding remove it
  * from the delivered geometry. Houses are placed AFTER this network is frozen. */
-export function roadNetwork18({scale,seed,monuments,height=null}){
+export function roadNetwork18({scale,seed,monuments,height=null,maxShortcutGrade=1.1,gradeCost=35}){
  const sites=monuments.filter(m=>m.kind!=='oilrig'),roads={},blockers=[{x:-6,z:-3,r:32},{x:-31,z:-31,r:12},...sites.map(m=>({x:m.x,z:m.z,r:m.radius+7}))],step=8*scale,extent=328*scale,width=Math.ceil(extent*2/step)+1;
  const coast=p=>coastDistance13(p.x,p.z,scale,seed);
  const clearPoint=p=>coast(p)>5&&!blockers.some(o=>distance(p,o)<o.r);
@@ -19,7 +19,7 @@ export function roadNetwork18({scale,seed,monuments,height=null}){
   for(const o of blockers)if(distance(project(o,a,b),o)<o.r)return false;
   const count=Math.max(1,Math.ceil(distance(a,b)/(5*scale)));
   let previous=null;
-  for(let i=0;i<=count;i++){const p=lerp(a,b,i/count);if(coast(p)<5)return false;if(height&&grade){const y=height(p.x,p.z);if(previous&&Math.abs(y-previous.y)/Math.max(.001,distance(p,previous))>1.1)return false;previous={...p,y};}}
+  for(let i=0;i<=count;i++){const p=lerp(a,b,i/count);if(coast(p)<5)return false;if(height&&grade){const y=height(p.x,p.z);if(previous&&Math.abs(y-previous.y)/Math.max(.001,distance(p,previous))>maxShortcutGrade)return false;previous={...p,y};}}
   return true;
  }
  const nodes=new Map();
@@ -34,7 +34,7 @@ export function roadNetwork18({scale,seed,monuments,height=null}){
  function nearest(p){
   const ix=Math.round((p.x+extent)/step),iz=Math.round((p.z+extent)/step),out=[];
   for(let r=1;r<=5;r++){for(let dx=-r;dx<=r;dx++)for(let dz=-r;dz<=r;dz++){if(Math.max(Math.abs(dx),Math.abs(dz))!==r&&r!==1)continue;const n=node(ix+dx,iz+dz);if(n&&clear(p,n,false))out.push(n);}if(out.length>=3&&(!height||r>=3))break;}
-  const py=height?height(p.x,p.z):0,cost=n=>{const d=distance(n,p);return d+(height?35*(n.y19-py)**2/Math.max(1,d):0);};return out.sort((a,b)=>cost(a)-cost(b)).slice(0,8);
+  const py=height?height(p.x,p.z):0,cost=n=>{const d=distance(n,p);return d+(height?gradeCost*(n.y19-py)**2/Math.max(1,d):0);};return out.sort((a,b)=>cost(a)-cost(b)).slice(0,8);
  }
  function simplify(path){
   const out=[path[0]];let i=0;
@@ -60,7 +60,7 @@ export function roadNetwork18({scale,seed,monuments,height=null}){
   while(heap.a.length){
    const item=heap.pop();if(closed.has(item.id))continue;closed.add(item.id);const n=nodes.get(item.id);if(targets.has(n.id)){goal=n;break;}
    for(let dx=-1;dx<=1;dx++)for(let dz=-1;dz<=1;dz++){
-    if(!dx&&!dz)continue;const q=node(n.ix+dx,n.iz+dz);if(!q||closed.has(q.id)||!clear(n,q,false))continue;const grade19=height?Math.abs(q.y19-n.y19)/Math.max(.001,distance(n,q)):0;const score=g.get(n.id)+distance(n,q)*((n.cost+q.cost)*.5+grade19*grade19*35);
+    if(!dx&&!dz)continue;const q=node(n.ix+dx,n.iz+dz);if(!q||closed.has(q.id)||!clear(n,q,false))continue;const grade19=height?Math.abs(q.y19-n.y19)/Math.max(.001,distance(n,q)):0;const score=g.get(n.id)+distance(n,q)*((n.cost+q.cost)*.5+grade19*grade19*gradeCost);
     if(score<(g.get(q.id)??Infinity)){g.set(q.id,score);parent.set(q.id,n.id);heap.push({id:q.id,f:score+distance(q,b)});}
    }
   }

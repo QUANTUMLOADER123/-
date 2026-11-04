@@ -1,3 +1,4 @@
+import {recyclerModel20} from './recycler-model20.js';
 import {supplyCrate19} from './supply-crate19.js';
 import {safeSite08} from './sites08.js';
 import {lootProp05} from './props05.js';
@@ -21,7 +22,7 @@ export function crateModel(tier='normal'){if(tier==='military'||tier==='elite')r
  for(const x of[-.37,.37]){box(root,[.07,.7,.69],[x,.37,0],steel);box(root,[.1,.13,.04],[x,.63,.37],trim);}for(const z of[-.35,.35])beam(root,[-.2,.8,z],[.2,.8,z],.025,steel);
  if(tier==='normal')for(const y of[.17,.34,.51])box(root,[.93,.015,.02],[0,y,.336],steel);else{box(root,[.22,.13,.03],[0,.39,.345],trim);for(const x of[-.47,.47])box(root,[.05,.2,.28],[x,.39,0],steel);}if(tier==='elite')for(const x of[-.22,0,.22])box(root,[.09,.04,.45],[x,.77,0],trim);return root;}
 export function cupboardModel(){return lootProp05('cupboard');}
-export function workshopModel(kind){if(kind==='cupboard')return cupboardModel();const g=new THREE.Group(),steel=mat(0x566d67,.65),wood=mat(0x776044),black=mat(0x283330,.3);box(g,[1.8,.15,.8],[0,1.05,0],wood);for(const x of[-.75,.75])for(const z of[-.3,.3])box(g,[.1,1.05,.1],[x,.52,z],steel);if(kind==='recycler'){box(g,[.8,.7,.65],[.2,1.48,0],steel);const drum=cylinder(g,.25,.85,[.2,1.5,.02],black);drum.rotation.z=Math.PI/2;for(const x of[-.2,.2,.6]){const wheel=new THREE.Mesh(new THREE.TorusGeometry(.27,.035,7,16),steel);wheel.position.set(x,1.5,.04);wheel.rotation.y=Math.PI/2;g.add(wheel);}box(g,[.45,.1,.6],[-.62,1.22,0],black);}else{box(g,[.42,.24,.3],[-.35,1.24,0],steel);cylinder(g,.12,.15,[.5,1.2,0],black);}return g;}
+export function workshopModel(kind){if(kind==='recycler')return recyclerModel20();if(kind==='cupboard')return cupboardModel();const g=new THREE.Group(),steel=mat(0x566d67,.65),wood=mat(0x776044),black=mat(0x283330,.3);box(g,[1.8,.15,.8],[0,1.05,0],wood);for(const x of[-.75,.75])for(const z of[-.3,.3])box(g,[.1,1.05,.1],[x,.52,z],steel);if(kind==='recycler'){box(g,[.8,.7,.65],[.2,1.48,0],steel);const drum=cylinder(g,.25,.85,[.2,1.5,.02],black);drum.rotation.z=Math.PI/2;for(const x of[-.2,.2,.6]){const wheel=new THREE.Mesh(new THREE.TorusGeometry(.27,.035,7,16),steel);wheel.position.set(x,1.5,.04);wheel.rotation.y=Math.PI/2;g.add(wheel);}box(g,[.45,.1,.6],[-.62,1.22,0],black);}else{box(g,[.42,.24,.3],[-.35,1.24,0],steel);cylinder(g,.12,.15,[.5,1.2,0],black);}return g;}
 export function addExtraSite(w,root,m,kit){const {box:bx,cyl,pipe,metal,concrete,rust}=kit;
  if(m.safe){safeSite08(w,root,m,kit);return;}
  if(m.kind==='waterTower'){cyl(root,metal,4,4,5,[0,12,0],20);for(const x of[-2.5,2.5])for(const z of[-2.5,2.5])pipe(root,[x,0,z],[x,10,z],.14);for(let y=1;y<11;y+=.6)pipe(root,[-.4,y,4],[.4,y,4],.04);}

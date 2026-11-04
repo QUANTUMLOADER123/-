@@ -1,0 +1,92 @@
+{
+  "metalPipe": {
+    "file": "metalPipe.webp",
+    "sha256": "62775c5938ec2cb2b7045f0e14343cfce021ceb9cb8186dc1257b5cc752836c6",
+    "source": "metalPipe.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "metalCylinder": {
+    "file": "metalCylinder.webp",
+    "sha256": "9274a55eacab55d35e136cf4462dfca4a934b5b3a8675e8284c5b8b4b9cec51a",
+    "source": "metalCylinder.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "metalSheet": {
+    "file": "metalSheet.webp",
+    "sha256": "d1e047fa800f2a57a797e6a633ab5e307e99eb41771b35b270618cd4165da88c",
+    "source": "metalSheet.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "metalBlade": {
+    "file": "metalBlade.webp",
+    "sha256": "1bb73e846b3856e0dd0840d9396ded149771f3f4a4d2e924cc0094b60f458440",
+    "source": "metalBlade.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "rifleBody": {
+    "file": "rifleBody.webp",
+    "sha256": "329a0c9efb58d4de156df5b37bc1184d5f0ae67d1bff898cc0bd53c71d8acf66",
+    "source": "rifleBody.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "smgBody": {
+    "file": "smgBody.webp",
+    "sha256": "f9045b9407d92a7ed7196e56599f5110497856be1ef41729af475fdff9e8de5e",
+    "source": "smgBody.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "semiBody": {
+    "file": "semiBody.webp",
+    "sha256": "b1c1c97e7573066d035b934ea6ec43c46b9a26524b3c926c560f9375bd04be62",
+    "source": "semiBody.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "techParts": {
+    "file": "techParts.webp",
+    "sha256": "a4e821a177c516edf9fc31f4923373ad25afbbe39fc86ed118337cdde556c277",
+    "source": "techParts.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "spring": {
+    "file": "spring.webp",
+    "sha256": "28e755beebabc88edc7350ce29c53076428d6d2cabc5e8d8f1f55fbf71052991",
+    "source": "spring.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "gears": {
+    "file": "gears.webp",
+    "sha256": "ffb46d3d6e3e81d0f6f742b0b5495254430eb723d152f8682491a1cf4966fb39",
+    "source": "gears.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "rope": {
+    "file": "rope.webp",
+    "sha256": "103323e8145dc2572103195ed3d9dd6a03cd3ab2964daf629f8cb491596237d0",
+    "source": "rope.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "tarp": {
+    "file": "tarp.webp",
+    "sha256": "d0f81f560b7d80dc7cf0668bd43fbd5b64099afe7727b64abd3229a55473fac4",
+    "source": "tarp.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "ductTape": {
+    "file": "ductTape.webp",
+    "sha256": "fd911e82fed12bd530d927b364dc0434d4b5660ff0ab496631405ac380e6bd7a",
+    "source": "ductTape.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "sewingKit": {
+    "file": "sewingKit.webp",
+    "sha256": "d2b09d9f1f84c133554430d36b3a75c6eead47e97c07367ebeceacefa09fdfd8",
+    "source": "sewingKit.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  },
+  "highMetal": {
+    "file": "highMetal.webp",
+    "sha256": "897df84c537d6bc3dc0786dc3f6d77b5e907733edf7df01b0f6d3d6629207741",
+    "source": "highMetal.svg",
+    "provenance": "Original individually authored vector illustration, rasterized offline; not AI or Facepunch artwork."
+  }
+}

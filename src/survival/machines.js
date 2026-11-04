@@ -1,3 +1,4 @@
+import {stationContext20} from './station-context20.js';
 import {stackLimit,syncSlots} from './inventory.js';
 export function furnaceFor(s,id){s.furnaces??={};return s.furnaces[id]??={slots:Array(6).fill(null),on:false,progress:0,fuelTime:0};}
 const ores=['metalOre','sulfurOre','highMetalOre'];
@@ -6,7 +7,7 @@ export function insertFurnace(s,id,from,to,half=false){syncSlots(s);const a=s.sl
 export function takeFurnace(s,id,index,one=false){const f=furnaceFor(s,id),a=f.slots[index];if(!a)return 0;syncSlots(s);const room=s.slots.reduce((n,b)=>n+(!b?stackLimit(a.item):b.item===a.item?stackLimit(a.item)-b.count:0),0),n=Math.min(a.count,one?1:a.count,room);if(!n)return 0;s.inventory[a.item]+=n;a.count-=n;if(!a.count)f.slots[index]=null;syncSlots(s);return n;}
 function output(f,item,n){let at=f.slots.findIndex((v,i)=>i>=3&&v?.item===item&&v.count+n<=stackLimit(item));if(at<0)at=f.slots.findIndex((v,i)=>i>=3&&!v);if(at<0)return false;const a=f.slots[at];f.slots[at]={item,count:(a?.count||0)+n};return true;}
 const product=ore=>ore==='metalOre'?'metal':ore==='highMetalOre'?'highMetal':'sulfur';
-export function advanceFurnaces(s,dt){for(const b of s.buildings){if(b.kind!=='furnace'||b.hp<=0)continue;const f=s.furnaces?.[b.id];if(!f?.on)continue;let remaining=Math.min(Math.max(0,dt),.25);while(remaining>1e-8){const sources=[1,2].filter(i=>f.slots[i]?.count),future={slots:f.slots.map(a=>a?{...a}:null)};if(!sources.length||!sources.every(i=>output(future,product(f.slots[i].item),1))||!output(future,'charcoal',1)){f.on=false;break;}
+export function advanceFurnaces(s,dt){for(const b of [...s.buildings,...stationContext20(s)]){if(s.depleted.includes(b.id)||b.kind!=='furnace'||b.hp<=0)continue;const f=s.furnaces?.[b.id];if(!f?.on)continue;let remaining=Math.min(Math.max(0,dt),.25);while(remaining>1e-8){const sources=[1,2].filter(i=>f.slots[i]?.count),future={slots:f.slots.map(a=>a?{...a}:null)};if(!sources.length||!sources.every(i=>output(future,product(f.slots[i].item),1))||!output(future,'charcoal',1)){f.on=false;break;}
  if(f.fuelTime<=1e-8){if(!f.slots[0]?.count){f.on=false;break;}if(--f.slots[0].count===0)f.slots[0]=null;f.fuelTime=8;}
  const step=Math.min(remaining,f.fuelTime,Math.max(0,4-f.progress));remaining-=step;f.fuelTime-=step;f.progress+=step;if(f.progress>=4-1e-8){for(const i of sources){output(f,product(f.slots[i].item),1);if(--f.slots[i].count===0)f.slots[i]=null;}output(f,'charcoal',1);f.progress=0;}if(step<=0&&f.progress>0)break;
  }} }

@@ -3,7 +3,7 @@ export class CharacterMotor {
  constructor(){this.reset(0);}
  reset(y){this.y=y;this.vx=0;this.vz=0;this.vy=0;this.grounded=true;this.swimming=false;this.airSpeed=3.8;this.lastImpact=0;this.safe17=null;this.escape17=0;}
  stop(){if(this.grounded||this.swimming)this.vx=this.vz=0;if(this.swimming)this.vy=0;}
- jump(){if(this.swimming){this.vy=2.8;return true;}if(!this.grounded)return false;this.grounded=false;this.vy=6.6;this.airSpeed=Math.max(3.8,Math.hypot(this.vx,this.vz));return true;}
+ jump(){if(this.swimming){this.vy=2.8;return true;}if(!this.grounded)return false;this.grounded=false;this.vy=7.7;this.airSpeed=Math.max(3.8,Math.hypot(this.vx,this.vz));return true;}
  step(dt,{x=0,z=0,yaw=0,sprint=false,crouch=false,pitch=0,rise=false,dive=false,waterLevel=0},position,{floor,canMove,terrain=null}){
   this.lastImpact=0;dt=Math.min(.1,Math.max(0,dt));const steps=Math.max(1,Math.ceil(dt/(1/120))),h=dt/steps,length=Math.hypot(x,z);if(length>1){x/=length;z/=length;}
   // Recover an already embedded capsule locally; never move a valid capsule
