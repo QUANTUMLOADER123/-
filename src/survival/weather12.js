@@ -62,5 +62,5 @@ export function updateWeather12(w,dt,state){
  const r=w.rain12;if(!r)return;
  if((rain>.01||u.wet.value>.015)&&(state.elapsed-r.fieldAt>.35||Math.hypot(w.camera.position.x-r.origin.x,w.camera.position.z-r.origin.y)>2.5))refreshField12(w,state);
  r.uniforms.strength.value=rain;r.uniforms.daylight.value=day;r.mesh.visible=rain>.025&&!state.underwater;r.splashes.visible=r.mesh.visible;
- r.mesh.geometry.instanceCount=w.settings.quality==='low'?420:w.settings.quality==='high'?1800:1000;r.splashes.geometry.instanceCount=w.settings.quality==='low'?48:w.settings.quality==='high'?260:130;
+ r.mesh.geometry.instanceCount=w.settings.particles28===0?0:w.settings.particles28===1?420:1800;r.splashes.geometry.instanceCount=w.settings.particles28===0?0:w.settings.particles28===1?48:260;
 }

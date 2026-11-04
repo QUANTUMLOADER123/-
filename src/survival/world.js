@@ -1,3 +1,6 @@
+import {installPlayerPreview28} from './player-preview28.js';
+import {installSpatial28} from './spatial28.js';
+import {installGraphics28,assetTexture28,assetMaterials28} from './graphics28.js';
 import {installTactics27} from './tactics27.js';
 import {installSleeping27} from './sleeping-model27.js';
 import {installSociety26} from './society26.js';
@@ -68,7 +71,7 @@ const ASSET='assets/';
 export class IslandWorld {
  constructor(canvas,settings){
   this.canvas=canvas;this.settings=settings;this.time=0;this.models={};this.textures={};this.nodes=[];this.colliders=[];this.interactables=[];this.occluders=[];this.wolves=[];this.fires=[];this.built=new Map();this.swing=0;this.previewKind=null;this.previewRotation=0;this.treeBatches=[];this.effects=[];this.bots=[];this.distantGroups=[];this.staticStructures=[];this.walkFloors=[];
-  this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance',alpha:false});
+  this.renderer=new THREE.WebGLRenderer({canvas,antialias:false,powerPreference:'high-performance',alpha:false});
   this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.0;
   this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   this.scene=new THREE.Scene();this.scene.fog=null;
@@ -85,7 +88,7 @@ export class IslandWorld {
   this.applyQuality(settings.quality);this.resize();
   this.contextLost11=e=>{e.preventDefault();window.dispatchEvent(new Event('oskol-context-lost'));};this.renderer.domElement.addEventListener('webglcontextlost',this.contextLost11);
  }
- resize(){this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,this.settings.quality==='high'?1.5:this.settings.quality==='low'?.7:1));this.renderer.setSize(window.innerWidth,window.innerHeight,false);this.camera.aspect=window.innerWidth/window.innerHeight;this.camera.updateProjectionMatrix();this.needsRender=true;}
+ resize(){this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5)*(this.settings.renderScale28||1));this.renderer.setSize(window.innerWidth,window.innerHeight,false);this.camera.aspect=window.innerWidth/window.innerHeight;this.camera.updateProjectionMatrix();this.needsRender=true;}
  applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment)refreshEnvironment12(this);this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}this.invalidateGrass22?.();this.resize();}
  async init(progress,{signal}={}){
   checkLoading11(signal);
@@ -94,8 +97,11 @@ export class IslandWorld {
   const names=['Carbine26','Smg26','CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg','BroadleafBark.jpg','BroadleafBark_Normal.png',...PBR_FILES12,...ITEM_FILES16];
   const bytes=async path=>{const response=await fetch(path,{signal});if(!response.ok)throw new Error('Не найден ресурс: '+path);return response;};
+  // Bound simultaneous decode/parse peaks on mobile, including cancellation.
+  let active28=0;const waiters28=[],decodeLimit28=this.settings.quality==='low'?2:3;
+  const limited28=async work=>{while(active28>=decodeLimit28)await new Promise(resolve=>waiters28.push(resolve));active28++;try{checkLoading11(signal);return await work();}finally{active28--;waiters28.shift()?.();}};
   // Wait for every decoder before cleanup, including parsers already running at cancellation.
-  const jobs=[...names.map(async n=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');checkLoading11(signal);}),...textureNames.map(async n=>{const response=await bytes(ASSET+(n.startsWith('pbr12/')||n.startsWith('items16/')?n:'textures/'+n)),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.toLowerCase().includes('normal')&&!n.includes('-orm'))t.colorSpace=THREE.SRGBColorSpace;if(n.startsWith('pbr12/')){t.userData.kind12=n.split('/')[1].split('-')[0];if(this.settings.quality==='low'&&t.image.width>512){const c=document.createElement('canvas');c.width=c.height=512;c.getContext('2d').drawImage(t.image,0,0,512,512);t.image=c;t.needsUpdate=true;}}}finally{URL.revokeObjectURL(url);}})];
+  const jobs=[...names.map(n=>limited28(async()=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');assetMaterials28(this,this.models[n].scene);checkLoading11(signal);})),...textureNames.map(n=>limited28(async()=>{const response=await bytes(ASSET+(n.startsWith('pbr12/')||n.startsWith('items16/')?n:'textures/'+n)),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.toLowerCase().includes('normal')&&!n.includes('-orm'))t.colorSpace=THREE.SRGBColorSpace;if(n.startsWith('pbr12/'))t.userData.kind12=n.split('/')[1].split('-')[0];assetTexture28(this,t);}finally{URL.revokeObjectURL(url);}}))];
   const results=await Promise.allSettled(jobs);checkLoading11(signal);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;installSurfaceTextures12(this.textures);itemTextures16(this.textures);setWeaponSources26(this.models,this.textures);
   progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10(signal);checkLoading11(signal);await this.makeTerrain(signal);this.makeOcean();this.makeRiver();await paintLoading10(signal);await initWater12(this,signal);
   progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10(signal);checkLoading11(signal);this.makeCamp();addIslandContent(this);addRockfields17(this);decorateLoot(this);this.alignTerrainProps06();
@@ -138,7 +144,7 @@ export class IslandWorld {
   const material=new THREE.ShaderMaterial({side:THREE.DoubleSide,uniforms:{time:{value:0},daylight:{value:1},skyColor:{value:new THREE.Color(0xb4c7c0)},sunDirection:{value:this.sunDirection},fogColor:{value:new THREE.Color(0x87bce2)}},vertexShader:`uniform float time;varying vec3 vPos;varying vec3 vNormal;void main(){vec3 p=position;p.y+=sin(p.x*.14+time*.6)*.10+sin(p.z*.21-time*.45)*.07;vNormal=normalize(vec3(-cos(p.x*.14+time*.6)*.014,1.,-cos(p.z*.21-time*.45)*.014));vec4 world=modelMatrix*vec4(p,1.);vPos=world.xyz;gl_Position=projectionMatrix*viewMatrix*world;}`,fragmentShader:`uniform float time;uniform float daylight;uniform vec3 skyColor;uniform vec3 sunDirection;uniform vec3 fogColor;varying vec3 vPos;varying vec3 vNormal;void main(){vec3 viewDir=normalize(cameraPosition-vPos);float fresnel=pow(1.-max(dot(viewDir,vNormal),0.),3.);float wave=sin(vPos.x*1.8+sin(vPos.z*.7+time)*2.+time)*.5+.5;float spark=pow(max(dot(reflect(-sunDirection,vNormal),viewDir),0.),140.);vec3 color=mix(vec3(.10,.24,.23),skyColor*.62,fresnel)+wave*.012+spark*vec3(1.,.77,.42)*1.7;float dist=length(cameraPosition-vPos);gl_FragColor=vec4(color*daylight,1.);#include <tonemapping_fragment>\n#include <colorspace_fragment>}`.replace(';#include',';\n#include')});
   const mesh=new THREE.Mesh(geometry,material);mesh.position.y=.08;mesh.name='Animated coastal water';this.scene.add(mesh);this.ocean=mesh;
  }
- normalized(name,height){const model=skeletonClone(this.models[name].scene);model.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(model,!!model.getObjectByProperty('isSkinnedMesh',true)),size=box.getSize(new V()),center=box.getCenter(new V());const root=new THREE.Group();model.position.set(-center.x,-box.min.y,-center.z);root.add(model);root.scale.setScalar(height/Math.max(.001,size.y));root.traverse(o=>{if(o.isMesh){if(o.isSkinnedMesh)o.frustumCulled=false;o.castShadow=true;o.receiveShadow=true;if(o.material){const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.roughness=Math.max(m.roughness??.8,.55);if(m.map)m.map.anisotropy=4;}}}});return root;}
+ normalized(name,height){const model=skeletonClone(this.models[name].scene);model.updateMatrixWorld(true);const box=new THREE.Box3().setFromObject(model,!!model.getObjectByProperty('isSkinnedMesh',true)),size=box.getSize(new V()),center=box.getCenter(new V());const root=new THREE.Group();model.position.set(-center.x,-box.min.y,-center.z);root.add(model);root.scale.setScalar(height/Math.max(.001,size.y));root.traverse(o=>{if(o.isMesh){if(o.isSkinnedMesh)o.frustumCulled=false;o.castShadow=true;o.receiveShadow=true;if(o.material){const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.roughness=Math.max(m.roughness??.8,.55);if(m.map)m.map.anisotropy=Math.min(this.settings.anisotropy28||1,this.renderer.capabilities.getMaxAnisotropy());}}}});return root;}
  prop(name,x,z,height=1,rotation=0){const root=this.normalized(name,height);root.position.set(x,terrainHeight(x,z),z);root.rotation.y=rotation;this.scene.add(root);return root;}
  makeWoodMaterial(){return pbrMaterial12(this,'wood',{color:0xe5e0d4});}
  mergeParts(parts,material){const geometries=parts.map(m=>{m.updateMatrix();const g=m.geometry.clone();g.applyMatrix4(m.matrix);return g;});const merged=mergeGeometries(geometries,false);geometries.forEach(g=>g.dispose());const mesh=new THREE.Mesh(merged,material);mesh.castShadow=true;mesh.receiveShadow=true;parts.forEach(p=>p.geometry.dispose());return mesh;}
@@ -393,3 +399,9 @@ installSociety26(IslandWorld);
 installSleeping27(IslandWorld);
 
 installTactics27(IslandWorld);
+
+installGraphics28(IslandWorld);
+
+installSpatial28(IslandWorld);
+
+installPlayerPreview28(IslandWorld);

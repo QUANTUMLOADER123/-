@@ -40,19 +40,19 @@ export async function initWater12(w,signal){
  for(let z=0;z<size;z++){if(z%16===0){await paintLoading11(signal);checkLoading11(signal);}for(let x=0;x<size;x++)data[z*size+x]=terrainHeight(((x+.5)/size-.5)*span,((z+.5)/size-.5)*span);}
  w.waterBed12=new THREE.DataTexture(data,size,size,THREE.RedFormat,THREE.FloatType);w.waterBed12.minFilter=w.waterBed12.magFilter=THREE.NearestFilter;w.waterBed12.needsUpdate=true;
  // Bilinear bed reconstruction in the shader avoids assuming Android float-filter extensions. This field affects colour/foam, not terrain or collision.
- const target=new THREE.WebGLRenderTarget(512,512,{depthBuffer:true,type:THREE.UnsignedByteType});
+ const reflectionSize28=w.settings.reflection28||1;const target=new THREE.WebGLRenderTarget(reflectionSize28,reflectionSize28,{depthBuffer:true,type:THREE.UnsignedByteType});
  w.reflection12={target,camera:new THREE.PerspectiveCamera(),last:-1e5,rotation:new THREE.Quaternion(),position:new THREE.Vector3(1e5,1e5,1e5),matrix:new THREE.Matrix4(),clip:new THREE.Plane(new THREE.Vector3(0,1,0),-seaLevel12)};
  const old=w.ocean.material;w.ocean.material=waterMaterial12(w);old.dispose();w.ocean.name='Fresnel coastal water / depth tint / shoreline foam';
  if(w.river){const oldRiver=w.river.material;w.river.material=waterMaterial12(w,true);oldRiver.dispose();}
 }
 export function renderReflection12(w){
  const r=w.reflection12;if(!r)return;
- const active=w.settings.quality==='high'&&w.camera.position.y>seaLevel12+.15&&w.camera.position.y<35&&!w.underwater07;
+ const active=(w.settings.reflection28??(w.settings.quality==='high'?512:0))>0&&w.camera.position.y>seaLevel12+.15&&w.camera.position.y<35&&!w.underwater07;
  w.ocean.material.uniforms.reflectionReady12.value=0;if(!active)return;
  const renderer=w.renderer;w.ocean.material.uniforms.reflectionReady12.value=1;
- const now=performance.now(),turn=r.rotation.angleTo(w.camera.quaternion);if(now-r.last<180&&turn<.065&&r.position.distanceTo(w.camera.position)<.7)return;r.position.copy(w.camera.position);r.last=now;r.rotation.copy(w.camera.quaternion);
+ const now=performance.now();if(now-r.last<1000/(w.settings.reflectionFps28||5))return;r.position.copy(w.camera.position);r.last=now;r.rotation.copy(w.camera.quaternion);
 
- const width=512,height=Math.max(256,Math.min(768,Math.round(width/w.camera.aspect)));if(r.target.width!==width||r.target.height!==height)r.target.setSize(width,height);
+ const width=w.settings.reflection28||512,height=Math.max(128,Math.min(1024,Math.round(width/w.camera.aspect)));if(r.target.width!==width||r.target.height!==height)r.target.setSize(width,height);
  const c=r.camera;c.copy(w.camera,false);c.layers.set(0);c.position.copy(w.camera.position);c.position.y=2*seaLevel12-c.position.y;
  const dir=w.camera.getWorldDirection(new THREE.Vector3());dir.y=-dir.y;c.up.set(0,1,0).applyQuaternion(w.camera.quaternion).reflect(new THREE.Vector3(0,1,0)).negate();c.lookAt(c.position.clone().add(dir));c.updateMatrixWorld();c.matrixWorldInverse.copy(c.matrixWorld).invert();
  r.matrix.multiplyMatrices(c.projectionMatrix,c.matrixWorldInverse);w.ocean.material.uniforms.reflectionMatrix12.value.copy(r.matrix);

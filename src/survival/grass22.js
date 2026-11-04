@@ -6,11 +6,11 @@ import {MAP_SEED,distanceToRoad} from './map-data.js';
 import {biomeAt} from './environment.js';
 import {paintLoading11,checkLoading11} from './loading11.js';
 const SIZE=18,HALF_DIAGONAL=SIZE*Math.SQRT2/2;
-const PROFILES={low:{cells:12,blades:5,folded:false,lod:[17,26],range:56,limit:56},medium:{cells:14,blades:7,folded:true,lod:[27,39],range:82,limit:100},high:{cells:16,blades:9,folded:true,lod:[35,49],range:108,limit:156}};
+const PROFILES={off:{cells:1,blades:1,folded:false,lod:[0,1],range:0,limit:0},low:{cells:12,blades:5,folded:false,lod:[17,26],range:56,limit:56},medium:{cells:14,blades:7,folded:true,lod:[27,39],range:82,limit:100},high:{cells:16,blades:9,folded:true,lod:[35,49],range:108,limit:156}};
 const UP=new THREE.Vector3(0,1,0);
 function removeTile(w,tile){if(tile.empty)return;for(const mesh of [tile.near,tile.far]){mesh.removeFromParent();mesh.dispose();}}
 function clearTiles(w){const g=w.grass22;for(const tile of g.tiles.values())removeTile(w,tile);g.tiles.clear();g.dirtyTiles?.clear();w.grassChunks=[];}
-function setProfile(w){const g=w.grass22,key=PROFILES[w.settings.quality]?w.settings.quality:'medium';if(g.key===key)return;
+function setProfile(w){const g=w.grass22,key=PROFILES[w.settings.grass28]?w.settings.grass28:(PROFILES[w.settings.quality]?w.settings.quality:'medium');if(g.key===key)return;
  clearTiles(w);g.key=key;g.profile=PROFILES[key];g.resources??=new Map();if(!g.resources.has(key))g.resources.set(key,{near:grassGeometry22(g.profile.blades,g.profile.folded),far:grassGeometry22(3,false)});g.geometry=g.resources.get(key);g.uniforms.lod.value.fromArray(g.profile.lod);g.uniforms.range.value=g.profile.range;g.planKey=null;
 }
 function plan(w,center){const g=w.grass22,p=g.profile,cx=Math.floor(center.x/SIZE),cz=Math.floor(center.z/SIZE),signature=Math.floor(center.x/6)+':'+Math.floor(center.z/6)+':'+g.key;if(g.planKey===signature)return;g.planKey=signature;
@@ -39,7 +39,7 @@ function buildTile(w,cell){
  // The two LODs reuse one transform/colour buffer; they are not two grass populations.
  far.instanceMatrix=near.instanceMatrix;far.instanceColor=near.instanceColor;far.count=points.length;
  near.computeBoundingSphere();near.boundingSphere.radius+=1;far.boundingSphere=near.boundingSphere.clone();
- for(const mesh of [near,far]){mesh.receiveShadow=w.settings.quality!=='low';mesh.castShadow=false;mesh.userData.grass22=true;w.scene.add(mesh);}
+ for(const mesh of [near,far]){mesh.receiveShadow=w.settings.shadowSize28!==0;mesh.castShadow=false;mesh.userData.grass22=true;w.scene.add(mesh);}
  g.tiles.set(cell.key,{cx:(cell.x+.5)*SIZE,cz:(cell.z+.5)*SIZE,near,far});
 }
 function pump(w,budget=1){const g=w.grass22;let changed=false;while(budget-->0&&g.queue.length){const cell=g.queue.shift(),old=g.tiles.get(cell.key);buildTile(w,cell);if(old)removeTile(w,old);g.dirtyTiles.delete(cell.key);changed=true;}if(changed)refreshList(w);}

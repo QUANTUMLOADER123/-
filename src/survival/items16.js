@@ -56,11 +56,13 @@ export function weaponModel16(id){
  const steel=material16('steel'),black=material16('polymer'),wood=material16('wood'),rubber=material16('rubber'),paint=material16('paint');
  const pistol=['pistol','heavyPistol','revolver'].includes(id),long=['rifle','boltRifle','semiRifle'].includes(id),smg=['smg','compactSmg'].includes(id),ak=id==='akRifle',shot=['shotgun','combatShotgun'].includes(id),mg=id==='machineGun';
  if(id==='rocketLauncher'){
+  g.userData.muzzle16=[0,.14,-.98];
   barrel(g,.105,.28,-.98,.14,paint,black);for(const z of[-.97,-.62,-.16,.24])ring(g,.107,.012,[0,.14,z],black);
   grip(g,black);side(g,[[-.30,.10],[-.50,.10],[-.48,.03],[-.31,.03]],.10,rubber);
   round(g,[.13,.05,.32],[0,.25,-.50],steel);g.userData.opticMount16=[0,.4005,-.5];
   trigger(g,steel);g.userData.foregrip14=round(g,[.09,.04,.2],[0,.06,-.43],rubber);
  }else if(pistol){
+  g.userData.muzzle16=[0,.151,id==='revolver'?-.37:id==='heavyPistol'?-.34:-.30];
   grip(g,id==='revolver'?wood:black,true);
   side(g,[[.10,.085],[.10,.16],[-.20,.16],[-.26,.09],[-.19,.04],[-.025,.04]],.067,steel);
   if(id==='revolver'){
@@ -82,7 +84,7 @@ export function weaponModel16(id){
    round(g,[.09,.14,.025],[0,.077,.39],rubber);
   }else stock(g,black,rubber,smg);
   const end=id==='boltRifle'?-.96:smg?-.52:shot?-.81:mg?-.90:ak?-.78:-.75;
-  barrel(g,shot?.029:mg?.023:.019,-.22,end,.146,steel,black);
+  g.userData.muzzle16=[0,.146,end];barrel(g,shot?.029:mg?.023:.019,-.22,end,.146,steel,black);
   const foreStart=smg?-.20:-.23,foreEnd=smg?-.37:shot?-.56:-.48;
   const fore=side(g,[[foreStart,.075],[foreStart,.19],[foreEnd,.177],[foreEnd-.025,.09]],.087,ak||long||id==='shotgun'?wood:black);g.userData.foregrip14=fore;
   for(const x of[-.047,.047])for(let i=0;i<5;i++)round(fore,[.004,.027,.012],[x,.134,foreStart-.035-i*.031],black,.002);

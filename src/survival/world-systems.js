@@ -30,16 +30,17 @@ export function installWorldSystems(IslandWorld){
   if(tier>=1&&['wall','door'].includes(data.kind)){const rails=new THREE.Group(),material=new THREE.MeshStandardMaterial({color:tier>=2?0x515a53:0x514c34,metalness:tier>=2?.5:0,roughness:.8});for(const y of[.63,2.45]){const m=new THREE.Mesh(new THREE.BoxGeometry(3,.09,.09),material);m.position.set(0,y,-.09);rails.add(m);}if(tier===3){for(const x of[-1.3,1.3]){const m=new THREE.Mesh(new THREE.BoxGeometry(.12,2.6,.1),material);m.position.set(x,1.6,.1);rails.add(m);}}model.add(rails);entry.reinforcements=rails;}
  },
  lineOfSight(a,b,state){
+  this.refreshDead05(state);const dead=this.deadIds05;
   const d=b.clone().sub(a),len=d.length(),steps=Math.max(1,Math.ceil(len/1.2));
   for(let i=1;i<steps;i++){const t=i/steps;if(terrainHeight(a.x+d.x*t,a.z+d.z*t)>a.y+d.y*t+.15)return false;}
   // Slab/ray intersection cannot skip thin walls as coarse sampled rays could.
   const ray=new THREE.Ray(a,d.normalize()),box=new THREE.Box3(),hit=new V();
-  for(const c of this.colliders){
-   if(!c.box&&!c.circle17||!c.data&&!c.scenery||c.door&&c.data?.open||state.depleted.includes(c.id)||c.data&&!c.data.owner&&c.data.hp<=0)continue;
+  for(const c of this.rayCandidates28('colliders',this.colliders,a,b)){
+   if(!c.box&&!c.circle17||!c.data&&!c.scenery||c.door&&c.data?.open||dead.has(c.id)||c.data&&!c.data.owner&&c.data.hp<=0)continue;
    const ground=c.y??terrainHeight(c.x,c.z);
    if(rayObstacle17({...c,y:ground},a,d,hit)&&hit.distanceToSquared(a)<(len-.05)**2)return false;
   }
-  for(const n of this.nodes||[])if(n.type==='tree'&&Math.hypot(n.x-a.x,n.z-a.z)<len+1&&!state.depleted.includes(n.id)){box.min.set(n.x-.45,n.y,n.z-.45);box.max.set(n.x+.45,n.y+7,n.z+.45);if(ray.intersectBox(box,hit)&&hit.distanceToSquared(a)<(len-.1)**2)return false;}
+  for(const n of this.rayCandidates28('trees',this.nodes,a,b,true))if(n.type==='tree'&&Math.hypot(n.x-a.x,n.z-a.z)<len+1&&!dead.has(n.id)){box.min.set(n.x-.45,n.y,n.z-.45);box.max.set(n.x+.45,n.y+7,n.z+.45);if(ray.intersectBox(box,hit)&&hit.distanceToSquared(a)<(len-.1)**2)return false;}
 
   return true;
  },
@@ -80,7 +81,7 @@ export function installWorldSystems(IslandWorld){
  tracer(a,b,color=0xe9b26d){const geometry=new THREE.BufferGeometry().setFromPoints([a,b]);const line=new THREE.Line(geometry,new THREE.LineBasicMaterial({color,transparent:true,opacity:.7}));this.scene.add(line);this.effects.push({line,life:.10});},
  dispose(){
   this.renderer.domElement.removeEventListener('webglcontextlost',this.contextLost11);const geometries=new Set(),materials=new Set(),textures=new Set(),images=new Set();
-  const collect=o=>{if(o.geometry)geometries.add(o.geometry);for(const m of(o.material?(Array.isArray(o.material)?o.material:[o.material]):[])){materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}};
+  const collect=o=>{if(o.geometry)geometries.add(o.geometry);for(const m of(o.material?(Array.isArray(o.material)?o.material:[o.material]):[])){materials.add(m);for(const v of [...Object.values(m),...Object.values(this.detailBackups28?.get(m)||{})])if(v?.isTexture)textures.add(v);}};
   this.scene.traverse(collect);for(const gltf of Object.values(this.models))gltf.scene?.traverse(collect);for(const t of Object.values(this.textures))textures.add(t);
   geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>{if(t.image?.close)images.add(t.image);t.dispose();});images.forEach(i=>i.close());this.environment?.dispose();this.renderer.dispose();this.scene.clear();this.models={};this.textures={};
  }

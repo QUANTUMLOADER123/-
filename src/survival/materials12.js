@@ -1,3 +1,4 @@
+import {materialGraphics28} from './graphics28.js';
 import * as THREE from 'three';
 export const PBR_KINDS12=['wood','stone','metal','concrete','soil','asphalt'];
 export const PBR_FILES12=PBR_KINDS12.flatMap(k=>['color','normal','orm'].map(m=>'pbr12/'+k+'-'+m+'.webp'));
@@ -15,6 +16,7 @@ export function bindPBR12(w,m,kind){
  m.map=t[p+'color.webp'];m.normalMap=t[p+'normal.webp'];m.roughnessMap=m.aoMap=t[p+'orm.webp'];m.aoMapIntensity=.28;m.metalnessMap=kind==='metal'?t[p+'orm.webp']:null;m.metalness=kind==='metal'?.8:0;m.roughness=1;m.normalScale??=new THREE.Vector2();m.normalScale.set(.45,.45);m.userData.kind12=kind;m.needsUpdate=true;wetMaterial12(w,m);
 }
 export function wetMaterial12(w,m){
+ materialGraphics28(w,m);
  if(!m.isMeshStandardMaterial||m.transparent||m.userData.terrain12||m.userData.grass22||m.userData.vegetation23)return;
  const u=visualState12(w);if(u.materials.has(m))return;u.materials.add(m);
  // Rebinding a globally cached prop in a new world must not retain the disposed world's uniforms.
