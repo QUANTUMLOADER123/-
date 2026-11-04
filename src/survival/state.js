@@ -1,3 +1,4 @@
+import {biomeRegion18} from './biome18.js';
 import {naturalHeight17} from './terrain17.js';
 import {naturalHeight16} from './terrain16.js';
 import {naturalHeight13,coastDistance13} from './terrain13.js';
@@ -8,7 +9,7 @@ import {advanceFurnaces} from './machines.js';
 import {recordDamage} from './health.js';
 import {stackLimit} from './inventory.js';
 import {riverAt} from './map-data.js';
-import { MONUMENTS, BOT_BASES, ROADS, WORLD_RADIUS, monumentAt, distanceToRoad, MAP_SCALE, MAP_REVISION, MAP_SEED, MAP_SIZES, configureMap } from './map-data.js';
+import { MONUMENTS, BOT_BASES, ROADS, WORLD_RADIUS, monumentAt, distanceToRoad, MAP_SCALE, MAP_REVISION, MAP_LAYOUT18, MAP_SEED, MAP_SIZES, configureMap } from './map-data.js';
 export {MONUMENTS,BOT_BASES,ROADS,WORLD_RADIUS,MAP_SIZES,configureMap};
 export const SAVE_KEY='oskol.survival.v2';
 export const WORLD_SEED=27182;
@@ -66,14 +67,14 @@ function authoredHeight08(x,z){
 export function terrainGrid08(){const size=MAP_REVISION>=6?Math.max(WORLD_RADIUS*2.15,WORLD_RADIUS*2+300):WORLD_RADIUS*2.15,segments=Math.min(768,Math.ceil(size/(MAP_SCALE>3?7:2)));return{size,segments,step:size/segments};}
 let terrainCache08=null;
 export function terrainHeight(x,z){
- const {size,segments:n,step}=terrainGrid08(),key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION;
+ const {size,segments:n,step}=terrainGrid08(),key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION+':'+(MAP_REVISION>=9?MAP_LAYOUT18:0);
  if(!terrainCache08||terrainCache08.key!==key)terrainCache08={key,values:new Float32Array((n+1)*(n+1)),ready:new Uint8Array((n+1)*(n+1))};
  const u=(x+size/2)/step,v=(z+size/2)/step;if(u<0||v<0||u>n||v>n)return authoredHeight08(x,z);
  const ix=Math.min(n-1,Math.floor(u)),iz=Math.min(n-1,Math.floor(v)),fx=u-ix,fz=v-iz,c=terrainCache08;
  const sample=(a,b)=>{const i=b*(n+1)+a;if(!c.ready[i]){c.values[i]=authoredHeight08(Math.fround(a*step-size/2),Math.fround(b*step-size/2));c.ready[i]=1;}return c.values[i];};
  const a=sample(ix,iz),b=sample(ix,iz+1),d=sample(ix+1,iz);if(fx+fz<=1)return a+(d-a)*fx+(b-a)*fz;const q=sample(ix+1,iz+1);return q+(b-q)*(1-fx)+(d-q)*(1-fz);
 }
-export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard',deferSpawn=false}={}){return{version:2,contentRevision:8,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:deferSpawn?{x:0,z:0}:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
+export function newGame({multiplier=1,size='small',seed=27182,difficulty='standard',deferSpawn=false}={}){return{version:2,contentRevision:9,densityRevision:6,seed:Number.isInteger(seed)&&seed>=1&&seed<=999999999?seed:27182,size:Object.hasOwn(MAP_SIZES,size)?size:'small',difficulty:['peaceful','standard','hard'].includes(difficulty)?difficulty:'standard',multiplier:MULTIPLIERS.includes(multiplier)?multiplier:1,position:deferSpawn?{x:0,z:0}:beachSpawn(),yaw:-.18,pitch:0,health:100,hunger:90,thirst:85,stamina:100,elapsed:0,inventory:Object.fromEntries(Object.keys(ITEMS).map(k=>[k,({rock:1,torch:1})[k]||0])),depleted:[],buildings:[],looted:[],visited:[],gathered:{wood:0,stone:0,fiber:0},nodeDamage:{},botState:{},structureDamage:{},botStores:{},magazine:0,radioFixed:false,selected:'rock',dead:false};}
 export function nearStation(state,kind){return state.buildings.some(b=>b.kind===kind&&b.hp>0&&Math.hypot(b.x-state.position.x,b.z-state.position.z)<5);}
 export function canCraft(state,id,quantity=1){const r=RECIPES[id];quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));return !!r&&(!r.station||nearStation(state,r.station))&&Object.entries(r.cost).every(([item,n])=>(state.inventory[item]||0)>=n*quantity);}
 export function craft(state,id,quantity=1){quantity=Math.max(1,Math.min(100,Math.floor(quantity)||1));if(!canCraft(state,id,quantity))return false;const r=RECIPES[id];for(const[item,n]of Object.entries(r.cost))state.inventory[item]-=n*quantity;state.inventory[id]+=(r.output||1)*quantity;return true;}
@@ -172,6 +173,28 @@ export function decodeSave(raw){try{
  }catch{return null;}}
 
 let beachCache=null;
-export function beachSpawn(){const key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION;if(beachCache?.key===key)return{...beachCache.position};const r=randomSeed(MAP_SEED^0x18beac);let best=null,bestScore=Infinity;
- for(let i=0;i<100;i++){const a=.12+r()*2.85;for(let radius=WORLD_RADIUS*.82;radius<WORLD_RADIUS*1.05;radius+=Math.max(.5,MAP_SCALE*.3)){const x=Math.cos(a)*radius,z=Math.sin(a)*radius,h=terrainHeight(x,z);if(h<.32||h>.78||monumentAt(x,z)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<18))continue;const score=Math.abs(h-.5);if(score<bestScore){best={x,z};bestScore=score;}}if(bestScore<.025)break;}
- if(!best)throw new Error('Не удалось найти безопасный пляж для этого зерна');beachCache={key,position:best};return{...best};}
+/** Sample the entire coast; cache a pool, not the first adequate desert point.
+ * Default remains deterministic for starter salvage. Respawns rotate the pool. */
+export function beachSpawn({sequence=0}={}){
+ const key=MAP_SEED+':'+MAP_SCALE+':'+MAP_REVISION+':'+(MAP_REVISION>=9?MAP_LAYOUT18:0);
+ if(beachCache?.key!==key){
+  const random=randomSeed(MAP_SEED^0x18beac),phase=random()*Math.PI*2,pool=[];
+  for(let i=0;i<128;i++){
+   const a=phase+i*Math.PI*2/128,co=Math.cos(a),si=Math.sin(a);let best=null;
+   for(let radius=WORLD_RADIUS*1.18;radius>=WORLD_RADIUS*.65;radius-=Math.max(.8,MAP_SCALE*.65)){
+    const x=co*radius,z=si*radius,h=terrainHeight(x,z);
+    if(h<.38||h>1.0)continue;
+    const river=riverAt(x,z);if(monumentAt(x,z)||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+12)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<19)||distanceToRoad(x,z,6)<5||river&&river.distance<river.width*.5+5)continue;
+    const slope=Math.max(...[[.7,0],[-.7,0],[0,.7],[0,-.7]].map(([dx,dz])=>Math.abs(terrainHeight(x+dx,z+dz)-h)));if(slope>.22)continue;
+    const actual=biomeRegion18(x,z,MAP_SCALE,MAP_REVISION,MAP_SEED,noise).id,inland=biomeRegion18(x*.97,z*.97,MAP_SCALE,MAP_REVISION,MAP_SEED,noise).id,biome=[actual,inland].includes('arid')?'arid':[actual,inland].includes('snow')?'snow':actual,score=Math.abs(h-.65)+slope*.8;
+    if(!best||score<best.score)best={x,z,biome,score};
+   }
+   if(best)pool.push(best);
+  }
+  if(!pool.length)throw new Error('Не удалось найти безопасный пляж для этого зерна');
+  const temperate=pool.filter(p=>!['arid','snow'].includes(p.biome)),nonDesert=pool.filter(p=>p.biome!=='arid'),chosen=temperate.length?temperate:nonDesert.length?nonDesert:pool;
+  for(let i=chosen.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[chosen[i],chosen[j]]=[chosen[j],chosen[i]];}
+  beachCache={key,positions:chosen};
+ }
+ const positions=beachCache.positions,index=Math.max(0,Math.trunc(Number.isFinite(sequence)?sequence:0))%positions.length,p=positions[index];return{x:p.x,z:p.z};
+}

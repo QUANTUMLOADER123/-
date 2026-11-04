@@ -1,3 +1,4 @@
+import {installCacti18} from './cacti18.js';
 import {obstacleContains17} from './spatial17.js';
 import {addRockfields17} from './rockfields17.js';
 import {installExplosives17} from './explosives17.js';
@@ -73,7 +74,7 @@ export class IslandWorld {
   checkLoading11(signal);
   const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели и текстуры: '+done+' / '+total);
   const loader=new GLTFLoader(manager),tl=new THREE.TextureLoader(manager);
-  const names=['CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1','Cactus_1'];
+  const names=['CommonTree_1','CommonTree_3','Axe','Axe_Small','Tent','Bonfire','WoodLog','Backpack','Radio','WaterBottle_1','FirstAidKit','Can_Closed','Raft','Raft_Paddle','Crate','Barrel','Wolf','Rock_1','Rock_2','Rock_3','Plant_1','BushBerries_1','Adventurer','Swat','Shotgun_1','Pistol_1','PropaneTank','PineTree_1','PineTree_Snow_1','CommonTree_Dead_1'];
   const textureNames=['ground.jpg','sand.jpg','rockyGround_basecolor.png','rockyGround_normal.png','wood.jpg','BroadleafBark.jpg','BroadleafBark_Normal.png',...PBR_FILES12,...ITEM_FILES16];
   const bytes=async path=>{const response=await fetch(path,{signal});if(!response.ok)throw new Error('Не найден ресурс: '+path);return response;};
   // Wait for every decoder before cleanup, including parsers already running at cancellation.
@@ -360,3 +361,4 @@ installViewmodel14(IslandWorld);
 installItems16(IslandWorld);
 installExplosives17(IslandWorld);
 installCulling16(IslandWorld);
+installCacti18(IslandWorld);

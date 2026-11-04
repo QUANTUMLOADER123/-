@@ -1,5 +1,15 @@
 # ОСКОЛ — тестовые итерации
 
+## DEV 0.19.0 · iteration 18 — cacti, full-coast spawn, branching roads / build only
+
+- Original ribbed cactus templates instanced throughout arid land, without the tree/bark override.
+- Full-coast safe beach pool, temperate/non-desert priority, rotating persisted respawns.
+- New-world revision 9 replaces the ring/5×5 lattice with connected arterial/access branches.
+- Land routing, shared intersections, rounded corners, first-contact trimming and house exclusion.
+- Saved revisions 1–8 retain road layouts/cuts/house IDs. DEV17 systems/assets retained.
+- Static inspection and compilation only; no tests, game/browser/device or visual/audio checks.
+
+
 ## DEV 0.18.0 · iteration 17 — sites, sharp terrain, combat/contact / build only
 
 - Replace all 20 site factories with distinct transformed layouts; retain stable loot/shop/guard IDs.

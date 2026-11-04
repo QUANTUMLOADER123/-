@@ -98,7 +98,7 @@ export function extendRoads10(legacy,{scale,seed,monuments,houses}){
 }
 
 /** Split incidental crossings too: east/west lanes crossing the old spine are real junctions. */
-function intersectRoads10(roads,scale,joint){
+export function intersectRoads10(roads,scale,joint){
  const segments=[],grid=new Map(),cuts=new Map(),cell=32*scale;
  for(const [name,path]of Object.entries(roads))for(let i=1;i<path.length;i++){
   const a=path[i-1],b=path[i];segments.push({name,i,a,b,rx:b.x-a.x,rz:b.z-a.z,minX:Math.min(a.x,b.x),maxX:Math.max(a.x,b.x),minZ:Math.min(a.z,b.z),maxZ:Math.max(a.z,b.z)});

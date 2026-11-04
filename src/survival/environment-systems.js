@@ -1,3 +1,4 @@
+import {addCacti18} from './cacti18.js';
 import {treeMaterial12} from './foliage12.js';
 import {visualState12} from './materials12.js';
 import {paintLoading11} from './loading11.js';
@@ -46,7 +47,7 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
   this.vegetationInstances('PineTree_1',this.nodes.filter(n=>n.type==='tree'&&biomeAt(n.x,n.z).id==='forest'&&n.z< -20*MAP_SCALE),8);
   this.vegetationInstances('PineTree_Snow_1',this.nodes.filter(n=>n.type==='tree'&&biomeAt(n.x,n.z).id==='snow'),8.5);
   this.vegetationInstances('CommonTree_Dead_1',this.nodes.filter(n=>n.type==='tree'&&biomeAt(n.x,n.z).id==='arid'),6.5);
-  const r=randomSeed(8101),points=[];for(let i=0;i<90;i++){const x=(65+r()*175)*MAP_SCALE,z=(65+r()*165)*MAP_SCALE;if(biomeAt(x,z).id!=='arid'||terrainHeight(x,z)<1||distanceToRoad(x,z,6)<5)continue;points.push({id:'cactus-'+i,x,z});this.colliders.push({x,z,r:.3});}this.vegetationInstances('Cactus_1',points,2);
+  addCacti18(this);
  },
  async makeGrass(signal,progress){
   const geometry=new THREE.BufferGeometry(),p=[],idx=[];for(let blade=0;blade<5;blade++){const a=blade*2.399,dx=Math.cos(a),dz=Math.sin(a),bx=Math.sin(a)*.10,bz=Math.cos(a)*.10,h=.20+(blade%4)*.085;const at=p.length/3;for(const [y,w,bend]of[[0,.012,0],[h*.55,.007,.07],[h,0,.22]])for(const side of[-1,1])p.push(bx+dx*w*side+dz*bend,y,bz+dz*w*side-dx*bend);idx.push(at,at+1,at+2,at+2,at+1,at+3,at+2,at+3,at+4,at+4,at+3,at+5);}geometry.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geometry.setIndex(idx);geometry.computeVertexNormals();
