@@ -25,6 +25,7 @@ export function treeMaterial12(w,src,geometry,height){
  float transmission12=pow(max(0.,dot(normalize(vViewPosition),-sunView12)),4.);
  reflectedLight.indirectDiffuse+=diffuseColor.rgb*vec3(.30,.39,.15)*transmission12*treeDay12*.4;`);
   };
+ }else if(mat.userData.authoredBark19){mat.onBeforeCompile=s=>windShader12(w,s,height);
  }else{
   // Quaternius trunk meshes have no UVs: author cylindrical bark UVs and unwrap seam triangles.
   if(geometry.index){const expanded=geometry.toNonIndexed();geometry.dispose();geometry=expanded;}
@@ -34,6 +35,6 @@ export function treeMaterial12(w,src,geometry,height){
   geometry.setAttribute('uv',new THREE.BufferAttribute(uv,2));mat.map=w.textures['BroadleafBark.jpg'];mat.normalMap=w.textures['BroadleafBark_Normal.png'];mat.normalScale.set(.35,.35);mat.color.setHex(0xd8d2c3);mat.onBeforeCompile=s=>windShader12(w,s,height);
  }
  mat.customProgramCacheKey=()=> 'tree12-'+(leaf?'transmission':'bark')+'-'+height;
- const depth=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,side:mat.side});depth.onBeforeCompile=s=>windShader12(w,s,height);depth.customProgramCacheKey=()=> 'tree-shadow12-'+height;
+ const depth=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,side:mat.side,map:mat.map,alphaMap:mat.alphaMap,alphaTest:mat.alphaTest});depth.onBeforeCompile=s=>windShader12(w,s,height);depth.customProgramCacheKey=()=> 'tree-shadow19-'+(leaf?'leaf':'bark')+'-'+height;
  return{material:mat,geometry,depth};
 }

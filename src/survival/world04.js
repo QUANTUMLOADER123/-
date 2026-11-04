@@ -1,3 +1,4 @@
+import {supplyCrate19} from './supply-crate19.js';
 import {safeSite08} from './sites08.js';
 import {lootProp05} from './props05.js';
 import * as THREE from 'three';
@@ -16,7 +17,7 @@ function beam(root,a,b,r,material){const start=new V(...a),delta=new V(...b).sub
 export function metalBarrel(kind='normal'){const root=new THREE.Group(),paint=kind==='oil'?0x333a39:kind==='advanced'?0xb95036:0x427da1,body=mat(paint,.65,.6),steel=mat(0x778081,.85,.45),dark=mat(0x252b2a,.45);
  const points=[[.38,0],[.41,.04],[.42,.2],[.44,.26],[.42,.3],[.42,.72],[.44,.77],[.42,.82],[.41,1.02],[.38,1.06]].map(([x,y])=>new THREE.Vector2(x,y));const shell=new THREE.Mesh(new THREE.LatheGeometry(points,24),body);shell.castShadow=true;root.add(shell);for(const y of[.04,.26,.77,1.03]){const ring=new THREE.Mesh(new THREE.TorusGeometry(.422,.018,6,24),steel);ring.rotation.x=Math.PI/2;ring.position.y=y;root.add(ring);}cylinder(root,.392,.025,[0,1.045,0],body);cylinder(root,.065,.02,[.19,1.068,0],dark);cylinder(root,.032,.025,[-.17,1.068,.13],steel);
  for(let j=0;j<8;j++){const a=j*.78;box(root,[.035,.08,.015],[Math.sin(a)*.425,.17+j*.085,Math.cos(a)*.425],mat(0x774a32,.2));}if(kind==='oil'){const stripe=mat(0xc6a541,.2);box(root,[.4,.26,.03],[0,.56,.426],stripe);const drop=new THREE.Mesh(new THREE.ConeGeometry(.08,.15,12),dark);drop.position.set(0,.57,.449);drop.rotation.x=Math.PI/2;root.add(drop);}return root;}
-export function crateModel(tier='normal'){if(tier==='normal')return lootProp05('storage');const root=new THREE.Group(),c=CRATE_TYPES[tier]||CRATE_TYPES.normal,paint=mat(c.color,tier==='normal'?0:.55),steel=mat(0x454c4d,.7,.6),trim=mat(0x929884,.6,.55);box(root,[.95,.64,.65],[0,.33,0],paint);box(root,[.99,.1,.69],[0,.70,0],paint);
+export function crateModel(tier='normal'){if(tier==='military'||tier==='elite')return supplyCrate19(tier==='elite');if(tier==='normal')return lootProp05('storage');const root=new THREE.Group(),c=CRATE_TYPES[tier]||CRATE_TYPES.normal,paint=mat(c.color,tier==='normal'?0:.55),steel=mat(0x454c4d,.7,.6),trim=mat(0x929884,.6,.55);box(root,[.95,.64,.65],[0,.33,0],paint);box(root,[.99,.1,.69],[0,.70,0],paint);
  for(const x of[-.37,.37]){box(root,[.07,.7,.69],[x,.37,0],steel);box(root,[.1,.13,.04],[x,.63,.37],trim);}for(const z of[-.35,.35])beam(root,[-.2,.8,z],[.2,.8,z],.025,steel);
  if(tier==='normal')for(const y of[.17,.34,.51])box(root,[.93,.015,.02],[0,y,.336],steel);else{box(root,[.22,.13,.03],[0,.39,.345],trim);for(const x of[-.47,.47])box(root,[.05,.2,.28],[x,.39,0],steel);}if(tier==='elite')for(const x of[-.22,0,.22])box(root,[.09,.04,.45],[x,.77,0],trim);return root;}
 export function cupboardModel(){return lootProp05('cupboard');}

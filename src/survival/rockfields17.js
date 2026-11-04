@@ -11,11 +11,11 @@ export function addRockfields17(w){
   for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),k=1+.12*Math.sin(x*17+z*13+y*11+variant*2.3);p.setXYZ(i,x*k,y*(.92+.06*Math.cos(x*19+variant)),z*k);}
   geo.computeVertexNormals();geo.computeBoundingBox();templates.push(geo);
  }
- const groups=new Map(),count=Math.min(1600,Math.round(230*MAP_SCALE));let placed=0;
+ const groups=new Map(),count=Math.min(1600,Math.round((MAP_REVISION>=10?450:230)*MAP_SCALE));let placed=0;
  for(let n=0;n<count*6&&placed<count;n++){
   const x=(random()-.5)*WORLD_RADIUS*1.82,z=(random()-.5)*WORLD_RADIUS*1.82,y=terrainHeight(x,z),river=riverAt(x,z),large=random()<.20;
   const rx=large?3+random()*4:.65+random()*1.5,ry=large?3+random()*7:.6+random()*1.8,rz=rx*(.6+random()*.6);
-  if(y<1.7||Math.hypot(x+6,z+3)<45||distanceToRoad(x,z,rx+10)<rx+4||river&&river.distance<river.width*.5+rx+5||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+rx+10)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<rx+13))continue;
+  if(y<1.7||Math.hypot(x+6,z+3)<45||distanceToRoad(x,z,rx+10)<rx+4||river&&river.distance<river.width*.5+rx+5||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+rx+10)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<rx+13)||(w.entryBuildings18||[]).some(b=>b.hp>0&&Math.hypot(x-b.x,z-b.z)<rx+4.5))continue;
   const variant=placed%4,yaw=random()*Math.PI*2,base=y+ry*.55,co=Math.abs(Math.cos(yaw)),si=Math.abs(Math.sin(yaw)),bounds=templates[variant].boundingBox,size=bounds.getSize(new THREE.Vector3()),center=bounds.getCenter(new THREE.Vector3()).multiply(new THREE.Vector3(rx,ry,rz));center.applyAxisAngle(new THREE.Vector3(0,1,0),yaw);
   const ow=size.x*rx,od=size.z*rz,key=Math.floor(x/80)+':'+Math.floor(z/80)+':'+variant;
   if(!groups.has(key))groups.set(key,{variant,cx:(Math.floor(x/80)+.5)*80,cz:(Math.floor(z/80)+.5)*80,instances:[]});groups.get(key).instances.push({x,z,y:base,rx,ry,rz,yaw});

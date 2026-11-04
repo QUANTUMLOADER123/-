@@ -1,3 +1,5 @@
+import {forestTemplate19} from './forest19.js';
+import {grassGround19} from './ground-cover19.js';
 import {addCacti18} from './cacti18.js';
 import {treeMaterial12} from './foliage12.js';
 import {visualState12} from './materials12.js';
@@ -38,7 +40,7 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(indices);g.computeVertexNormals();this.river=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x4f9aaf,roughness:.2,metalness:.15,transparent:true,opacity:.83,side:THREE.DoubleSide}));this.scene.add(this.river);
  },
  vegetationInstances(name,nodes,height){
-  if(!nodes.length)return;const template=this.normalized(name,height);template.updateMatrixWorld(true);const meshes=[];template.traverse(o=>{if(o.isMesh)meshes.push(o);});
+  if(!nodes.length)return;const template=forestTemplate19(this,name,height)||this.normalized(name,height);template.updateMatrixWorld(true);const meshes=[];template.traverse(o=>{if(o.isMesh)meshes.push(o);});
   for(const src of meshes){const authored=treeMaterial12(this,src,src.geometry.clone().applyMatrix4(src.matrixWorld),height),geometry=authored.geometry,mat=authored.material;mat.userData.depth12=authored.depth;
    this.addTreeChunks(geometry,mat,nodes,n=>{const r=randomSeed(this.stringSeed(n.id)),s=.8+r()*.4;n.r=.55;return new THREE.Matrix4().compose(new V(n.x,terrainHeight(n.x,n.z)-.06,n.z),new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28),new V(s,s,s));});
   }
@@ -50,33 +52,33 @@ export function installEnvironmentSystems(World){Object.assign(World.prototype,{
   addCacti18(this);
  },
  async makeGrass(signal,progress){
-  const geometry=new THREE.BufferGeometry(),p=[],idx=[];for(let blade=0;blade<5;blade++){const a=blade*2.399,dx=Math.cos(a),dz=Math.sin(a),bx=Math.sin(a)*.10,bz=Math.cos(a)*.10,h=.20+(blade%4)*.085;const at=p.length/3;for(const [y,w,bend]of[[0,.012,0],[h*.55,.007,.07],[h,0,.22]])for(const side of[-1,1])p.push(bx+dx*w*side+dz*bend,y,bz+dz*w*side-dx*bend);idx.push(at,at+1,at+2,at+2,at+1,at+3,at+2,at+3,at+4,at+4,at+3,at+5);}geometry.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geometry.setIndex(idx);geometry.computeVertexNormals();
+  const geometry=new THREE.BufferGeometry(),p=[],idx=[];for(let blade=0;blade<9;blade++){const a=blade*2.399,dx=Math.cos(a),dz=Math.sin(a),bx=Math.sin(a)*.19,bz=Math.cos(a)*.19,h=.26+(blade%5)*.085;const at=p.length/3;for(const [y,w,bend]of[[0,.021,0],[h*.55,.012,.07],[h,0,.20]])for(const side of[-1,1])p.push(bx+dx*w*side+dz*bend,y,bz+dz*w*side-dx*bend);idx.push(at,at+1,at+2,at+2,at+1,at+3,at+2,at+3,at+4,at+4,at+3,at+5);}geometry.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geometry.setIndex(idx);geometry.computeVertexNormals();
   const material=new THREE.MeshStandardMaterial({color:0xffffff,side:THREE.DoubleSide,roughness:1});const wind={value:0};this.wind=wind;
   material.onBeforeCompile=shader=>{shader.uniforms.windTime=wind;shader.uniforms.grassWind12=visualState12(this).wind;shader.vertexShader='uniform float windTime;uniform vec2 grassWind12;varying float blade12;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec4 instPos=instanceMatrix*vec4(0.,0.,0.,1.);blade12=clamp(position.y/.45,0.,1.);transformed.xz+=grassWind12*(sin(windTime*1.8+instPos.x*.7+instPos.z*.6)*.11+.035)*blade12*blade12;');shader.fragmentShader='varying float blade12;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb*=mix(vec3(.58,.65,.48),vec3(1.08,1.12,.86),blade12);');};
   const buckets=new Map(),r=randomSeed(7892),count=Math.min(110000,Math.round(90000*MAP_SCALE*MAP_SCALE));let accepted=0;
   for(let i=0;i<count*3&&accepted<count;i++){if(i%4096===0){progress?.(accepted/count*.7);await paintLoading11(signal);}
    const near=false,a=r()*6.28,rad=Math.sqrt(r())*(near?85:310*MAP_SCALE),x=Math.cos(a)*rad,z=Math.sin(a)*rad,h=terrainHeight(x,z),b=biomeAt(x,z);
-   if(h<1.1||r()>Math.max(.13,b.grass)||Math.hypot(x+6,z+3)<6||distanceToRoad(x,z,6)<3.3)continue;
+   if(!grassGround19(this,x,z,h)||r()>Math.max(.015,b.grass)||Math.hypot(x+6,z+3)<6||distanceToRoad(x,z,6)<3.3)continue;
    const key=Math.floor(x/32)+','+Math.floor(z/32);if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push({x,z,h,b});accepted++;
   }
   this.grassChunks=[];const dummy=new THREE.Object3D();
   let built11=0;for(const points of buckets.values()){if(built11++%12===0){progress?.(.7+.3*built11/buckets.size);await paintLoading11(signal);}
    const mesh=new THREE.InstancedMesh(geometry,material,points.length);let cx=0,cz=0;
-   points.forEach((p,i)=>{dummy.position.set(p.x,p.h-.045,p.z);dummy.quaternion.setFromUnitVectors(new V(0,1,0),new V(-(terrainHeight(dummy.position.x+.2,dummy.position.z)-terrainHeight(dummy.position.x-.2,dummy.position.z))/.4,1,-(terrainHeight(dummy.position.x,dummy.position.z+.2)-terrainHeight(dummy.position.x,dummy.position.z-.2))/.4).normalize()).multiply(new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28));const s=.65+r()*.8;dummy.scale.set(s,s,s);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);mesh.setColorAt(i,new THREE.Color(p.b.id==='arid'?0xb7ad7a:p.b.id==='snow'?0xa7b49a:0x9cac6c).multiplyScalar(.92+r()*.20));cx+=p.x;cz+=p.z;});
+   points.forEach((p,i)=>{dummy.position.set(p.x,p.h-.045,p.z);dummy.quaternion.setFromUnitVectors(new V(0,1,0),new V(-(terrainHeight(dummy.position.x+.2,dummy.position.z)-terrainHeight(dummy.position.x-.2,dummy.position.z))/.4,1,-(terrainHeight(dummy.position.x,dummy.position.z+.2)-terrainHeight(dummy.position.x,dummy.position.z-.2))/.4).normalize()).multiply(new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28));const s=.65+r()*.8;dummy.scale.set(s,s,s);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);mesh.setColorAt(i,new THREE.Color(p.b.id==='arid'?0xb7ad7a:p.b.id==='snow'?0xa7b49a:0x78934b).multiplyScalar(.92+r()*.20));cx+=p.x;cz+=p.z;});
    mesh.receiveShadow=true;mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();this.scene.add(mesh);this.grassChunks.push({mesh,count:points.length,x:cx/points.length,z:cz/points.length});
   }
   this.applyQuality(this.settings.quality);
  },
  streamGrass(){
   const cx=this.camera.position.x,cz=this.camera.position.z;
-  const source=this.grassChunks[0]?.mesh;if(!source)return;const count=this.settings.quality==='low'?9000:this.settings.quality==='medium'?16000:24000;
+  const source=this.grassChunks[0]?.mesh;if(!source)return;const count=this.settings.quality==='low'?7000:this.settings.quality==='medium'?12000:18000;
   if(!this.localGrass){this.localGrass=new THREE.InstancedMesh(source.geometry,source.material,24000);this.localGrass.count=0;this.localGrass.receiveShadow=true;this.scene.add(this.localGrass);}
   const mesh=this.localGrass;mesh.visible=true;
   if(!mesh.userData.build){if(Math.hypot(cx-(mesh.userData.x??Infinity),cz-(mesh.userData.z??Infinity))<20&&mesh.userData.quality===this.settings.quality)return;mesh.userData={x:cx,z:cz,quality:this.settings.quality,build:{r:randomSeed(Math.floor(cx/20)*12377^Math.floor(cz/20)*571^9182),n:0,attempts:0,count}};mesh.boundingSphere=new THREE.Sphere(new V(cx,terrainHeight(cx,cz),cz),160);}
   const job=mesh.userData.build,r=job.r,dummy=new THREE.Object3D();
   // Bounded work per RAF avoids a forest/grass regeneration hitch while walking uphill.
-  for(let i=0;i<1500&&job.attempts<job.count*2&&job.n<job.count;i++,job.attempts++){const x=mesh.userData.x+(r()-.5)*100,z=mesh.userData.z+(r()-.5)*100,h=terrainHeight(x,z),b=biomeAt(x,z);if(h<1.1||r()>Math.max(.13,b.grass)||distanceToRoad(x,z,6)<3.3)continue;dummy.position.set(x,h-.045,z);dummy.quaternion.setFromUnitVectors(new V(0,1,0),new V(-(terrainHeight(dummy.position.x+.2,dummy.position.z)-terrainHeight(dummy.position.x-.2,dummy.position.z))/.4,1,-(terrainHeight(dummy.position.x,dummy.position.z+.2)-terrainHeight(dummy.position.x,dummy.position.z-.2))/.4).normalize()).multiply(new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28));const scale=.65+r()*.8;dummy.scale.setScalar(scale);dummy.updateMatrix();mesh.setMatrixAt(job.n,dummy.matrix);mesh.setColorAt(job.n,new THREE.Color(b.id==='arid'?0xb7ad7a:b.id==='snow'?0xa7b49a:0x9cac6c));job.n++;}
-  mesh.count=job.n;mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;if(job.n>=job.count||job.attempts>=job.count*2)delete mesh.userData.build;
+  for(let i=0;i<1500&&job.attempts<job.count*4&&job.n<job.count;i++,job.attempts++){const span=this.settings.quality==='low'?56:this.settings.quality==='medium'?68:84,x=mesh.userData.x+(r()-.5)*span,z=mesh.userData.z+(r()-.5)*span,h=terrainHeight(x,z),b=biomeAt(x,z);if(!grassGround19(this,x,z,h)||r()>Math.max(.015,b.grass)||distanceToRoad(x,z,6)<3.3)continue;dummy.position.set(x,h-.045,z);dummy.quaternion.setFromUnitVectors(new V(0,1,0),new V(-(terrainHeight(dummy.position.x+.2,dummy.position.z)-terrainHeight(dummy.position.x-.2,dummy.position.z))/.4,1,-(terrainHeight(dummy.position.x,dummy.position.z+.2)-terrainHeight(dummy.position.x,dummy.position.z-.2))/.4).normalize()).multiply(new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*6.28));const scale=.65+r()*.8;dummy.scale.setScalar(scale);dummy.updateMatrix();mesh.setMatrixAt(job.n,dummy.matrix);mesh.setColorAt(job.n,new THREE.Color(b.id==='arid'?0xb7ad7a:b.id==='snow'?0xa7b49a:0x78934b));job.n++;}
+  mesh.count=job.n;mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;if(job.n>=job.count||job.attempts>=job.count*4)delete mesh.userData.build;
 
  },
  updateGrassVisibility(){

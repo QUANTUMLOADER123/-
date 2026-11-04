@@ -1,5 +1,16 @@
 # ОСКОЛ — тестовые итерации
 
+## DEV 0.20.0 · iteration 19 — woodland, terrain-bound roads, prop gravity / build only
+
+- Original branching broadleaf/pine meshes, masked/wind-matched shadows and denser harvestable woodland.
+- Deterministic, bounded local forest streaming on 4–8km islands; persistent depleted tree IDs.
+- Wider nine-blade grass, spatial floor/building/slope exclusions, instanced ferns/flowers and meadow surface patches.
+- New-world revision 10 removes destructive mountain × road-distance cuts. Grade-aware route costs and exact terrain-triangle clipping for asphalt/paint/junctions; finite bridge decks retained.
+- Saved revisions 1–9 retain their terrain, roads and settlement positions. New-world outcrop increase does not overwrite saved bases.
+- Bounded prop gravity/contact/friction/sleep, loose-prop hit impulses, finite colliders and validated saved positions. Existing inventories and collapse-to-bag rules retained.
+- Original folded-fabric military/elite supply crates. No Facepunch assets, full-world rigid-body or measured FPS/visual claims.
+- Static review, syntax checking and compilation only; no tests or game/browser/device/visual/audio runs.
+
 ## DEV 0.19.0 · iteration 18 — cacti, full-coast spawn, branching roads / build only
 
 - Original ribbed cactus templates instanced throughout arid land, without the tree/bark override.

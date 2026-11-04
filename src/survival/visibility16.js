@@ -10,7 +10,7 @@ export function installCulling16(World){
   const now=performance.now(),p=this.camera.position,key=this.settings.viewDistance16||'balanced',last=this.cullLast16;
   if(!force&&last&&key===last.key&&now-last.time<120&&(p.x-last.x)**2+(p.z-last.z)**2<144)return;
   this.cullLast16={key,time:now,x:p.x,z:p.z};const r=visibilityProfile16(this.settings),within=(x,z,range)=>(x-p.x)**2+(z-p.z)**2<range*range;
-  let trees=0,proxies=0;for(const b of this.treeBatches){const c=b.userData.center;if(!c)continue;const radius=Math.min(85,b.boundingSphere?.radius||60);b.visible=within(c.x,c.z,r.trees+radius);b.castShadow=b.visible&&this.settings.quality!=='low'&&within(c.x,c.z,r.shadow+radius);if(b.visible)trees++;}
+  let trees=0,proxies=0;for(const b of this.treeBatches){const c=b.userData.center;if(!c)continue;const radius=Math.min(85,b.boundingSphere?.radius||60);b.visible=within(c.x,c.z,(b.userData.understory19?Math.min(75,r.props):r.trees)+radius);b.castShadow=!b.userData.understory19&&b.visible&&this.settings.quality!=='low'&&within(c.x,c.z,r.shadow+radius);if(b.visible)trees++;}
   for(const b of this.proxyChunks16||[]){const c=b.boundingSphere;show16(b,within(c.center.x,c.center.z,r.proxies+c.radius));if(b.visible)proxies++;}
   for(const g of this.distantGroups){g.maxRange16??=g.range;g.range=Math.min(g.maxRange16,g.root.userData.road16?r.props:r.sites);show16(g.root,within(g.x,g.z,g.range));}
   const state=this.state04,dead=this.deadIds05||new Set(state?.depleted||[]);

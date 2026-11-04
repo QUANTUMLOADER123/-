@@ -1,3 +1,6 @@
+import {installForestStreaming19} from './forest-stream19.js';
+import {addForestNodes19} from './forest19.js';
+import {installPhysics19} from './physics19.js';
 import {installCacti18} from './cacti18.js';
 import {obstacleContains17} from './spatial17.js';
 import {addRockfields17} from './rockfields17.js';
@@ -69,7 +72,7 @@ export class IslandWorld {
   this.contextLost11=e=>{e.preventDefault();window.dispatchEvent(new Event('oskol-context-lost'));};this.renderer.domElement.addEventListener('webglcontextlost',this.contextLost11);
  }
  resize(){this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,this.settings.quality==='high'?1.5:this.settings.quality==='low'?.7:1));this.renderer.setSize(window.innerWidth,window.innerHeight,false);this.camera.aspect=window.innerWidth/window.innerHeight;this.camera.updateProjectionMatrix();this.needsRender=true;}
- applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment)refreshEnvironment12(this);this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}for(const c of this.grassChunks||[]){c.mesh.count=Math.max(1,Math.floor(c.count*(q==='low'?.3:q==='medium'?.65:1)));c.mesh.geometry.setDrawRange(0,q==='low'?36:q==='medium'?60:84);}this.resize();}
+ applyQuality(q){this.settings.quality=q;if(q!=='low'&&!this.environment)refreshEnvironment12(this);this.scene.environment=q==='low'?null:this.environment?.texture||null;if(this.lowAmbient)this.lowAmbient.intensity=q==='low'?1.8:0;this.renderer.shadowMap.enabled=q!=='low';const s=q==='high'?2048:1024;if(this.sun){this.sun.shadow.mapSize.set(s,s);if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}this.sun.shadow.needsUpdate=true;}for(const c of this.grassChunks||[]){c.mesh.count=Math.max(1,Math.floor(c.count*(q==='low'?.3:q==='medium'?.65:1)));c.mesh.geometry.setDrawRange(0,Math.min(c.mesh.geometry.index.count,q==='low'?48:q==='medium'?84:108));}this.resize();}
  async init(progress,{signal}={}){
   checkLoading11(signal);
   const manager=new THREE.LoadingManager();manager.onProgress=(url,done,total)=>progress(Math.min(.82,done/Math.max(total,1)*.82),'Модели и текстуры: '+done+' / '+total);
@@ -187,7 +190,7 @@ export class IslandWorld {
   const lamp=new THREE.Mesh(new THREE.SphereGeometry(.12,8,8),new THREE.MeshBasicMaterial({color:0xe5824a}));lamp.position.set(x,y+14,z);this.scene.add(lamp);this.radioLamp=lamp;
  }
  makeResources(){
-  const random=randomSeed(518);this.nodes=resourceNodes();const trees=this.nodes.filter(n=>n.type==='tree');
+  const random=randomSeed(518);this.nodes=resourceNodes();addForestNodes19(this,this.nodes);const trees=this.nodes.filter(n=>n.type==='tree');
   const broadleaf=trees.filter(n=>!['snow','arid'].includes(biomeAt(n.x,n.z).id)&&!(biomeAt(n.x,n.z).id==='forest'&&n.z< -20*MAP_SCALE));
   this.vegetationInstances('CommonTree_1',broadleaf.filter((_,i)=>i%3!==0),9);
   this.vegetationInstances('CommonTree_3',broadleaf.filter((_,i)=>i%3===0),10);
@@ -362,3 +365,7 @@ installItems16(IslandWorld);
 installExplosives17(IslandWorld);
 installCulling16(IslandWorld);
 installCacti18(IslandWorld);
+
+installPhysics19(IslandWorld);
+
+installForestStreaming19(IslandWorld);

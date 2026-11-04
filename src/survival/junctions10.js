@@ -1,9 +1,17 @@
+import {groundPolygon19} from './road-surface19.js';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {terrainHeight} from './state.js';
-import {ROAD_JUNCTIONS10,riverAt} from './map-data.js';
+import {ROAD_JUNCTIONS10,riverAt,MAP_REVISION} from './map-data.js';
 /** Shared elevations for all incident strips; a spatial bucket avoids a graph-wide scan per vertex. */
 export function junctions10(w,material){
+ if(MAP_REVISION>=10){
+  // Follow the shared triangle mesh, not a floating max-height circular plateau.
+  const pos=[],uv=[],idx=[];for(const p of ROAD_JUNCTIONS10){const r=riverAt(p.x,p.z);if(r&&r.distance<r.width/2+7)continue;const polygon=Array.from({length:32},(_,i)=>({x:p.x+Math.cos(i*Math.PI/16)*3.8,z:p.z+Math.sin(i*Math.PI/16)*3.8}));groundPolygon19(pos,uv,idx,polygon,.023);}
+  if(idx.length){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();const mesh=new THREE.Mesh(g,material);mesh.receiveShadow=true;w.scene.add(mesh);}
+  return p=>{p.junction10=ROAD_JUNCTIONS10.some(j=>Math.hypot(p.x-j.x,p.z-j.z)<7);};
+ }
+
  const grid=new Map(),discs=[],joints=[];
  for(const p of ROAD_JUNCTIONS10){
   let y=terrainHeight(p.x,p.z);
