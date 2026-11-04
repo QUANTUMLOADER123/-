@@ -1,0 +1,35 @@
+import * as THREE from 'three';
+import {bushTemplate23,berryBush23} from './bush-models23.js';
+import {terrainHeight,randomSeed,noise} from './state.js';
+import {MAP_SEED,riverAt,distanceToRoad} from './map-data.js';
+import {biomeAt} from './environment.js';
+import {grassGround19} from './ground-cover19.js';
+import {paintLoading11,checkLoading11} from './loading11.js';
+const SIZE=48,UP=new THREE.Vector3(0,1,0);
+const PROFILES={low:{range:66,cells:6,limit:24},medium:{range:96,cells:8,limit:40},high:{range:126,cells:9,limit:56}};
+const KINDS={forest:['forest-hazel','forest-sapling','forest-flower'],snow:['snow-pine','snow-heather'],arid:['arid-sage','arid-rosette'],coast:['coast-scrub','coast-reed']};
+function allowed(w,x,z){if(distanceToRoad(x,z,8)<5)return null;const h=terrainHeight(x,z),river=riverAt(x,z);if(h<1.2||river&&river.distance<river.width*.5+2||!grassGround19(w,x,z,h))return null;return h;}
+function remove(w,tile){for(const mesh of tile.meshes){mesh.removeFromParent();mesh.dispose();}if(tile.ids.length){const ids=new Set(tile.ids);for(const n of w.nodes)if(ids.has(n.id))n.model.removeFromParent();w.nodes=w.nodes.filter(n=>!ids.has(n.id));w.targetGrids06?.clear();w.cullLast16=null;}}
+function plan(w,center){const g=w.biomeLife23,key=w.settings.quality in PROFILES?w.settings.quality:'medium',p=PROFILES[key],cx=Math.floor(center.x/24),cz=Math.floor(center.z/24),signature=cx+':'+cz+':'+key;if(g.planKey===signature)return;if(g.quality!==key){for(const key of g.tiles.keys())g.dirty.add(key);g.quality=key;}g.planKey=signature;g.profile=p;w.bushRange23.value=p.range;
+ const n=Math.ceil((p.range+34)/SIZE),bx=Math.floor(center.x/SIZE),bz=Math.floor(center.z/SIZE),wanted=[];for(let x=bx-n;x<=bx+n;x++)for(let z=bz-n;z<=bz+n;z++){const d=Math.hypot((x+.5)*SIZE-center.x,(z+.5)*SIZE-center.z);if(d<p.range+34)wanted.push({x,z,key:x+':'+z,d});}wanted.sort((a,b)=>a.d-b.d);wanted.length=Math.min(p.limit,wanted.length);const keep=new Set(wanted.map(t=>t.key));
+ for(const [key,tile]of g.tiles)if(!keep.has(key)){remove(w,tile);g.tiles.delete(key);g.dirty.delete(key);}g.queue=wanted.filter(t=>!g.tiles.has(t.key)||g.dirty.has(t.key));
+}
+function build(w,cell){const g=w.biomeLife23,groups=new Map(),ids=[],p=g.profile,seed=MAP_SEED^Math.imul(cell.x,73856093)^Math.imul(cell.z,19349663)^0x23af12;
+ for(let i=0;i<p.cells*p.cells;i++){const r=randomSeed(seed^Math.imul(i+1,83492791)),x=(cell.x+(i%p.cells+.5+(r()-.5)*.7)/p.cells)*SIZE,z=(cell.z+(Math.floor(i/p.cells)+.5+(r()-.5)*.7)/p.cells)*SIZE,b=biomeAt(x,z),patch=noise(x*.037+18,z*.037-43),chance=b.id==='forest'?.25+patch*.55:b.id==='snow'?.20:b.id==='coast'?.34:.19;if(r()>chance)continue;const h=allowed(w,x,z);if(h===null)continue;
+  const choices=KINDS[b.id]||KINDS.forest,kind=choices[Math.floor(r()*choices.length)];if(!groups.has(kind))groups.set(kind,[]);
+  // Small uneven colonies, not a uniform plantation of identical bushes.
+  const colony=p.cells===6?1:b.id==='forest'?1+(r()<.65?1:0)+(p.cells===9&&r()<.3?1:0):b.id==='coast'?1+(r()<.3?1:0):1;
+  for(let j=0;j<colony;j++){const a=r()*Math.PI*2,reach=j?.8+r()*1.4:0,px=x+Math.cos(a)*reach,pz=z+Math.sin(a)*reach,y=j?allowed(w,px,pz):h;if(y===null||biomeAt(px,pz).id!==b.id)continue;groups.get(kind).push({x:px,z:pz,h:y,scale:.67+r()*.70,angle:r()*Math.PI*2});}
+ }
+ const meshes=[],dummy=new THREE.Object3D(),normal=new THREE.Vector3(),yaw=new THREE.Quaternion();for(const [kind,points]of groups){if(!points.length)continue;const src=bushTemplate23(w,kind),mesh=new THREE.InstancedMesh(src.geometry,src.material,points.length);points.forEach((a,i)=>{const dx=(terrainHeight(a.x+.3,a.z)-terrainHeight(a.x-.3,a.z))/.6,dz=(terrainHeight(a.x,a.z+.3)-terrainHeight(a.x,a.z-.3))/.6;normal.set(-dx*.65,1,-dz*.65).normalize();dummy.position.set(a.x,a.h-.035,a.z);dummy.quaternion.setFromUnitVectors(UP,normal).multiply(yaw.setFromAxisAngle(UP,a.angle));dummy.scale.set(a.scale,a.scale,a.scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();mesh.boundingSphere.radius+=.5;mesh.receiveShadow=w.settings.quality!=='low';mesh.castShadow=false;mesh.userData.biomeLife23=true;w.scene.add(mesh);meshes.push(mesh);}
+ // Food nodes use an independent fixed-quality RNG/ID domain: changing graphics
+ // or unloading a tile cannot respawn a harvested berry bush.
+ const dead=new Set(w.state04?.depleted||[]);for(let i=0;i<2;i++){const r=randomSeed(seed^0xbee423^Math.imul(i+1,198491317)),id='berry23-'+cell.x+'c'+cell.z+'n'+i,x=(cell.x+.15+r()*.70)*SIZE,z=(cell.z+.15+r()*.70)*SIZE,b=biomeAt(x,z),chance=b.id==='forest'?.22:b.id==='coast'?.13:b.id==='snow'?.075:.035;if(r()>chance||dead.has(id))continue;const h=allowed(w,x,z);if(h===null)continue;const model=berryBush23(w,b.id),scale=.9+r()*.35;model.position.set(x,h-.025,z);model.rotation.y=r()*Math.PI*2;model.scale.setScalar(scale);w.scene.add(model);w.nodes.push({id,type:'berries',x,z,y:h,hp:1,remaining:1,model,biomeLife23:true});ids.push(id);}
+ g.tiles.set(cell.key,{meshes,ids});if(ids.length){w.targetGrids06?.clear();w.cullLast16=null;}
+}
+function pump(w,budget){const g=w.biomeLife23;while(budget-->0&&g.queue.length){const cell=g.queue.shift(),old=g.tiles.get(cell.key);if(old)remove(w,old);build(w,cell);g.dirty.delete(cell.key);}}
+export function installBiomeLife23(World){const grass=World.prototype.makeGrass,update=World.prototype.update,dispose=World.prototype.dispose;
+ World.prototype.makeGrass=async function(signal,progress){await grass.call(this,signal,p=>progress?.(p*.78));this.biomeLife23={tiles:new Map(),dirty:new Set(),queue:[],lastFrame:-1,epoch:this.coverEpoch22};this.bushRange23??={value:120};const center=this.entryPosition19||this.camera.position;plan(this,center);const total=this.biomeLife23.queue.length;while(this.biomeLife23.queue.length){checkLoading11(signal);pump(this,2);progress?.(.78+.22*(1-this.biomeLife23.queue.length/Math.max(1,total)));await paintLoading11(signal);}};
+ World.prototype.update=function(dt,state,playing,...args){update.call(this,dt,state,playing,...args);if(playing&&this.biomeLife23){const g=this.biomeLife23;if(g.epoch!==this.coverEpoch22){g.epoch=this.coverEpoch22;for(const key of g.tiles.keys())g.dirty.add(key);g.planKey=null;}plan(this,state.position);if(g.lastFrame!==this.renderedFrames){g.lastFrame=this.renderedFrames;pump(this,1);}}};
+ World.prototype.dispose=function(){if(this.biomeLife23){for(const tile of this.biomeLife23.tiles.values())remove(this,tile);this.biomeLife23=null;}dispose.call(this);for(const t of this.bushTemplates23?.values()||[])t.geometry.dispose();this.bushTemplates23?.clear();this.bushMaterials23?.material.dispose();this.bushMaterials23?.depth.dispose();};
+}

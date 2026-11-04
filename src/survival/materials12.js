@@ -15,7 +15,7 @@ export function bindPBR12(w,m,kind){
  m.map=t[p+'color.webp'];m.normalMap=t[p+'normal.webp'];m.roughnessMap=m.aoMap=t[p+'orm.webp'];m.aoMapIntensity=.28;m.metalnessMap=kind==='metal'?t[p+'orm.webp']:null;m.metalness=kind==='metal'?.8:0;m.roughness=1;m.normalScale??=new THREE.Vector2();m.normalScale.set(.45,.45);m.userData.kind12=kind;m.needsUpdate=true;wetMaterial12(w,m);
 }
 export function wetMaterial12(w,m){
- if(!m.isMeshStandardMaterial||m.transparent||m.userData.terrain12||m.userData.grass22)return;
+ if(!m.isMeshStandardMaterial||m.transparent||m.userData.terrain12||m.userData.grass22||m.userData.vegetation23)return;
  const u=visualState12(w);if(u.materials.has(m))return;u.materials.add(m);
  // Rebinding a globally cached prop in a new world must not retain the disposed world's uniforms.
  m.userData.baseKey12??=m.customProgramCacheKey();const base=m.userData.baseCompile12||m.onBeforeCompile;m.userData.baseCompile12=base;
@@ -45,7 +45,7 @@ export function wetMaterial12(w,m){
 export function dressMaterials12(w,root=w.scene){
  const known=new Map();for(const k of PBR_KINDS12){const tex=w.textures['pbr12/'+k+'-color.webp'];if(tex){tex.userData.kind12=k;known.set(tex,k);}}
  root.traverse(o=>{if(!o.isMesh||o.layers.mask===2)return;for(const m of(Array.isArray(o.material)?o.material:[o.material])){
-  if(!m?.isMeshStandardMaterial||m.userData.terrain12||m.userData.grass22)continue;
+  if(!m?.isMeshStandardMaterial||m.userData.terrain12||m.userData.grass22||m.userData.vegetation23)continue;
   const kind=m.userData.kind12||m.map?.userData.kind12||known.get(m.map);if(PBR_KINDS12.includes(kind)&&(m.map!==w.textures['pbr12/'+kind+'-color.webp']||m.normalMap!==w.textures['pbr12/'+kind+'-normal.webp']))bindPBR12(w,m,kind);else wetMaterial12(w,m);
  }});
 }
