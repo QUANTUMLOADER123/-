@@ -1,7 +1,7 @@
 import {STRUCTURAL,COMPONENTS,NEW_WEAPONS,GUN_COMPONENT_COSTS} from './expansion.js';
 /** Original weapon balance and construction costs; shared without state-module cycles. */
 export const WEAPONS={rifle:{name:'Самодельная винтовка',ammo:'ammo',capacity:6,damage:42,interval:.37,range:90},pistol:{name:'Пистолет П-9',ammo:'pistolAmmo',capacity:12,damage:26,interval:.22,range:55},revolver:{name:'Револьвер Р-6',ammo:'pistolAmmo',capacity:6,damage:38,interval:.42,range:65},smg:{name:'Пистолет-пулемёт МП-24',ammo:'pistolAmmo',capacity:24,damage:20,interval:.1,range:65,automatic:true},shotgun:{name:'Помповое ружьё',ammo:'shells',capacity:5,damage:90,interval:.85,range:26},assaultRifle:{name:'Автомат АР-30',ammo:'ammo',capacity:30,damage:32,interval:.13,range:110,automatic:true},boltRifle:{name:'Продольная винтовка',ammo:'ammo',capacity:5,damage:80,interval:1.15,range:160}};
-Object.assign(WEAPONS,NEW_WEAPONS);for(const w of Object.values(WEAPONS))w.reload??=w.capacity>20?2.8:w.capacity>6?2:2.4;
+Object.assign(WEAPONS,NEW_WEAPONS,{akRifle:{name:'Автомат АК-47',ammo:'ammo',capacity:30,damage:38,interval:.15,range:125,automatic:true,reload:2.9},compactSmg:{name:'Компактный ПП-32',ammo:'pistolAmmo',capacity:32,damage:18,interval:.078,range:60,automatic:true,reload:2.4}});for(const w of Object.values(WEAPONS))w.reload??=w.capacity>20?2.8:w.capacity>6?2:2.4;
 export const isGun=id=>Object.hasOwn(WEAPONS,id);
 export const magazine=(s,id=s.selected)=>id==='rifle'?s.magazine:(s.magazines?.[id]||0);
 export function setMagazine(s,id,n){if(id==='rifle')s.magazine=n;else{ s.magazines??={};s.magazines[id]=n;}}
@@ -28,3 +28,13 @@ Object.assign(EXTRA_RECIPES,{
  cookedMeat:{name:'Жареное мясо',category:'process',station:'campfire',cost:{meat:1,wood:2},description:'Приготовь рядом с установленным костром. Восстанавливает сытость.'}
 });
 for(const[id,w]of Object.entries(WEAPONS)){EXTRA_RECIPES[id]??={name:w.name,category:'tools',station:'workbench',cost:{wood:25,metal:45,scrap:20},description:`${w.capacity} патронов. Компоненты обязательны.`};Object.assign(EXTRA_RECIPES[id].cost,GUN_COMPONENT_COSTS[id]);}
+
+// DEV16 additions: explicit component costs, no alternative uncosted firearm recipes.
+Object.assign(EXTRA_ITEMS,{antiseptic:{name:'Антисептик',icon:'health'},traumaKit:{name:'Травматологический набор',icon:'health'}});
+Object.assign(EXTRA_RECIPES,{
+ akRifle:{name:WEAPONS.akRifle.name,category:'tools',station:'workbench',cost:{wood:35,metal:140,highMetal:8,rifleBody:1,spring:2,metalPipe:2},description:'30 винтовочных патронов. Мощнее АР-30, но стреляет медленнее. Двуручный хват, сменный изогнутый магазин.'},
+ compactSmg:{name:WEAPONS.compactSmg.name,category:'tools',station:'workbench',cost:{metal:90,scrap:35,smgBody:1,spring:2,metalPipe:1},description:'32 пистолетных патрона, высокая скорострельность. Низкий урон и небольшая эффективная дальность.'},
+ antiseptic:{name:'Антисептик',category:'tools',cost:{fiber:10,lowFuel:3},description:'Восстанавливает 45 HP. Улучшенная полевая перевязка.'},
+ traumaKit:{name:'Травматологический набор',category:'tools',station:'workbench',cost:{medkit:1,antiseptic:2,sewingKit:1},description:'Восстанавливает 90 HP. Не воскрешает и не увеличивает максимум здоровья.'}
+});
+export const MEDICAL16={bandage:35,syringe:25,medkit:65,antiseptic:45,traumaKit:90};

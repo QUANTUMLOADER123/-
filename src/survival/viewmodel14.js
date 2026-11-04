@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {medicalModel16} from "./items16.js";
 import { isGun } from "./catalog.js";
 import {
   createHand14,
@@ -13,6 +14,7 @@ import {
   TOOL_POSES14,
   RIGHT14,
   LEFT14,
+  LEFT_SIDE14,
   makeMotion14,
   clamp14,
   smooth14,
@@ -33,7 +35,8 @@ import {
 } from "./effects14.js";
 const V = THREE.Vector3;
 function tools14(w) {
-  return {
+  const medicine={};for(const id of ['syringe','medkit','antiseptic','traumaKit']){const m=medicalModel16(id);m.visible=false;m.traverse(o=>o.layers.set(1));w.handRoot.add(m);medicine[id]=m;}
+  return {...medicine,
     rock: w.heldRock,
     axe: w.heldAxe,
     pickaxe: w.heldPickaxe,
@@ -172,7 +175,7 @@ export function installViewmodel14(World) {
     } else if (kind === "land") {
       m.landing.v = Math.min(2, m.landing.v + Math.min(12, impact) * 0.07);
     } else {
-      if (kind === "melee" || kind === "throw")
+      if (kind === "melee" || kind === "throw" || kind === "consume")
         m.equip = Math.max(m.equip, 0.7);
       m.action = kind;
       m.actionAge = 0;
@@ -182,7 +185,9 @@ export function installViewmodel14(World) {
           ? id === "axe" || id === "pickaxe"
             ? 0.42
             : 0.6
-          : kind === "throw"
+          : kind === "consume"
+            ? 1.0
+            : kind === "throw"
             ? 0.58
             : 0.42;
     }
@@ -199,7 +204,7 @@ export function installViewmodel14(World) {
       m.action = null;
     }
     // Finish the open-hand release even when the last grenade has already left the belt.
-    const id = m.action === "throw" ? m.actionId : state.selected,
+    const id = ["throw","consume"].includes(m.action) ? m.actionId : state.selected,
       gun = isGun(id),
       profile = GUN_POSES14[id],
       reload = this.reloadState04?.progress ?? -1,
@@ -208,7 +213,7 @@ export function installViewmodel14(World) {
       m.selected = id;
       m.equip =
         (m.lastShotId === id && m.shotAge < 0.12) ||
-        (m.actionId === id && ["melee", "throw"].includes(m.action))
+        (m.actionId === id && ["melee", "throw", "consume"].includes(m.action))
           ? 0.7
           : 0;
       if (m.lastShotId !== id) m.shotAge = 10;
@@ -359,6 +364,7 @@ export function installViewmodel14(World) {
         w.hip.z += push * m.aim * 0.2;
       }
     }
+    if(m.action==='consume'){const use=Math.sin(action*Math.PI);w.hip.x-=use*.16;w.hip.y+=use*.12;this.handRoot.rotation.z-=use*.14;}
     this.handRoot.position.copy(w.hip);
     const fov = 69 - 20 * m.aim;
     if (Math.abs(this.camera.fov - fov) > 0.005) {
@@ -412,7 +418,9 @@ export function installViewmodel14(World) {
         w.right.add(w.p);
         w.rightQ.copy(tool.quaternion).multiply(RIGHT14);
       }
-      left.visible = p.left !== false;
+      if(tool?.userData.rightGrip16){tool.updateMatrix();w.right.copy(tool.userData.rightGrip16).applyMatrix4(tool.matrix);w.rightQ.copy(tool.quaternion).multiply(RIGHT14);}
+      if(tool?.userData.supportGrip16){w.left.copy(tool.userData.supportGrip16).applyMatrix4(tool.matrix);w.leftQ.copy(tool.quaternion).multiply(LEFT_SIDE14);leftGrip=.92;}
+      left.visible = p.left !== false || !!tool?.userData.supportGrip16;
       if (m.action === "throw") {
         rightGrip *= 1 - smooth14(clamp14(action / 0.22));
         index = rightGrip;

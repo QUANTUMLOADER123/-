@@ -27,7 +27,7 @@ export function createEffects14(world) {
     if (id === "rocketLauncher") continue;
     const short = ["pistol", "heavyPistol", "revolver"].includes(id),
       flash = new THREE.Mesh(new THREE.PlaneGeometry(0.13, 0.13), material);
-    flash.position.set(0, 0.15, short ? -0.385 : -0.845);
+    if(m.userData.muzzle16)flash.position.fromArray(m.userData.muzzle16);else flash.position.set(0, 0.15, short ? -0.385 : -0.845);
     flash.layers.set(1);
     flash.visible = false;
     m.add(flash);

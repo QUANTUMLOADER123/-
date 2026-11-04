@@ -1,6 +1,6 @@
 import {AUDIO_GROUPS07 as GROUPS,AUDIO_FILES07 as FILES} from './audio-manifest07.js';
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-const gunGroup=id=>({pistol:'pistol',heavyPistol:'heavy-pistol',revolver:'revolver',smg:'smg',assaultRifle:'assault',machineGun:'assault',boltRifle:'bolt',rifle:'marksman',semiRifle:'marksman',shotgun:'shotgun',combatShotgun:'shotgun'})[id]||'assault';
+const gunGroup=id=>({pistol:'pistol',heavyPistol:'heavy-pistol',revolver:'revolver',smg:'smg',compactSmg:'smg',akRifle:'assault',assaultRifle:'assault',machineGun:'assault',boltRifle:'bolt',rifle:'marksman',semiRifle:'marksman',shotgun:'shotgun',combatShotgun:'shotgun'})[id]||'assault';
 /** Local recorded samples only: no oscillator beeps and no procedural noise fallback. */
 export class SurvivalAudio {
  constructor(){this.enabled=true;this.paused=false;this.ctx=null;this.buffers=new Map();this.pending=new Map();this.failures=new Set();this.voices=[];this.previous={};this.epochs={};this.listener={x:0,y:0,z:0,yaw:0};this.levels={master:.75,effects:1,steps:.65};}

@@ -1,0 +1,138 @@
+{
+  "provenance": "Original procedural surfaces and vector illustrations authored for Oskol. No third-party weapon/car assets.",
+  "size": 256,
+  "surfaces": {
+    "steel": [
+      {
+        "file": "steel-color.webp",
+        "sha256": "a5b05273f6b5a13fbbcb9e9837fa68f698da2a361bc5463856448e9e46cd7c55"
+      },
+      {
+        "file": "steel-normal.webp",
+        "sha256": "ac4a224cf403fe16827e598f94c6685e8807d834721606a9b598f47ef79bf30f"
+      },
+      {
+        "file": "steel-orm.webp",
+        "sha256": "2500a2c81c38737ba243bb744b6c6bea895cee251c70e3a66a004468086cd397"
+      }
+    ],
+    "wood": [
+      {
+        "file": "wood-color.webp",
+        "sha256": "0a62a943fb321001c79bd05a83be3f78230923eff1aff0b5db0c89a649da5931"
+      },
+      {
+        "file": "wood-normal.webp",
+        "sha256": "4f0a245accbae334a797903039690486527d6c65ce2ddd9c4437083457b12bd0"
+      },
+      {
+        "file": "wood-orm.webp",
+        "sha256": "a9724309d9502cc18f9b260cab86a9af2eb204371190901b15bc8998fbf60d97"
+      }
+    ],
+    "polymer": [
+      {
+        "file": "polymer-color.webp",
+        "sha256": "40698e25e3aa0cc56e2ed8fd428f9159bbb244d369b4aa58b0e582481014fb04"
+      },
+      {
+        "file": "polymer-normal.webp",
+        "sha256": "d6c7a6b115575a054df3537ee64e65ea47c2b3937a4d04af48a8353467401cc6"
+      },
+      {
+        "file": "polymer-orm.webp",
+        "sha256": "4ac96adb6d352c4c8fd3ff7cecbd443061b2461f352e6b4a083a36c951dbf819"
+      }
+    ],
+    "cloth": [
+      {
+        "file": "cloth-color.webp",
+        "sha256": "e651035cc875c46c9181f73f4d687c24089a7c61233e202edc290237cae2ada5"
+      },
+      {
+        "file": "cloth-normal.webp",
+        "sha256": "936fc88fa7d5dfefde4a1d91261a5fe99e7e53f830a13c7321314fc462c3e8e0"
+      },
+      {
+        "file": "cloth-orm.webp",
+        "sha256": "5e60c3df45e640d7c3635380aa09528be500e6960d6d8af8d6e5f395edf155c3"
+      }
+    ],
+    "rust": [
+      {
+        "file": "rust-color.webp",
+        "sha256": "0d6814ff1b975d972f3eed42c19e3baf0a6c7223ba66de56772605fcc0d46e87"
+      },
+      {
+        "file": "rust-normal.webp",
+        "sha256": "8aa0444b750a9167571ec032eb510310d1bf0e3dd1117e813a3e6dd21ee94d42"
+      },
+      {
+        "file": "rust-orm.webp",
+        "sha256": "779b8bcc4212ac67cc6c0aa69cd3c6a1316ac3a53ddb533a7c6c09848fa55c51"
+      }
+    ],
+    "paint": [
+      {
+        "file": "paint-color.webp",
+        "sha256": "83a4c543d59b20631cc27da51f20ecfad723ca82e4ca5a229bb81ff4fcaa1dbe"
+      },
+      {
+        "file": "paint-normal.webp",
+        "sha256": "fc43f8dc9d26252242da4d29686594ffce6169abf3af8d98ef4a6763539695cd"
+      },
+      {
+        "file": "paint-orm.webp",
+        "sha256": "9e3815de4d81cd7d39cd03c4ef3df43889ef9c44a22725407548ba2826055988"
+      }
+    ],
+    "rubber": [
+      {
+        "file": "rubber-color.webp",
+        "sha256": "4b33af7149c523a70d9a3645e22dd75ccdc39fb983acc8553b1dd5346fa4e1c5"
+      },
+      {
+        "file": "rubber-normal.webp",
+        "sha256": "4f2162a9a161025d81c7e74784544962ff360499f28f55ba7bc73915c6d44f0c"
+      },
+      {
+        "file": "rubber-orm.webp",
+        "sha256": "44ed8c28a217a04594cd408df7c0992cc74667eb9efb02a1dc96b21839aa1474"
+      }
+    ],
+    "brass": [
+      {
+        "file": "brass-color.webp",
+        "sha256": "4e343abab5a74cf4d41f7233ce4408e4f89382ebab81b44031ef7588a15407a8"
+      },
+      {
+        "file": "brass-normal.webp",
+        "sha256": "ac655ee7f1c240fe04ac78d771009df1a998d92ee234600459433a887a7886ca"
+      },
+      {
+        "file": "brass-orm.webp",
+        "sha256": "1740205459b2bb11596021f9a1e1b6a63cbe12e8ed2522990a1d0172ca7226ef"
+      }
+    ],
+    "organic": [
+      {
+        "file": "organic-color.webp",
+        "sha256": "9cd719eb4c499105e77a469d765c3f2bae7713afae783b554835a6688cb9d8e4"
+      },
+      {
+        "file": "organic-normal.webp",
+        "sha256": "a2acb4c50c29e3f9b8c9fe6bb18702467157569fa6f66aafeda47776508f3bdd"
+      },
+      {
+        "file": "organic-orm.webp",
+        "sha256": "644eca7cd84f36e9273598ab84629c48d5a8496fa85a4432b26698e132adc67e"
+      }
+    ]
+  },
+  "icons": [
+    "akRifle",
+    "compactSmg",
+    "antiseptic",
+    "traumaKit"
+  ]
+}

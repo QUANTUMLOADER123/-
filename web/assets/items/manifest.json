@@ -862,7 +862,47 @@
       "sourceSha256": "8de2329ff7ebdce9f849407ae5d49a10aa06ea163c3f698ab979fc4c430cf345",
       "method": "original-vector-illustration",
       "source": "vectors/ramp.svg"
+    },
+    "akRifle": {
+      "file": "../items16/akRifle.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "0cfa51710592d0e7eb2bcbb072423194b2cd2bcbe64a2c02bfb347b3ecfec622",
+      "sourceSha256": "d9335700afab3862ccba3bc164482579e2a48297f5ddd3941bb74ff1ac492a90",
+      "method": "original-vector-illustration",
+      "source": "../items16/akRifle.svg"
+    },
+    "compactSmg": {
+      "file": "../items16/compactSmg.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "c0ee812da0f362d422fda788a173c0c0bfd3d399a097d011775202b3c6f26e47",
+      "sourceSha256": "fdb9e26feb7db0e811c5d0992fa65dbbec2d648e5aa48236a74426ffe06f2422",
+      "method": "original-vector-illustration",
+      "source": "../items16/compactSmg.svg"
+    },
+    "antiseptic": {
+      "file": "../items16/antiseptic.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "e98eecec763037174383fee1eeb72491a90b54b86f6f8902b96ed3da992c084c",
+      "sourceSha256": "9fb4f65422bb55c04764a90fc8752c43c95d06d44f35ee79ee175cb23536d322",
+      "method": "original-vector-illustration",
+      "source": "../items16/antiseptic.svg"
+    },
+    "traumaKit": {
+      "file": "../items16/traumaKit.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sha256": "75e6cf2af784af65e5376276d8aaae5aae2e878116de20f21839c122fe0bf6f0",
+      "sourceSha256": "c46dd8775035faae1e1aa355816acadd954b4cf60bf2c04cdd54eb829f988079",
+      "method": "original-vector-illustration",
+      "source": "../items16/traumaKit.svg"
     }
   },
-  "catalogCount": 88
+  "catalogCount": 92
 }

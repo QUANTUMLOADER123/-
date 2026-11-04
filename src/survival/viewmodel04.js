@@ -1,16 +1,11 @@
+import {weaponModel16} from './items16.js';
 import {componentModel04} from './component-models04.js';
 import {isStructural} from './expansion.js';
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {WEAPONS,isGun} from './catalog.js';
-import {gunModel} from './dev03-world.js';
 const V=THREE.Vector3;
-export function detailedGun(id){const root=gunModel(id),steel=new THREE.MeshStandardMaterial({color:0x758082,metalness:.65,roughness:.45}),black=new THREE.MeshStandardMaterial({color:0x252c2d,roughness:.75}),wood=new THREE.MeshStandardMaterial({color:0x976844,roughness:.85});
- const box=(size,pos,material=steel)=>{const m=new THREE.Mesh(new RoundedBoxGeometry(...size,2,.009),material);m.position.set(...pos);root.add(m);return m;};const tube=(r,h,pos,material=steel)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,20),material);m.rotation.x=Math.PI/2;m.position.set(...pos);root.add(m);return m;};
- if(id==='rocketLauncher'){root.clear();tube(.105,1.25,[0,.14,-.35],new THREE.MeshStandardMaterial({color:0x617048,metalness:.5,roughness:.7}));for(const z of[-.96,.25]){const ring=new THREE.Mesh(new THREE.TorusGeometry(.11,.02,8,20),black);ring.position.set(0,.14,z);root.add(ring);}box([.08,.22,.12],[0,-.06,-.05],black);box([.1,.05,.22],[0,.3,-.24]);box([.05,.19,.03],[.1,.25,-.6]);}
- else{for(let j=0;j<6;j++)box([.012,.025,.025],[.06,.17,-.15-j*.035],black);tube(.024,.11,[0,.15,['pistol','heavyPistol','revolver'].includes(id)?-.32:-.77],black);box([.055,.016,.08],[0,.217,.045],steel);box([.11,.05,.12],[0,.215,-.12],black);const bolt=box([.08,.025,.018],[.09,.12,-.05]);bolt.rotation.z=.12;root.userData.bolt14=bolt;
- if(root.userData.magazine)root.userData.magazineRest=root.userData.magazine.position.clone();if(['rifle','boltRifle','semiRifle'].includes(id)){box([.105,.13,.28],[0,.095,.24],wood);box([.10,.075,.34],[0,.10,-.36],wood);tube(.023,.12,[.095,.14,-.015]);}if(id==='machineGun'){root.userData.feedBox14=box([.22,.2,.2],[0,-.01,-.17],new THREE.MeshStandardMaterial({color:0x536346,roughness:.8}));for(const side of[-1,1]){const leg=box([.015,.3,.018],[side*.1,0,-.62]);leg.rotation.z=side*.3;}}}
- return root;}
+export function detailedGun(id){return weaponModel16(id);}
 function articulatedHand(side){const rig=new THREE.Group(),skin=new THREE.MeshStandardMaterial({color:0xc18c6b,roughness:.82}),leather=new THREE.MeshStandardMaterial({color:0x6d6250,roughness:.96}),cloth=new THREE.MeshStandardMaterial({color:0x58644f,roughness:1});
  const part=(r,len,material,parent)=>{const m=new THREE.Mesh(new THREE.CapsuleGeometry(r,len,5,12),material);parent.add(m);return m;};const palm=new THREE.Mesh(new RoundedBoxGeometry(.088,.105,.043,3,.018),skin);palm.position.set(0,.055,.015);rig.add(palm);const glove=new THREE.Mesh(new RoundedBoxGeometry(.092,.063,.047,2,.015),leather);glove.position.set(0,.025,.018);rig.add(glove);
  for(let i=0;i<4;i++){const finger=new THREE.Group();finger.position.set(-.033+i*.022,.104,.009);finger.rotation.x=-.45;rig.add(finger);let parent=finger;for(let j=0;j<3;j++){const joint=new THREE.Group();joint.rotation.x=j===0?.5:.85;parent.add(joint);const length=(i===3?.022:.027)*(j===2?.75:1),m=part(j===2?.009:.011,length,j===0?leather:skin,joint);m.position.y=length*.55;parent=joint;const tip=new THREE.Group();tip.position.y=length+ .011;joint.add(tip);parent=tip;}}

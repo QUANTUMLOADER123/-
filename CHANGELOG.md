@@ -1,5 +1,16 @@
 # ОСКОЛ — тестовые итерации
 
+## DEV 0.17.0 · iteration 16 — input, authored items, visibility / build only
+
+- Independent desktop mouse button events fix RMB/LMB chording; per-pointer touch attack/swim release ownership. Existing focus/pointer-lock reset retained.
+- Fourteen authored firearm/launcher models, three tools and four medical models; bevelled silhouettes, recessed muzzle, curved AK magazine, moving reload parts, explicit optic/tool sockets, two-handed axe/pickaxe. DEV14 remains the sole pose/IK owner. Muzzle flashes use model endpoints.
+- Nine original periodic PBR surface sets; static item/vehicle batching, world-scoped vehicle geometry caches. Mushroom stalk below a rounded outward-normal cap; textured edible surfaces.
+- AK-47, compact SMG, antiseptic and trauma kit: full recipes/components/loot/art/profiles/ammo/save support. Existing syringe/medkit gain crate availability and use models. Actual HP-gain toasts; old oversized medical stacks remain readable. 92 icons = 20 prior AI + 72 original vectors.
+- NEW-world terrain revision 7: broad hills/ridges, smaller camp grading shoulder, protected beach/channel. Revision <=6 formulas retained; menu reports saved terrain revision. Shared triangle surface unchanged.
+- Near/balanced/far visibility controls; 96m house-proxy chunks, reduced forest range and distant tree shadows, profile-aware house streaming, render-only object flags respected by targeting. No fog or FPS claims.
+- Original roadside sedan/pickup wrecks: wheel arches, glazing/pillars, mirrors, rims, lights, corrosion and pickup beds; road-following yaw. Existing IDs/loot coordinates and OBB collision/walk surfaces retained; no vehicle simulation.
+- Android code18 / unchanged IDs, signing and save paths; Windows portable. No tests/game/browser/native/emulator/visual/audio execution; source/asset authoring, compilation and packaging only.
+
 ## DEV 0.16.0 · iteration 15 — dark night artwork / build only
 
 - Regenerated the night illustration: near-black forest, dark navy sky, two armored people walking toward camera, two green NVG points each and two rifle lasers. Authored ambient exposure reduction preserves green emitters.

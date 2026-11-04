@@ -1,6 +1,11 @@
 // Generated from the complete live catalog by scripts/complete-item-art.py.
 // Individual local colored assets; no runtime 3D thumbnail or glyph needed for items.
 export const ITEM_ART=Object.freeze({
+  "akRifle": "assets/items16/akRifle.webp?v=dev16",
+  "compactSmg": "assets/items16/compactSmg.webp?v=dev16",
+  "antiseptic": "assets/items16/antiseptic.webp?v=dev16",
+  "traumaKit": "assets/items16/traumaKit.webp?v=dev16",
+
   "wood": "assets/items/wood.webp?v=a581ffd987",
   "stone": "assets/items/stone.webp?v=7df243878a",
   "metalOre": "assets/items/metalOre.webp?v=cbe4480080",

@@ -34,12 +34,12 @@ export function roads08(w,material,paint,metal,concrete){
      if(i%4===0){const base=terrainHeight(cx,cz),h=Math.max(.3,y-base-.3),pier=new THREE.Mesh(new THREE.CylinderGeometry(.36,.5,h,10),concrete);pier.position.y=-h/2-.15;root.add(pier);}
     }
    }
-   if(!LEGACY_ROADS10[part]&&!p.bridge&&!p.junction10&&i%85===18&&terrainHeight(p.x,p.z)>p.water+.5)addRoadCluster(w,p.x+p.nx*(width/2+6),p.z+p.nz*(width/2+6),'road-'+part+'-'+i);
+   if(!LEGACY_ROADS10[part]&&!p.bridge&&!p.junction10&&i%85===18&&terrainHeight(p.x,p.z)>p.water+.5)addRoadCluster(w,p.x+p.nx*(width/2+6),p.z+p.nz*(width/2+6),'road-'+part+'-'+i,Math.atan2(p.nz,-p.nx));
   });
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();const mesh=new THREE.Mesh(g,material);mesh.receiveShadow=true;w.scene.add(mesh);
  }
  // Keep old road-cluster IDs AND positions independent of newly inserted T-junction vertices.
- for(const [part,path]of Object.entries(LEGACY_ROADS10)){const width=part==='ring'?6:4.5;sampleRoad08(path,width,levelJunction).forEach((p,i)=>{if(!p.bridge&&i%85===18&&terrainHeight(p.x,p.z)>p.water+.5)addRoadCluster(w,p.x+p.nx*(width/2+6),p.z+p.nz*(width/2+6),'road-'+part+'-'+i);});}
+ for(const [part,path]of Object.entries(LEGACY_ROADS10)){const width=part==='ring'?6:4.5;sampleRoad08(path,width,levelJunction).forEach((p,i)=>{if(!p.bridge&&i%85===18&&terrainHeight(p.x,p.z)>p.water+.5)addRoadCluster(w,p.x+p.nx*(width/2+6),p.z+p.nz*(width/2+6),'road-'+part+'-'+i,Math.atan2(p.nz,-p.nx));});}
  if(dashes.length){w.scene.add(new THREE.Mesh(mergeGeometries(dashes),paint));dashes.forEach(g=>g.dispose());}
 }
 export function floorContains08(f,x,z){const dx=x-f.x,dz=z-f.z;if(f.ow){const c=Math.cos(f.rotation||0),s=Math.sin(f.rotation||0);return Math.abs(dx*c-dz*s)<f.ow/2&&Math.abs(dx*s+dz*c)<f.od/2;}return Math.abs(dx)<f.w/2&&Math.abs(dz)<f.d/2;}

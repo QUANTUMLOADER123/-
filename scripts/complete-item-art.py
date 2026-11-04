@@ -276,23 +276,23 @@ d.text((22,18),f'ОСКОЛ · {len(CAT)} / {len(CAT)} цветных предм
 d.text((23,55),'Прозрачный WebP · отдельный файл на предмет · без общих заглушек',fill='#acb7ae',font=ImageFont.truetype(font,14))
 for n,(id,info) in enumerate(CAT.items()):
     x=n%cols*cell;y=90+n//cols*210;d.rounded_rectangle((x+5,y+4,x+195,y+204),6,fill='#343e43')
-    im=Image.open(OUT/(id+'.webp')).convert('RGBA');im.thumbnail((163,163));sheet.paste(im,(x+(cell-im.width)//2,y+6),im)
+    im=Image.open(OUT/manifest['items'][id]['file']).convert('RGBA');im.thumbnail((163,163));sheet.paste(im,(x+(cell-im.width)//2,y+6),im)
     size=13
     while d.textbbox((0,0),info['name'],font=ImageFont.truetype(font,size))[2]>184 and size>9:size-=1
     f=ImageFont.truetype(font,size);w=d.textbbox((0,0),info['name'],font=f)[2]
     d.text((x+(cell-w)/2,y+170),info['name'],font=f,fill='#eee9db');d.text((x+10,y+189),id,font=ImageFont.truetype(font,9),fill='#94a9ab')
 sheet.save(WORK/'preview-complete-88.png')
 ai=sum(v['method']=='individual-ai-illustration' for v in manifest['items'].values());vector=len(CAT)-ai
-readme=f'''# ОСКОЛ · все предметные иконки\n\n**Готово {len(CAT)} / {len(CAT)} предметов актуального каталога DEV04.**\n\nКаждому предмету соответствует собственный файл, а не алиас общей иконки «винтовка», «металлолом» или «стена». Все — цветной прозрачный lossless WebP 256×256, загружаемый локально. Сохранены {ai} ранее отдельно AI-сгенерированных иллюстраций. Остальные {vector} — авторские векторные иллюстрации с индивидуальной геометрией, цветом, градиентами и деталями; SVG-оригиналы в `vectors/`, не белые контурные пиктограммы. Это смешанный набор, не {len(CAT)} AI-генераций и не ассеты Rust/Facepunch.\n\nРегистрация: `src/survival/item-art.js`; SHA-256 и происхождение каждого файла: `manifest.json`. Предметная иконка общая для рюкзака, пояса, рецептов, требований, лута, печи, шкафа и торговли. Персонаж и управляющие кнопки не являются предметами и сохраняют своё оформление.\n\nПодготовка отсутствующих иконок и упаковка без запуска игры/тестов:\n```sh\npython -m venv --system-site-packages .venv-art\n.venv-art/bin/pip install resvg_py Pillow\n.venv-art/bin/python scripts/complete-item-art.py\n```\nНовые предметы без описанной иллюстрации вызывают явную ошибку подготовки, а не автоматически получают общую картинку. Обычная сборка не требует Python/resvg-py. Ранее использованный `process-item-art.py` остаётся для будущих отдельно AI-сгенерированных изображений.\n\n## Каталог\n'''
+readme=f'''# ОСКОЛ · все предметные иконки\n\n**Готово {len(CAT)} / {len(CAT)} предметов актуального каталога.**\n\nКаждому предмету соответствует собственный файл, а не алиас общей иконки «винтовка», «металлолом» или «стена». Все — цветной прозрачный lossless WebP 256×256, загружаемый локально. Сохранены {ai} ранее отдельно AI-сгенерированных иллюстраций. Остальные {vector} — авторские векторные иллюстрации с индивидуальной геометрией, цветом, градиентами и деталями; SVG-оригиналы в `vectors/`, не белые контурные пиктограммы. Это смешанный набор, не {len(CAT)} AI-генераций и не ассеты Rust/Facepunch.\n\nРегистрация: `src/survival/item-art.js`; SHA-256 и происхождение каждого файла: `manifest.json`. Предметная иконка общая для рюкзака, пояса, рецептов, требований, лута, печи, шкафа и торговли. Персонаж и управляющие кнопки не являются предметами и сохраняют своё оформление.\n\nПодготовка отсутствующих иконок и упаковка без запуска игры/тестов:\n```sh\npython -m venv --system-site-packages .venv-art\n.venv-art/bin/pip install resvg_py Pillow\n.venv-art/bin/python scripts/complete-item-art.py\n```\nНовые предметы без описанной иллюстрации вызывают явную ошибку подготовки, а не автоматически получают общую картинку. Обычная сборка не требует Python/resvg-py. Ранее использованный `process-item-art.py` остаётся для будущих отдельно AI-сгенерированных изображений.\n\n## Каталог\n'''
 readme+=''.join(f'- [x] `{id}` — {info["name"]} · {manifest["items"][id]["method"]}\n' for id,info in CAT.items())
 (OUT/'README.md').write_text(readme)
 archive=WORK/f'Oskol-all-{len(CAT)}-item-icons.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
     for id in CAT:
-        z.write(OUT/(id+'.webp'),'Game-WebP-256/'+id+'.webp')
+        z.write(OUT/manifest['items'][id]['file'],'Game-WebP-256/'+id+'.webp')
         master=MASTERS/(id+'.png')
         if master.exists():z.write(master,'PNG-1024/'+id+'.png')
-        source=SOURCES/(id+'.svg')
+        source=OUT/manifest['items'][id].get('source','vectors/'+id+'.svg')
         if source.exists():z.write(source,'SVG-sources/'+id+'.svg')
     for f in ['manifest.json','README.md']:z.write(OUT/f,f)
     z.write(WORK/'preview-complete-88.png','preview-all.png')

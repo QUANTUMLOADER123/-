@@ -65,6 +65,8 @@ const profile = (right, left, reload, kick, extra = {}) => ({
   ...extra,
 });
 export const GUN_POSES14 = {
+  akRifle: profile([.07,-.035,.06],[-.055,.04,-.29],"magazine",.84),
+  compactSmg: profile([.065,-.035,.055],[-.052,.04,-.25],"magazine",.35),
   rifle: profile(
     [0.07, -0.035, 0.06],
     [-0.055, 0.045, -0.23],
@@ -138,6 +140,10 @@ export const GUN_POSES14 = {
   ),
 };
 export const TOOL_POSES14 = {
+  syringe: {right:new V(.067,.075,.04),rightQ:RIGHT14,left:new V(-.12,.03,-.045),leftQ:LEFT14,grip:.72,leftGrip:.2},
+  antiseptic: {right:new V(.085,.07,.04),rightQ:RIGHT14,left:new V(-.09,.07,.025),leftQ:LEFT14,grip:.72,leftGrip:.6},
+  medkit: {right:new V(.17,.08,.065),rightQ:RIGHT14,left:new V(-.16,.07,.045),leftQ:LEFT14,grip:.55,leftGrip:.55},
+  traumaKit: {right:new V(.19,.08,.075),rightQ:RIGHT14,left:new V(-.18,.07,.055),leftQ:LEFT14,grip:.55,leftGrip:.55},
   axe: {
     right: new V(0.056, 0.1, 0.025),
     rightQ: RIGHT14,

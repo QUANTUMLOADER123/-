@@ -5,7 +5,7 @@ import {terrainHeight,buildingHeight} from './state.js';
 const V=THREE.Vector3;
 export function installTargeting(World){World.prototype.target=function(state,query={}){
  this.refreshDead05?.(state);const dead=this.deadIds05||new Set(state.depleted);const gun=!!query.ballistic||isGun(state.selected),origin=query.origin||this.camera.position,direction=query.direction||this.camera.getWorldDirection(new V()),range=query.range??(isGun(state.selected)?WEAPONS[state.selected].range:5.2),raycaster=new THREE.Raycaster(origin,direction,0,range);let best=null,nearest=range;
- const visible=model=>{for(let n=model;n;n=n.parent)if(!n.visible)return false;return true;};
+ const visible=model=>{for(let n=model;n;n=n.parent)if(!n.visible&&!n.userData.distanceCulled16)return false;return true;};
  const modelHit=(obj,model,max=range)=>{if(query.ignore&&obj.id===query.ignore||!model||!visible(model)||Math.hypot(obj.x-origin.x,obj.z-origin.z)>max+3)return;model.updateWorldMatrix(true,true);const hits=raycaster.intersectObject(model,true);for(const h of hits){if(h.distance<nearest&&h.distance<=max){nearest=h.distance;best={...obj,hitPoint:h.point.clone()};break;}}};
  for(const n of this.nearTargets06('nodes',this.nodes,origin.x,origin.z,range)){if(dead.has(n.id))continue;if(n.type==='tree'){
   if(Math.hypot(n.x-origin.x,n.z-origin.z)>(query.ballistic?range+1:5.5))continue;const box=new THREE.Box3(new V(n.x-(n.r||.55),n.y,n.z-(n.r||.55)),new V(n.x+(n.r||.55),n.y+10,n.z+(n.r||.55))),hit=raycaster.ray.intersectBox(box,new V());if(hit){const d=hit.distanceTo(origin);if(d<nearest&&d<(query.ballistic?range:4.5)){nearest=d;best={...n,hitPoint:hit.clone()};}}
