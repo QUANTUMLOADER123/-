@@ -265,6 +265,7 @@ function renderInventory(){
 function drawMap(){drawAtlas36($('map-canvas'),state);}
 $('map-canvas').addEventListener('click',e=>{if(mapDrag36?.moved)return;const point=mapWorldPoint36(e.currentTarget,e);if(!point)return;const {x,z}=point;state.markers??=[];if(state.markers.length>=16){toast('Уже 16 меток. Удали ненужную.');return;}state.markers.push({x,z,label:$('marker-name').value.trim()||'Метка '+(state.markers.length+1)});drawMap();saveGame();});
 $('map-canvas').addEventListener('contextmenu',e=>{e.preventDefault();const point=mapWorldPoint36(e.currentTarget,e);if(!point)return;const {x,z}=point;let index=-1,dist=14/mapProjection36().unit;for(const [i,m]of(state.markers||[]).entries()){const d=Math.hypot(m.x-x,m.z-z);if(d<dist){dist=d;index=i;}}if(index>=0){state.markers.splice(index,1);drawMap();saveGame();}});
+window.addEventListener('resize',()=>{if(activeOverlay==='map')drawMap();});
 let mapDrag36=null;
 const atlasCanvas36=$('map-canvas');
 atlasCanvas36.addEventListener('pointerdown',e=>{if(e.button!==0||!mapWorldPoint36(atlasCanvas36,e))return;mapDrag36={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,moved:false};atlasCanvas36.setPointerCapture(e.pointerId);});
