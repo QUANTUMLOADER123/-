@@ -8,11 +8,11 @@ export function sphere25(k){
  for(let i=0;i<geo.index.count;i+=3){const a=geo.index.getX(i),b=geo.index.getX(i+1),c=geo.index.getX(i+2),x=(pos.getX(a)+pos.getX(b)+pos.getX(c))/3,y=(pos.getY(a)+pos.getY(b)+pos.getY(c))/3,z=(pos.getZ(a)+pos.getZ(b)+pos.getZ(c))/3;if(Math.abs(x)<3&&z>0&&y< -7.5)continue;idx.push(a,b,c);}geo.setIndex(idx);k.mesh(g,geo,shell,[0,cy,0]);
  for(let y=10.7;y<40;y+=2.9){const top=Math.min(40,y+2.9),mid=(y+top)/2,rr=Math.sqrt(Math.max(0,r*r-(mid-cy)**2));if(rr<2)continue;for(let i=0;i<36;i++){const a=(i+.5)/36*Math.PI*2;if(y<15.5&&Math.cos(a)>0&&Math.abs(Math.sin(a)*rr)<3.5)continue;const panel=k.group(g,[Math.sin(a)*rr,mid,Math.cos(a)*rr],a);k.box(panel,[2*rr*Math.tan(Math.PI/36),top-y,.24],[0,0,0],p.rubber,true).visible=false;}}
 
- for(const a of [0,Math.PI/2,Math.PI,Math.PI*1.5]){const x=Math.sin(a)*10.2,z=Math.cos(a)*10.2;k.beam(g,[x,.18,z],[x,12,z],.42,p.cream);k.beam(g,[x,.2,z],[x*.7,11,z*.7],.12,p.metal);}
+ for(const a of [0,Math.PI/2,Math.PI,Math.PI*1.5]){const x=k.m.entrance36&&a===0?4.2:Math.sin(a)*10.2,z=Math.cos(a)*10.2;k.beam(g,[x,.18,z],[x,12,z],.42,p.cream);k.beam(g,[x,.2,z],[x*.7,11,z*.7],.12,p.metal);}
  for(const lat of [-.58,0,.58]){const y=cy+r*Math.sin(lat),rr=r*Math.cos(lat);const ring=k.ring(g,rr,.055,[0,y,0],p.metal);ring.rotation.x=Math.PI/2;}
  // Two usable interior service platforms connected by a real stair and catwalk.
  k.floor(g,12,12,0,0,10.2,p.metal);k.floor(g,5,12,0,10,10.2,p.metal);
- k.stairs(g,{x:0,z:32,y:.18,rise:10.02,width:2,tread:.32});
+ k.stairs(g,{x:0,z:k.m.entrance36?21.2:32,y:.18,rise:10.02,width:2,tread:.32});
  // Stairs end at z=15.68; deck extends to z=16. Floor and stair share y=10.2.
  for(const x of [-2.5,2.5])k.rail(g,[x,0,5],[x,0,16],10.2);
  k.floor(g,10,8,0,-2,17,p.metal);k.stairs(g,{x:3,z:10,y:10.2,rise:6.8,width:1.7,tread:.32});

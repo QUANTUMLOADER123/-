@@ -22,12 +22,14 @@ async function desktopSmoke(){
  await window.webContents.executeJavaScript(`document.querySelector('[data-size="small"]').click();document.querySelector('[data-multiplier="5"]').click();document.querySelector('#bot-limit26').value='0';document.querySelector('#world-create').click()`,true);
  await until(`(()=>{if(!document.querySelector('#entry-error30').hidden)throw new Error(document.querySelector('#entry-error-report30').value);return !!window.oskol?.ready;})()`);
  const facts=await window.webContents.executeJavaScript(`({snapshot:window.oskol.snapshot(),diagnostics:window.oskol.inspect33()})`,true),s=facts.snapshot,d=facts.diagnostics;
- if(s.stats.monuments!==20||s.stats.bases!==120||!s.stats.webgl2||s.multiplier!==5||!s.saved)throw new Error('Incomplete packaged world/save: '+JSON.stringify(s.stats));
- if(d.sites.length!==20||d.sites.some(s=>s.revision!==34||s.sourceParts<140))throw new Error('Incorrect packaged sites (model revision 34 retained in DEV35)');
+ if(s.stats.monuments!==14||s.stats.bases!==120||!s.stats.webgl2||s.multiplier!==5||!s.saved)throw new Error('Incomplete packaged world/save: '+JSON.stringify(s.stats));
+ if(d.sites.length!==14||d.sites.some(s=>s.revision!==36||s.sourceParts<450))throw new Error('Incorrect packaged sites (model revision 36)');
  if(d.rocks.wrong||d.rocks.mineable<100||d.weapons.length!==16||d.weapons.some(w=>w.revision!==34))throw new Error('Incorrect packaged rocks/weapons');
- if(d.recyclers.length!==20||d.recyclers.some(r=>!r.stations.some(s=>s.approach)))throw new Error('Incomplete packaged recycler coverage');
- await window.webContents.executeJavaScript(`document.querySelector('#inventory-button').click()`,true);await until(`window.oskol.snapshot().overlay==='inventory'`);
+ if(d.recyclers.length!==14||d.recyclers.some(r=>!r.stations.some(s=>s.approach)))throw new Error('Incomplete packaged recycler coverage');
+ const entrances=await window.webContents.executeJavaScript(`window.oskol.inspect36()`,true);if(entrances.entrances.length!==12||entrances.entrances.some(e=>!e.clear||!e.walkClear))throw new Error('Blocked packaged road/gate approach: '+JSON.stringify(entrances));
+ facts.entrances36=entrances;await window.webContents.executeJavaScript(`document.querySelector('#inventory-button').click()`,true);await until(`window.oskol.snapshot().overlay==='inventory'`);
  await window.webContents.executeJavaScript(`document.querySelector('#inventory-close').click()`,true);await until(`window.oskol.snapshot().overlay===null`);
+ await window.webContents.executeJavaScript(`document.querySelector('#map-button').click()`,true);await until(`window.oskol.snapshot().overlay==='map'`);await window.webContents.executeJavaScript(`document.querySelector('#map-zoom-in36').click();document.querySelector('#map-reset36').click();document.querySelector('#map-close').click()`,true);await until(`window.oskol.snapshot().overlay===null`);
  await finishSmoke(0,facts);
 }
 app.whenReady().then(async()=>{

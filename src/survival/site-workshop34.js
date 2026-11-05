@@ -27,6 +27,18 @@ export function workshopKit34(k){
   if(workshop){bench(a,-w*.22,-d*.28,Math.min(2.6,w*.40));k.shelf(a,w*.28,-d*.30,Math.min(2,w*.30));box(a,[.65,.8,.65],[w*.29,.4,d*.15],p.paint,true);}
   if(roofAccess){const sx=w/2+1.1,sz=d/2,steps=18,tread=.32,top=sz-steps*tread;k.stairs(a,{x:sx,z:sz,y:.025,rise:h+.105,width:1.6,steps,tread});k.floor(a,2.4,2.0,w/2+.6,top,h+.13,p.metal);for(const side of[-1,1])k.rail(a,[-w/2,0,side*d/2],[w/2,0,side*d/2],h+.13);k.rail(a,[-w/2,0,-d/2],[-w/2,0,d/2],h+.13);box(a,[1.2,.65,1.0],[0,h+.455,-d*.2],p.paint);for(let i=0;i<6;i++)box(a,[.85,.025,.025],[0,h+.30+i*.07,-d*.2+.51],p.rubber);}
   if(roofAccess&&!k.m.safe){k.roofCrate34=(k.roofCrate34||100)+1;k.crate(a,k.roofCrate34,[-w*.28,h+.13,-d*.25]);}
+  if(k.m.entrance36){
+   // Fitted interiors: real openings stay clear, no opaque room-sized collider.
+   box(a,[door+.5,.11,1.05],[0,2.92,d/2+.38],p.paint);for(const side of[-1,1]){k.beam(a,[side*(door/2+.12),2.48,d/2+.03],[side*(door/2+.12),2.88,d/2+.8],.025,p.rust);for(let i=0;i<3;i++)k.cyl(a,.04,.04,.14,[side*(door/2+.05),.5+i*.8,d/2+.12],p.rust);}
+   for(let i=0;i<8;i++){box(a,[.12,.58,.065],[-w/2+.18,.68,-d*.20+i*.12],p.cream);k.cyl(a,.035,.035,.72,[-w/2+.18,.68,-d*.20+i*.12],p.metal);}
+   pipe(a,[[-w/2+.18,.30,-d*.22],[-w/2+.18,.30,-d*.22+1],[-w/2+.18,.08,-d*.22+1]],.028,p.rust);
+   for(const side of[-1,1]){box(a,[1.15,.09,.24],[side*w*.22,h-.18,0],p.light);for(const zz of[-.4,.4])k.beam(a,[side*w*.22,h+.02,zz],[side*w*.22,h-.13,0],.012,p.rust);}
+   pipe(a,[[w*.38,.16,-d*.32],[w*.38,h-.32,-d*.32],[w*.38,h-.32,d*.30]],.035,p.metal);for(let i=0;i<6;i++)box(a,[.19,.04,.08],[w*.38,h-.32,-d*.30+i*d*.1],p.rust);
+   if(workshop){const x=-w*.25,z=-d*.02;box(a,[.6,.08,.58],[x,.52,z],p.wood,true);box(a,[.6,.65,.07],[x,.88,z+.27],p.wood,true);for(const xx of[-.23,.23])for(const zz of[-.22,.22])k.beam(a,[x+xx,.06,z+zz],[x+xx,.48,z+zz],.022,p.rust);}
+   const ext=k.cyl(a,.105,.105,.52,[w/2-.4,1.12,d/2-.28],p.red,false,12);k.ring(a,.13,.018,[w/2-.4,1.43,d/2-.28],p.metal);pipe(a,[[w/2-.3,1.39,d/2-.28],[w/2-.18,1.32,d/2-.28],[w/2-.18,.91,d/2-.28]],.018,p.rubber);
+   for(let i=0;i<Math.ceil(w/1.3);i++)for(const side of[-1,1])k.cyl(a,.018,.018,.035,[-w/2+.35+i*1.3,h-.18,side*(d/2+.11)],p.metal,false,6).rotation.x=Math.PI/2;
+   a.userData.interior36=true;
+  }
   a.userData.building34=true;return a;
  };
  const processTank=(x,z,r=2,h=4)=>{const a=k.tank(g,x,z,r,h,p.paint);pipe(a,[[r*.7,.7,r*.7],[r+1,.7,r*.7],[r+1,.7,r+1.5]],.12);k.valve(a,r+.85,.95,r+1.5);panel(a,-r*.5,1.4,r+.12);for(let i=0;i<8;i++){const angle=i*Math.PI/4;k.cyl(a,.035,.035,.05,[Math.cos(angle)*.30,h+.50,Math.sin(angle)*.30],p.metal,false,6);}return a;};
@@ -34,7 +46,7 @@ export function workshopKit34(k){
  const yard=(r)=>{for(const side of[-1,1]){k.pallet(g,side*r*.52,r*.38);for(let i=0;i<4;i++){const scrap=box(g,[.42+i*.09,.045,.28],[side*(r*.52+(i%2)*.32),.23+(i%2)*.05,r*.40+i*.18],i%2?p.wood:p.rust);scrap.rotation.y=i*1.13;}for(let i=0;i<3;i++){const patch=k.mesh(g,new THREE.CircleGeometry(.28+i*.14,7),p.asphalt,[side*r*.47,.196,r*.18+i*.65]);patch.rotation.x=-Math.PI/2;patch.scale.y=.48;}}
   k.floor(g,r*1.36,r*1.36,0,0,.18,p.concrete);
   // Close the apron underside on older sloping saves, rather than floating slabs/posts.
-  g.updateWorldMatrix(true,false);const half=r*.68;for(const side of[-1,1])for(const axis of[0,1]){const samples=[-half,0,half].map(t=>{const v=new THREE.Vector3(axis?side*half:t,0,axis?t:side*half).applyMatrix4(g.matrixWorld);return terrainHeight(v.x,v.z)-g.position.y;});const bottom=Math.min(-.18,...samples)-.12,height=.17-bottom;box(g,axis?[.22,height,r*1.36]:[r*1.36,height,.22],axis?[side*half,bottom+height/2,0]:[0,bottom+height/2,side*half],p.concrete,true);}
+  g.updateWorldMatrix(true,false);const half=r*.68;for(const side of[-1,1])for(const axis of[0,1]){const samples=[-half,0,half].map(t=>{const v=new THREE.Vector3(axis?side*half:t,0,axis?t:side*half).applyMatrix4(g.matrixWorld);return terrainHeight(v.x,v.z)-g.position.y;});const bottom=Math.min(-.18,...samples)-.12,height=.17-bottom;if(k.m.entrance36&&!axis&&side===1){const span=half-3.2;for(const dir of[-1,1])box(g,[span,height,.22],[dir*(3.2+span/2),bottom+height/2,half],p.concrete,true);}else box(g,axis?[.22,height,r*1.36]:[r*1.36,height,.22],axis?[side*half,bottom+height/2,0]:[0,bottom+height/2,side*half],p.concrete,true);}
   for(const side of[-1,1]){for(let i=0;i<4;i++)box(g,[1.1,.016,.10],[side*(r*.48),.195,r*.15+i*.45],i%2?p.yellow:p.rubber);k.lamp(g,side*r*.59,r*.47,3.5);}const a=k.group(g,[r*.54,.18,-r*.52]);box(a,[1.3,1.6,.55],[0,.8,0],p.paint,true);panel(a,0,1,.3);cable(a,[0,1.8,0],[-2.2,2.0,0],.3);};
  return{building,pipe,cable,panel,pump,bench,processTank,pipeRack,yard};
 }

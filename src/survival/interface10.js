@@ -1,3 +1,4 @@
+import {drawAtlas36} from './cartography36.js';
 import {paintLoading11,startGallery11,nextGallery11,startMenuGallery15,stopMenuGallery15} from './loading11.js';
 import {MAP_SIZES,MAP_SEED,WORLD_RADIUS,ROADS,MONUMENTS} from './map-data.js';
 import {terrainHeight} from './state.js';
@@ -58,7 +59,7 @@ export function refreshFront10(saved){
  $('world-select10').setAttribute('aria-label',saved?'Продолжить сохранённый мир':'Открыть создание нового мира');
  if(!$('front-play10').hidden)drawFrontMap10();
 }
-const previewKey11=s=>s?s.size+':'+s.seed+':'+s.contentRevision+':roads10':null;
+const previewKey11=s=>s?s.size+':'+s.seed+':'+s.contentRevision+':atlas36':null;
 let previewWorld11=null;
 function drawFrontMap10(){
  const c=$('front-map10'),ctx=c.getContext('2d');ctx.fillStyle='#1a241b';ctx.fillRect(0,0,c.width,c.height);
@@ -67,20 +68,7 @@ function drawFrontMap10(){
  try{const cached=JSON.parse(localStorage.getItem('oskol.map-preview11'));if(!cached||cached.key!==previewKey11(previewWorld11)||typeof cached.image!=='string'||!cached.image.startsWith('data:image/jpeg;'))return;const key=cached.key,img=new Image();img.onload=()=>{if(key!==previewKey11(previewWorld11))return;ctx.drawImage(img,0,0,c.width,c.height);$('front-map-note10').textContent='СОХРАНЁННЫЙ ПРЕДПРОСМОТР · БЕЗ ГЕНЕРАЦИИ В МЕНЮ';};img.src=cached.image;}catch{}
 }
 export function cacheMapPreview11(state){
- const c=$('front-map10');renderTerrainPreview11();try{localStorage.setItem('oskol.map-preview11',JSON.stringify({key:previewKey11(state),image:c.toDataURL('image/jpeg',.7)}));}catch{}
-}
-function renderTerrainPreview11(){
- const c=$('front-map10'),ctx=c.getContext('2d'),s=c.width/(WORLD_RADIUS*2.18),ox=c.width/2,oz=c.height/2,step=WORLD_RADIUS/48;
- ctx.fillStyle='#263b3d';ctx.fillRect(0,0,c.width,c.height);
- for(let x=-WORLD_RADIUS;x<WORLD_RADIUS;x+=step)for(let z=-WORLD_RADIUS;z<WORLD_RADIUS;z+=step){
-  const h=terrainHeight(x,z);if(h<.1)continue;const b=biomeAt(x,z).id;
-  ctx.fillStyle=h<.85?'#b5ab89':b==='snow'?'#c5cec9':b==='arid'?'#ad9569':'#65735a';ctx.fillRect(ox+x*s,oz+z*s,step*s+1,step*s+1);
- }
- ctx.lineWidth=1;ctx.strokeStyle='#d6c6a2a6';
- for(const path of Object.values(ROADS)){ctx.beginPath();path.forEach((p,i)=>i?ctx.lineTo(ox+p.x*s,oz+p.z*s):ctx.moveTo(ox+p.x*s,oz+p.z*s));ctx.stroke();}
- for(const m of MONUMENTS){if(m.kind==='oilrig')continue;ctx.fillStyle=m.safe?'#a7ce6b':'#d3c9ac';ctx.fillRect(ox+m.x*s-1.5,oz+m.z*s-1.5,3,3);}
- ctx.strokeStyle='#c8d0bc14';ctx.lineWidth=1;for(let i=0;i<c.width;i+=c.width/8){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,c.height);ctx.moveTo(0,i);ctx.lineTo(c.width,i);ctx.stroke();}
- ctx.fillStyle='#e0dfd3';ctx.font='bold 13px sans-serif';ctx.fillText('N ↑',c.width-36,22);
+ const c=$('front-map10'),atlas=document.createElement('canvas');atlas.width=600;atlas.height=520;drawAtlas36(atlas,state);c.getContext('2d').drawImage(atlas,0,0,c.width,c.height);try{localStorage.setItem('oskol.map-preview11',JSON.stringify({key:previewKey11(state),image:c.toDataURL('image/jpeg',.7)}));}catch{}
 }
 export function installInterface10(){
  $('loading-next-art11').addEventListener('click',nextGallery11);

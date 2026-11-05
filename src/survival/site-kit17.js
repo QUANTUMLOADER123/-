@@ -18,6 +18,7 @@ export function siteMaterials17(w){
 /** Local +Z is the entrance. Yaw points it towards a road, not an arbitrary
  * cardinal direction. Offshore/harbour can supply their own coast-facing yaw. */
 export function approachYaw17(m){
+ if(Number.isFinite(m.yaw36))return m.yaw36;
  let best=null,dist=Infinity;
  for(const path of Object.values(ROADS))for(let i=1;i<path.length;i++){
   const a=path[i-1],b=path[i],dx=b.x-a.x,dz=b.z-a.z,n=dx*dx+dz*dz;if(n<.0001)continue;
@@ -96,7 +97,7 @@ export class Site17{
   // Batching leaves empty construction groups behind. They carry no gameplay
   // objects, yet otherwise pay a transform/traversal cost on every frame.
   const prune=parent=>{for(const child of [...parent.children]){if(child.isGroup&&!this.keep.has(child)){prune(child);if(!child.children.length)child.removeFromParent();}}};prune(this.root);
-  this.m.entry17=this.m.kind==='oilrig'?this.m.dock:this.root.localToWorld(new V(0,.18,this.m.radius/(this.m.siteScale25||1)*.72+1.4));
-  w.siteLayouts17??=[];w.siteLayouts17.push({id:this.m.id,kind:this.m.kind,revision:this.root.userData.siteRevision34||17,sourceParts:this.sourceParts34||0,yaw:this.root.rotation.y,colliders:this.solids.length,floors:this.floors.length,loot:this.loot.length});
+  this.m.entry17=this.m.entrance36?this.root.localToWorld(new V(0,.18,this.m.radius/(this.m.siteScale25||1)*.68)):this.m.kind==='oilrig'?this.m.dock:this.root.localToWorld(new V(0,.18,this.m.radius/(this.m.siteScale25||1)*.72+1.4));
+  w.siteLayouts17??=[];w.siteLayouts17.push({id:this.m.id,kind:this.m.kind,revision:this.root.userData.siteRevision36||this.root.userData.siteRevision34||17,entrance36:this.m.entrance36?{...this.m.entrance36}:undefined,approach36:this.m.approach36?{...this.m.approach36}:undefined,detail36:this.root.userData.detail36,sourceParts:this.sourceParts34||0,yaw:this.root.rotation.y,colliders:this.solids.length,floors:this.floors.length,loot:this.loot.length});
  }
 }

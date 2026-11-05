@@ -95,10 +95,10 @@ export function roadNetwork18({scale,seed,monuments,height=null,maxShortcutGrade
   for(const candidate of order){for(const h of candidate.hosts.slice(0,32)){const path=route(candidate.p,h.q);if(path){chosen={...candidate,h,path};break;}}if(chosen)break;}
   // Dense new islands can put the preferred gate in a pocket enclosed by
   // neighbouring RT bounds. Try a different perimeter gate, never drive through RT.
-  if(!chosen&&cellStep<8)outerGate32:for(const candidate of order){const m=sites.find(m=>m.id===candidate.p.id),r=m.radius+10;for(let i=0;i<48;i++){const a=i*Math.PI/24,gate={x:m.x+Math.sin(a)*r,z:m.z+Math.cos(a)*r};if(!clearPoint(gate)||nearest(gate).length<2)continue;for(const h of hosts(gate).slice(0,32)){const path=route(gate,h.q);if(path){chosen={p:candidate.p,h,path};break outerGate32;}}}}
+  if(!chosen&&cellStep<8)outerGate32:for(const candidate of order){const m=sites.find(m=>m.id===candidate.p.id),r=m.radius+10;for(let i=0;i<48;i++){const a=i*Math.PI/24,gate={x:m.x+Math.sin(a)*r,z:m.z+Math.cos(a)*r};if(!clearPoint(gate)||nearest(gate).length<2)continue;for(const h of hosts(gate).slice(0,32)){const path=route(gate,h.q);if(path){Object.assign(candidate.p,gate);chosen={p:candidate.p,h,path};break outerGate32;}}}}
   if(!chosen)throw new Error('Не удалось соединить подъезды РТ');
   const {p,h}=chosen;
-  if(h.d<.02){remaining.splice(remaining.indexOf(p),1);continue;}
+  if(h.d<.02){Object.assign(p,{x:h.q.x,z:h.q.z});remaining.splice(remaining.indexOf(p),1);continue;}
   let path=chosen.path,connection=null;
   // Stop at the FIRST existing road crossed: no overlaid shared stretches and
   // no accidentally closed loop when the search finds an earlier connection.
@@ -116,5 +116,5 @@ export function roadNetwork18({scale,seed,monuments,height=null,maxShortcutGrade
   let incident=0;for(const host of Object.values(roads))if(host.some(q=>distance(q,p)<.01))incident++;
   if(incident>1)joints.set(p.x.toFixed(3)+':'+p.z.toFixed(3),{x:p.x,z:p.z});
  }
- return {roads,junctions:[...joints.values()]};
+ return {roads,junctions:[...joints.values()],gates:gates.map(p=>({id:p.id,x:p.x,z:p.z}))};
 }
