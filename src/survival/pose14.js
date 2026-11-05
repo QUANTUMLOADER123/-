@@ -219,6 +219,8 @@ export const TOOL_POSES14 = {
     left: false,
   },
 };
+TOOL_POSES14.pipeBomb=TOOL_POSES14.beancan;
+TOOL_POSES14.breachingCharge=TOOL_POSES14.timedCharge;
 export function makeMotion14(state) {
   return {
     selected: state?.selected || null,

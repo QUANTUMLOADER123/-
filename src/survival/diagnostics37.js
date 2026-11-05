@@ -1,0 +1,3 @@
+import {ITEMS37,EXPLOSIVES37} from './items37.js';
+/** Read-only runtime evidence; no item grants or state mutations. */
+export function diagnostics37(w,s){return{items:Object.keys(ITEMS37),copperNodes:(w.nodes||[]).filter(n=>n.type==='copperOre').length,weapons:Object.entries(w.weaponViews||{}).map(([id,m])=>({id,...m.userData.detail37})),explosives:Object.keys(EXPLOSIVES37),projectiles:(w.projectiles04||[]).map(p=>({kind:p.kind,age:p.age,fuse:p.fuse,stuck:p.stuck})),actors:(w.bots||[]).filter(b=>b.actor26).map(b=>({id:b.id,mode:b.mode,hp:b.hp,clip:b.actor26.clip37||0,reloadUntil:b.actor26.reloadUntil37||0,healing:!!b.action37})),revision:37};}

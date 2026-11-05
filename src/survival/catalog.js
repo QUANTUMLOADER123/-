@@ -1,4 +1,4 @@
-import {ITEMS33,RECIPES33} from './items33.js';
+import {ITEMS33,RECIPES33} from './supplies37.js';
 import {GUNS29} from './weapon-profiles29.js';
 import {MOD_ITEMS25,MOD_RECIPES25,capacityBonus25} from './attachments25.js';
 import {STRUCTURAL,COMPONENTS,NEW_WEAPONS,GUN_COMPONENT_COSTS} from './expansion.js';

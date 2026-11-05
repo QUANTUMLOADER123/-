@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {detailWeapon37} from './weapon-detail37.js';
 import {weaponModel33} from './weapon-models33.js';
 import {WEAPON_FORMS33} from './weapon-profiles33.js';
 /** Salvaged builds reuse the tested canonical moving mechanisms, not factory furniture. */
@@ -8,6 +9,7 @@ export function weaponModel34(id,bank,textures={}){
  if(form.stock==='wood')form.stockShape34=id==='boltRifle'?[[.12,.13],[.24,.18],[.43,.12],[.43,-.064],[.34,-.052],[.21,.015],[.12,.035]]:id==='carbine26'?[[.12,.13],[.22,.15],[.34,.07],[.43,.04],[.43,-.064],[.34,-.052],[.20,.045],[.12,.035]]:id==='semiRifle'?[[.12,.13],[.24,.14],[.43,.10],[.43,-.064],[.35,-.05],[.18,.06],[.12,.035]]:undefined;
  const owned=new Map(),material=(kind,color)=>{const key=kind==='steel'?'steel':kind+':'+color;if(!owned.has(key))owned.set(key,bank(kind==='polymer'?'rust':kind==='rubber'?'cloth':kind,color));return owned.get(key);};
  const m=weaponModel33(id,material,{form,decorate(root,h){
+  detailWeapon37(root,h);
   const {p,mesh,box,ring,rod,steel,dark,wood,alloy}=h,u=root.userData,cloth=bank('cloth',0xa39a7c);cloth.roughness=1;
   const wrap=(parent,z,y,r=.046,count=6)=>{for(let i=0;i<count;i++){const loop=mesh(new THREE.TorusGeometry(r,.0045,5,16),cloth,[0,y,z+i*.011],parent);loop.scale.y=.80;loop.rotation.y=(i%2-.5)*.045;}};
   if(short){for(let i=0;i<5;i++){const loop=mesh(new THREE.TorusGeometry(.043,.004,5,16),cloth,[0,-.055-i*.017,.083]);loop.rotation.x=Math.PI/2;loop.scale.set(.80,1,1);}box([.006,.055,.048],[-.036,-.090,.083],wood,.002);}

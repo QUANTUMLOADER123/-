@@ -9,7 +9,11 @@ export function explosiveModel17(id){
  const cylinder=(r,h,p,m=metal)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,20),m);o.position.set(...p);g.add(o);return o;};
  const wire=(points,m=paint,r=.004)=>{const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));const o=new THREE.Mesh(new THREE.TubeGeometry(curve,20,r,6,false),m);g.add(o);};
  const ring=(r,p,m=metal)=>{const o=new THREE.Mesh(new THREE.TorusGeometry(r,.003,6,20),m);o.position.set(...p);g.add(o);};
- if(id==='timedCharge'||id==='explosives'){
+ if(id==='pipeBomb'){
+  cylinder(.048,.24,[0,0,0],rust);for(const y of[-.124,.124]){cylinder(.055,.018,[0,y,0],metal);cylinder(.057,.004,[0,y+.007,0],rubber);}box([.101,.055,.012],[0,0,.04],material16('paint',0x995747));wire([[0,.135,0],[.025,.175,0],[.045,.18,.01]],cloth,.005);
+ }else if(id==='breachingCharge'){
+  box([.23,.22,.07],[0,0,0],cloth,.018);box([.207,.19,.014],[0,0,-.044],material16('brass',0xa57e52));for(const x of[-.085,.085])box([.018,.225,.08],[x,0,0],rubber);box([.09,.05,.014],[0,.015,.046],paint);box([.062,.019,.003],[0,.02,.055],rubber);wire([[-.03,.11,0],[-.03,.15,0],[.03,.15,0],[.03,.11,0]],cloth,.008);
+ }else if(id==='timedCharge'||id==='explosives'){
   box([.255,.30,.075],[0,0,0]);for(const x of[-.085,.085])box([.027,.306,.084],[x,0,0],rubber,.002);
   box([.145,.105,.034],[0,.015,.052],paint);box([.095,.045,.003],[0,.026,.071],rubber,.001);
   for(let j=0;j<3;j++)box([.014,.024,.002],[-.028+j*.028,.026,.074],new THREE.MeshBasicMaterial({color:0x94b69b}));
@@ -37,5 +41,5 @@ export function explosiveModel17(id){
 export function installExplosives17(World){
  const make=World.prototype.makeViewModel,icon=World.prototype.iconModel04;
  World.prototype.makeViewModel=function(){make.call(this);const old=this.heldSatchel,m=explosiveModel17('satchel');m.position.copy(old.position);m.rotation.copy(old.rotation);m.visible=false;m.traverse(o=>{o.layers.set(1);o.castShadow=false;o.receiveShadow=false;});old.removeFromParent();this.handRoot.add(m);this.heldSatchel=m;};
- World.prototype.iconModel04=function(id){return ['satchel','timedCharge','f1Grenade','beancan','explosives'].includes(id)?explosiveModel17(id):icon.call(this,id);};
+ World.prototype.iconModel04=function(id){return ['satchel','pipeBomb','breachingCharge','timedCharge','f1Grenade','beancan','explosives'].includes(id)?explosiveModel17(id):icon.call(this,id);};
 }

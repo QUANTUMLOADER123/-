@@ -1,3 +1,4 @@
+import {EXPLOSIVES37} from './items37.js';
 import {explosiveModel17} from './explosives17.js';
 import * as THREE from 'three';
 import {terrainHeight} from './state.js';
@@ -8,9 +9,9 @@ function faceNormal(box,point){const choices=[[Math.abs(point.x-box.min.x),new V
 function anchorMatrix(a){if(a.batch&&(!a.model.userData.doorPivot||a.frame)){a.batch.updateWorldMatrix(true,false);return new THREE.Matrix4().multiplyMatrices(a.batch.matrixWorld,a.matrix);}a.model.updateWorldMatrix(true,false);const node=a.model.userData.doorPivot||a.model;node.updateWorldMatrix(true,false);return node.matrixWorld.clone();}
 export function installProjectiles04(World){
  World.prototype.launchProjectile04=function({origin,direction,kind='rocket',explode,fuse=0}){
-  this.projectiles04??=[];const thrown=['f1Grenade','beancan','timedCharge','satchel'].includes(kind),sticky=['timedCharge','satchel'].includes(kind),g=thrown?explosiveModel17(kind):new THREE.Group(),metal=new THREE.MeshStandardMaterial({color:kind==='incendiaryRocket'?0x9a5030:0x59684b,metalness:.55,roughness:.65});
+  this.projectiles04??=[];const thrown=['f1Grenade','beancan','timedCharge','satchel'].includes(kind),sticky=['breachingCharge','timedCharge','satchel'].includes(kind),g=thrown?explosiveModel17(kind):new THREE.Group(),metal=new THREE.MeshStandardMaterial({color:kind==='incendiaryRocket'?0x9a5030:0x59684b,metalness:.55,roughness:.65});
   if(!thrown){const body=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,.55,14),metal);body.rotation.x=Math.PI/2;g.add(body);const nose=new THREE.Mesh(new THREE.ConeGeometry(.057,.17,14),metal);nose.rotation.x=-Math.PI/2;nose.position.z=-.36;g.add(nose);const fire=new THREE.Mesh(new THREE.ConeGeometry(.07,.27,9),new THREE.MeshBasicMaterial({color:0xffb14d}));fire.rotation.x=Math.PI/2;fire.position.z=.4;g.add(fire);}else metal.dispose();
-  g.position.copy(origin);g.quaternion.setFromUnitVectors(new V(0,0,-1),direction);this.scene.add(g);const speed=thrown?10:kind==='hvRocket'?95:55;this.projectiles04.push({model:g,kind,sticky,velocity:direction.clone().multiplyScalar(speed).add(new V(0,thrown?2.4:4.4*50/(2*speed),0)),age:0,fuse,explode,thrown,stuck:false});
+  g.position.copy(origin);g.quaternion.setFromUnitVectors(new V(0,0,-1),direction);this.scene.add(g);const speed=EXPLOSIVES37[kind]?.speed||(thrown?10:kind==='hvRocket'?95:55);this.projectiles04.push({model:g,kind,sticky,velocity:direction.clone().multiplyScalar(speed).add(new V(0,thrown?2.4:4.4*50/(2*speed),0)),age:0,fuse,explode,thrown,stuck:false});
  };
  World.prototype.updateProjectiles04=function(dt){
   this.refreshDead05?.(this.state04);const dead=this.deadIds05||new Set(this.state04?.depleted||[]);

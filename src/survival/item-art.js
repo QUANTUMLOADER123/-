@@ -1,6 +1,17 @@
 // DEV26: all 155 original inventory IDs, individually generated using the approved reference.
 // Additional DEV26 equipment uses explicitly shared category art, not new AI generations.
 export const ITEM_ART=Object.freeze({
+  breachingCharge: 'assets/items37/breachingCharge.webp?v=302a290337',
+  burnSalve: 'assets/items37/burnSalve.webp?v=e95a986e55',
+  copperIngot: 'assets/items37/copperIngot.webp?v=84af8cee59',
+  copperOre: 'assets/items37/copperOre.webp?v=0ac8442ba7',
+  electrolyteDrink: 'assets/items37/electrolyteDrink.webp?v=49a0388140',
+  energyGel: 'assets/items37/energyGel.webp?v=36ab7daa07',
+  hemostaticPack: 'assets/items37/hemostaticPack.webp?v=d858a81a94',
+  insulatedWire: 'assets/items37/insulatedWire.webp?v=2edfb2cbe2',
+  pipeBomb: 'assets/items37/pipeBomb.webp?v=e5d6ee7f00',
+  proteinRation: 'assets/items37/proteinRation.webp?v=8bda40d49c',
+
   bearingSet: 'assets/items33/bearingSet.webp?v=676f1c7f76',
   berryJuice: 'assets/items33/berryJuice.webp?v=304777e550',
   copperWire: 'assets/items33/copperWire.webp?v=a517a396f0',

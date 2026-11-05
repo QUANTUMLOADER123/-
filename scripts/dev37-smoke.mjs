@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {spawn} from 'node:child_process';
+import {launchBrowser} from './browser-runtime.mjs';
+import {newGame,encodeSave,SAVE_KEY} from '../src/survival/state.js';
+import {syncSlots} from '../src/survival/inventory.js';
+import {ITEMS37,USE37,EXPLOSIVES37} from '../src/survival/items37.js';
+let server,browser;const root=process.env.SMOKE_URL||'http://localhost:3000',errors=[],evidence={};await mkdir('.artifacts/dev37',{recursive:true});
+try{
+ if(!process.env.SMOKE_URL){server=spawn(process.execPath,['scripts/serve.mjs'],{stdio:['ignore','pipe','inherit']});await new Promise((resolve,reject)=>{server.once('error',reject);server.stdout.once('data',resolve);server.once('exit',code=>{if(code)reject(new Error('Server '+code));});});}
+ browser=await launchBrowser();const page=await browser.newPage({viewport:{width:1280,height:720}});page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});page.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
+ const s=newGame({size:'small',botLimit26:16});s.health=20;s.hunger=30;s.thirst=30;for(const id in ITEMS37)s.inventory[id]=2;syncSlots(s);
+ await page.addInitScript(({key,save})=>{if(!sessionStorage.getItem('dev37-fixture')){localStorage.setItem(key,save);sessionStorage.setItem('dev37-fixture','yes');}localStorage.setItem('oskol.settings',JSON.stringify({quality:'low',sound:false,haptics:false}));},{key:SAVE_KEY,save:encodeSave(s)});
+ async function ready(){await page.waitForFunction(()=>window.oskol?.ready||!document.querySelector('#entry-error30').hidden,null,{timeout:300000});assert.ok(await page.evaluate(()=>window.oskol?.ready),await page.locator('#entry-error-report30').inputValue());}
+ await page.goto(root+'/?quality=low');await page.waitForFunction(()=>window.oskol?.menuReady);await page.locator('#start').click();await ready();
+ evidence.content=await page.evaluate(()=>window.oskol.inspect37());assert.equal(evidence.content.items.length,10);assert.ok(evidence.content.copperNodes>5);assert.equal(evidence.content.weapons.length,16);assert.ok(evidence.content.weapons.every(w=>w.revision===37&&w.batched));assert.ok(evidence.content.actors.length>=16);
+ await page.keyboard.press('KeyI');await page.screenshot({timeout:120000,path:'.artifacts/dev37/inventory.png'});
+ for(const id in ITEMS37){const loaded=await page.locator('#inventory-content img').evaluateAll((images,id)=>images.some(i=>i.src.includes('/items37/'+id+'.webp')&&i.complete&&i.naturalWidth===256),id);assert.ok(loaded,id+' real icon loaded');}
+ async function use(id){const slot=await page.evaluate(id=>window.oskol.snapshot().slots.findIndex(s=>s?.item===id),id);assert.ok(slot>=0,id);await page.locator('[data-slot="'+slot+'"]').click();await page.locator('[data-slot-action="use"]').click();}
+ for(const id in USE37){await use(id);assert.equal(await page.evaluate(id=>window.oskol.snapshot().inventory[id],id),1,id+' consumed once');}
+ await page.locator('#inventory-close').click();
+ for(const kind in EXPLOSIVES37){await page.keyboard.press('KeyI');await use(kind);await page.locator('#inventory-close').click();const before=await page.evaluate(()=>window.oskol.inspect37().input.elapsed);await page.waitForFunction(t=>window.oskol.inspect37().input.elapsed>t+.12&&window.oskol.inspect37().input.attackCooldown===0,before);await page.keyboard.press('KeyF');await page.waitForFunction(kind=>window.oskol.inspect37().projectiles.some(p=>p.kind===kind),kind,{timeout:15000});const projectile=await page.evaluate(kind=>window.oskol.inspect37().projectiles.find(p=>p.kind===kind),kind);assert.equal(projectile.fuse,EXPLOSIVES37[kind].fuse);assert.equal(await page.evaluate(kind=>window.oskol.snapshot().inventory[kind],kind),1);evidence[kind]=projectile;await page.waitForFunction(kind=>!window.oskol.inspect37().projectiles.some(p=>p.kind===kind),kind,{timeout:60000});assert.equal(await page.evaluate(()=>window.oskol.snapshot().saved),true);}
+ evidence.beforeReload=await page.evaluate(()=>window.oskol.snapshot());await page.reload();await page.waitForFunction(()=>window.oskol?.menuReady);await page.locator('#start').click();await ready();const restored=await page.evaluate(()=>window.oskol.snapshot());for(const id of [...Object.keys(USE37),...Object.keys(EXPLOSIVES37)])assert.equal(restored.inventory[id],1,id+' persists');assert.equal(restored.inventory.copperOre,2);assert.equal(restored.saved,true);assert.deepEqual(errors,[]);evidence.errors=errors;evidence.restored={inventory:restored.inventory,saved:restored.saved};await writeFile('.artifacts/dev37/smoke-results.json',JSON.stringify(evidence,null,2));console.log('DEV37 browser: ten icons, sixteen detailed guns, active settlers, five consumables, two real fused throws and save/reload PASS');
+}finally{await browser?.close();server?.kill();}

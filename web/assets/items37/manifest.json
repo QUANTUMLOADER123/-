@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "source": "Ten original individually AI-generated hand-painted game inventory icons, magenta cutout",
+  "items": {
+    "energyGel": {
+      "sha256": "36ab7daa0708363125c3e76f1430d71f5ee3c4c4ad905947e1a2cefa82815cd2",
+      "file": "energyGel.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "proteinRation": {
+      "sha256": "8bda40d49cf87b467f5222d9cd0a0ecf955c54440ac5e127aea45e2397718827",
+      "file": "proteinRation.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "hemostaticPack": {
+      "sha256": "d858a81a9489c22b30d39760a2fac37a9882047c4d1d556ccb09f0ce7c70219b",
+      "file": "hemostaticPack.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "burnSalve": {
+      "sha256": "e95a986e555da578b5849c1fd14945fbff3d63f6ac4da4eef68f1aef4cf50840",
+      "file": "burnSalve.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "electrolyteDrink": {
+      "sha256": "49a03881408e822726d05c1d85f8c7bc2590099097505e1195d32612dad124ac",
+      "file": "electrolyteDrink.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "insulatedWire": {
+      "sha256": "2edfb2cbe2e629def6fa7f15de254784e7c9be8d11e3dce20c6e9031bc1c8402",
+      "file": "insulatedWire.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "copperIngot": {
+      "sha256": "84af8cee59bd27e32afa37d5fa7ce4b01896a0d61b3a58406e651fb94f16479d",
+      "file": "copperIngot.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "copperOre": {
+      "sha256": "0ac8442ba7c1a88ceb36fc8f93a318f33da7742053d901dadb68914913295995",
+      "file": "copperOre.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "pipeBomb": {
+      "sha256": "e5d6ee7f00360f6702127a3dd7b10ce348ddac6d02cb3c23af28eec95cc81e1e",
+      "file": "pipeBomb.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    },
+    "breachingCharge": {
+      "sha256": "302a2903372ed216929cdea24f86b0fc6081f42743c2efc5333ce68431996edb",
+      "file": "breachingCharge.webp",
+      "width": 256,
+      "height": 256,
+      "alpha": true
+    }
+  }
+}

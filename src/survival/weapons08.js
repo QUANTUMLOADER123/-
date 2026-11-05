@@ -29,7 +29,7 @@ export function installWeapons08(World){const make=World.prototype.makeNewViewMo
   if(!gun){const right=this.rightHand04,left=this.leftHand04,grips=this.weaponViews.rifle.userData.grips08;
    if(['axe','pickaxe','hammer','torch'].includes(id)){right.position.set(id==='torch'?.08:.055,.12,.045);right.quaternion.copy(grips.qRight);poseFingers08(right,.95);}
    else if(id==='rock'){right.position.set(.18,.17,.01);left.position.set(-.15,.005,-.025);right.quaternion.copy(grips.qRight);left.quaternion.copy(grips.qLeft);poseFingers08(right,.75);poseFingers08(left,.6);}
-   else if(['satchel','timedCharge','f1Grenade','beancan'].includes(id)){right.position.set(.13,.10,.045);left.position.set(-.16,.005,-.025);right.quaternion.copy(grips.qRight);left.quaternion.copy(grips.qLeft);poseFingers08(right,.7);poseFingers08(left,.65);}
+   else if(['satchel','pipeBomb','breachingCharge','timedCharge','f1Grenade','beancan'].includes(id)){right.position.set(.13,.10,.045);left.position.set(-.16,.005,-.025);right.quaternion.copy(grips.qRight);left.quaternion.copy(grips.qLeft);poseFingers08(right,.7);poseFingers08(left,.65);}
    solveArm08(this.armRigs08[0],right.position);solveArm08(this.armRigs08[1],left.position);
   }
   if(state.swimming){this.handRoot.position.y-=.25;for(const r of this.armRigs08)r.root.visible=false;this.leftHand04.visible=false;}

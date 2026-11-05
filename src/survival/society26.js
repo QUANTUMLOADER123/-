@@ -2,6 +2,7 @@
  * No network/LLM, no off-screen income or loot teleportation. World adapter owns visuals.
  */
 import * as THREE from 'three';
+import {utility37,cover37,botShotReady37,recordBotShot37} from './behavior37.js';
 import {BOT_BASES,MONUMENTS,safeZoneAt,distanceToRoad} from './map-data.js';
 import {terrainHeight,harvest,RECIPES,BUILD_KINDS,TIERS} from './state.js';
 import {WEAPONS,BUILD_COSTS,isGun} from './catalog.js';
@@ -79,8 +80,8 @@ function candidate(w,s,b,f){
  if(b.phase%5===0&&s.elapsed>(b.ambushAt26||0)){const m=MONUMENTS.filter(m=>!m.safe&&m.kind!=='oilrig'&&dist(b,m)<220).sort((a,c)=>dist(b,a)-dist(b,c))[0];if(m){b.ambushAt26=s.elapsed+180;const dx=b.x-m.x,dz=b.z-m.z,d=Math.hypot(dx,dz)||1;return{x:m.x+dx/d*(m.radius+5),z:m.z+dz/d*(m.radius+5),kind:'ambush',at:s.elapsed};}}
  const corpses=(s.groundBags||[]).filter(p=>!s.depleted.includes(p.id)&&count(s.containers[p.id]||{})>0&&dist(b,p)<75);if(corpses.length){corpses.sort((a,c)=>dist(a,b)-dist(c,b));return{...corpses[0],kind:'loot',at:s.elapsed};}
  const crates=w.crates26.filter(c=>!s.depleted.includes(c.id)&&!s.looted.includes(c.id)&&!c.owner&&!c.settlement&&!(b.ignore26?.id===c.id&&s.elapsed<b.ignore26.until)&&dist(b,c)<170&&Math.abs((c.y??terrainHeight(c.x,c.z))-terrainHeight(c.x,c.z))<3);crates.sort((a,c)=>dist(a,b)-dist(c,b));if(crates.length&&((Number(b.id.split('-').at(-1))%3===0)||count(store)>600))return{...crates[0],model:undefined,kind:'loot',at:s.elapsed};
- const want=(store.wood||0)<120?'tree':(store.stone||0)<65?'rock':(store.sulfurOre||0)<55?'sulfurOre':(store.metalOre||0)<60?'metalOre':(store.fiber||0)<45?'fiber':(store.berries||0)<20?'berries':'tree';let nearest=null,score=Infinity;
- const ix=Math.floor(b.x/80),iz=Math.floor(b.z/80);for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++)for(const n of w.resources26.get((ix+x)+':'+(iz+z))||[]){if(s.depleted.includes(n.id)||s.nodeDamage[n.id]===0||safeZoneAt(n.x,n.z)||b.ignore26?.id===n.id&&s.elapsed<b.ignore26.until)continue;const q=dist(b,n)+(n.type===want?0:100);if(q<score&&['tree','rock','metalOre','sulfurOre','fiber','berries','mushroom','corn','pumpkin'].includes(n.type)){score=q;nearest=n;}}
+ const want=(store.wood||0)<120?'tree':(store.stone||0)<65?'rock':(store.sulfurOre||0)<55?'sulfurOre':(store.metalOre||0)<60?'metalOre':(store.copperIngot||0)<12&&(store.copperOre||0)<20?'copperOre':(store.fiber||0)<45?'fiber':(store.berries||0)<20?'berries':'tree';let nearest=null,score=Infinity;
+ const ix=Math.floor(b.x/80),iz=Math.floor(b.z/80);for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++)for(const n of w.resources26.get((ix+x)+':'+(iz+z))||[]){if(s.depleted.includes(n.id)||s.nodeDamage[n.id]===0||safeZoneAt(n.x,n.z)||b.ignore26?.id===n.id&&s.elapsed<b.ignore26.until)continue;const q=dist(b,n)+(n.type===want?0:100);if(q<score&&['tree','rock','copperOre','metalOre','sulfurOre','fiber','berries','mushroom','corn','pumpkin'].includes(n.type)){score=q;nearest=n;}}
  if(nearest)return{x:nearest.x,z:nearest.z,kind:'gather',id:nearest.id,at:s.elapsed};return{...home,kind:'return',at:s.elapsed};
 }
 function processHome(w,s,b,f){
@@ -91,7 +92,8 @@ function processHome(w,s,b,f){
  if(a.gun)transfer(store,a.bag,WEAPONS[a.gun].ammo,Math.max(0,36-(a.bag[WEAPONS[a.gun].ammo]||0)));
  if(!a.bag.satchel&&s.elapsed>=f.nextRaid&&f.raid27?.stage!=='withdraw')transfer(store,a.bag,'satchel',1);
  if(s.elapsed<f.nextCraft)return;f.nextCraft=s.elapsed+8;b.mode='craft';
- if(store.wood>0&&spend(store,{wood:1})){let cycles=0;for(const[ore,product]of [['metalOre','metal'],['sulfurOre','sulfur']]){const n=Math.min(store[ore]||0,2);if(n&&spend(store,{[ore]:n})){add(store,product,n);cycles=Math.max(cycles,n);}}add(store,'charcoal',Math.max(1,cycles));}
+ if(store.wood>0&&spend(store,{wood:1})){let cycles=0;for(const[ore,product]of [['metalOre','metal'],['sulfurOre','sulfur'],['copperOre','copperIngot']]){const n=Math.min(store[ore]||0,2);if(n&&spend(store,{[ore]:n})){add(store,product,n);cycles=Math.max(cycles,n);}}add(store,'charcoal',Math.max(1,cycles));}
+ if((store.bandage||0)<8)craft(store,'bandage');
  if((store.gunpowder||0)<180)craft(store,'gunpowder');
  if((store.ammo||0)<60)craft(store,'ammo');if((store.pistolAmmo||0)<60)craft(store,'pistolAmmo');if((store.satchel||0)<4)craft(store,'satchel');
  if(!store.metalPipe)craft(store,'metalPipe');if(!store.semiBody)craft(store,'semiBody');if(!store.rifle)craft(store,'rifle');
@@ -117,7 +119,7 @@ function combat(w,s,b,dt,damage){
  }
  if(!target){b.seen26=0;return false;}if(f)f.lastContact={x:target.x,z:target.z,at:s.elapsed};b.mode=b.hp<35?'retreat':b.phase%3===0?'ambush':b.phase%3===1?'flank':'attack';
  b.seen26=(b.seen26||0)+dt;b.model.rotation.y=Math.atan2(target.x-b.x,target.z-b.z);const gun=WEAPONS[a.gun],ammo=gun?.ammo;
- if(b.crouch27)return true;if(b.hp<35||!gun||!(a.bag[ammo]>0)){if(b.holdPosition27)return true;const away={x:b.x+(b.x-target.x)/Math.max(1,best)*12,z:b.z+(b.z-target.z)/Math.max(1,best)*12};move(w,s,b,away,dt,3.1);return true;}
+ if(b.crouch27)return true;if(b.hp<55&&!b.holdPosition27&&cover37(w,s,b,target,dt))return true;if(b.hp<35||!gun||!(a.bag[ammo]>0)){if(b.holdPosition27)return true;const away={x:b.x+(b.x-target.x)/Math.max(1,best)*12,z:b.z+(b.z-target.z)/Math.max(1,best)*12};move(w,s,b,away,dt,3.1);return true;}
  if(!b.holdPosition27&&b.mode==='flank'&&best>12){const q={x:target.x+(target.z-b.z)/Math.max(1,best)*12,z:target.z-(target.x-b.x)/Math.max(1,best)*12};move(w,s,b,q,dt,2.6);}
  if(b.seen26>.55)b.fireTarget29={target,player,until:s.elapsed+(dist(b,s.position)<150?.55:1.15)};
 
@@ -129,7 +131,7 @@ function step(w,s,b,dt,damage){
   if(a.hp<=0){if(!a.respawnAt)kill(w,b,s);if(s.elapsed<a.respawnAt||!a.home)return;const f=s.society26.factions[a.home];a.hp=b.hp=120;a.respawnAt=0;b.dead=false;a.x=b.x=f.depotX;a.z=b.z=f.depotZ;a.food=60;b.goal26=null;log(s,a.id+' возродился без снаряжения.');}
  b.hp=a.hp;b.y=w.floorHeight(b.x,b.z,s,b.y??terrainHeight(b.x,b.z));
  if(s.elapsed>=a.nextFood){a.nextFood=s.elapsed+30;a.food=Math.max(0,a.food-4);if(a.food<65){const food=['berries','corn','pumpkin','mushroom','cannedFood'].find(k=>a.bag[k]);if(food&&spend(a.bag,{[food]:1}))a.food=Math.min(100,a.food+15);}if(a.food===0){a.hp=b.hp=Math.max(0,a.hp-3);if(!a.hp){kill(w,b,s);return;}}}
- if(a.hp<85&&spend(a.bag,{bandage:1})){a.hp=b.hp=Math.min(120,a.hp+15);}
+ if(utility37(w,s,b,dt)){a.x=b.x;a.z=b.z;s.botState[b.id]={hp:a.hp};return;}
  const tactical=w.tacticalOrder27?.(s,b);if(tactical){if(tactical.point)move(w,s,b,tactical.point,dt,tactical.point.local27?2.2:3.4);b.holdPosition27=true;combat(w,s,b,dt,damage);b.mode=tactical.mode;a.x=b.x;a.z=b.z;s.botState[b.id]={hp:a.hp};return;}
  if(combat(w,s,b,dt,damage)){b.goal26=null;b.seenAt26=s.elapsed;}else{
   b.seen26=0;const f=s.society26.factions[a.home];if(!f){b.mode='patrol';move(w,s,b,{x:b.homeX+Math.sin(s.elapsed*.08+b.phase)*4,z:b.homeZ+Math.cos(s.elapsed*.08+b.phase)*4},dt,1.2);}
@@ -152,7 +154,7 @@ export function installSociety26(World){
  const sync=World.prototype.syncState,make=World.prototype.makeBots,animate=World.prototype.animateBot;
  World.prototype.makeBots=function(){make.call(this);};
  World.prototype.spawnSettler26=function(a){const model=this.normalized('Adventurer',1.78),bones={};model.updateMatrixWorld(true);model.traverse(o=>{if(o.isBone){const inverse=o.parent.getWorldQuaternion(new THREE.Quaternion()).invert();bones[o.name]={bone:o,base:o.quaternion.clone(),x:new V(1,0,0).applyQuaternion(inverse),y:new V(0,1,0).applyQuaternion(inverse),z:new V(0,0,1).applyQuaternion(inverse)};}if(o.isMesh&&o.material){o.material=o.material.clone();if(!/skin|face|visor/i.test(o.material.name)){o.material.map=this.textures['items16/cloth-color.webp'];o.material.normalMap=this.textures['items16/cloth-normal.webp'];o.material.roughnessMap=this.textures['items16/cloth-orm.webp'];o.material.roughness=.95;if(!o.geometry.attributes.uv){o.geometry=o.geometry.clone();o.geometry.computeBoundingBox();const box=o.geometry.boundingBox,span=box.getSize(new V()),p=o.geometry.attributes.position,uv=[];for(let i=0;i<p.count;i++)uv.push((p.getX(i)-box.min.x)/Math.max(.001,span.x)*2,(p.getY(i)-box.min.y)/Math.max(.001,span.y)*3);o.geometry.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));}}if(!/skin|face|visor/i.test(o.material.name))o.material.color.set([0xa8b597,0xaaa18e,0x96a9b4][(Number(a.id.split('-').at(-1))||0)%3]);}});this.scene.add(model);const weapon=new THREE.Group();weapon.scale.setScalar(.85);this.scene.add(weapon);return{id:a.id,base:a.home,model,weapon,bones,x:a.x,z:a.z,homeX:a.x,homeZ:a.z,spawnOffset:0,spawnXOffset17:0,y:terrainHeight(a.x,a.z),hp:a.hp,dead:false,mode:'return',phase:this.stringSeed(a.id)%100,alertUntil:0};};
- World.prototype.tickBotShot29=function(s,b){const a=b.actor26,r=b.fireTarget29,gun=WEAPONS[a?.gun];if(!r||!gun||b.dead||b.crouch27||b.workPose29>s.elapsed||s.elapsed>r.until||s.elapsed<a.shotAt||!r.player&&r.target.dead)return;const target=r.player?s.position:r.target;if(r.player&&(s.dead||safeCamp(target.x,target.z)))return;const origin=new V(b.x,b.y+1.4,b.z),end=new V(target.x,r.player?this.camera.position.y-.3:target.y+1.35-(target.crouch27?.45:0),target.z),muzzle=this.botMuzzle29?.(b)||origin;if(this.lineOfSight(origin,muzzle,s)&&this.lineOfSight(muzzle,end,s)&&spend(a.bag,{[gun.ammo]:1})){a.shotAt=s.elapsed+Math.max(.04,gun.interval);this.reportShot27?.(s,muzzle,a.home);this.onGunshot07?.(muzzle,a.gun);b.firedAt29=s.elapsed;this.onBotShot08?.(muzzle,end,b);}};
+ World.prototype.tickBotShot29=function(s,b){const a=b.actor26,r=b.fireTarget29,gun=WEAPONS[a?.gun];if(!r||!gun||!botShotReady37(s,b)||b.dead||b.crouch27||b.workPose29>s.elapsed||s.elapsed>r.until||s.elapsed<a.shotAt||!r.player&&r.target.dead)return;const target=r.player?s.position:r.target;if(r.player&&(s.dead||safeCamp(target.x,target.z)))return;const origin=new V(b.x,b.y+1.4,b.z),end=new V(target.x,r.player?this.camera.position.y-.3:target.y+1.35-(target.crouch27?.45:0),target.z),muzzle=this.botMuzzle29?.(b)||origin;if(this.lineOfSight(origin,muzzle,s)&&this.lineOfSight(muzzle,end,s)&&spend(a.bag,{[gun.ammo]:1})){recordBotShot37(b);a.shotAt=s.elapsed+Math.max(.04,gun.interval);this.reportShot27?.(s,muzzle,a.home);this.onGunshot07?.(muzzle,a.gun);b.firedAt29=s.elapsed;this.onBotShot08?.(muzzle,end,b);}};
  World.prototype.moveBot29=function(s,b,p,dt,speed){return move(this,s,b,p,dt,speed);};
  World.prototype.supplyBot27=function(s,b,f){processHome(this,s,b,f);};
  World.prototype.plantCharge27=function(s,b,id){const p=[...this.staticStructures.map(e=>e.data),...s.buildings].find(p=>p.id===id),a=b.actor26;if(!p||!a||a.fuse26||dist(b,p)>3||s.depleted.includes(id)||p.hp<=0)return false;const origin=new V(b.x,b.y+1.4,b.z),point=new V(p.x,(p.y??terrainHeight(p.x,p.z))+1.4,p.z);point.addScaledVector(origin.clone().sub(point).normalize(),.22);if(!this.lineOfSight(origin,point,s)||!spend(a.bag,{satchel:1}))return false;a.fuse26={id,at:s.elapsed+4};this.reportStructure27?.(s,p,b);return true;};

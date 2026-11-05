@@ -1,6 +1,6 @@
 {
   "name": "oskol-survival",
-  "version": "0.36.0",
+  "version": "0.37.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,8 +11,8 @@
     "test:survival": "node scripts/dev03-check.mjs",
     "desktop": "electron .",
     "build:windows": "npm run build && electron-builder --win portable --x64 --publish never",
-    "test:release": "node --test tests/engine.test.mjs tests/item-art.test.mjs tests/dev32.test.mjs tests/dev33.test.mjs tests/dev34.test.mjs tests/dev35.test.mjs tests/dev36.test.mjs",
-    "test:release:browser": "node scripts/dev36-smoke.mjs"
+    "test:release": "node --test tests/engine.test.mjs tests/item-art.test.mjs tests/dev32.test.mjs tests/dev33.test.mjs tests/dev34.test.mjs tests/dev35.test.mjs tests/dev36.test.mjs tests/dev37.test.mjs",
+    "test:release:browser": "node scripts/dev36-smoke.mjs && node scripts/dev37-smoke.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
@@ -48,7 +48,7 @@
         }
       ],
       "icon": "desktop/icon.ico",
-      "artifactName": "oskol-0.36.0-dev36-windows-x64.exe"
+      "artifactName": "oskol-0.37.0-dev37-windows-x64.exe"
     },
     "portable": {
       "requestExecutionLevel": "user"

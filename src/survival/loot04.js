@@ -1,4 +1,4 @@
-import {LOOT33} from './items33.js';
+import {LOOT33} from './supplies37.js';
 import {MODS25} from './attachments25.js';
 import {clothingLoot24} from './clothing24.js';
 import {WEAPONS,isGun} from './catalog.js';
