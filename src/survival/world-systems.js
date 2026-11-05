@@ -83,7 +83,7 @@ export function installWorldSystems(IslandWorld){
   this.renderer.domElement.removeEventListener('webglcontextlost',this.contextLost11);const geometries=new Set(),materials=new Set(),textures=new Set(),images=new Set();
   const collect=o=>{if(o.geometry)geometries.add(o.geometry);for(const m of(o.material?(Array.isArray(o.material)?o.material:[o.material]):[])){materials.add(m);for(const v of [...Object.values(m),...Object.values(this.detailBackups28?.get(m)||{})])if(v?.isTexture)textures.add(v);}};
   this.scene.traverse(collect);for(const gltf of Object.values(this.models))gltf.scene?.traverse(collect);for(const t of Object.values(this.textures))textures.add(t);
-  geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>{if(t.image?.close)images.add(t.image);t.dispose();});images.forEach(i=>i.close());this.environment?.dispose();this.renderer.dispose();this.scene.clear();this.models={};this.textures={};
+  geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>{if(t.image?.close)images.add(t.image);t.dispose();});images.forEach(i=>i.close());this.environment?.dispose();this.renderer.dispose();this.scene.clear();if(this.handScene35)this.handScene35.children.length=0;this.handScene35=null;this.models={};this.textures={};
  }
  });
 }

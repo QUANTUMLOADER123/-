@@ -1,4 +1,4 @@
-name: Oskol DEV34 validated builds
+name: Oskol DEV35 validated builds
 on:
   push:
     branches: [arena/ce299f3a-repo]
@@ -26,12 +26,14 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Oskol-DEV34-validation
+          name: Oskol-DEV35-validation
           include-hidden-files: true
           if-no-files-found: ignore
           path: |
-            .artifacts/dev34/smoke-results.json
-            .artifacts/dev34/*.png
+            .artifacts/dev35/smoke-results.json
+            .artifacts/dev35/render-check.json
+            .artifacts/dev35/site-render-results.json
+            .artifacts/dev35/*.png
   android:
     name: Android APK · after tested Windows build
     needs: windows
@@ -57,11 +59,11 @@ jobs:
       - name: Package
         run: |
           mkdir -p .artifacts
-          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.34.0-dev34-android.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk .artifacts/oskol-0.35.0-dev35-android.apk
           cd .artifacts && sha256sum *.apk > Android-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Android-dev34-VALIDATED
+          name: Oskol-Android-dev35-VALIDATED
           include-hidden-files: true
           if-no-files-found: error
           path: |
@@ -97,7 +99,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Oskol-DEV34-desktop-smoke
+          name: Oskol-DEV35-desktop-smoke
           include-hidden-files: true
           if-no-files-found: ignore
           path: |
@@ -109,7 +111,7 @@ jobs:
           cd release-build && sha256sum *.exe > Windows-SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Oskol-Windows-x64-dev34-VALIDATED
+          name: Oskol-Windows-x64-dev35-VALIDATED
           if-no-files-found: error
           path: |
             release-build/*.exe

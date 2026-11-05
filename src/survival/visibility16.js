@@ -22,7 +22,7 @@ export function installCulling16(World){
   for(const e of this.built.values()){const alive=e.data.hp>0;show16(e.model,within(e.data.x,e.data.z,r.proxies),alive);if(e.fire)show16(e.fire.root,within(e.data.x,e.data.z,r.props),alive);}
   // Detailed projectile-loaded houses can exist outside the visual radius. Keep
   // their instances/colliders alive; targeting explicitly ignores render-only hiding.
-  for(const h of this.settlements05?.values()||[]){const detailed=h.renderReady21!==false&&within(h.base.x,h.base.z,r.houses+20);show16(h.root,detailed);const proxy=h.base.proxy05;if(proxy){const roots=h.entries.filter(e=>e.data.kind==='foundation'),destroyed=roots.length&&roots.every(e=>dead.has(e.data.id));proxy.mesh.setMatrixAt(proxy.index,detailed||destroyed?zero16:proxy.matrix);proxy.mesh.instanceMatrix.needsUpdate=true;}}
+  for(const h of this.settlements05?.values()||[]){const detailed=h.renderReady21!==false&&within(h.base.x,h.base.z,r.houses+20);show16(h.root,detailed);const proxy=h.base.proxy05;if(proxy){const roots=h.entries.filter(e=>e.data.kind==='foundation'),destroyed=roots.length&&roots.every(e=>dead.has(e.data.id));const hidden=!!(detailed||destroyed);proxy.hidden35=hidden;if((proxy.mesh.instanceMatrix.array[proxy.index*16+13]===-10000)!==hidden){proxy.mesh.setMatrixAt(proxy.index,hidden?zero16:proxy.matrix);proxy.mesh.instanceMatrix.needsUpdate=true;}}}
   this.visibilityStats16={treeChunks:trees,proxyChunks:proxies,profile:key};
  };
  World.prototype.updateTreeVisibility=function(){this.updateVisibility16();};
