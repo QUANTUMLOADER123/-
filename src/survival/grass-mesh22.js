@@ -4,7 +4,7 @@ import {visualState12} from './materials12.js';
 export function grassGeometry22(blades,folded=true){
  const positions=[],indices=[],uv=[];
  for(let b=0;b<blades;b++){
-  const angle=b*2.399963,dx=Math.cos(angle),dz=Math.sin(angle),sx=-dz,sz=dx,root=.09+(b%3)*.055,height=.28+(b%4)*.085,width=.024+(b%3)*.008,bend=.10+(b%4)*.032,start=positions.length/3,levels=folded?[0,.48,.82]:[0,.58],across=folded?[-1,0,1]:[-1,1];
+  const angle=b*2.399963,dx=Math.cos(angle),dz=Math.sin(angle),sx=-dz,sz=dx,root=.055+(b%3)*.035,height=.24+(b%5)*.073,width=.011+(b%3)*.0045,bend=.065+(b%4)*.029,start=positions.length/3,levels=folded?[0,.48,.82]:[0,.58],across=folded?[-1,0,1]:[-1,1];
   for(const t of levels)for(const side of across){const w=width*(1-t*.88),ridge=folded&&side===0?width*.30:0;positions.push(dx*root+sx*w*side+dx*bend*t*t,height*t+ridge,dz*root+sz*w*side+dz*bend*t*t);uv.push((side+1)/2,t);}
   const columns=across.length;for(let row=0;row<levels.length-1;row++)for(let c=0;c<columns-1;c++){const i=start+row*columns+c;indices.push(i,i+1,i+columns,i+1,i+columns+1,i+columns);}
   const tip=positions.length/3;positions.push(dx*(root+bend),height,dz*(root+bend));uv.push(.5,1);const last=start+(levels.length-1)*columns;for(let c=0;c<columns-1;c++)indices.push(last+c,last+c+1,tip);
@@ -41,7 +41,7 @@ export function grassMaterial22(w,uniforms,far=false){
  ${far?'if(pattern22>=blend22)discard;':'if(pattern22<blend22)discard;'}
  `);
   shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
- diffuseColor.rgb*=mix(vec3(.48,.59,.34),vec3(1.10,1.12,.81),smoothstep(0.,1.,grassBlade22));
+ diffuseColor.rgb*=mix(vec3(.44,.51,.31),vec3(1.13,1.10,.77),smoothstep(0.,1.,grassBlade22));
  diffuseColor.rgb*=1.-grassWet22*.13;
  `);
   shader.fragmentShader=shader.fragmentShader.replace('#include <lights_fragment_end>',`#include <lights_fragment_end>
@@ -50,5 +50,5 @@ export function grassMaterial22(w,uniforms,far=false){
  reflectedLight.indirectDiffuse+=diffuseColor.rgb*transmission22*grassBlade22*grassDay22*.19;
  `);
  };
- material.customProgramCacheKey=()=> 'grass22-folded-wind-pressure-lod-'+far;return material;
+ material.customProgramCacheKey=()=> 'grass34-fine-blades-wind-pressure-lod-'+far;return material;
 }

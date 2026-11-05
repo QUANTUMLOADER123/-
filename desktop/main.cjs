@@ -23,7 +23,8 @@ async function desktopSmoke(){
  await until(`(()=>{if(!document.querySelector('#entry-error30').hidden)throw new Error(document.querySelector('#entry-error-report30').value);return !!window.oskol?.ready;})()`);
  const facts=await window.webContents.executeJavaScript(`({snapshot:window.oskol.snapshot(),diagnostics:window.oskol.inspect33()})`,true),s=facts.snapshot,d=facts.diagnostics;
  if(s.stats.monuments!==20||s.stats.bases!==120||!s.stats.webgl2||s.multiplier!==5||!s.saved)throw new Error('Incomplete packaged world/save: '+JSON.stringify(s.stats));
- if(d.rocks.wrong||d.rocks.mineable<100||d.weapons.length!==16||d.weapons.some(w=>w.revision!==33))throw new Error('Incorrect packaged rocks/weapons');
+ if(d.sites.length!==20||d.sites.some(s=>s.revision!==34||s.sourceParts<140))throw new Error('Incorrect packaged DEV34 sites');
+ if(d.rocks.wrong||d.rocks.mineable<100||d.weapons.length!==16||d.weapons.some(w=>w.revision!==34))throw new Error('Incorrect packaged rocks/weapons');
  if(d.recyclers.length!==20||d.recyclers.some(r=>!r.stations.some(s=>s.approach)))throw new Error('Incomplete packaged recycler coverage');
  await window.webContents.executeJavaScript(`document.querySelector('#inventory-button').click()`,true);await until(`window.oskol.snapshot().overlay==='inventory'`);
  await window.webContents.executeJavaScript(`document.querySelector('#inventory-close').click()`,true);await until(`window.oskol.snapshot().overlay===null`);

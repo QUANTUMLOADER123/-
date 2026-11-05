@@ -1,4 +1,4 @@
-import {weaponModel33} from './weapon-models33.js';
+import {weaponModel34} from './weapon-models34.js';
 import * as THREE from 'three';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -50,7 +50,7 @@ function magazine(g,mat,curved=false,short=false){
  for(const x of[-.034,.034])for(let i=0;i<3;i++){const rib=round(mag,[.006,short?.13:.20,.005],[x,-.085,-.126-i*.02],mat,.001);if(curved)rib.rotation.x=.20;}
  return mag;
 }
-export function weaponModel16(id){return weaponModel33(id,material16);}
+export function weaponModel16(id){return weaponModel34(id,material16,textures);}
 export function toolModel16(id){
  const g=new THREE.Group(),wood=material16('wood'),steel=material16('steel'),cloth=material16('cloth');g.name=`tool16:${id}`;
  const len=id==='hammer'?.48:.72;

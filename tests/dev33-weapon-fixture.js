@@ -1,11 +1,12 @@
 import * as THREE from 'three';
+import {PBR_FILES12} from '../src/survival/materials12.js';
 import {weaponModel16,ITEM_FILES16,itemTextures16} from '../src/survival/items16.js';
 import {WEAPONS} from '../src/survival/catalog.js';
 import {GUN_POSES14} from '../src/survival/pose14.js';
 import {prepareReload14,resetMechanisms14,reloadPose14,fireMechanism14} from '../src/survival/reload14.js';
 import {createHand14,handMaterials14,poseHand14} from '../src/survival/rig14.js';
 export async function renderWeapons33({hands=false,page=0}={}){
- const loader=new THREE.TextureLoader(),textures={};await Promise.all(ITEM_FILES16.map(async name=>{const t=await loader.loadAsync('/assets/'+name);t.wrapS=t.wrapT=THREE.RepeatWrapping;if(!/-(normal|orm)\./.test(name))t.colorSpace=THREE.SRGBColorSpace;textures[name]=t;}));itemTextures16(textures);
+ const loader=new THREE.TextureLoader(),textures={};await Promise.all([...ITEM_FILES16,...PBR_FILES12.filter(n=>n.startsWith('field34/'))].map(async name=>{const t=await loader.loadAsync('/assets/'+name);t.wrapS=t.wrapT=THREE.RepeatWrapping;if(!/-(normal|orm)\./.test(name))t.colorSpace=THREE.SRGBColorSpace;textures[name]=t;}));itemTextures16(textures);
  document.body.innerHTML='';document.body.style.cssText='margin:0;background:#202827';const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(1600,900);renderer.setPixelRatio(1);renderer.setClearColor(0x202827);document.body.append(renderer.domElement);renderer.setScissorTest(true);const result=[];const mats=hands?handMaterials14():null;
  const ids=Object.keys(WEAPONS).slice(page*8,page*8+8);
  for(let i=0;i<ids.length;i++){const id=ids[i],p=GUN_POSES14[id],scene=new THREE.Scene(),m=weaponModel16(id);scene.add(m,new THREE.HemisphereLight(0xe5f1ff,0x64614e,2.2));const light=new THREE.DirectionalLight(0xffeedc,3.3);light.position.set(1.2,3,-1);scene.add(light);const fill=new THREE.DirectionalLight(0xffffff,1);fill.position.set(-1,.5,1);scene.add(fill);

@@ -6,12 +6,12 @@ import {MAP_SEED,distanceToRoad} from './map-data.js';
 import {biomeAt} from './environment.js';
 import {paintLoading11,checkLoading11} from './loading11.js';
 const SIZE=18,HALF_DIAGONAL=SIZE*Math.SQRT2/2;
-const PROFILES={off:{cells:1,blades:1,folded:false,lod:[0,1],range:0,limit:0},low:{cells:12,blades:5,folded:false,lod:[17,26],range:56,limit:56},medium:{cells:14,blades:7,folded:true,lod:[27,39],range:82,limit:100},high:{cells:16,blades:9,folded:true,lod:[35,49],range:108,limit:156}};
+const PROFILES={off:{cells:1,blades:1,folded:false,lod:[0,1],range:0,limit:0},low:{cells:15,blades:4,folded:false,lod:[17,26],range:56,limit:56},medium:{cells:16,blades:6,folded:true,lod:[27,39],range:82,limit:100},high:{cells:18,blades:8,folded:true,lod:[35,49],range:108,limit:156}};
 const UP=new THREE.Vector3(0,1,0);
 function removeTile(w,tile){if(tile.empty)return;for(const mesh of [tile.near,tile.far]){mesh.removeFromParent();mesh.dispose();}}
 function clearTiles(w){const g=w.grass22;for(const tile of g.tiles.values())removeTile(w,tile);g.tiles.clear();g.dirtyTiles?.clear();w.grassChunks=[];}
 function setProfile(w){const g=w.grass22,key=PROFILES[w.settings.grass28]?w.settings.grass28:(PROFILES[w.settings.quality]?w.settings.quality:'medium');if(g.key===key)return;
- clearTiles(w);g.key=key;g.profile=PROFILES[key];g.resources??=new Map();if(!g.resources.has(key))g.resources.set(key,{near:grassGeometry22(g.profile.blades,g.profile.folded),far:grassGeometry22(3,false)});g.geometry=g.resources.get(key);g.uniforms.lod.value.fromArray(g.profile.lod);g.uniforms.range.value=g.profile.range;g.planKey=null;
+ clearTiles(w);g.key=key;g.profile=PROFILES[key];g.resources??=new Map();if(!g.resources.has(key))g.resources.set(key,{near:grassGeometry22(g.profile.blades,g.profile.folded),far:grassGeometry22(2,false)});g.geometry=g.resources.get(key);g.uniforms.lod.value.fromArray(g.profile.lod);g.uniforms.range.value=g.profile.range;g.planKey=null;
 }
 function plan(w,center){const g=w.grass22,p=g.profile,cx=Math.floor(center.x/SIZE),cz=Math.floor(center.z/SIZE),signature=Math.floor(center.x/6)+':'+Math.floor(center.z/6)+':'+g.key;if(g.planKey===signature)return;g.planKey=signature;
  const n=Math.ceil((p.range+HALF_DIAGONAL)/SIZE),wanted=[];
@@ -28,12 +28,12 @@ function buildTile(w,cell){
   // Real biome probabilities: desert stays sparse, not a global green carpet.
   if(gate>biome.grass*(.48+patch*.52)||distanceToRoad(x,z,8)<3.5)continue;
   const h=terrainHeight(x,z);if(h<1.1)continue;const dx=(terrainHeight(x+.4,z)-terrainHeight(x-.4,z))/.8,dz=(terrainHeight(x,z+.4)-terrainHeight(x,z-.4))/.8;if(!grassGround19(w,x,z,h,Math.max(Math.abs(dx),Math.abs(dz))))continue;
-  points.push({x,z,h,dx,dz,biome,patch,angle:r()*Math.PI*2,width:.78+r()*.48,height:.65+r()*.72,tint:r()});
+  points.push({x,z,h,dx,dz,biome,patch,angle:r()*Math.PI*2,width:.80+r()*.68,height:.55+r()*.90,tint:r()});
  }
  if(!points.length){g.tiles.set(cell.key,{cx:(cell.x+.5)*SIZE,cz:(cell.z+.5)*SIZE,near:null,far:null,empty:true});return;}
- const near=new THREE.InstancedMesh(g.geometry.near,g.materials.near,points.length),far=new THREE.InstancedMesh(g.geometry.far,g.materials.far,0),dummy=new THREE.Object3D(),normal=new THREE.Vector3(),yaw=new THREE.Quaternion(),color=new THREE.Color(),dry=new THREE.Color(0xb0a467);
+ const near=new THREE.InstancedMesh(g.geometry.near,g.materials.near,points.length),far=new THREE.InstancedMesh(g.geometry.far,g.materials.far,0),dummy=new THREE.Object3D(),normal=new THREE.Vector3(),yaw=new THREE.Quaternion(),color=new THREE.Color(),dry=new THREE.Color(0xafa071);
  points.forEach((p,i)=>{normal.set(-p.dx*.72,1,-p.dz*.72).normalize();dummy.position.set(p.x,p.h-.04,p.z);dummy.quaternion.setFromUnitVectors(UP,normal).multiply(yaw.setFromAxisAngle(UP,p.angle));dummy.scale.set(p.width,p.height*(.80+p.patch*.28),p.width);dummy.updateMatrix();near.setMatrixAt(i,dummy.matrix);
-  color.setHex(p.biome.id==='arid'?0xb3a578:p.biome.id==='snow'?0x9ca688:p.biome.id==='coast'?0x8e9859:0x839c56);if(p.biome.id==='forest')color.lerp(dry,Math.max(0,p.patch-.53)*.8);color.multiplyScalar(.88+p.tint*.22);near.setColorAt(i,color);
+  color.setHex(p.biome.id==='arid'?0xb3a578:p.biome.id==='snow'?0x9ca688:p.biome.id==='coast'?0x8e9859:0x889761);if(p.biome.id==='forest')color.lerp(dry,Math.max(0,p.patch-.53)*.8);color.multiplyScalar(.88+p.tint*.22);near.setColorAt(i,color);
  });
  near.instanceMatrix.needsUpdate=true;near.instanceColor.needsUpdate=true;
  // The two LODs reuse one transform/colour buffer; they are not two grass populations.

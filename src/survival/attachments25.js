@@ -1,13 +1,13 @@
 /** Original detachable modules; configuration is per weapon TYPE, like existing magazines/condition. */
 export const MOD_SLOTS25=['ПРИЦЕЛ','ДУЛО','ЛАЗЕР','МАГАЗИН'];
 export const MODS25={
- scope8x:{name:'Оптический прицел ×8',slot:0,zoom:8,cost:{highMetal:14,techParts:4,metal:45}},
+ scope8x:{name:'Кустарная оптика ×8',slot:0,zoom:8,cost:{highMetal:14,techParts:4,metal:45}},
  compactSuppressor:{name:'Компактный глушитель',slot:1,cost:{metalPipe:1,highMetal:6}},
  compensator26:{name:'Компенсатор',slot:1,cost:{metal:30,highMetal:3}},
  drumMag26:{name:'Барабанный магазин',slot:3,cost:{metal:75,spring:4,gears:2,metalSheet:2}},
  holoSight:{name:'Голографический прицел',slot:0,zoom:1.45,cost:{metal:35,techParts:1}},
  reflexSight:{name:'Коллиматор',slot:0,zoom:1.2,cost:{metal:20,highMetal:2}},
- scope4x:{name:'Оптический прицел ×4',slot:0,zoom:4,cost:{highMetal:8,techParts:2,metal:30}},
+ scope4x:{name:'Кустарная оптика ×4',slot:0,zoom:4,cost:{highMetal:8,techParts:2,metal:30}},
  suppressor:{name:'Глушитель',slot:1,cost:{metalPipe:2,highMetal:4}},
  muzzleBrake:{name:'Дульный тормоз',slot:1,cost:{metal:35,metalPipe:1}},
  flashHider:{name:'Пламегаситель',slot:1,cost:{metal:20,metalPipe:1}},

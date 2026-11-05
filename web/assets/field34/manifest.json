@@ -1,0 +1,18 @@
+{
+  "source": "Original generated albedos, not extracted from Rust; sources in ignored .artifacts/dev34",
+  "method": "512px, periodic edge correction, subtle normal, roughness/metallic channels",
+  "files": {
+    "meadow-color.webp": "699a606d2ea6c0a399c3abfba441f8e40dcc5c56998305d3b4b4d67d128e4ea7",
+    "meadow-normal.webp": "b046794a8b24815d48398bba28c10895efdde1086981ab4fda1d2e0431970f7e",
+    "meadow-orm.webp": "b4875134b6722fe70504dfa422096393582fad66060204d8605dc2fcbe337792",
+    "gravel-color.webp": "94b322c8fd417e592d2be018b3704334f9721db64b7a0244b5b5ac6b9a5f0d77",
+    "gravel-normal.webp": "0fc6218f09b4849157f3e8338c3f06be9cd1c6b0efbecaef80a5286f71a42d92",
+    "gravel-orm.webp": "b4875134b6722fe70504dfa422096393582fad66060204d8605dc2fcbe337792",
+    "steel-color.webp": "4cad21f0590c6a4bbc0e0b3863ef839a610fd03c47ad65311513ae54aa05d639",
+    "steel-normal.webp": "54982889522e5727301953ad71b2e4d74898aa896fcf1c56e179373a918bb536",
+    "steel-orm.webp": "cc673ad0519bcf490d510930c312a2d2e03d6f74cb04280fa181bfcad3a6dc75",
+    "wood-color.webp": "90df2ba8fea60cf2eaf6bea05504b8f088a79c7532190aaec30afede2105bb11",
+    "wood-normal.webp": "dfcda36f814351eb3ae8573f68db8738721914252fed80a62316adf259aadf13",
+    "wood-orm.webp": "b4875134b6722fe70504dfa422096393582fad66060204d8605dc2fcbe337792"
+  }
+}

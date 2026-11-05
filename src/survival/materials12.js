@@ -1,7 +1,7 @@
 import {materialGraphics28} from './graphics28.js';
 import * as THREE from 'three';
 export const PBR_KINDS12=['wood','stone','metal','concrete','soil','asphalt','hqm'];
-export const PBR_FILES12=[...['color','normal','orm'].map(k=>'nature33/granite-'+k+'.webp'),'nature32/rock-color.webp','nature32/rock-normal.webp','nature32/rock-orm.webp',...PBR_KINDS12.flatMap(k=>['color','normal','orm'].map(m=>'pbr12/'+k+'-'+m+'.webp'))];
+export const PBR_FILES12=[...['meadow','gravel','steel','wood'].flatMap(k=>['color','normal','orm'].map(s=>'field34/'+k+'-'+s+'.webp')),...['color','normal','orm'].map(k=>'nature33/granite-'+k+'.webp'),'nature32/rock-color.webp','nature32/rock-normal.webp','nature32/rock-orm.webp',...PBR_KINDS12.flatMap(k=>['color','normal','orm'].map(m=>'pbr12/'+k+'-'+m+'.webp'))];
 export function visualState12(w){
  if(w.visual12)return w.visual12;
  const roof=new THREE.DataTexture(new Float32Array([-100]),1,1,THREE.RedFormat,THREE.FloatType);roof.needsUpdate=true;
@@ -48,7 +48,7 @@ export function dressMaterials12(w,root=w.scene){
  const known=new Map();for(const k of PBR_KINDS12){const tex=w.textures['pbr12/'+k+'-color.webp'];if(tex){tex.userData.kind12=k;known.set(tex,k);}}
  root.traverse(o=>{if(!o.isMesh||o.layers.mask===2)return;for(const m of(Array.isArray(o.material)?o.material:[o.material])){
   if(!m?.isMeshStandardMaterial||m.userData.terrain12||m.userData.grass22||m.userData.vegetation23)continue;
-  if(m.userData.naturalRock33){wetMaterial12(w,m);continue;}const kind=m.userData.kind12||m.map?.userData.kind12||known.get(m.map);if(PBR_KINDS12.includes(kind)&&(m.map!==w.textures['pbr12/'+kind+'-color.webp']||m.normalMap!==w.textures['pbr12/'+kind+'-normal.webp']))bindPBR12(w,m,kind);else wetMaterial12(w,m);
+  if(m.userData.naturalRock33||m.userData.salvaged34){wetMaterial12(w,m);continue;}const kind=m.userData.kind12||m.map?.userData.kind12||known.get(m.map);if(PBR_KINDS12.includes(kind)&&(m.map!==w.textures['pbr12/'+kind+'-color.webp']||m.normalMap!==w.textures['pbr12/'+kind+'-normal.webp']))bindPBR12(w,m,kind);else wetMaterial12(w,m);
  }});
 }
 

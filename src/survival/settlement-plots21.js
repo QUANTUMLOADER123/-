@@ -19,6 +19,8 @@ export function settlementPlots21({scale,seed,sites,river,coast,roadDistance,hei
  // Dense small islands may need a fresh, uniformly spaced packing instead of
  // retaining the first 24m coastal choices. Never relax the 16m safety margin.
  if(modernSmall&&selected.length<120){selected.length=0;for(const p of candidates){accept(p,16);if(selected.length===120)break;}}
+ // Different deterministic packing orders, never a smaller safety distance.
+ if(revision>=16&&modernSmall&&selected.length<120)for(let attempt=1;attempt<=16;attempt++){selected.length=0;const ordered=candidates.map((p,i)=>{let h=(i^Math.imul(attempt,83492791))>>>0;h=Math.imul(h^(h>>>16),0x7feb352d);h=Math.imul(h^(h>>>15),0x846ca68b);return{p,key:(h^(h>>>16))>>>0};}).sort((a,b)=>a.key-b.key);for(const {p}of ordered){accept(p,16);if(selected.length===120)break;}if(selected.length===120)break;}
  // Never enter a silently empty/partial island and overwrite the previous save.
  if(selected.length!==120)throw new Error('Не удалось разместить 120 безопасных домов ('+selected.length+'/'+candidates.length+'). Выбери другое зерно мира. Прежнее сохранение не заменено.');
  return selected.map((p,i)=>{const material=r(),tier=material<.4?1:material<.8?2:3,raided=r()<.25,u=r();return{id:'settlement-'+i,name:'Убежище '+(i+1)+(raided?' · следы рейда':''),x:p.x,z:p.z,tier,raided,leftovers:!raided||r()<.5,stories:u<.5?1:u<.7?2:u<.8?3:u<.95?4:5,layout:r()<.8?'2x2':'2x1'};});

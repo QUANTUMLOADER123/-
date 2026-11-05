@@ -1,3 +1,4 @@
+import {terrainHeight} from './state.js';
 import * as THREE from 'three';
 /** Add before Site17.finish so station persistence, colliders and world transforms apply. */
 export function ensureRecycler33(k){
@@ -5,7 +6,7 @@ export function ensureRecycler33(k){
  if(k.m.kind==='oilrig'){const model=k.terminal(k.root,900,[0,5.2,-3.5],true);model.scale.set(1/scale,1,1/scale);return;}
  const r=k.m.radius/(k.m.siteScale25||1),inv=new THREE.Matrix4();k.root.updateMatrixWorld(true);inv.copy(k.root.matrixWorld).invert();
  const boxes=k.solids.map(o=>{o.updateWorldMatrix(true,false);return (o.geometry.computeBoundingBox(),o.geometry.boundingBox.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv,o.matrixWorld)));}).filter(b=>b.max.y>.55&&b.min.y<2.8);
- let at=null;search:for(const z of [.60,.47,.30,-.58,.66])for(const x of [.30,-.30,.43,-.43,.58,-.58,0]){const px=r*x,pz=r*z,space=new THREE.Box3(new THREE.Vector3(px-1.2,.5,pz-.8),new THREE.Vector3(px+1.2,2.7,pz+2));if(boxes.some(b=>space.intersectsBox(b)))continue;if(k.loot.some(l=>l.model&&new THREE.Vector3().setFromMatrixPosition(l.model.matrixWorld).applyMatrix4(inv).distanceTo(new THREE.Vector3(px,0,pz))<2.6))continue;at=[px,pz];break search;} 
+ let at=null;search:for(const z of [.60,.47,.30,-.58,.66])for(const x of [.30,-.30,.43,-.43,.58,-.58,0]){const px=r*x,pz=r*z,front=k.root.localToWorld(new THREE.Vector3(px,.18,pz+1.8/scale));if(terrainHeight(front.x,front.z)>front.y+.10)continue;const space=new THREE.Box3(new THREE.Vector3(px-1.2,.5,pz-.8),new THREE.Vector3(px+1.2,2.7,pz+2));if(boxes.some(b=>space.intersectsBox(b)))continue;if(k.loot.some(l=>l.model&&new THREE.Vector3().setFromMatrixPosition(l.model.matrixWorld).applyMatrix4(inv).distanceTo(new THREE.Vector3(px,0,pz))<2.6))continue;at=[px,pz];break search;}
  if(!at)throw new Error('No accessible recycler bay at '+k.m.id);
  const g=k.group(k.root,[at[0],0,at[1]]);k.floor(g,5.2,5,0,.5,.18,k.p.concrete);const model=k.terminal(g,900,[0,.18,0],true);model.scale.set(1/scale,1,1/scale);g.userData.recyclerBay33=true;
 }

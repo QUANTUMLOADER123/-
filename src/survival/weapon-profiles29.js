@@ -1,6 +1,6 @@
 /** Original scrap-built silhouettes; no real-world production dimensions. Shared by hands/NPCs/loot. */
 export const GUNS29={
- rifle:{end:-.76,width:.080,receiver:[[.11,.08],[.10,.19],[-.22,.19],[-.26,.12],[-.23,.06],[-.035,.04]],interval:.31,tilt:[.32,-.20,-.48]},
+ rifle:{end:-.76,width:.080,receiver:[[.11,.08],[.10,.19],[-.22,.19],[-.26,.12],[-.23,.06],[-.035,.04]],interval:.85,tilt:[.32,-.20,-.48]},
  pistol:{end:-.30,width:.067,interval:.18,tilt:[.25,-.35,-.62]},
  revolver:{end:-.37,width:.075,interval:.33,tilt:[.37,.22,-.80]},
  smg:{end:-.52,width:.078,receiver:[[.11,.08],[.09,.20],[-.20,.20],[-.27,.15],[-.25,.07],[-.035,.04]],interval:.079,tilt:[.30,-.26,-.56]},
