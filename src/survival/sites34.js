@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {workshopKit34} from './site-workshop34.js';
-import {sphere25} from './sphere25.js';
+import {sphere40} from './sphere40.js';
 /** New land layouts; previous crate/station IDs remain the persistence keys. */
 export function buildLand34(k){
  const {kind}=k.m,p=k.p,g=k.root,r=k.m.radius/(k.m.siteScale25||1),a=r*.32,b=r*.44,q=workshopKit34(k);q.yard(r);
@@ -24,7 +24,7 @@ export function buildLand34(k){
  }else if(kind==='power'){
   const control=building(-a,a*.4,8,8,{roofAccess:true});const hall=building(a*.7,a*.6,10,8,{workshop:false,mat:p.rust});q.panel(hall,-3,1.5,-3.8);for(let i=0;i<2;i++){const h=15+i*3,x=-b+i*4;k.cyl(g,.65,.95,h,[x,h/2+.18,-b],p.rust,true,24);for(let y=2;y<h;y+=3)k.ring(g,.76,.055,[x,y,-b],p.metal,true);q.pipe(g,[[x,1.5,-b],[x,1.5,-b+2.3],[-a,1.5,-b+2.3]],.14);}crate(0,-2,0,0,control);for(const x of[1.5,a+1]){q.processTank(x,-a,1.7,5.2);for(let i=0;i<3;i++){const tx=x-1+i; k.cyl(g,.15,.20,1.4,[tx,2.8,-a+2.7],p.cream);for(let j=0;j<6;j++)k.ring(g,.21,.035,[tx,2.3+j*.18,-a+2.7],p.rust,true);}}q.pipeRack(a,0,12,3.2);q.pump(g,a,a);crate(1,b,-b);crate(2,b,b);crate(3,-b,-b);gantry(0,-b,8);
  }else if(kind==='radar'){
-  sphere25(k);const room=building(-r*.55,r*.12,8,7,{roofAccess:true});q.panel(room,0,1.4,-3.3);q.pipeRack(r*.49,0,15,3.5);q.pump(g,-r*.50,-r*.30);crate(10,0,1,0,room);
+  sphere40(k);const room=building(-r*.55,r*.12,8,7,{roofAccess:true});q.panel(room,0,1.4,-3.3);q.pipeRack(r*.49,0,15,3.5);q.pump(g,-r*.50,-r*.30);crate(10,0,1,0,room);
  }else if(kind==='quarry'||kind==='mining'){
   const size=kind==='quarry'?1:.7;if(kind==='mining'){for(const side of[-1,1]){k.beam(g,[side*2,.18,-b],[side*1.2,8,-b],.13,p.rust);k.beam(g,[side*2,.18,-b+3],[side*1.2,8,-b],.10,p.rust);}const wheel=k.ring(g,1,.12,[0,7.6,-b],p.metal);q.cable(g,[-.8,7.6,-b],[-.8,.4,-b],0);k.floor(g,4,4,0,-b+1,.25,p.metal);q.pump(g,b,0);}for(let i=0;i<3;i++){const x=(-5+i*4)*size;k.floor(g,3.3,7,x,-a,.8+i*.65,p.concrete);for(const side of[-1,1])k.box(g,[.2,1.1,7],[x+side*1.7,1.35+i*.65,-a],p.concrete,true);k.cyl(g,.5,.7,2,[x,1.1+i*.65,-a],p.rust);}
   const belt=k.group(g,[a,.18,0]);const span=9;for(const side of[-1,1])k.beam(belt,[side*.6,0,span/2],[side*.6,2.6,-span/2],.08,p.rust);const deck=k.box(belt,[1.2,.12,span],[0,1.3,0],p.rubber);deck.rotation.x=.28;for(let i=0;i<10;i++){const roller=k.cyl(belt,.09,.09,1.3,[0,.25+i*.25,span/2-i],p.metal);roller.rotation.z=Math.PI/2;}

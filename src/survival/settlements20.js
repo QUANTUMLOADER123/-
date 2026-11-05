@@ -46,6 +46,7 @@ export function installSettlements20(World){
   // exterior faces and a triangular cap. No doors/loot/spawn inside these voids.
   let buffer=0;for(const p of plan)for(const [dx,dz]of [[0,-1],[0,1],[-1,0],[1,0]]){
    if(buffer>=6||p===airlock||plan.some(q=>q.x===p.x+dx*3&&q.z===p.z+dz*3)||p===entry&&dz===1||r()>.35)continue;
+   const window40=world(p.x+dx*1.5,p.z+dz*1.5);if(defs.some(b=>b.variant==='window'&&Math.abs(b.y-ground)<.1&&Math.hypot(b.x-window40.x,b.z-window40.z)<.2))continue;
    const edge={x:p.x+dx*1.5,z:p.z+dz*1.5},angle=Math.atan2(dx,dz),point={x:edge.x+dx*.8660254,z:edge.z+dz*.8660254},tip=world(edge.x+dx*2.598076,edge.z+dz*2.598076);
    if(BOT_BASES.some(b=>b!==base&&Math.hypot(tip.x-b.x,tip.z-b.z)<9))continue;
    const fid=add('triangleFoundation',point,0,100+buffer,angle,'bufferBase',[rootId(p)]);add('triangleRoof',point,0,100+buffer,angle,'bufferRoof',[fid.id]);

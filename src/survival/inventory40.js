@@ -1,0 +1,3 @@
+/** DOM/engine-free inventory presentation rules. */
+export function quickRecipes40(state,recipes,canCraft){return Object.entries(recipes).filter(([id,r])=>r.category!=='process'&&canCraft(state,id));}
+export function itemDetails40(slot,items,recipes,weapons,clothingDescription){if(!slot)return{name:'ВЫБЕРИ ПРЕДМЕТ',description:'',item:null,count:0};const id=slot.item,w=weapons[id],r=recipes[id];return{item:id,name:items[id].name,count:slot.count,description:clothingDescription?.(id)||r?.description||r?.desc||(w?`Урон ${w.damage} · магазин ${w.capacity}. Боеприпасы: ${items[w.ammo]?.name||w.ammo}.`:id.includes('Ore')?'Руда. Для переработки положи во вход печи вместе с топливом.':'Материал или припас. Количество и доступные действия показаны в инвентаре.')};}

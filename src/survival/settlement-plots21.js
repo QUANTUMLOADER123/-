@@ -12,6 +12,16 @@ export function settlementPlots21({scale,seed,sites,river,coast,roadDistance,hei
  candidates.sort((a,b)=>a.rank-b.rank);const selected=[],checked=new Map();
  const accept=(p,spacing)=>{if(selected.includes(p)||selected.some(q=>Math.hypot(q.x-p.x,q.z-p.z)<spacing))return false;
   let good=checked.get(p);if(good===undefined){const samples=[height(p.x,p.z),...[-7,7].flatMap(dx=>[-7,7].map(dz=>height(p.x+dx,p.z+dz)))];good=Math.min(...samples)>1.3&&Math.max(...samples)-Math.min(...samples)<5;checked.set(p,good);}if(!good)return false;selected.push(p);return true;};
+ // New revision: distribute viable plots across inland/midland/coastal bands
+ // before infill. Keep the same 16m separation, never shove a house into a road.
+ if(revision>=18){
+  const band=p=>Math.min(2,Math.floor(p.shore/(65*Math.sqrt(scale)))),buckets=Array.from({length:72},()=>[]);
+  for(const p of candidates)buckets[p.sector*3+band(p)].push(p);
+  const ordered=[];for(let round=0;round<Math.max(...buckets.map(b=>b.length));round++)for(const band40 of[2,1,0])for(let sector=0;sector<24;sector++){const p=buckets[sector*3+band40][round];if(p)ordered.push(p);}
+  for(const p of ordered){accept(p,modernSmall?16:24);if(selected.length===120)break;}
+  if(selected.length<120)for(const spacing of[22,20,18,16]){for(const p of ordered){accept(p,spacing);if(selected.length===120)break;}if(selected.length===120)break;}
+  if(selected.length<120)for(let attempt=1;attempt<=16;attempt++){selected.length=0;const shuffled=ordered.map((p,i)=>({p,key:((Math.imul(i+1,83492791)^Math.imul(attempt,19349663))>>>0)})).sort((a,b)=>a.key-b.key);for(const{p}of shuffled){accept(p,16);if(selected.length===120)break;}if(selected.length===120)break;}
+ }else{
  // One coastal plot per sector where a safe site exists, also on large islands.
  for(let sector=0;sector<24;sector++)for(const p of candidates)if(p.sector===sector&&p.shore<100&&accept(p,24))break;
  for(let sector=0;sector<24;sector++)for(const p of candidates)if(p.sector===sector&&p.shore>=100&&accept(p,24))break;
@@ -21,6 +31,7 @@ export function settlementPlots21({scale,seed,sites,river,coast,roadDistance,hei
  if(modernSmall&&selected.length<120){selected.length=0;for(const p of candidates){accept(p,16);if(selected.length===120)break;}}
  // Different deterministic packing orders, never a smaller safety distance.
  if(revision>=16&&modernSmall&&selected.length<120)for(let attempt=1;attempt<=16;attempt++){selected.length=0;const ordered=candidates.map((p,i)=>{let h=(i^Math.imul(attempt,83492791))>>>0;h=Math.imul(h^(h>>>16),0x7feb352d);h=Math.imul(h^(h>>>15),0x846ca68b);return{p,key:(h^(h>>>16))>>>0};}).sort((a,b)=>a.key-b.key);for(const {p}of ordered){accept(p,16);if(selected.length===120)break;}if(selected.length===120)break;}
+ }
  // Never enter a silently empty/partial island and overwrite the previous save.
  if(selected.length!==120)throw new Error('Не удалось разместить 120 безопасных домов ('+selected.length+'/'+candidates.length+'). Выбери другое зерно мира. Прежнее сохранение не заменено.');
  return selected.map((p,i)=>{const material=r(),tier=material<.4?1:material<.8?2:3,raided=r()<.25,u=r();return{id:'settlement-'+i,name:'Убежище '+(i+1)+(raided?' · следы рейда':''),x:p.x,z:p.z,tier,raided,leftovers:!raided||r()<.5,stories:u<.5?1:u<.7?2:u<.8?3:u<.95?4:5,layout:r()<.8?'2x2':'2x1'};});

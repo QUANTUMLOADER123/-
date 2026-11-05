@@ -20,7 +20,7 @@ export function installForestStreaming19(World){
    wanted.sort((a,b)=>a.d-b.d);wanted.length=Math.min(wanted.length,profile==='near'?40:profile==='far'?96:72);const keep=new Set(wanted.map(c=>c.k)),removed=new Set();
    for(const [key,chunk]of this.forestChunks19)if(!keep.has(key)){
     for(const id of chunk.ids)removed.add(id);const geometries=new Set(),materials=new Set(),depths=new Set();
-    for(const mesh of chunk.meshes){mesh.removeFromParent();mesh.dispose();geometries.add(mesh.geometry);materials.add(mesh.material);if(mesh.customDepthMaterial)depths.add(mesh.customDepthMaterial);}
+    for(const mesh of chunk.meshes){mesh.removeFromParent();mesh.dispose();if(!mesh.geometry.userData.sharedForest40)geometries.add(mesh.geometry);if(!mesh.material.userData.sharedForest40)materials.add(mesh.material);if(mesh.customDepthMaterial&&!mesh.customDepthMaterial.userData.sharedForest40)depths.add(mesh.customDepthMaterial);}
     this.treeBatches=this.treeBatches.filter(b=>!chunk.meshes.includes(b));geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());depths.forEach(d=>d.dispose());this.forestChunks19.delete(key);
    }
    if(removed.size){this.nodes=this.nodes.filter(n=>!removed.has(n.id));this.colliders=this.colliders.filter(c=>!removed.has(c.id));this.targetGrids06?.clear();}
@@ -32,6 +32,7 @@ export function installForestStreaming19(World){
    for(let i=0;i<144;i++){
     const x=cell.x*SIZE+(i%12+.5)*6+(r()-.5)*1.8,z=cell.z*SIZE+(Math.floor(i/12)+.5)*6+(r()-.5)*1.8,id='canopy19-'+cell.x+'c'+cell.z+'n'+i,b=biomeAt(x,z),h=terrainHeight(x,z);
     if(dead.has(id)||b.id==='arid'||b.id==='coast'&&r()>.3||b.id==='snow'&&r()>.48||h<1.5||noise(x*.025+19,z*.025-73)<.3||Math.hypot(x+6,z+3)<39||distanceToRoad(x,z,8)<6||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+4)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<14)||buildings.some(b=>b.hp>0&&Math.hypot(x-b.x,z-b.z)<4.5))continue;
+    if((this.stringSeed(id+'thin40')>>>0)%100>54)continue;
     const river=riverAt(x,z);if(river&&river.distance<river.width*.5+3||Math.max(Math.abs(terrainHeight(x+1,z)-terrainHeight(x-1,z)),Math.abs(terrainHeight(x,z+1)-terrainHeight(x,z-1)))>2.3)continue;
     const gx=Math.floor(x/8),gz=Math.floor(z/8);let close=false;for(let a=gx-1;a<=gx+1;a++)for(let c=gz-1;c<=gz+1;c++)if((this.staticTreeCells19.get(a+':'+c)||[]).some(n=>Math.hypot(n.x-x,n.z-z)<3.7))close=true;if(close)continue;
     nodes.push({id,type:'tree',x,z,y:h,hp:5,remaining:5,instances:[]});
@@ -49,6 +50,6 @@ export function installForestStreaming19(World){
  World.prototype.dispose=function(){
   // Templates are CPU-side authoring caches; their cloned live meshes are
   // disposed by the normal scene lifecycle, including their atlas textures.
-  const atlasTextures=new Set();for(const root of this.forestTemplates21?.values()||[])root.traverse(m=>{m.geometry?.dispose();if(m.material){if(m.material.map&&!Object.values(this.textures).includes(m.material.map))atlasTextures.add(m.material.map);m.material.dispose();}});atlasTextures.forEach(t=>t.dispose());this.forestTemplates21?.clear();for(const root of this.forestTemplates19?.values()||[])root.traverse(m=>{m.geometry?.dispose();m.material?.dispose();});this.forestTemplates19?.clear();for(const mesh of this.understoryTemplates19||[]){mesh?.geometry.dispose();mesh?.material.dispose();}this.forestChunks19?.clear();dispose.call(this);
+  const atlasTextures=new Set();for(const root of this.forestTemplates21?.values()||[])root.traverse(m=>{m.geometry?.dispose();if(m.material){if(m.material.map&&!Object.values(this.textures).includes(m.material.map))atlasTextures.add(m.material.map);m.material.dispose();}});atlasTextures.forEach(t=>t.dispose());this.forestTemplates21?.clear();for(const a of this.forestRenderCache40?.values()||[]){a.geometry.dispose();a.material.dispose();a.depth.dispose();}this.forestRenderCache40?.clear();for(const root of this.forestTemplates19?.values()||[])root.traverse(m=>{m.geometry?.dispose();m.material?.dispose();});this.forestTemplates19?.clear();for(const mesh of this.understoryTemplates19||[]){mesh?.geometry.dispose();mesh?.material.dispose();}this.forestChunks19?.clear();dispose.call(this);
  };
 }

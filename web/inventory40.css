@@ -1,0 +1,38 @@
+/* DEV40: stable detail/header space; wear and belt share the same baseline. */
+.rust-panel06 .rust-layout06{grid-template-columns:minmax(280px,1.05fr) minmax(320px,1fr) minmax(260px,.85fr);align-items:stretch;gap:20px}
+.rust-panel06 .backpack-slots{display:grid;grid-template-rows:110px 24px auto var(--slot06) 52px;gap:8px;align-self:start;min-width:0}
+.rust-panel06 .backpack-slots>h3{margin:0;align-self:end}
+.rust-panel06 .backpack-slots .backpack-grid06,.rust-panel06 .backpack-slots .belt-grid{margin:0}
+.rust-panel06 .backpack-slots .slot-actions{margin:0;align-self:start;min-height:0;overflow:auto}
+.rust-panel06 .survivor-loadout{position:relative;display:grid!important;grid-template-rows:minmax(190px,1fr) var(--slot06) 52px;gap:8px;min-width:0;padding:0}
+.rust-panel06 .survivor-loadout>h3{position:absolute;top:0;left:0;z-index:1}
+.rust-panel06 .character-stage06{grid-row:1;height:100%;min-height:190px;max-height:none;align-self:end}
+.rust-panel06 .wear-panel24{grid-row:2;align-self:stretch}
+.rust-panel06 .wear-stats24{display:none}
+.rust-panel06 .equipment06.wear-slots24{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin:0;height:var(--slot06)}
+.rust-panel06 .wear-slots24>button{height:var(--slot06);padding:3px 1px 12px}
+.rust-panel06 .wear-slots24 img{height:calc(var(--slot06) - 14px);max-height:none}
+.rust-panel06 .player-preview28 canvas{height:calc(100% - 26px);width:100%;max-width:none;max-height:none;aspect-ratio:auto;object-fit:contain}
+.rust-panel06 .player-preview28{min-height:190px}
+.rust-panel06 .right-column06,.rust-panel06 .loot-mode24 .right-column06{align-self:start;padding-top:118px;gap:12px}
+.rust-panel06 .container-slots{max-height:48vh}
+.rust-panel06 .quick-craft>div{max-height:45vh;overflow:auto}
+.rust-panel06 .item-details40{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:12px;align-items:center;height:110px;padding:10px;background:#aab59f14;border-top:1px solid #b4bdaa33;overflow:auto}
+.rust-panel06 .item-details40 h3{font-size:17px;line-height:1.15;color:#e5e8d9;margin:0 0 7px;letter-spacing:.6px}
+.rust-panel06 .item-details40 p{font-size:11px;line-height:1.4;margin:0;color:#bdc6b1}
+.rust-panel06 .item-details40 small{display:block;font-size:9px;margin-top:6px;color:#939f84}
+.rust-panel06 .item-details40>.item-art{width:92px;height:92px;object-fit:contain;max-height:none}
+.rust-panel06 .panel-footer{display:none}
+#hitmarker40{position:fixed;z-index:30;left:50%;top:50%;width:28px;height:28px;transform:translate(-50%,-50%);pointer-events:none;opacity:0;--hit40:#f1edda;background:linear-gradient(45deg,transparent 46%,var(--hit40) 47% 53%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--hit40) 47% 53%,transparent 54%);clip-path:polygon(0 0,32% 0,50% 32%,68% 0,100% 0,100% 32%,68% 50%,100% 68%,100% 100%,68% 100%,50% 68%,32% 100%,0 100%,0 68%,32% 50%,0 32%);filter:drop-shadow(0 0 2px #10170a)}
+#hitmarker40.visible{opacity:1}#hitmarker40[data-kind=kill]{--hit40:#e6a56b;width:35px;height:35px}
+@media(min-width:1200px) and (min-height:650px){.inventory-panel.rust-panel06{--slot06:clamp(54px,8.5vh,76px)}.rust-panel06 .character-stage06{min-height:320px}}
+@media(max-width:1100px){.rust-panel06 .rust-layout06{grid-template-columns:minmax(210px,.9fr) minmax(280px,1.1fr) minmax(200px,.8fr);gap:12px}.rust-panel06 .item-details40 h3{font-size:14px}.rust-panel06 .item-details40 p{font-size:10px}.rust-panel06 .item-details40{grid-template-columns:minmax(0,1fr) 68px}.rust-panel06 .item-details40>.item-art{width:68px;height:68px}}
+@media(max-height:550px) and (min-width:640px){.rust-panel06 .backpack-slots{grid-template-rows:66px 16px auto var(--slot06) 36px;gap:4px}.rust-panel06 .item-details40{height:66px;padding:4px;grid-template-columns:minmax(0,1fr) 54px}.rust-panel06 .item-details40>.item-art{width:54px;height:54px}.rust-panel06 .item-details40 h3{font-size:12px;margin-bottom:3px}.rust-panel06 .item-details40 p{font-size:8px}.rust-panel06 .item-details40 small{font-size:7px;margin-top:2px}.rust-panel06 .rust-layout06{grid-template-columns:minmax(175px,.9fr) minmax(245px,1.2fr) minmax(160px,.8fr);gap:8px}.rust-panel06 .survivor-loadout{grid-template-rows:minmax(110px,1fr) var(--slot06) 36px;gap:4px}.rust-panel06 .character-stage06,.rust-panel06 .player-preview28{min-height:110px}.rust-panel06 .right-column06,.rust-panel06 .loot-mode24 .right-column06{padding-top:70px}.rust-panel06 .wear-slots24 small{font-size:6px;line-height:7px}.rust-panel06 .wear-slots24>button{padding-bottom:9px}.rust-panel06 .wear-slots24 img{height:calc(var(--slot06) - 10px)}}
+@media(max-width:639px){.rust-panel06 .rust-layout06{grid-template-columns:minmax(100px,.8fr) minmax(200px,1.2fr);gap:8px}.rust-panel06 .backpack-slots{grid-template-rows:100px 20px auto var(--slot06) 60px;gap:6px}.rust-panel06 .item-details40{height:100px;grid-template-columns:minmax(0,1fr) 46px;padding:5px;gap:5px}.rust-panel06 .item-details40>.item-art{width:46px;height:58px}.rust-panel06 .item-details40 h3{font-size:11px}.rust-panel06 .item-details40 p{font-size:9px}.rust-panel06 .survivor-loadout{grid-template-rows:minmax(160px,1fr) var(--slot06) 60px;gap:6px}.rust-panel06 .character-stage06,.rust-panel06 .player-preview28{min-height:160px}.rust-panel06 .equipment06.wear-slots24{grid-template-columns:repeat(4,minmax(0,1fr));height:calc(var(--slot06)*2 + 4px)}.rust-panel06 .wear-slots24>button{height:var(--slot06)}.rust-panel06 .survivor-loadout{grid-template-rows:minmax(160px,1fr) calc(var(--slot06)*2 + 4px) 60px}.rust-panel06 .right-column06,.rust-panel06 .loot-mode24 .right-column06{padding-top:0;grid-column:1/-1}.rust-panel06 .container-slots{grid-template-columns:repeat(6,minmax(0,1fr));max-height:35vh}.rust-panel06 .wear-slots24 small{font-size:6px}}
+
+/* Keep the preview's 2:3 intrinsic canvas out of grid track sizing. */
+.rust-panel06 .player-preview28{position:absolute;inset:0;min-height:0;width:100%;height:100%}
+.rust-panel06 .player-preview28 canvas{flex:1 1 0;min-height:0;height:0;width:100%;max-height:none;object-fit:contain}
+.rust-panel06 .player-controls28{flex:0 0 26px}
+.rust-panel06 .survivor-loadout{min-height:0;max-height:none}
+.rust-panel06 .rust-layout06{min-height:0}

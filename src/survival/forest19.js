@@ -43,7 +43,7 @@ export function addForestNodes19(w,nodes){
  const r=randomSeed(MAP_SEED^0x19f024),cells=new Map(),cell=3.7,put=n=>{const k=Math.floor(n.x/cell)+':'+Math.floor(n.z/cell);if(!cells.has(k))cells.set(k,[]);cells.get(k).push(n);};nodes.filter(n=>n.type==='tree').forEach(put);
  w.foliageExclusions19=w.entryBuildings18||[];
  if(MAP_SCALE>3){w.forestAdded19=0;return;}
- const target=Math.min(14000,Math.round(4200*MAP_SCALE*MAP_SCALE)),buildings=w.entryBuildings18||[];
+ const target=Math.min(8000,Math.round(2100*MAP_SCALE*MAP_SCALE)),buildings=w.entryBuildings18||[];
  for(let i=0,accepted=0;i<target*4&&accepted<target;i++){
   const x=(r()-.5)*WORLD_RADIUS*1.95,z=(r()-.5)*WORLD_RADIUS*1.95,b=biomeAt(x,z),y=terrainHeight(x,z),cluster=noise(x*.025+19,z*.025-73);
   if(b.id==='arid'||y<1.5||b.id==='coast'&&r()>.28||b.id==='snow'&&r()>.5||cluster<.28||Math.hypot(x+6,z+3)<39||distanceToRoad(x,z,8)<6||MONUMENTS.some(m=>Math.hypot(x-m.x,z-m.z)<m.radius+4)||BOT_BASES.some(b=>Math.hypot(x-b.x,z-b.z)<14)||buildings.some(b=>b.hp>0&&Math.hypot(x-b.x,z-b.z)<4.5))continue;

@@ -21,12 +21,12 @@ export function forestTemplate21(w,name,height,variant=0){
  const branch=(a,b,ra,rb)=>{const d=b.clone().sub(a),g=new THREE.CylinderGeometry(rb,ra,d.length(),7,1);g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(up,d.clone().normalize()));g.translate(...a.clone().addScaledVector(d,.5).toArray());wood.push(g);};
  let previous=new V(0,-.16,0);for(let i=1;i<=4;i++){const next=new V(lean.x*(i/4)**2,h*i/4,lean.z*(i/4)**2);branch(previous,next,(pine?.23:variant===0?.40:.22)*(1-(i-1)/4)+.025,(pine?.23:variant===0?.40:.22)*(1-i/4)+.025);previous=next;}
  for(let i=0;i<5;i++){const a=i*Math.PI*2/5;branch(new V(Math.cos(a)*.62,-.08,Math.sin(a)*.62),new V(0,.65,0),.055,.12);}
- const branches=w.settings.quality==='low'?Math.ceil(recipe.branches*.55):recipe.branches;
+ const branches=Math.ceil(recipe.branches*(w.settings.quality==='low'?.42:.72));
  for(let i=0;i<branches;i++){
   const t=(i+.5)/branches,a=i*2.39996+r()*.3,y=h*(recipe.crown+t*(.91-recipe.crown)),scots=recipe.name==='scots';
   const radius=pine&&!scots?(1-y/h)*4.1*recipe.width:recipe.width*(.7+Math.sin(t*Math.PI)*1.15)*( .85+r()*.25),base=new V(lean.x*(y/h)**2,y,lean.z*(y/h)**2),tip=base.clone().add(new V(Math.cos(a)*radius,pine&&!scots?.10:h*(variant===1?.065:.10),Math.sin(a)*radius));
   branch(base,tip,pine?.055:variant===0?.12:.065,.012);
-  for(let j=0;j<(w.settings.quality==='low'?2:pine?3:4);j++){const reach=j<2?.48+j*.22:1,width=pine?1.32+radius*.72:variant===2?1.8:variant===1?2.0:2.75,card=new THREE.PlaneGeometry(width,width*(pine?.78:variant===1||variant===2?1.32:1));card.rotateX((r()-.5)*1.8);card.rotateY(a+j*1.9);card.rotateZ((r()-.5)*.55);const center=base.clone().lerp(tip,reach);card.translate(center.x+(r()-.5)*.65,center.y+r()*.6,center.z+(r()-.5)*.65);leaves.push(card);}
+  for(let j=0;j<(w.settings.quality==='low'?2:pine?2:3);j++){const reach=j<2?.48+j*.22:1,width=pine?1.32+radius*.72:variant===2?1.8:variant===1?2.0:2.75,card=new THREE.PlaneGeometry(width,width*(pine?.78:variant===1||variant===2?1.32:1));card.rotateX((r()-.5)*1.8);card.rotateY(a+j*1.9);card.rotateZ((r()-.5)*.55);const center=base.clone().lerp(tip,reach);card.translate(center.x+(r()-.5)*.65,center.y+r()*.6,center.z+(r()-.5)*.65);leaves.push(card);}
  }
  for(let j=0;j<4;j++){const g=new THREE.PlaneGeometry(pine?1:1.6,pine?1.6:2.1);g.rotateY(j*Math.PI/4);g.translate(lean.x,h-.55,lean.z);leaves.push(g);}
  const bark=new THREE.MeshStandardMaterial({name:'Bark21-'+recipe.name,map:recipe.name==='birch'?birchBark21(r):w.textures['BroadleafBark.jpg'],normalMap:w.textures['BroadleafBark_Normal.png'],color:recipe.name==='birch'?0xffffff:pine?0xa79a82:0xb3a38c,roughness:.97});bark.userData.authoredBark19=true;bark.normalScale.set(.28,.28);

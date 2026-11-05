@@ -1,3 +1,4 @@
+import {roomYaw40} from './room-layout40.js';
 import * as THREE from 'three';
 import {terrainHeight} from './state.js';
 /** Original industrial kit. Decorative fittings never add broad invisible colliders. */
@@ -10,7 +11,7 @@ export function workshopKit34(k){
  const pump=(parent,x,z,y=.18)=>{const a=k.group(parent,[x,y,z]);box(a,[1.65,.20,.95],[0,.1,0],p.concrete,true);const motor=k.cyl(a,.27,.27,.75,[-.25,.50,0],p.paint,true,16);motor.rotation.z=Math.PI/2;for(let i=0;i<7;i++){const r=k.ring(a,.28,.016,[-.57+i*.10,.50,0],p.metal);r.rotation.y=Math.PI/2;}k.cyl(a,.37,.37,.35,[.40,.5,0],p.rust,true,16).rotation.z=Math.PI/2;pipe(a,[[.50,.5,0],[.50,.5,.8],[1.2,.5,.8]],.095);box(a,[.16,.14,.13],[.05,.72,0],p.rubber);cable(a,[.05,.72,0],[-.5,.2,-.4],.1);return a;};
  const bench=(parent,x,z,width=2.6)=>{const a=k.group(parent,[x,0,z]);box(a,[width,.11,.85],[0,.96,0],p.wood,true);for(const xx of[-width/2+.12,width/2-.12])for(const zz of[-.30,.30])k.beam(a,[xx,.05,zz],[xx,.91,zz],.045,p.rust);box(a,[width-.2,.06,.65],[0,.28,0],p.metal);box(a,[.35,.18,.23],[-width*.3,1.1,0],p.rust);k.cyl(a,.045,.045,.52,[-width*.3,1.18,0],p.metal).rotation.z=Math.PI/2;box(a,[.6,.025,.40],[width*.2,1.035,0],p.cream);return a;};
  const building=(x,z,w=8,d=7,{roofAccess=false,workshop=true,mat=p.cream}={})=>{
-  const a=k.group(g,[x,.18,z]);a.userData.floorLocal17=.025;k.floor(a,w,d,0,0,.025,p.concrete);const h=3.2,door=2.6;
+  const a=k.group(g,[x,.18,z],roomYaw40(k,x,z,w,d));a.userData.floorLocal17=.025;a.userData.door40={x:0,y:.025,z:d/2,width:2.6};k.doors40??=[];k.doors40.push(a);k.floor(a,w,d,0,0,.025,p.concrete);const h=3.2,door=2.6;
   box(a,[w,h,.18],[0,h/2,-d/2],mat,true);
   for(const side of[-1,1]){const wing=(w-door)/2;box(a,[wing,h,.18],[side*(door/2+wing/2),h/2,d/2],mat,true);box(a,[door,h-2.6,.18],[0,2.6+(h-2.6)/2,d/2],mat,true);
    // Real window aperture: sill, head and two piers rather than glass over a solid wall.

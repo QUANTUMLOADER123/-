@@ -1,3 +1,4 @@
+import {roomYaw40} from './room-layout40.js';
 import {recyclerModel20} from './recycler-model20.js';
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -48,8 +49,8 @@ export class Site17{
   if(rails)for(const x of[-width/2,width/2]){for(let i=0;i<=steps;i+=Math.max(1,Math.floor(steps/5)))this.beam(g,[x,rise*i/steps,-i*tread],[x,rise*i/steps+1,-i*tread],.025,this.p.yellow);this.beam(g,[x,1,0],[x,rise+1,-run],.025,this.p.yellow);}
   return {root:g,run,top:new V(0,rise,-run)};
  }
- room(parent,{x=0,z=0,y=.18,w=8,d=7,h=3.4,yaw=0,mat=this.p.cream,door=2.6,pitched=true}={}){
-  const g=this.group(parent,[x,y,z],yaw);this.floor(g,w,d,0,0,.025);g.userData.floorLocal17=.025;
+ room(parent,{x=0,z=0,y=.18,w=8,d=7,h=3.4,yaw=null,mat=this.p.cream,door=2.6,pitched=true}={}){
+  const g=this.group(parent,[x,y,z],yaw??(this.m.entrance36&&this.m.kind!=='oilrig'?roomYaw40(this,x,z,w,d,parent):0));g.userData.door40={x:0,y:.025,z:d/2,width:door};(this.doors40??=[]).push(g);this.floor(g,w,d,0,0,.025);g.userData.floorLocal17=.025;
   this.box(g,[w,h,.20],[0,h/2,-d/2],mat,true);
   for(const side of[-1,1]){this.box(g,[.20,h,d],[side*w/2,h/2,0],mat,true);const wing=(w-door)/2;this.box(g,[wing,h,.20],[side*(door/2+wing/2),h/2,d/2],mat,true);this.box(g,[.1,2.7,.26],[side*door/2,1.35,d/2+.02],this.p.metal);}
   this.box(g,[door,h-2.6,.20],[0,2.6+(h-2.6)/2,d/2],mat,true);
@@ -80,7 +81,7 @@ export class Site17{
  vehicle(parent,x,z,yaw=0,truck=false){const g=vehicleModel16(truck,truck?1:0);g.position.set(x,.18,z);g.rotation.y=yaw;parent.add(g);this.keep.add(g);for(const[size,pos]of[[[truck?2.5:2,.95,truck?5.5:3.8],[0,.475,0]],[[1.8,1,1.7],[0,1.36,truck?1.4:0]]]){const hull=this.box(g,size,pos,this.p.rubber,true);hull.visible=false;this.keep.add(hull);}const crate=this.crate(g,'trunk25-'+this.loot.length,g.userData.trunk25);crate.updateWorldMatrix(true,true);const target=g.localToWorld(new V(...g.userData.trunk25)).y;crate.position.y+=target-new THREE.Box3().setFromObject(crate).min.y;this.loot[this.loot.length-1].fixedSupport25=true;return g;}
  finish(){
   this.sourceParts34=0;this.root.traverse(o=>{if(o.isMesh)this.sourceParts34++;});
-  const w=this.w;this.root.updateMatrixWorld(true);const q=new THREE.Quaternion(),e=new THREE.Euler(0,0,0,'YXZ');
+  const w=this.w;this.root.updateMatrixWorld(true);const doorData40=(this.doors40||[]).map(g=>{const d=g.userData.door40,door=g.localToWorld(new V(d.x,d.y,d.z)),inside=g.localToWorld(new V(d.x,d.y,d.z-1)),outside=g.localToWorld(new V(d.x,d.y,d.z+3));return{door:door.toArray(),inside:inside.toArray(),outside:outside.toArray(),width:d.width*Math.abs(g.getWorldScale(new V()).x)};});const q=new THREE.Quaternion(),e=new THREE.Euler(0,0,0,'YXZ');
   for(const m of this.solids){m.geometry.computeBoundingBox();const local=m.geometry.boundingBox,size=local.getSize(new V()),bounds=local.clone().applyMatrix4(m.matrixWorld),c=bounds.getCenter(new V());m.getWorldQuaternion(q);e.setFromQuaternion(q,'YXZ');const yaw=e.y,scale=m.getWorldScale(new V()),ow=size.x*Math.abs(scale.x),od=size.z*Math.abs(scale.z),tilted=Math.abs(e.x)+Math.abs(e.z)>.0001;
    const cylinder=m.geometry.type==='CylinderGeometry'&&!tilted;w.colliders.push({box:!cylinder,circle17:cylinder,r:cylinder?Math.max(ow,od)/2:undefined,x:c.x,z:c.z,y:bounds.min.y,h:bounds.max.y-bounds.min.y,w:bounds.max.x-bounds.min.x,d:bounds.max.z-bounds.min.z,ow:tilted?bounds.max.x-bounds.min.x:ow,od:tilted?bounds.max.z-bounds.min.z:od,rotation:tilted?0:yaw,scenery:true,site17:this.m.id,deck08:this.floors.some(f=>f.mesh===m)});
   }
@@ -98,6 +99,6 @@ export class Site17{
   // objects, yet otherwise pay a transform/traversal cost on every frame.
   const prune=parent=>{for(const child of [...parent.children]){if(child.isGroup&&!this.keep.has(child)){prune(child);if(!child.children.length)child.removeFromParent();}}};prune(this.root);
   this.m.entry17=this.m.entrance36?this.root.localToWorld(new V(0,.18,this.m.radius/(this.m.siteScale25||1)*.68)):this.m.kind==='oilrig'?this.m.dock:this.root.localToWorld(new V(0,.18,this.m.radius/(this.m.siteScale25||1)*.72+1.4));
-  w.siteLayouts17??=[];w.siteLayouts17.push({id:this.m.id,kind:this.m.kind,revision:this.root.userData.siteRevision36||this.root.userData.siteRevision34||17,entrance36:this.m.entrance36?{...this.m.entrance36}:undefined,approach36:this.m.approach36?{...this.m.approach36}:undefined,detail36:this.root.userData.detail36,sourceParts:this.sourceParts34||0,yaw:this.root.rotation.y,colliders:this.solids.length,floors:this.floors.length,loot:this.loot.length});
+  w.siteLayouts17??=[];w.siteLayouts17.push({id:this.m.id,kind:this.m.kind,revision:this.root.userData.siteRevision36||this.root.userData.siteRevision34||17,entrance36:this.m.entrance36?{...this.m.entrance36}:undefined,approach36:this.m.approach36?{...this.m.approach36}:undefined,detail36:this.root.userData.detail36,sphere40:this.root.userData.sphere40,doors40:doorData40,sourceParts:this.sourceParts34||0,yaw:this.root.rotation.y,colliders:this.solids.length,floors:this.floors.length,loot:this.loot.length});
  }
 }

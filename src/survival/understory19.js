@@ -22,7 +22,7 @@ function template(w,flower){
 }
 export function addUnderstory19(w,trees){
  const groups=[[],[]];for(const n of trees){const r=randomSeed(w.stringSeed(n.id+'under19'));if(r()>.3)continue;const x=n.x+(r()-.5)*4,z=n.z+(r()-.5)*4,h=terrainHeight(x,z),b=biomeAt(x,z);if(b.id!=='forest'||!grassGround19(w,x,z,h))continue;groups[r()<.15?1:0].push({id:n.id+'-under19',x,z,h});}
- for(let k=0;k<2;k++){if(!groups[k].length)continue;const src=template(w,!!k),authored=treeMaterial12(w,src,src.geometry.clone(),.8);authored.material.userData.depth12=authored.depth;const before=w.treeBatches.length;
+ for(let k=0;k<2;k++){if(!groups[k].length)continue;const src=template(w,!!k);w.forestRenderCache40??=new Map();const cacheKey='understory:'+k;let authored=w.forestRenderCache40.get(cacheKey);if(!authored){authored=treeMaterial12(w,src,src.geometry.clone(),.8);authored.geometry.userData.sharedForest40=authored.material.userData.sharedForest40=authored.depth.userData.sharedForest40=true;w.forestRenderCache40.set(cacheKey,authored);}authored.material.userData.depth12=authored.depth;const before=w.treeBatches.length;
   w.addTreeChunks(authored.geometry,authored.material,groups[k],n=>{const r=randomSeed(w.stringSeed(n.id)),s=.8+r()*.5;return new THREE.Matrix4().compose(new V(n.x,n.h-.012,n.z),new THREE.Quaternion().setFromAxisAngle(new V(0,1,0),r()*Math.PI*2),new V(s,s,s));});
   for(const b of w.treeBatches.slice(before)){b.userData.understory19=true;b.castShadow=false;}
  }

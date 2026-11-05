@@ -1,3 +1,4 @@
+import {installPlacement40} from './placement40.js';
 import {installCompounds38} from './compounds38.js';
 import {renderHands35} from './render-hands35.js';
 import {naturalRock33} from './materials12.js';
@@ -18,7 +19,7 @@ import {installWeaponMods25} from './weapon-mods25.js';
 import {hempPlant25} from './hemp25.js';
 import {installBiomeLife23} from './biome-life23.js';
 import {berryBush23} from './bush-models23.js';
-import {installGrass22} from './grass22.js';
+import {installGrass39} from './grass39.js';
 import {installStationContext20} from './station-context20.js';
 import {installSettlements20} from './settlements20.js';
 import {installDamage20} from './damage20.js';
@@ -110,7 +111,7 @@ export class IslandWorld {
   let active28=0;const waiters28=[],decodeLimit28=this.settings.quality==='low'?2:3;
   const limited28=async work=>{while(active28>=decodeLimit28)await new Promise(resolve=>waiters28.push(resolve));active28++;try{checkLoading11(signal);return await work();}finally{active28--;waiters28.shift()?.();}};
   // Wait for every decoder before cleanup, including parsers already running at cancellation.
-  const jobs=[...names.map(n=>limited28(async()=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');assetMaterials28(this,this.models[n].scene);checkLoading11(signal);})),...textureNames.map(n=>limited28(async()=>{const response=await bytes(texturePath30(n)),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.toLowerCase().includes('normal')&&!n.includes('-orm'))t.colorSpace=THREE.SRGBColorSpace;if(n.startsWith('pbr12/'))t.userData.kind12=n.split('/')[1].split('-')[0];assetTexture28(this,t);}finally{URL.revokeObjectURL(url);}}))];
+  const jobs=[...names.map(n=>limited28(async()=>{const response=await bytes(ASSET+'models/'+n+'.glb'),buffer=await response.arrayBuffer();checkLoading11(signal);this.models[n]=await loader.parseAsync(buffer,ASSET+'models/');assetMaterials28(this,this.models[n].scene);checkLoading11(signal);})),...textureNames.map(n=>limited28(async()=>{const response=await bytes(texturePath30(n)),blob=await response.blob();checkLoading11(signal);const url=URL.createObjectURL(blob);try{const t=await tl.loadAsync(url);this.textures[n]=t;checkLoading11(signal);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(!n.toLowerCase().includes('normal')&&!n.includes('-orm'))t.colorSpace=THREE.SRGBColorSpace;t.userData.assetName39=n;if(n.startsWith('pbr12/'))t.userData.kind12=n.split('/')[1].split('-')[0];assetTexture28(this,t);}finally{URL.revokeObjectURL(url);}}))];
   const results=await Promise.allSettled(jobs);checkLoading11(signal);const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;installSurfaceTextures12(this.textures);itemTextures16(this.textures);setWeaponSources26(this.models,this.textures);
   progress(.86,'Формируем рельеф, берег и водоёмы…');await paintLoading10(signal);checkLoading11(signal);await this.makeTerrain(signal);this.makeOcean();this.makeRiver();await paintLoading10(signal);await initWater12(this,signal);
   progress(.88,'Собираем дороги, перекрёстки и РТ…');await paintLoading10(signal);checkLoading11(signal);this.makeCamp();addIslandContent(this);addRockfields17(this);decorateLoot(this);this.alignTerrainProps06();
@@ -342,6 +343,7 @@ export class IslandWorld {
  }
  menuCamera(time){this.camera.position.set(13+Math.sin(time*.06)*.35,6.4,18+Math.cos(time*.06)*.3);this.camera.lookAt(-4,3,-7);}
  render(){if(this.stormSky)this.stormSky.position.copy(this.camera.position);this.updateTreeVisibility();this.renderedFrames=(this.renderedFrames||0)+1;this.updateGrassVisibility();this.camera.layers.set(0);this.renderer.autoClear=true;this.renderer.render(this.scene,this.camera);this.frameStats={calls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles};if(this.handRoot?.visible)renderHands35(this);this.needsRender=false;}
+ actorBounds40(b){return new THREE.Box3().setFromObject(b.model,true);}
  get stats(){return{visibility:this.visibilityStats16,frames:this.renderedFrames||0,groundingMaxError:this.groundingMaxError,river:!!this.river,daylight:this.dayCycle?.daylight??1,understoryTiles23:this.biomeLife23?.tiles.size||0,understoryQueue23:this.biomeLife23?.queue.length||0,grassTiles22:this.grass22?.tiles.size||0,grassQueue22:this.grass22?.queue.length||0,grassInstances:(this.localGrass?.count||0)+(this.grassChunks||[]).reduce((n,c)=>n+c.mesh.count,0),visibleGrass:(this.localGrass?.visible?this.localGrass.count:0)+(this.grassChunks||[]).reduce((n,c)=>n+(c.mesh.visible?c.mesh.count:0),0),calls:this.frameStats?.calls||0,triangles:this.frameStats?.triangles||0,trees:this.nodes.filter(n=>n.type==='tree').length,models:Object.keys(this.models).length,monuments:MONUMENTS.length,bases:BOT_BASES.length,bots:this.bots.length,aiUpdates:this.bots.reduce((n,b)=>n+(b.aiUpdates||0),0),nearColliders:this.nearColliders(this.camera.position.x,this.camera.position.z).length,dormantBots:this.bots.filter(b=>Math.hypot(b.x-this.camera.position.x,b.z-this.camera.position.z)>100).length,boats:this.boats?.length||0,webgl2:this.renderer.capabilities.isWebGL2};}
 }
 
@@ -399,7 +401,7 @@ installDamage20(IslandWorld);
 
 installStationContext20(IslandWorld);
 
-installGrass22(IslandWorld);
+installGrass39(IslandWorld);
 installBiomeLife23(IslandWorld);
 
 installWeaponMods25(IslandWorld);
@@ -422,3 +424,5 @@ installBots29(IslandWorld);
 installFoundations32(IslandWorld);
 
 installCompounds38(IslandWorld);
+
+installPlacement40(IslandWorld);

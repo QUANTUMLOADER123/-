@@ -1,6 +1,6 @@
 {
   "name": "oskol-survival",
-  "version": "0.38.0",
+  "version": "0.40.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,8 +11,8 @@
     "test:survival": "node scripts/dev03-check.mjs",
     "desktop": "electron .",
     "build:windows": "npm run build && electron-builder --win portable --x64 --publish never",
-    "test:release": "node --test tests/engine.test.mjs tests/item-art.test.mjs tests/dev32.test.mjs tests/dev33.test.mjs tests/dev34.test.mjs tests/dev35.test.mjs tests/dev36.test.mjs tests/dev37.test.mjs tests/dev38.test.mjs",
-    "test:release:browser": "node scripts/dev36-smoke.mjs && node scripts/dev37-smoke.mjs && node scripts/dev38-smoke.mjs"
+    "test:release": "node --test tests/engine.test.mjs tests/item-art.test.mjs tests/dev32.test.mjs tests/dev33.test.mjs tests/dev34.test.mjs tests/dev35.test.mjs tests/dev36.test.mjs tests/dev37.test.mjs tests/dev38.test.mjs tests/dev39.test.mjs tests/dev40.test.mjs",
+    "test:release:browser": "node scripts/dev36-smoke.mjs && node scripts/dev37-smoke.mjs && node scripts/dev38-smoke.mjs && node scripts/dev39-smoke.mjs && node scripts/check-grass39.mjs && node scripts/dev40-smoke.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
@@ -48,7 +48,7 @@
         }
       ],
       "icon": "desktop/icon.ico",
-      "artifactName": "oskol-0.38.0-dev38-windows-x64.exe"
+      "artifactName": "oskol-0.40.0-dev40-windows-x64.exe"
     },
     "portable": {
       "requestExecutionLevel": "user"

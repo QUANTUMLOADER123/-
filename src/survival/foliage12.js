@@ -12,8 +12,9 @@ function windShader12(w,shader,height){
  #endif`);
 }
 export function treeMaterial12(w,src,geometry,height){
- const mat=src.material.clone(),name=(mat.name+' '+src.name).toLowerCase();
+ let mat=src.material.clone();const name=(mat.name+' '+src.name).toLowerCase();
  const leaf=/green|leaf|leaves|snow/.test(name)||mat.color.g>mat.color.r*1.08;
+ if(leaf){const old=mat;mat=new THREE.MeshLambertMaterial({name:old.name,map:old.map,color:old.color,alphaMap:old.alphaMap,alphaTest:old.alphaTest,alphaToCoverage:old.alphaToCoverage,side:old.side,vertexColors:old.vertexColors});old.dispose();}
  mat.roughness=leaf?.86:.93;mat.userData.tree12=true;
  if(leaf){
   mat.side=THREE.DoubleSide;mat.color.multiplyScalar(1.12);

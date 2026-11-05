@@ -1,0 +1,26 @@
+{
+  "source": "Original AI-generated material scan style albedos; not Rust/Facepunch assets",
+  "processing": "Poisson periodic/smooth decomposition, 1024px albedo, subtle 512px normal; runtime mipmaps",
+  "files": {
+    "turf-color.webp": {
+      "sha256": "ce6ace0e2641ac529c55e19738f810cd63570dc32555a29ce13b15384d3ebea9",
+      "width": 1024,
+      "height": 1024
+    },
+    "turf-normal.webp": {
+      "sha256": "60252988dd58acb891bf2eaf644613e3ae6883a93bc3f4d93a03f79414851693",
+      "width": 512,
+      "height": 512
+    },
+    "loam-color.webp": {
+      "sha256": "4e85792b70dbe56f5002833b24a056a23a40cb12968c3c8cd704032cdc4566ad",
+      "width": 1024,
+      "height": 1024
+    },
+    "loam-normal.webp": {
+      "sha256": "51d7b0fee0028516b4e5f5aa5ccee48e9d8608e405e88ac7e5679c20c1a6da9c",
+      "width": 512,
+      "height": 512
+    }
+  }
+}

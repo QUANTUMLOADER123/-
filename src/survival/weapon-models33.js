@@ -22,7 +22,7 @@ export function weaponModel33(id,bank,options={}){
  if(p.family==='launcher'){
   tube(.089,1.30,[0,.145,-.39],dark,true);for(const z of[-1.035,-.72,-.15,.24])ring(.091,[0,.145,z],steel);const lining=tube(.073,.1,[0,.145,-.99],black,true);u.muzzle16=[0,.145,-1.045];grip();trigger();box([.10,.15,.27],[0,.085,-.41],rubber,.014);slab([[-.12,.22],[-.12,.34],[-.36,.34],[-.39,.23]],.028,steel);u.receiverTop32=.34;u.opticMount16=[0,.42,-.24];
  }else if(p.family==='pistol'){
-  grip(true);trigger();slab([[.135,.055],[.13,.15],[-.27,.15],[-.27,.073],[.025,.03]],.069,dark);const slide=slab([[.12,.13],[.12,.209],[p.end+.018,.209],[p.end-.002,.179],[p.end+.01,.126]],p.heavy?.081:.073,steel);u.slide14=slide;
+  grip(true);trigger();u.lowerParts40=id==='pistol'?new Set(root.children):null;slab([[.135,.055],[.13,.15],[-.27,.15],[-.27,.073],[.025,.03]],.069,dark);const slide=slab([[.12,.13],[.12,.209],[p.end+.018,.209],[p.end-.002,.179],[p.end+.01,.126]],p.heavy?.081:.073,steel);u.slide14=slide;
   for(const side of[-1,1])for(let j=0;j<6;j++)box([.003,.034,.004],[side*(p.heavy?.042:.038),.17,.032+j*.010],dark,.001,slide);
   box([.003,.035,.066],[.039,.178,-.12],black,.003,slide);box([.004,.012,.030],[.041,.169,-.115],alloy,.002,slide);barrel(p.end,-.16,p.heavy?.021:.016,.158);const mag=box([.045,.11,.058],[0,-.105,.079],dark,.004);u.magazine=mag;const base=box([.067,.012,.071],[0,-.165,.078],dark,.003,mag);base.position.sub(mag.position);u.receiverTop32=.211;u.opticMount16=[0,.29,-.09];
  }else if(p.family==='revolver'){
@@ -51,6 +51,14 @@ export function weaponModel33(id,bank,options={}){
  // Family-specific service details: selector, takedown pins, sling and vented muzzle device.
  if(!['pistol','revolver','launcher'].includes(p.family)){const lever=box([.009,.010,.039],[.047,.081,.018],dark,.002);lever.rotation.x=.35;for(const z of[-.20,.080])screw(-.044,.092,z);if(!p.internal&&p.family!=='lmg')box([.012,.014,.026],[.046,.065,-.092],alloy,.002);ring(.015,[.038,.12,p.end+.16],dark);rod([.038,.132,p.end+.16],[.015,.151,p.end+.16],.004,dark);if(p.family!=='shotgun'){tube(.023,.058,[0,.154,p.end+.029],steel,true);for(const side of[-1,1])for(let j=0;j<3;j++)box([.003,.018,.006],[side*.024,.154,p.end+.012+j*.012],black,.001);}}
  options.decorate?.(root,{p,mesh,box,slab,tube,ring,rod,steel,dark,wood,rubber,alloy,brass});
+ if(id==='pistol'){
+  // One affine transform for slide, barrel, receiver and exterior service detail.
+  // Grip/magazine/trigger and their hand anchors stay in original metre space.
+  const pivot=new V(0,.055,.07),scale=new V(.80,.78,.78),transform=new THREE.Matrix4().makeTranslation(...pivot.toArray()).multiply(new THREE.Matrix4().makeScale(...scale.toArray())).multiply(new THREE.Matrix4().makeTranslation(...pivot.clone().negate().toArray()));
+  for(const part of root.children){if(u.lowerParts40.has(part)||part===u.magazine)continue;part.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(part);if(b.max.y<.035)continue;part.applyMatrix4(transform);}
+  for(const key of['muzzle16','opticMount16'])if(u[key])u[key]=new V(...u[key]).applyMatrix4(transform).toArray();
+  u.receiverTop32=pivot.y+(.211-pivot.y)*scale.y;u.compactUpper40={scale:scale.toArray(),pivot:pivot.toArray(),muzzleConnected:true};delete u.lowerParts40;
+ }
  const grips=grips33(id);u.rightGrip33=new V(...grips.right);u.supportGrip25=new V(...grips.left);u.magazineRest=u.magazine?.position.clone();u.gripSpec33=grips;
  const keep=new Set([u.magazine,u.slide14,u.cylinder14,u.foregrip14,u.bolt14,u.feedBox14].filter(Boolean));
  const batch=(parent,skip=new Set())=>{parent.updateWorldMatrix(true,true);const inv=new THREE.Matrix4().copy(parent.matrixWorld).invert(),groups=new Map(),nodes=[];parent.traverse(m=>{if(m===parent||!m.isMesh)return;for(let n=m;n&&n!==parent;n=n.parent)if(skip.has(n))return;nodes.push(m);});for(const m of nodes){let g=m.geometry.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv,m.matrixWorld));if(g.index){const old=g;g=g.toNonIndexed();old.dispose();}if(!groups.has(m.material))groups.set(m.material,[]);groups.get(m.material).push(g);m.removeFromParent();m.geometry.dispose();}for(const [mat,parts]of groups){const g=mergeGeometries(parts);parts.forEach(p=>p.dispose());mesh(g,mat,[0,0,0],parent);}};

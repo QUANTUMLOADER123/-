@@ -10,7 +10,7 @@ function collider(w,body){return w.colliderById19.get(body.id);}
 function support(w,body,p,state){
  let h=-Infinity;
  for(const contact of body.contacts){const {x:dx,y:dy,z:dz}=contact,x=p.x+dx,z=p.z+dz,bottom=p.y+dy;let top=terrainHeight(x,z);
-  for(const f of w.nearFloors05?.(x,z)||w.walkFloors){if(f.structureId&&(w.deadIds05?.has(f.structureId)||state.depleted.includes(f.structureId)))continue;const y=floorY08(f,x,z);if(y<=bottom+.3&&floorContains08(f,x,z))top=Math.max(top,y);}
+  for(const f of w.rayCandidates28?.('physics40-slabs',w.solidFloors29?.(state)||w.walkFloors,new V(x,bottom,z),new V(x,bottom,z))||w.nearFloors05?.(x,z)||w.walkFloors){if(f.data?.hp<=0||f.structureId&&(w.deadIds05?.has(f.structureId)||state.depleted.includes(f.structureId)))continue;const y=floorY08(f,x,z);if(y<=bottom+.3&&floorContains08(f,x,z))top=Math.max(top,y);}
   for(const c of w.nearColliders(x,z)){if(c.id===body.id||c.data?.hp<=0||c.id&&w.deadIds05?.has(c.id)||c.door&&c.data?.open||!Number.isFinite(c.y)||c.deck08)continue;const y=c.y+(c.h??3.02);if(y<=bottom+.2&&obstacleContains17(c,x,z))top=Math.max(top,y);}
   h=Math.max(h,top-dy);
  }
@@ -53,6 +53,8 @@ export function installPhysics19(World){
    body.localContacts=[[cx,cz],[cx+rx,cz+rz],[cx-rx,cz+rz],[cx+rx,cz-rz],[cx-rx,cz-rz]].map(([x,z])=>new V(x,local.min.y,z));contacts19(body);
    const saved=state.propPhysics19[item.id];if(!item.data&&!body.bag&&finite(saved)&&Math.hypot(saved.x-p.x,saved.z-p.z)<40&&saved.y> -40&&saved.y<350){place(body,new V(saved.x,saved.y,saved.z));syncCollider(this,body,position(body));this.collisionCount=-1;}
    const initial=position(body);
+   // Recover old deployed chests that sank the 38cm foundation thickness. Never lift through a ceiling.
+   if(item.data)for(const f of this.solidFloors29?.(state)||[]){if(f.data?.hp<=0||this.deadIds05?.has(f.structureId)||state.depleted.includes(f.structureId)||!floorContains08(f,initial.x,initial.z))continue;const top=floorY08(f,initial.x,initial.z),bottom=initial.y+body.offset;if(top>bottom+.025&&top<bottom+.55){initial.y=top-body.offset+.006;place(body,initial);}}
    if(!item.data&&Math.hypot(initial.x-state.position.x,initial.z-state.position.z)>105){align19(this,body,initial,state);initial.y=support(this,body,initial,state)+.006;place(body,initial);syncCollider(this,body,initial);body.sleep=true;const bag=(state.groundBags||[]).find(b=>b.id===body.id);if(bag)Object.assign(bag,{x:initial.x,y:initial.y,z:initial.z});else state.propPhysics19[body.id]={x:initial.x,y:initial.y,z:initial.z};}
    this.bodies19.set(item.id,body);
   }
