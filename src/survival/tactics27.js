@@ -75,7 +75,7 @@ function coordinate(w,s){
   if(!squad.length||r.until<s.elapsed||f.alarm27?.until>s.elapsed){r.stage='withdraw';r.until=Math.max(r.until,s.elapsed+20);}
   if(r.stage==='rally'&&squad.every(b=>D(b,{x:f.depotX,z:f.depotZ})<5)&&squad.some(b=>b.actor26.bag.satchel)){r.stage='scout';r.until=s.elapsed+240;}
   if(r.stage==='scout'&&squad.some(b=>D(b,r)<5)){
-   const house=w.settlements05.get(r.enemy),entry=house?.entry27||r;const doors=parts(w,s).filter(p=>p.owner===r.enemy&&livePart(s,p)&&['door','wall'].includes(p.kind)&&Math.abs(p.y-(w.settlements05.get(r.enemy)?.root.position.y??p.y))<1).sort((a,c)=>(a.kind==='door'?0:1000)+D(a,entry)*150+(s.structureDamage[a.id]??a.hp)-((c.kind==='door'?0:1000)+D(c,entry)*150+(s.structureDamage[c.id]??c.hp)));
+   const house=w.settlements05.get(r.enemy),entry=house?.entry27||r;const doors=parts(w,s).filter(p=>p.owner===r.enemy&&livePart(s,p)&&['door','wall'].includes(p.kind)&&(p.compound38||Math.abs(p.y-(w.settlements05.get(r.enemy)?.root.position.y??p.y))<1)).sort((a,c)=>(a.compound38?-100000:a.kind==='door'?0:1000)+D(a,entry)*150+(s.structureDamage[a.id]??a.hp)-((c.compound38?-100000:c.kind==='door'?0:1000)+D(c,entry)*150+(s.structureDamage[c.id]??c.hp)));
    if(doors.length){r.target=doors[0].id;r.stage='breach';r.until=s.elapsed+180;}
   }
   if(r.stage==='breach'){

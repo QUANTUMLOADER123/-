@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "source": "Individually AI-generated, approved painted inventory style; chroma key removed",
+  "items": {
+    "barbedFence": {
+      "file": "barbedFence.webp",
+      "sha256": "b14c1a7f32a44d25e80c98a479f56d371d20c181ca10d94f59f453d95deec54a",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sourceSha256": "949c00a86b010e254ecbc9aa5235db2d7bfae73b8ac07663f87731fff918fbc7"
+    },
+    "compoundGate": {
+      "file": "compoundGate.webp",
+      "sha256": "8b1c87204e31eca8b60cd0d5d6c290f2691e034717be66ba3a396bbae4cb9bce",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sourceSha256": "08b8a60cefa2a6b7ebcff3162dc028fa298b98c816cb9d797b3db2a7f586edea"
+    },
+    "reinforcedCrate": {
+      "file": "reinforcedCrate.webp",
+      "sha256": "03a4f43a010c52590bd39f9147d26efb8ecc51c890e61a907094fbf1feb645bd",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sourceSha256": "34300fa7a5503f1dbe2a5083b214703ab9dbe8d088f2bdec092be8224f6e5a9d"
+    },
+    "wallLadder": {
+      "file": "wallLadder.webp",
+      "sha256": "869c043d79bf32acabd1d4e700736ea5e71623a583486d04e706d0c282161cba",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sourceSha256": "b0fe6483e8bf97bdd790b677d794d19c57621c7424ddc97430a02e920df73624"
+    },
+    "weaponsLocker": {
+      "file": "weaponsLocker.webp",
+      "sha256": "05fc3129dc003e8c1628810dc3f4f55962b6ed9b1f7e362534bb0657fdfff08d",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sourceSha256": "88ca1eeeb868c107360ba35532474c53c6c91608c6c54ae8925c859b7fd08bba"
+    },
+    "woodenFence": {
+      "file": "woodenFence.webp",
+      "sha256": "30fbb86c730313e42932d1d4322521de8afce9a6ad9b67fb59eeb947e9ee1a05",
+      "width": 256,
+      "height": 256,
+      "alpha": true,
+      "sourceSha256": "ae66e4c130ae122c471274c7b90c66df7c6d4194b97febfbb837eb0f312f4cde"
+    }
+  }
+}

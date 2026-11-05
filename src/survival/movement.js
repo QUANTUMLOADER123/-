@@ -1,11 +1,13 @@
 /** Feet-space capsule locomotion. Bounded substeps and solid swept terrain contact. */
 export class CharacterMotor {
  constructor(){this.reset(0);}
- reset(y){this.y=y;this.vx=0;this.vz=0;this.vy=0;this.grounded=true;this.swimming=false;this.airSpeed=3.8;this.lastImpact=0;this.safe17=null;this.escape17=0;}
+ reset(y){this.climbing38=false;this.y=y;this.vx=0;this.vz=0;this.vy=0;this.grounded=true;this.swimming=false;this.airSpeed=3.8;this.lastImpact=0;this.safe17=null;this.escape17=0;}
  stop(){if(this.grounded||this.swimming)this.vx=this.vz=0;if(this.swimming)this.vy=0;}
  jump(){if(this.swimming){this.vy=2.8;return true;}if(!this.grounded)return false;this.grounded=false;this.vy=7.7;this.airSpeed=Math.max(3.8,Math.hypot(this.vx,this.vz));return true;}
- step(dt,{x=0,z=0,yaw=0,sprint=false,crouch=false,pitch=0,rise=false,dive=false,waterLevel=0},position,{floor,canMove,terrain=null}){
+ step(dt,{x=0,z=0,yaw=0,sprint=false,crouch=false,pitch=0,rise=false,dive=false,waterLevel=0},position,{floor,canMove,terrain=null,ladder=null}){
   this.lastImpact=0;dt=Math.min(.1,Math.max(0,dt));const steps=Math.max(1,Math.ceil(dt/(1/120))),h=dt/steps,length=Math.hypot(x,z);if(length>1){x/=length;z/=length;}
+  const contact=ladder?.(position,this.y),holding38=this.climbing38;this.climbing38=false;
+  if(contact&&Math.abs(x)<.4&&(Math.abs(z)>.1||rise||holding38)){const amount=(rise?1:-z)*2.4*dt,n=Math.max(1,Math.ceil(Math.abs(amount)/.025));this.vx=this.vz=this.vy=0;this.grounded=this.swimming=false;for(let i=0;i<n;i++){const ny=Math.max(floor(position.x,position.z,this.y),contact.bottom-.85,Math.min(contact.top,this.y+amount/n));if(!canMove(position.x,position.z,ny))break;this.y=ny;}this.safe17={...position,y:this.y};this.climbing38=true;return .5;}
   // Recover an already embedded capsule locally; never move a valid capsule
   // through a wall. Last known clear contact is preferred over a radial push.
   this.escape17=Math.max(0,this.escape17-dt);

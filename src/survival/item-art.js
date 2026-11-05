@@ -1,6 +1,13 @@
 // DEV26: all 155 original inventory IDs, individually generated using the approved reference.
 // Additional DEV26 equipment uses explicitly shared category art, not new AI generations.
 export const ITEM_ART=Object.freeze({
+  barbedFence: 'assets/items38/barbedFence.webp?v=b14c1a7f32',
+  compoundGate: 'assets/items38/compoundGate.webp?v=8b1c87204e',
+  reinforcedCrate: 'assets/items38/reinforcedCrate.webp?v=03a4f43a01',
+  wallLadder: 'assets/items38/wallLadder.webp?v=869c043d79',
+  weaponsLocker: 'assets/items38/weaponsLocker.webp?v=05fc3129dc',
+  woodenFence: 'assets/items38/woodenFence.webp?v=30fbb86c73',
+
   breachingCharge: 'assets/items37/breachingCharge.webp?v=302a290337',
   burnSalve: 'assets/items37/burnSalve.webp?v=e95a986e55',
   copperIngot: 'assets/items37/copperIngot.webp?v=84af8cee59',

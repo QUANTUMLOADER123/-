@@ -2,9 +2,12 @@
  * No network/LLM, no off-screen income or loot teleportation. World adapter owns visuals.
  */
 import * as THREE from 'three';
+import {prop38} from './props38.js';
+import {houseStock38} from './house-loot38.js';
+import {housePlan20,hashHouse20} from './house-plans20.js';
 import {utility37,cover37,botShotReady37,recordBotShot37} from './behavior37.js';
 import {BOT_BASES,MONUMENTS,safeZoneAt,distanceToRoad} from './map-data.js';
-import {terrainHeight,harvest,RECIPES,BUILD_KINDS,TIERS} from './state.js';
+import {randomSeed,terrainHeight,harvest,RECIPES,BUILD_KINDS,TIERS} from './state.js';
 import {WEAPONS,BUILD_COSTS,isGun} from './catalog.js';
 import {safeCamp} from './health.js';
 import {weaponModel16} from './items16.js';
@@ -26,7 +29,7 @@ function initialize(w,s){
   // Initial houses/stores/loadouts are the sole bootstrap allowance. Never reseeded.
   const homes=BOT_BASES.filter(b=>!b.raided).sort((a,b)=>(b.stories||1)-(a.stories||1)||a.id.localeCompare(b.id));
   for(const base of homes){if(remaining<=0||Object.keys(s.society26.factions).length>=32)break;const capacity=1+(base.stories||1),n=Math.min(remaining,capacity),f={id:base.id,x:base.x,z:base.z,team:Object.keys(s.society26.factions).length%3,capacity,stage:0,huts:0,site:null,nextRaid:s.elapsed+240,nextCraft:s.elapsed+8};
-   s.society26.factions[f.id]=f;const store={wood:180,stone:100,metalOre:70,sulfurOre:45,fiber:65,metal:30,lowFuel:10,rifle:1,ammo:24,pistol:n,pistolAmmo:n*24,axe:n,pickaxe:n,bandage:n*2,water:n*3,berries:n*8,combatShirt:n,cargoPants:n,combatBoots:n,tacticalGloves:n,kevlarVest:n,kevlarHelmet:n};s.containers[depot(f.id)]=store;
+   s.society26.factions[f.id]=f;const store={wood:180,stone:100,metalOre:70,sulfurOre:45,fiber:65,metal:30,lowFuel:10,rifle:1,ammo:24,pistol:n,pistolAmmo:n*24,axe:n,pickaxe:n,bandage:n*2,water:n*3,berries:n*8,combatShirt:n,cargoPants:n,combatBoots:n,tacticalGloves:n,kevlarVest:n,kevlarHelmet:n};const wealth38=housePlan20(base,BOT_BASES,randomSeed(hashHouse20(s.seed,base.id+'house20'))).wealth;const reserve38=houseStock38(base,wealth38,'armory',randomSeed(hashHouse20(s.seed,base.id+'reserve38')));for(const[k,q]of Object.entries(reserve38))add(store,k,q);s.containers[depot(f.id)]=store;
    for(let i=0;i<n;i++){const id='settler26-'+serial++,bag={};for(const[k,q]of Object.entries({pistol:1,pistolAmmo:12,axe:1,pickaxe:1,bandage:1,water:1,berries:4,combatShirt:1,cargoPants:1,combatBoots:1,tacticalGloves:1,kevlarVest:1,kevlarHelmet:1}))transfer(store,bag,k,q);s.society26.actors[id]=record(id,f.id,base.x+10+i,base.z+8,bag,'pistol');}remaining-=n;
   }
   for(const b of w.bots){const a=record(b.id,null,b.x,b.z,{rifle:1,ammo:96,bandage:1,berries:20,water:5,kevlarVest:1,kevlarHelmet:1},'rifle');a.hp=s.botState[b.id]?.hp??120;s.society26.actors[b.id]=a;}
@@ -39,7 +42,7 @@ function initialize(w,s){
  for(const f of Object.values(s.society26.factions)){
   const id=depot(f.id);s.containers[id]??={};let p={x:f.x+11,z:f.z+8};for(let n=0;n<32;n++){const a=n*2.399,r=8+Math.sqrt(n)*2,q={x:f.x+Math.cos(a)*r,z:f.z+Math.sin(a)*r},y=terrainHeight(q.x,q.z);if(y>1&&w.canMove(q.x,q.z,s,y)){p=q;break;}}
   if(Number.isFinite(f.depotX)&&Number.isFinite(f.depotZ))p={x:f.depotX,z:f.depotZ};
-  const model=w.normalized('Crate',.65);model.position.set(p.x,terrainHeight(p.x,p.z),p.z);w.scene.add(model);const entry={id,type:'crate',x:p.x,z:p.z,model,home26:f.id};w.interactables.push(entry);w.depots26.push(entry);f.depotX=p.x;f.depotZ=p.z;
+  const model=prop38('reinforcedCrate');model.position.set(p.x,terrainHeight(p.x,p.z),p.z);w.scene.add(model);const entry={id,type:'crate',x:p.x,z:p.z,model,home26:f.id};w.interactables.push(entry);w.depots26.push(entry);f.depotX=p.x;f.depotZ=p.z;
  }
 }
 /** Bounded local A*: 4m cells, 180 expansions per replan, best reachable partial route.
@@ -53,6 +56,7 @@ function route(w,s,b,goal,step=4){
  const result=[];for(let p=best;p.parent;p=p.parent)result.push({x:p.x,z:p.z});return result.reverse();
 }
 function move(w,s,b,goal,dt,speed){
+ goal=w.compoundApproach38?.(s,b,goal)||goal;
  const tolerance=goal.local27?.15:goal.exact27?.6:1.8;if(dist(b,goal)<tolerance)return false;
  const probe={...s,crouched:!!b.crouch27},goalKey=goal.x+':'+goal.z;if(b.routeGoal27!==goalKey){b.routeGoal27=goalKey;b.route26=[];b.routeAt26=0;}
  if(!goal.local27&&(!b.route26.length||s.elapsed>(b.routeAt26||0))){if(w.navBudget26<=0)return false;w.navBudget26--;b.route26=route(w,probe,b,goal);b.routeAt26=s.elapsed+5;}
@@ -88,7 +92,7 @@ function processHome(w,s,b,f){
  const a=b.actor26,store=s.containers[depot(f.id)];
  for(const k of Object.keys(a.bag))if(!isClothing24(k)&&![a.gun,'axe','pickaxe','hammer','bandage','berries','water'].includes(k)&&!(k==='satchel'&&f.raid27?.stage==='rally'&&f.raid27.squad.includes(b.id)))transfer(a.bag,store,k,1e8);
  for(const[k,n]of Object.entries({bandage:2,berries:4,water:2}))transfer(store,a.bag,k,Math.max(0,n-(a.bag[k]||0)));
- let gun=Object.keys(WEAPONS).find(id=>store[id]&&!WEAPONS[id].projectile&&(store[WEAPONS[id].ammo]||0)>12);if(gun&&gun!==a.gun){if(a.gun)transfer(a.bag,store,a.gun,1);transfer(store,a.bag,gun,1);a.gun=gun;}
+ let gun=Object.keys(WEAPONS).filter(id=>store[id]&&!WEAPONS[id].projectile&&(store[WEAPONS[id].ammo]||0)>12).sort((x,y)=>WEAPONS[y].damage/Math.sqrt(WEAPONS[y].interval)-WEAPONS[x].damage/Math.sqrt(WEAPONS[x].interval))[0];if(gun&&gun!==a.gun){if(a.gun)transfer(a.bag,store,a.gun,1);transfer(store,a.bag,gun,1);a.gun=gun;}
  if(a.gun)transfer(store,a.bag,WEAPONS[a.gun].ammo,Math.max(0,36-(a.bag[WEAPONS[a.gun].ammo]||0)));
  if(!a.bag.satchel&&s.elapsed>=f.nextRaid&&f.raid27?.stage!=='withdraw')transfer(store,a.bag,'satchel',1);
  if(s.elapsed<f.nextCraft)return;f.nextCraft=s.elapsed+8;b.mode='craft';

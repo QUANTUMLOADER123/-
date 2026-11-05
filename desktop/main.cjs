@@ -26,6 +26,7 @@ async function desktopSmoke(){
  if(d.sites.length!==14||d.sites.some(s=>s.revision!==36||s.sourceParts<450))throw new Error('Incorrect packaged sites (model revision 36)');
  if(d.rocks.wrong||d.rocks.mineable<100||d.weapons.length!==16||d.weapons.some(w=>w.revision!==34))throw new Error('Incorrect packaged rocks/weapons');
  const content37=await window.webContents.executeJavaScript(`window.oskol.inspect37()`,true);if(content37.items.length!==10||content37.copperNodes<5||content37.weapons.length!==16||content37.weapons.some(w=>w.revision!==37||!w.batched)||content37.explosives.length!==2)throw new Error('Incomplete packaged DEV37 content');facts.content37=content37;
+ const content38=await window.webContents.executeJavaScript(`window.oskol.inspect38()`,true);if(content38.items.length!==6||!content38.houses.some(h=>h.rooms.length&&h.caches.some(c=>c.guns>=2)))throw new Error('Incomplete packaged DEV38 household contents');facts.content38=content38;
  if(d.recyclers.length!==14||d.recyclers.some(r=>!r.stations.some(s=>s.approach)))throw new Error('Incomplete packaged recycler coverage');
  const entrances=await window.webContents.executeJavaScript(`window.oskol.inspect36()`,true);if(entrances.entrances.length!==12||entrances.entrances.some(e=>!e.clear||!e.walkClear))throw new Error('Blocked packaged road/gate approach: '+JSON.stringify(entrances));
  facts.entrances36=entrances;await window.webContents.executeJavaScript(`document.querySelector('#inventory-button').click()`,true);await until(`window.oskol.snapshot().overlay==='inventory'`);

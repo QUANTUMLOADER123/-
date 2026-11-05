@@ -1,3 +1,4 @@
+import {ITEMS38,RECIPES38} from './items38.js';
 import {ITEMS33,RECIPES33} from './supplies37.js';
 import {GUNS29} from './weapon-profiles29.js';
 import {MOD_ITEMS25,MOD_RECIPES25,capacityBonus25} from './attachments25.js';
@@ -55,3 +56,5 @@ export const weaponCapacity25=(s,id=s.selected)=>Math.ceil((WEAPONS[id]?.capacit
 Object.assign(EXTRA_ITEMS,ITEMS33);Object.assign(EXTRA_RECIPES,RECIPES33);
 EXTRA_RECIPES.recycler.cost.bearingSet=2;
 for(const id of ["holoSight","laserSight"])if(EXTRA_RECIPES[id])EXTRA_RECIPES[id].cost.copperWire=1;
+
+Object.assign(EXTRA_ITEMS,ITEMS38);Object.assign(EXTRA_RECIPES,RECIPES38);

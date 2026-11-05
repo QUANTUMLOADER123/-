@@ -1,3 +1,4 @@
+import {installCompounds38} from './compounds38.js';
 import {renderHands35} from './render-hands35.js';
 import {naturalRock33} from './materials12.js';
 import {terrainChunks32} from './terrain-chunks32.js';
@@ -419,3 +420,5 @@ installSolids29(IslandWorld);
 installBots29(IslandWorld);
 
 installFoundations32(IslandWorld);
+
+installCompounds38(IslandWorld);
