@@ -55,7 +55,11 @@ export function weaponModel33(id,bank,options={}){
   // One affine transform for slide, barrel, receiver and exterior service detail.
   // Grip/magazine/trigger and their hand anchors stay in original metre space.
   const pivot=new V(0,.055,.07),scale=new V(.80,.78,.78),transform=new THREE.Matrix4().makeTranslation(...pivot.toArray()).multiply(new THREE.Matrix4().makeScale(...scale.toArray())).multiply(new THREE.Matrix4().makeTranslation(...pivot.clone().negate().toArray()));
-  for(const part of root.children){if(u.lowerParts40.has(part)||part===u.magazine)continue;part.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(part);if(b.max.y<.035)continue;part.applyMatrix4(transform);}
+  for(const part of root.children){if(u.lowerParts40.has(part)||part===u.magazine)continue;part.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(part);if(b.max.y<.035)continue;part.applyMatrix4(transform);if(part===u.slide14){
+   // Mechanisms/optic mounting expect a metre-space moving parent. Bake the
+   // shrink into its authored mesh/details, not into later attachments.
+   const shrink=new THREE.Matrix4().makeScale(...part.scale.toArray());part.geometry.applyMatrix4(shrink);for(const child of part.children)child.applyMatrix4(shrink);part.scale.setScalar(1);
+  }}
   for(const key of['muzzle16','opticMount16'])if(u[key])u[key]=new V(...u[key]).applyMatrix4(transform).toArray();
   u.receiverTop32=pivot.y+(.211-pivot.y)*scale.y;u.compactUpper40={scale:scale.toArray(),pivot:pivot.toArray(),muzzleConnected:true};delete u.lowerParts40;
  }
